@@ -1,12 +1,19 @@
 from binance.client import Client
 from binance.websockets import BinanceSocketManager
 import dateparser
+from time import time
+from twisted.internet import reactor
 
 def process_message(msg):
     try:
-        print(msg)
-    except:
-        print('e')
+        msg['timestamp'] = time()
+        f = open("my_data.csv","a+")
+        for item in msg.values():
+            f.write(str(item) + ";")
+        f.write("\n")
+        f.close()
+    except Exception as e:
+        print(e)
     return None
     
 def startClient():
@@ -16,8 +23,13 @@ def startClient():
 
 def startDepthSocketManager(client):
     bm = BinanceSocketManager(client)
-    depth = bm.start_depth_socket('BNBBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
+    depth_BNBBTC = bm.start_depth_socket('BNBBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
+    depth = bm.start_depth_socket('LTCBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
     bm.start()
+    return bm, depth
     
-client = startClient()
-startDepthSocketManager(client)
+try:
+    client = startClient()
+    socket_manager, depth = startDepthSocketManager(client)
+except:
+    display('ASDASD')
