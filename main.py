@@ -3,11 +3,18 @@ from binance.websockets import BinanceSocketManager
 import dateparser
 from time import time
 from twisted.internet import reactor
+import pandas as pd
+from datetime import datetime
+import copy
 
-def process_message(msg):
+DEPTH = BinanceSocketManager.WEBSOCKET_DEPTH_5
+
+def process_message(msg, currency='no currency'):
     try:
         msg['timestamp'] = time()
-        f = open("my_data.csv","a+")
+        date = datetime.now()
+        fname = currency + "_" + str(date.year) + "_" + str(date.month) + "_" + str(date.day)
+        f = open(fname,"a+")
         for item in msg.values():
             f.write(str(item) + ";")
         f.write("\n")
@@ -21,15 +28,20 @@ def startClient():
     api_secret = 'ziY288jGcFEdOv81RoWrAbAUf08LKwxpJ2EmKt1M2pHlhcB9UCaciGXHeIcZVFCZ'
     return Client(api_key, api_secret)
 
-def startDepthSocketManager(client):
+def startDepthSocketManager(client, currencies):
     bm = BinanceSocketManager(client)
-    depth_BNBBTC = bm.start_depth_socket('BNBBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
-    depth = bm.start_depth_socket('LTCBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
+    queries = []
+#     for i in range(len(currencies)):
+#         print("curr", currencies[i])
+#         queries.append(bm.start_depth_socket(str(currencies[i]), lambda msg: process_message(msg, str(currencies[i])), depth=DEPTH))
+    queries.append(bm.start_depth_socket(currencies[0], lambda msg: process_message(msg, currencies[0]), depth=DEPTH))
+    queries.append(bm.start_depth_socket(currencies[1], lambda msg: process_message(msg, currencies[1]), depth=DEPTH))
     bm.start()
-    return bm, depth
+    return bm, queries
     
 try:
+    currencies = ['LTCBTC', 'BNBBTC']
     client = startClient()
-    socket_manager, depth = startDepthSocketManager(client)
-except:
-    display('ASDASD')
+    socket_manager, queries = startDepthSocketManager(client, currencies)
+except Exception as e:
+    display(e)
