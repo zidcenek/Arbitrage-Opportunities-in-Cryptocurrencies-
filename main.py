@@ -3,21 +3,20 @@ from binance.websockets import BinanceSocketManager
 import dateparser
 from time import time
 from twisted.internet import reactor
-import pandas as pd
 from datetime import datetime
 from datetime import date
 import copy
+import pandas as pd
 
 class BinanceWebsocket():
     def __init__(self):
         self.DEPTH = BinanceSocketManager.WEBSOCKET_DEPTH_5
         self.CURRENT_DATE = date.today()
         self.DIRECTORY = './data/'
-        self.CURRENCIES = [
-            {'currency': 'LTCBTC', 'file': None}, 
-            {'currency': 'BTCUSDT', 'file': None},
-            {'currency': 'LTCUSDT', 'file': None}
-        ]
+        self.CURRENCIES = []
+        symbols = pd.read_csv("./relevant_symbols", header=None)
+        for symbol in symbols[0]:
+            self.CURRENCIES.append({'currency': symbol, 'file': None})
     
     
     def calculate_files(self):
@@ -70,6 +69,7 @@ try:
     binance.calculate_files()
     client = binance.startClient()
     socket_manager, queries = binance.startDepthSocketManager(client)
+    print('init end')
 except Exception as e:
     print(e)
     
