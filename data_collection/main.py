@@ -51,8 +51,10 @@ class BinanceWebsocket():
 
 
     def startClient(self):
-        api_key = 'aKNYXtMDVEsVyJCMNwcLGpAG9KVK9d5V568QCRADjDn5kumLeN9joKhnA4zIpBPd'
-        api_secret = 'ziY288jGcFEdOv81RoWrAbAUf08LKwxpJ2EmKt1M2pHlhcB9UCaciGXHeIcZVFCZ'
+        with open('apikey.txt', 'r') as apikey:
+            api_key = apikey.read()
+        with open('privatekey.txt', 'r') as privatekey:
+            api_secret = privatekey.read()
         return Client(api_key, api_secret)
 
 
