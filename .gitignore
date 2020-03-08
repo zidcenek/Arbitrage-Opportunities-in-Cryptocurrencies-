@@ -1,2 +1,4 @@
 data_collection/apikey.txt
 data_collection/privatekey.txt
+selection/data/*
+selection/output/*
