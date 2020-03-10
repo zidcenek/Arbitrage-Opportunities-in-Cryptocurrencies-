@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/main.cpp
+iostream
+-
+string
+-
+vector
+-
+fstream
+-
+sstream
+-
+algorithm
+-
+
