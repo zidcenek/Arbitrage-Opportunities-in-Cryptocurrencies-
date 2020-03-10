@@ -4,11 +4,59 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <experimental/filesystem>
+#include <glob.h>
 
 using namespace std;
+namespace fs = std::experimental::filesystem;
 
-class FilesReader{
+const string DATA_PATH = "../data/";
 
+
+class FilesManager{
+public:
+    FilesManager(){
+        files = get_all_files_in_directory(DATA_PATH);
+    }
+    vector<string> select_files() {
+        return select_files_by_date();
+    }
+private:
+    vector<string> select_files_by_date(){
+        vector<string> filtered_files;
+        vector<string> selected_files;
+        vector<string> unselected_files;
+        copy_if (files.begin(), files.end(), std::back_inserter(filtered_files),
+                 [](string s){return s.size() - DATA_PATH.size() == 17 || s.size() - DATA_PATH.size() == 18 ;} );
+
+        if(filtered_files.empty())
+            return vector<string>();
+        const string date = filtered_files[0].substr(filtered_files[0].size() - date_size, date_size);
+        for(auto const & file: filtered_files){
+            string substr = file.substr(file.size() - date_size, date_size);
+            if(date == substr){
+                selected_files.emplace_back(file);
+            } else {
+                unselected_files.emplace_back(file);
+            }
+        }
+        files = unselected_files;
+        return selected_files;
+    }
+
+    static vector<string> get_all_files_in_directory(const string & path){
+        vector<string> filenames;
+        glob_t glob_result;
+        glob((path + "*").c_str(),GLOB_TILDE,NULL,&glob_result);
+        for(unsigned int i=0; i<glob_result.gl_pathc; ++i){
+            filenames.push_back(glob_result.gl_pathv[i]);
+        }
+        return filenames;
+    }
+
+protected:
+    vector<string> files;
+    static const int date_size = 11;
 };
 
 
@@ -148,6 +196,7 @@ public:
         return false;
     }
 
+
 protected:
     bool openFile(string const& filename){
         ifstream *fin = new ifstream("../data/" + filename);
@@ -184,10 +233,11 @@ protected:
 
 
 private:
-    FilesReader files_reader;
+    FilesManager files_reader;
     vector<string> dataframes2;
     vector<ifstream*> dataframes;
     vector<CurrencyPair> current;
+    vector<string> files;
     bool stop;
     vector<string> output;
     string output_name;
@@ -210,15 +260,52 @@ vector<double> parse_demand(stringstream demand){
 }
 
 
-int main() {
-    ifstream fin("../pokus");
-    vector<string> filenames;
-    filenames.emplace_back("../data/BCHBNB-2020-02-26");
-    filenames.emplace_back("../data/BCHBTC-2020-02-26");
-    filenames.emplace_back("../data/BNBBTC-2020-02-26");
-    Arbitrage arbitrage = Arbitrage();
-    arbitrage.initialize(filenames);
-    arbitrage.run();
+void makeCombiUtil(vector<vector<string> >& ans,
+                   vector<string>& tmp, int n, int left, int k, vector<string> arr)
+{
+    if (k == 0) {
+        ans.push_back(tmp);
+        return;
+    }
+    for (int i = left; i <= n; ++i)
+    {
+        tmp.emplace_back(arr[i-1].c_str());
+        makeCombiUtil(ans, tmp, n, i + 1, k - 1, arr);
+        tmp.pop_back();
+    }
+}
+vector<vector<string> > makeCombi(vector<string> arr, int k)
+{
+    vector<vector<string> > ans;
+    vector<string> tmp;
+    makeCombiUtil(ans, tmp, arr.size(), 1, k, arr);
+    return ans;
+}
 
+
+int main() {
+    vector<string> filenames;
+//    filenames.emplace_back("../data/BCHBNB-2020-02-26");
+//    filenames.emplace_back("../data/BCHBTC-2020-02-26");
+//    filenames.emplace_back("../data/BNBBTC-2020-02-26");
+//    arbitrage.initialize(filenames);
+//    arbitrage.run();
+    vector<string> currencies = {"USDT", "BTC", "LTC", "ETH", "XRP", "BCH", "EOS", "BNB", "TRX", "XMR"};
+    vector<vector<string> > ans = makeCombi(currencies, 3);
+
+    for (int i = 0; i < ans.size(); i++) {
+        for (int j = 0; j < ans[i].size(); j++) {
+            cout << ans.at(i).at(j) << " ";
+        }
+        cout << endl;
+    }
+
+
+    FilesManager fm = FilesManager();
+//    while(! (filenames = fm.select_files()).empty()){
+//        Arbitrage arbitrage = Arbitrage();
+//        arbitrage.initialize(filenames);
+//        arbitrage.run();
+//    }
     return 0;
 }
