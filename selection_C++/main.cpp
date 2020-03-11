@@ -12,16 +12,98 @@ namespace fs = std::experimental::filesystem;
 
 const string DATA_PATH = "../data/";
 
+struct Triplet{
+public:
+    Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name){
+        file1 = DATA_PATH + f1 + date;
+        file2 = DATA_PATH + f2 + date;
+        file3 = DATA_PATH + f3 + date;
+        output_filename = output_name + date;
+    }
+
+    const string &getFile1() const {
+        return file1;
+    }
+
+    const string &getFile2() const {
+        return file2;
+    }
+
+    const string &getFile3() const {
+        return file3;
+    }
+
+    const string &getOutput_filename() const {
+        return output_filename;
+    }
+
+private:
+    string file1;
+    string file2;
+    string file3;
+    string output_filename;
+};
+
 
 class FilesManager{
 public:
     FilesManager(){
         files = get_all_files_in_directory(DATA_PATH);
+        currencies_combinations = makeCombi(currencies, 3);
     }
-    vector<string> select_files() {
-        return select_files_by_date();
+    vector<vector<Triplet> > select_files() {
+        vector<vector<Triplet> > result = vector<vector<Triplet> >();
+        vector <string> selected;
+        while( !(selected = select_files_by_date()).empty()){
+            result.emplace_back(select_triples(selected));
+        }
+        return result;
     }
 private:
+    vector<Triplet> select_triples(const vector<string> & filenames) const {
+        vector<Triplet> triplets = vector<Triplet>();
+        vector<pair<string, string> > decomposed = vector<pair<string, string> >();
+        for(auto & file: filenames){
+            // decomposes filename to the 2 currencies
+            pair<string, string> currency_pair;
+            if(file.size() - DATA_PATH.size() == 17){
+                currency_pair.first = file.substr(DATA_PATH.size(), 3);
+                currency_pair.second = file.substr(DATA_PATH.size() + 3, 3);
+            } else if (file.size() - DATA_PATH.size() == 18){
+                currency_pair.first = file.substr(DATA_PATH.size(), 3);
+                currency_pair.second = file.substr(DATA_PATH.size() + 3, 4); // for USDT
+            }
+            decomposed.push_back(currency_pair);
+        }
+        // is subset
+        for(const auto & comb: currencies_combinations){
+            vector <pair<string, string> > res;
+            for(const auto & dec: decomposed){
+                if(is_subset(dec, comb))
+                    res.emplace_back(dec);
+            }
+//            for(auto &item: comb){
+//                cout << item  << " ";
+//            }
+//            cout << res.size() << endl;
+            if(res.size() == 3){
+                triplets.emplace_back(Triplet(res[0].first + res[0].second, res[1].first + res[1].second
+                        , res[2].first + res[2].second, current_date, comb[0] + comb[1] + comb[2]));
+            }
+        }
+        return triplets;
+
+    }
+
+    bool is_subset(const pair<string, string> & set1, const vector<string> & set2) const {
+        int counter = 0;
+        for(const auto & s2: set2){
+            if(s2 == set1.first || s2 == set1.second)
+                counter ++;
+        }
+        return counter == 2;
+    }
+
     vector<string> select_files_by_date(){
         vector<string> filtered_files;
         vector<string> selected_files;
@@ -32,6 +114,7 @@ private:
         if(filtered_files.empty())
             return vector<string>();
         const string date = filtered_files[0].substr(filtered_files[0].size() - date_size, date_size);
+        current_date = date;
         for(auto const & file: filtered_files){
             string substr = file.substr(file.size() - date_size, date_size);
             if(date == substr){
@@ -49,14 +132,40 @@ private:
         glob_t glob_result;
         glob((path + "*").c_str(),GLOB_TILDE,NULL,&glob_result);
         for(unsigned int i=0; i<glob_result.gl_pathc; ++i){
-            filenames.push_back(glob_result.gl_pathv[i]);
+            filenames.emplace_back(glob_result.gl_pathv[i]);
         }
         return filenames;
     }
 
+
+    void makeCombiUtil(vector<vector<string> >& ans,
+                       vector<string>& tmp, int n, int left, int k, vector<string> arr)
+    {
+        if (k == 0) {
+            ans.push_back(tmp);
+            return;
+        }
+        for (int i = left; i <= n; ++i)
+        {
+            tmp.emplace_back(arr[i-1].c_str());
+            makeCombiUtil(ans, tmp, n, i + 1, k - 1, arr);
+            tmp.pop_back();
+        }
+    }
+    vector<vector<string> > makeCombi(vector<string> arr, int k)
+    {
+        vector<vector<string> > ans;
+        vector<string> tmp;
+        makeCombiUtil(ans, tmp, arr.size(), 1, k, arr);
+        return ans;
+    }
+
 protected:
-    vector<string> files;
     static const int date_size = 11;
+    const vector<string> currencies = {"USDT", "BTC", "LTC", "ETH", "XRP", "BCH", "EOS", "BNB", "TRX", "XMR"};
+    vector<vector<string> > currencies_combinations;
+    vector<string> files;
+    string current_date;
 };
 
 
@@ -142,12 +251,25 @@ public:
     Arbitrage(){
         stop = false;
     }
-    bool initialize(vector<string> const& filenames){
-        if(filenames.size() != NUMBER_OF_CURRENCIES)
-            return false;
-        for(auto const&fname : filenames){
-            openFile(fname);
-        }
+//    bool initialize(vector<string> const& filenames){
+//        if(filenames.size() != NUMBER_OF_CURRENCIES)
+//            return false;
+//        for(auto const&fname : filenames){
+//            openFile(fname);
+//        }
+//        for(auto &df: dataframes){
+//            string tmp;
+//            getline(*df, tmp);
+//            current.emplace_back(CurrencyPair(tmp));
+//        }
+//        return true;
+//    }
+
+    bool initialize(const Triplet & triplet){
+        openFile(triplet.getFile1());
+        openFile(triplet.getFile2());
+        openFile(triplet.getFile3());
+        output_name = triplet.getOutput_filename();
         for(auto &df: dataframes){
             string tmp;
             getline(*df, tmp);
@@ -260,27 +382,6 @@ vector<double> parse_demand(stringstream demand){
 }
 
 
-void makeCombiUtil(vector<vector<string> >& ans,
-                   vector<string>& tmp, int n, int left, int k, vector<string> arr)
-{
-    if (k == 0) {
-        ans.push_back(tmp);
-        return;
-    }
-    for (int i = left; i <= n; ++i)
-    {
-        tmp.emplace_back(arr[i-1].c_str());
-        makeCombiUtil(ans, tmp, n, i + 1, k - 1, arr);
-        tmp.pop_back();
-    }
-}
-vector<vector<string> > makeCombi(vector<string> arr, int k)
-{
-    vector<vector<string> > ans;
-    vector<string> tmp;
-    makeCombiUtil(ans, tmp, arr.size(), 1, k, arr);
-    return ans;
-}
 
 
 int main() {
@@ -290,18 +391,20 @@ int main() {
 //    filenames.emplace_back("../data/BNBBTC-2020-02-26");
 //    arbitrage.initialize(filenames);
 //    arbitrage.run();
-    vector<string> currencies = {"USDT", "BTC", "LTC", "ETH", "XRP", "BCH", "EOS", "BNB", "TRX", "XMR"};
-    vector<vector<string> > ans = makeCombi(currencies, 3);
 
-    for (int i = 0; i < ans.size(); i++) {
-        for (int j = 0; j < ans[i].size(); j++) {
-            cout << ans.at(i).at(j) << " ";
-        }
-        cout << endl;
-    }
 
 
     FilesManager fm = FilesManager();
+    vector<vector<Triplet> > triplets = fm.select_files();
+    for(const auto & vec: triplets){
+        for(const Triplet & triplet: vec){
+            cout << triplet.getOutput_filename() << endl;
+            cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
+            Arbitrage arbitrage = Arbitrage();
+            arbitrage.initialize(triplet);
+            arbitrage.run();
+        }
+    }
 //    while(! (filenames = fm.select_files()).empty()){
 //        Arbitrage arbitrage = Arbitrage();
 //        arbitrage.initialize(filenames);
