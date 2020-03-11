@@ -10,8 +10,10 @@
 using namespace std;
 namespace fs = std::experimental::filesystem;
 
-const string DATA_PATH = "../data/";
-
+const string DATA_PATH = "../data/input/data1/";
+//const string DATA_PATH = "../data/";
+const string OUTPUT_DIRECTORY = "../output/";
+int counter = 0;
 struct Triplet{
 public:
     Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name){
@@ -82,10 +84,6 @@ private:
                 if(is_subset(dec, comb))
                     res.emplace_back(dec);
             }
-//            for(auto &item: comb){
-//                cout << item  << " ";
-//            }
-//            cout << res.size() << endl;
             if(res.size() == 3){
                 triplets.emplace_back(Triplet(res[0].first + res[0].second, res[1].first + res[1].second
                         , res[2].first + res[2].second, current_date, comb[0] + comb[1] + comb[2]));
@@ -176,15 +174,13 @@ public:
         row = input;
         stringstream s(input);
         std::getline(s, tmp, ';');
-        trade_id = stoi(tmp);
+        trade_id = tmp;
         std::getline(s, tmp, ';');
         demand = parse_demand(stringstream(tmp));
         std::getline(s, tmp, ';');
         supply = parse_demand(stringstream(tmp));
         std::getline(s, tmp, ';');
-//        cout << "------" << tmp << endl;
         timestamp = stold(tmp);
-        score = 1.1;
         currency = "BNB";
     }
 
@@ -202,7 +198,7 @@ public:
 
     string to_JSON() const {
         string json = "{";
-        json.append("id:" + to_string(trade_id) + ",");
+        json.append("id:" + trade_id + ",");
         json.append("demand: " + array_to_string(demand) + ",");
         json.append("supply: " + array_to_string(supply) + ",");
         json.append("timestamp:" + to_string(timestamp) + ",");
@@ -238,12 +234,11 @@ protected:
     }
 private:
     string row;
-    int trade_id;
+    string trade_id;
     vector<double> supply;
     vector<double> demand;
     long double timestamp;
     string currency;
-    long double score;
 };
 
 class Arbitrage{
@@ -251,19 +246,6 @@ public:
     Arbitrage(){
         stop = false;
     }
-//    bool initialize(vector<string> const& filenames){
-//        if(filenames.size() != NUMBER_OF_CURRENCIES)
-//            return false;
-//        for(auto const&fname : filenames){
-//            openFile(fname);
-//        }
-//        for(auto &df: dataframes){
-//            string tmp;
-//            getline(*df, tmp);
-//            current.emplace_back(CurrencyPair(tmp));
-//        }
-//        return true;
-//    }
 
     bool initialize(const Triplet & triplet){
         openFile(triplet.getFile1());
@@ -280,7 +262,7 @@ public:
 
     void run(){
         string coma;
-        ofstream ofs("../output/out.json");
+        ofstream ofs(OUTPUT_DIRECTORY + output_name + ".json");
         if(!ofs.good()){
             cout << "Could not open output file" << endl;
             return;
@@ -289,8 +271,8 @@ public:
         while(! stop){
             int index = getOldest();
             getNext(index);
-            if(detection()){
-                long double score = 1.1;
+            long double score;
+            if((score = detection()) > 1){
                 bool first_item = true;
                 ofs << coma << "{score: " << score << ",";
                 ofs << "pairs: [";
@@ -307,15 +289,14 @@ public:
         }
         ofs << "]";
         ofs.close();
+        for(auto & df: dataframes){
+            df->close();
+        }
     }
 
-    bool detection(){
+    long double detection(){
         long double percentage = current[1].getSupply()[0] / current[0].getSupply()[0] / current[2].getSupply()[0];
-        if(percentage > 1){
-            cout << percentage << endl;
-            return true;
-        }
-        return false;
+        return percentage;
     }
 
 
@@ -323,7 +304,7 @@ protected:
     bool openFile(string const& filename){
         ifstream *fin = new ifstream("../data/" + filename);
         if (! fin->is_open() ){
-            cout << "file could not be opened" << endl;
+            cout << "File could not be opened" << endl;
             return false;
         }
         dataframes.push_back(fin);
@@ -341,13 +322,17 @@ protected:
             stop = true;
             return;
         }
-        current[index] = CurrencyPair(tmp);
+        try {
+            current[index] = CurrencyPair(tmp);
+        } catch(const exception& e) {
+            cout << "wrong line no." << counter++ << endl;
+        }
+
     }
 
     int getOldest(){
         vector<double> tmp;
         for(auto const& item: current){
-//            printf("%f\n", item.getTimestamp());
             tmp.push_back(item.getTimestamp());
         }
         return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
@@ -355,49 +340,25 @@ protected:
 
 
 private:
-    FilesManager files_reader;
-    vector<string> dataframes2;
     vector<ifstream*> dataframes;
     vector<CurrencyPair> current;
-    vector<string> files;
     bool stop;
-    vector<string> output;
     string output_name;
     static const int NUMBER_OF_CURRENCIES = 3;
 };
 
-vector<double> parse_demand(stringstream demand){
-    vector<double> output;
-    string word;
-    vector<string> row;
-    while (std::getline(demand, word, '\'')) {
-        row.push_back(word);
-    }
-    for(int i = 0; i < row.size() ; i++ ){
-        if(i % 2 == 0)
-            continue;
-        output.push_back(stoi(row[i]));
-    }
-    return output;
-}
-
-
-
 
 int main() {
-    vector<string> filenames;
-//    filenames.emplace_back("../data/BCHBNB-2020-02-26");
-//    filenames.emplace_back("../data/BCHBTC-2020-02-26");
-//    filenames.emplace_back("../data/BNBBTC-2020-02-26");
-//    arbitrage.initialize(filenames);
-//    arbitrage.run();
-
-
-
     FilesManager fm = FilesManager();
     vector<vector<Triplet> > triplets = fm.select_files();
+
+    int a = 10;
     for(const auto & vec: triplets){
         for(const Triplet & triplet: vec){
+            if(a){
+                a--;
+                continue;
+            }
             cout << triplet.getOutput_filename() << endl;
             cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
             Arbitrage arbitrage = Arbitrage();
@@ -405,10 +366,5 @@ int main() {
             arbitrage.run();
         }
     }
-//    while(! (filenames = fm.select_files()).empty()){
-//        Arbitrage arbitrage = Arbitrage();
-//        arbitrage.initialize(filenames);
-//        arbitrage.run();
-//    }
     return 0;
 }
