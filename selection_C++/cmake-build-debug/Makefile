@@ -123,6 +123,114 @@ untitled/fast:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
 .PHONY : untitled/fast
 
+Arbitrage.o: Arbitrage.cpp.o
+
+.PHONY : Arbitrage.o
+
+# target to build an object file
+Arbitrage.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.o
+.PHONY : Arbitrage.cpp.o
+
+Arbitrage.i: Arbitrage.cpp.i
+
+.PHONY : Arbitrage.i
+
+# target to preprocess a source file
+Arbitrage.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.i
+.PHONY : Arbitrage.cpp.i
+
+Arbitrage.s: Arbitrage.cpp.s
+
+.PHONY : Arbitrage.s
+
+# target to generate assembly for a file
+Arbitrage.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.s
+.PHONY : Arbitrage.cpp.s
+
+CurrencyPair.o: CurrencyPair.cpp.o
+
+.PHONY : CurrencyPair.o
+
+# target to build an object file
+CurrencyPair.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.o
+.PHONY : CurrencyPair.cpp.o
+
+CurrencyPair.i: CurrencyPair.cpp.i
+
+.PHONY : CurrencyPair.i
+
+# target to preprocess a source file
+CurrencyPair.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.i
+.PHONY : CurrencyPair.cpp.i
+
+CurrencyPair.s: CurrencyPair.cpp.s
+
+.PHONY : CurrencyPair.s
+
+# target to generate assembly for a file
+CurrencyPair.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.s
+.PHONY : CurrencyPair.cpp.s
+
+FilesManager.o: FilesManager.cpp.o
+
+.PHONY : FilesManager.o
+
+# target to build an object file
+FilesManager.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.o
+.PHONY : FilesManager.cpp.o
+
+FilesManager.i: FilesManager.cpp.i
+
+.PHONY : FilesManager.i
+
+# target to preprocess a source file
+FilesManager.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.i
+.PHONY : FilesManager.cpp.i
+
+FilesManager.s: FilesManager.cpp.s
+
+.PHONY : FilesManager.s
+
+# target to generate assembly for a file
+FilesManager.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.s
+.PHONY : FilesManager.cpp.s
+
+Triplet.o: Triplet.cpp.o
+
+.PHONY : Triplet.o
+
+# target to build an object file
+Triplet.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.o
+.PHONY : Triplet.cpp.o
+
+Triplet.i: Triplet.cpp.i
+
+.PHONY : Triplet.i
+
+# target to preprocess a source file
+Triplet.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.i
+.PHONY : Triplet.cpp.i
+
+Triplet.s: Triplet.cpp.s
+
+.PHONY : Triplet.s
+
+# target to generate assembly for a file
+Triplet.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.s
+.PHONY : Triplet.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -159,6 +267,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... untitled"
 	@echo "... edit_cache"
+	@echo "... Arbitrage.o"
+	@echo "... Arbitrage.i"
+	@echo "... Arbitrage.s"
+	@echo "... CurrencyPair.o"
+	@echo "... CurrencyPair.i"
+	@echo "... CurrencyPair.s"
+	@echo "... FilesManager.o"
+	@echo "... FilesManager.i"
+	@echo "... FilesManager.s"
+	@echo "... Triplet.o"
+	@echo "... Triplet.i"
+	@echo "... Triplet.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

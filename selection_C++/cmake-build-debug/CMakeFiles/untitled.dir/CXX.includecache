@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp
+string
+-
+
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/main.cpp
 iostream
 -
@@ -23,4 +27,6 @@ experimental/filesystem
 -
 glob.h
 -
+Triplet.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp
 

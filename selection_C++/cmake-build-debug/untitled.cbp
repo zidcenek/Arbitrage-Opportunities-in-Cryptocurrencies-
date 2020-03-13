@@ -84,6 +84,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp">
+			<Option target="untitled"/>
+		</Unit>
+		<Unit filename="/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp">
+			<Option target="untitled"/>
+		</Unit>
 		<Unit filename="/mnt/d/School/bakalarka/git/bakalarka/selection_C++/main.cpp">
 			<Option target="untitled"/>
 		</Unit>

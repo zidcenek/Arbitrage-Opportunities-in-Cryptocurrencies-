@@ -81,17 +81,121 @@ CMakeFiles/untitled.dir/main.cpp.o.provides: CMakeFiles/untitled.dir/main.cpp.o.
 CMakeFiles/untitled.dir/main.cpp.o.provides.build: CMakeFiles/untitled.dir/main.cpp.o
 
 
+CMakeFiles/untitled.dir/Triplet.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/Triplet.cpp.o: ../Triplet.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/untitled.dir/Triplet.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/untitled.dir/Triplet.cpp.o -c /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp
+
+CMakeFiles/untitled.dir/Triplet.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/untitled.dir/Triplet.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp > CMakeFiles/untitled.dir/Triplet.cpp.i
+
+CMakeFiles/untitled.dir/Triplet.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/Triplet.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp -o CMakeFiles/untitled.dir/Triplet.cpp.s
+
+CMakeFiles/untitled.dir/Triplet.cpp.o.requires:
+
+.PHONY : CMakeFiles/untitled.dir/Triplet.cpp.o.requires
+
+CMakeFiles/untitled.dir/Triplet.cpp.o.provides: CMakeFiles/untitled.dir/Triplet.cpp.o.requires
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.o.provides.build
+.PHONY : CMakeFiles/untitled.dir/Triplet.cpp.o.provides
+
+CMakeFiles/untitled.dir/Triplet.cpp.o.provides.build: CMakeFiles/untitled.dir/Triplet.cpp.o
+
+
+CMakeFiles/untitled.dir/FilesManager.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/FilesManager.cpp.o: ../FilesManager.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/untitled.dir/FilesManager.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/untitled.dir/FilesManager.cpp.o -c /mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp
+
+CMakeFiles/untitled.dir/FilesManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/untitled.dir/FilesManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp > CMakeFiles/untitled.dir/FilesManager.cpp.i
+
+CMakeFiles/untitled.dir/FilesManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/FilesManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp -o CMakeFiles/untitled.dir/FilesManager.cpp.s
+
+CMakeFiles/untitled.dir/FilesManager.cpp.o.requires:
+
+.PHONY : CMakeFiles/untitled.dir/FilesManager.cpp.o.requires
+
+CMakeFiles/untitled.dir/FilesManager.cpp.o.provides: CMakeFiles/untitled.dir/FilesManager.cpp.o.requires
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.o.provides.build
+.PHONY : CMakeFiles/untitled.dir/FilesManager.cpp.o.provides
+
+CMakeFiles/untitled.dir/FilesManager.cpp.o.provides.build: CMakeFiles/untitled.dir/FilesManager.cpp.o
+
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/CurrencyPair.cpp.o: ../CurrencyPair.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/untitled.dir/CurrencyPair.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/untitled.dir/CurrencyPair.cpp.o -c /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/untitled.dir/CurrencyPair.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp > CMakeFiles/untitled.dir/CurrencyPair.cpp.i
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/CurrencyPair.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp -o CMakeFiles/untitled.dir/CurrencyPair.cpp.s
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.o.requires:
+
+.PHONY : CMakeFiles/untitled.dir/CurrencyPair.cpp.o.requires
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.o.provides: CMakeFiles/untitled.dir/CurrencyPair.cpp.o.requires
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.o.provides.build
+.PHONY : CMakeFiles/untitled.dir/CurrencyPair.cpp.o.provides
+
+CMakeFiles/untitled.dir/CurrencyPair.cpp.o.provides.build: CMakeFiles/untitled.dir/CurrencyPair.cpp.o
+
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.o: CMakeFiles/untitled.dir/flags.make
+CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../Arbitrage.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/untitled.dir/Arbitrage.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/untitled.dir/Arbitrage.cpp.o -c /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/untitled.dir/Arbitrage.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp > CMakeFiles/untitled.dir/Arbitrage.cpp.i
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/untitled.dir/Arbitrage.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp -o CMakeFiles/untitled.dir/Arbitrage.cpp.s
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.o.requires:
+
+.PHONY : CMakeFiles/untitled.dir/Arbitrage.cpp.o.requires
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.o.provides: CMakeFiles/untitled.dir/Arbitrage.cpp.o.requires
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.o.provides.build
+.PHONY : CMakeFiles/untitled.dir/Arbitrage.cpp.o.provides
+
+CMakeFiles/untitled.dir/Arbitrage.cpp.o.provides.build: CMakeFiles/untitled.dir/Arbitrage.cpp.o
+
+
 # Object files for target untitled
 untitled_OBJECTS = \
-"CMakeFiles/untitled.dir/main.cpp.o"
+"CMakeFiles/untitled.dir/main.cpp.o" \
+"CMakeFiles/untitled.dir/Triplet.cpp.o" \
+"CMakeFiles/untitled.dir/FilesManager.cpp.o" \
+"CMakeFiles/untitled.dir/CurrencyPair.cpp.o" \
+"CMakeFiles/untitled.dir/Arbitrage.cpp.o"
 
 # External object files for target untitled
 untitled_EXTERNAL_OBJECTS =
 
 untitled: CMakeFiles/untitled.dir/main.cpp.o
+untitled: CMakeFiles/untitled.dir/Triplet.cpp.o
+untitled: CMakeFiles/untitled.dir/FilesManager.cpp.o
+untitled: CMakeFiles/untitled.dir/CurrencyPair.cpp.o
+untitled: CMakeFiles/untitled.dir/Arbitrage.cpp.o
 untitled: CMakeFiles/untitled.dir/build.make
 untitled: CMakeFiles/untitled.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable untitled"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable untitled"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/untitled.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -100,6 +204,10 @@ CMakeFiles/untitled.dir/build: untitled
 .PHONY : CMakeFiles/untitled.dir/build
 
 CMakeFiles/untitled.dir/requires: CMakeFiles/untitled.dir/main.cpp.o.requires
+CMakeFiles/untitled.dir/requires: CMakeFiles/untitled.dir/Triplet.cpp.o.requires
+CMakeFiles/untitled.dir/requires: CMakeFiles/untitled.dir/FilesManager.cpp.o.requires
+CMakeFiles/untitled.dir/requires: CMakeFiles/untitled.dir/CurrencyPair.cpp.o.requires
+CMakeFiles/untitled.dir/requires: CMakeFiles/untitled.dir/Arbitrage.cpp.o.requires
 
 .PHONY : CMakeFiles/untitled.dir/requires
 

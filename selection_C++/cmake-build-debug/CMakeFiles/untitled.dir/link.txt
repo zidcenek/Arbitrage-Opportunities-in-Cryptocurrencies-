@@ -1,1 +1,1 @@
-/usr/bin/c++  -g  -rdynamic CMakeFiles/untitled.dir/main.cpp.o  -o untitled 
+/usr/bin/c++  -g  -rdynamic CMakeFiles/untitled.dir/main.cpp.o CMakeFiles/untitled.dir/Triplet.cpp.o CMakeFiles/untitled.dir/FilesManager.cpp.o CMakeFiles/untitled.dir/CurrencyPair.cpp.o CMakeFiles/untitled.dir/Arbitrage.cpp.o  -o untitled 
