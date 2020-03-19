@@ -8,10 +8,7 @@
 #include <sstream>
 #include <algorithm>
 #include <experimental/filesystem>
-#include "Triplet.cpp"
-#include "FilesManager.cpp"
-#include "CurrencyPair.cpp"
-#include "Arbitrage.cpp"
+#include "Arbitrage.h"
 
 using namespace std;
 namespace fs = std::experimental::filesystem;

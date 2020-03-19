@@ -1,131 +1,123 @@
 //
-// Created by zidce on 13.03.2020.
+// Created by zidce on 18.03.2020.
 //
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include "Triplet.cpp"
-#include "CurrencyPair.cpp"
+#include "Arbitrage.h"
 
-using namespace std;
+Arbitrage::Arbitrage(){
+    stop = false;
+}
 
-const string OUTPUT_DIRECTORY = "../output/";  // defines output directory
-int counter = 0;
-
-class Arbitrage{
-public:
-    Arbitrage(){
-        stop = false;
-    }
-
-    /**
-     * Initializes the whole class with given parameters
-     * @param triplet - Triplet class containing the files
-     * @return - true or false based on the initialization status
-     */
-    bool initialize(const Triplet & triplet){
-        openFile(triplet.getFile1());
-        openFile(triplet.getFile2());
-        openFile(triplet.getFile3());
-        output_name = triplet.getOutput_filename();
-        for(auto &df: dataframes){
-            string tmp;
-            getline(*df, tmp);
-            current.emplace_back(CurrencyPair(tmp));
-        }
-        return true;
-    }
-
-    /**
-     * the main cycle that goes through the files and tries to find arbitrages
-     */
-    void run(){
-        string coma;
-        ofstream ofs(OUTPUT_DIRECTORY + output_name + ".json");
-        if(!ofs.good()){
-            cout << "Could not open output file" << endl;
-            return;
-        }
-        ofs << "[";
-        while(! stop){
-            int index = getOldest();
-            getNext(index);
-            long double score;
-            if((score = detection()) > 1){
-                bool first_item = true;
-                ofs << coma << "{score: " << score << ",";
-                ofs << "pairs: [";
-                for(const auto& item: current){
-                    if(first_item)
-                        first_item = false;
-                    else
-                        ofs << ",";
-                    ofs << item.to_JSON();
-                }
-                ofs << "]}";
-                coma = ",";
-            }
-        }
-        ofs << "]";
-        ofs.close();
-        for(auto & df: dataframes){
-            df->close();
-        }
-    }
-    /**
-     * calculates if an arbitration occurred
-     * @return long double representing the gain or the lost > 1 symbols gain
-     */
-    long double detection(){
-        long double percentage = current[1].getSupply()[0] / current[0].getSupply()[0] / current[2].getSupply()[0];
-        return percentage;
-    }
-
-
-protected:
-    bool openFile(string const& filename){
-        ifstream *fin = new ifstream("../data/" + filename);
-        if (! fin->is_open() ){
-            cout << "File could not be opened" << endl;
-            return false;
-        }
-        dataframes.push_back(fin);
-        return true;
-    }
-
-    void getNext(int index){
-        if(dataframes[index]->eof()) {
-            stop = true;
-            return;
-        }
+/**
+ * Initializes the whole class with given parameters
+ * @param triplet - Triplet class containing the files
+ * @return - true or false based on the initialization status
+ */
+bool Arbitrage::initialize(const Triplet & triplet){
+    counter = 0;
+    openFile(triplet.getFile1());
+    openFile(triplet.getFile2());
+    openFile(triplet.getFile3());
+    calculation_type_linear = triplet.getLinear();
+    output_name = triplet.getOutput_filename();
+    for(auto &df: dataframes){
         string tmp;
-        getline(*dataframes[index], tmp);
-        if(tmp.empty()) {
-            stop = true;
-            return;
-        }
-        try {
-            current[index] = CurrencyPair(tmp);
-        } catch(const exception& e) {
-            cout << "wrong line no." << counter++ << endl;
-        }
+        getline(*df, tmp);
+        current.emplace_back(CurrencyPair(tmp));
+    }
+    return true;
+}
 
+/**
+ * the main cycle that goes through the files and tries to find arbitrages
+ */
+void Arbitrage::run(){
+    string coma;
+    ofstream ofs(OUTPUT_DIRECTORY + output_name + ".json");
+    if(!ofs.good()){
+        cout << "Could not open output file" << endl;
+        return;
+    }
+    ofs << "[";
+    while(! stop){
+        int index = getOldest();
+        getNext(index);
+        long double score;
+        if((score = detection()) > 1){
+            bool first_item = true;
+            ofs << coma << "{score: " << score << ",";
+            ofs << "pairs: [";
+            for(const auto& item: current){
+                if(first_item)
+                    first_item = false;
+                else
+                    ofs << ",";
+                ofs << item.to_JSON();
+            }
+            ofs << "]}";
+            coma = ",";
+        }
+    }
+    ofs << "]";
+    ofs.close();
+    for(auto & df: dataframes){
+        df->close();
+    }
+}
+/**
+ * calculates if an arbitration occurred
+ * @return long double representing the gain or the lost > 1 symbols gain
+ */
+long double Arbitrage::detection(){
+    long double case1, case2;
+    if(calculation_type_linear) {
+        case1 = current[0].getDemand()[0] * current[1].getDemand()[0] * current[2].getDemand()[0];
+        case2 = current[0].getSupply()[0] * current[1].getSupply()[0] * current[2].getSupply()[0];
+    } else {
+        case1 = current[0].getSupply()[0] / current[1].getDemand()[0] / current[2].getDemand()[0];
+        case2 = current[0].getDemand()[0] / current[1].getSupply()[0] / current[2].getSupply()[0];
+    }
+//    if(case1 < 1.0 && case2 < 1.0)
+//        cout << case1 << " - " << case1 << " ---- " << calculation_type_linear << output_name << endl;
+    if(case1 < case2)
+        return 1/case1;
+    else
+        return 1/case2;
+}
+
+bool Arbitrage::openFile(string const& filename){
+    ifstream *fin = new ifstream("../data/" + filename);
+    if (! fin->is_open() ){
+        cout << "File could not be opened" << endl;
+        return false;
+    }
+    dataframes.push_back(fin);
+    return true;
+}
+
+void Arbitrage::getNext(int index){
+    if(dataframes[index]->eof()) {
+        stop = true;
+        return;
+    }
+    string tmp;
+    getline(*dataframes[index], tmp);
+    if(tmp.empty()) {
+        stop = true;
+        return;
+    }
+    try {
+        current[index] = CurrencyPair(tmp);
+    } catch(const exception& e) {
+        cout << "wrong line no." << counter++ << endl;
     }
 
-    int getOldest(){
-        vector<double> tmp;
-        for(auto const& item: current){
-            tmp.push_back(item.getTimestamp());
-        }
-        return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
+}
+
+int Arbitrage::getOldest(){
+    vector<double> tmp;
+    for(auto const& item: current){
+        tmp.push_back(item.getTimestamp());
     }
-
-
-private:
-    vector<ifstream*> dataframes;
-    vector<CurrencyPair> current;
-    bool stop;
-    string output_name;
-};
+    return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
+}
