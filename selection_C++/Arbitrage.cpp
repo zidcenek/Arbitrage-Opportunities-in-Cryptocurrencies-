@@ -45,8 +45,8 @@ void Arbitrage::run(){
         long double score;
         if((score = detection()) > 1){
             bool first_item = true;
-            ofs << coma << "{score: " << score << ",";
-            ofs << "pairs: [";
+            ofs << coma << "{\"score\": " << score << ",";
+            ofs << "\"pairs\": [";
             for(const auto& item: current){
                 if(first_item)
                     first_item = false;
@@ -80,9 +80,9 @@ long double Arbitrage::detection(){
 //    if(case1 < 1.0 && case2 < 1.0)
 //        cout << case1 << " - " << case1 << " ---- " << calculation_type_linear << output_name << endl;
     if(case1 < case2)
-        return 1/case1;
+        return case1;
     else
-        return 1/case2;
+        return case2;
 }
 
 bool Arbitrage::openFile(string const& filename){

@@ -10,7 +10,7 @@
 
 using namespace std;
 
-inline const string & DATA_PATH = "../data/input/done/";  // defines directory with data
+inline const string & DATA_PATH = "../data/input/test/";  // defines directory with data
 
 /**
  * Stores the 3 related files and the output filename
