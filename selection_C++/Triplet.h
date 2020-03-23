@@ -10,7 +10,8 @@
 
 using namespace std;
 
-inline const string & DATA_PATH = "../data/input/test/";  // defines directory with data
+//inline const string & DATA_PATH = "../data/input/test/";  // defines directory with data
+inline const string & DATA_PATH = "../data/input/data/";  // defines directory with data
 
 /**
  * Stores the 3 related files and the output filename
@@ -34,8 +35,13 @@ private:
     string file3;
     string currency1;
     string currency2;
+public:
+    const string &getOutputDirectoryName() const;
+
+private:
     string currency3;
     string output_filename;
+    string output_directory_name;
     bool linear;
 };
 

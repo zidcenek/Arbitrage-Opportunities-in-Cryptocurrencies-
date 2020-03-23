@@ -23,6 +23,7 @@ bool Arbitrage::initialize(const Triplet & triplet){
     currency_pair_names.push_back(triplet.getCurrency3());
     calculation_type_linear = triplet.getLinear();
     output_name = triplet.getOutput_filename();
+    output_directory_name = triplet.getOutputDirectoryName();
     for(int i = 0 ; i < dataframes.size(); i++){
         string tmp;
         getline(*dataframes[i], tmp);
@@ -32,11 +33,93 @@ bool Arbitrage::initialize(const Triplet & triplet){
 }
 
 /**
+ * calculates a different type of score based on the linear_calculation_type
+ * @param a
+ * @param b
+ * @param c
+ * @return -> calculated score
+ */
+long double Arbitrage::calculateScore(double a, double b, double c) const {
+    if(calculation_type_linear){
+        return a * b * c;
+    }
+    return a / b / c;
+}
+
+/**
+ * calculates at which position is the max_gain
+ * @param pairs1
+ * @param pairs2
+ * @param pairs3
+ * @return -> position of the max_gain
+ */
+vector<int> Arbitrage::calculateMaxGainPosition(
+        vector<double> pairs1, vector<double> pairs2, vector<double> pairs3
+) const {
+    long double max_gain = 0;
+    vector<int> best_indexes(3, 0);
+    // goes through all the combinations of the best demand/supply
+    for(int i = 0; i < pairs1.size() - 1; i += 2){
+        for(int j = 0; j < pairs2.size() - 1; j += 2){
+            for(int k = 0; k < pairs2.size() - 1; k += 2){
+                long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k));
+                if(score > 1) {
+                    long double gain = calculate_narrowest(
+                            pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
+                            pair<double, double> (pairs2.at(j), pairs2.at(j+1)),
+                            pair<double, double> (pairs3.at(k), pairs3.at(k+1))
+                            ) * (score - 1);
+                    if(gain > max_gain) {
+                        max_gain = gain;
+                        best_indexes[0] = i / 2;  // "/ 2" because of i += 2 etc.
+                        best_indexes[1] = j / 2;  // etc.
+                        best_indexes[2] = k / 2;  // etc.
+                    }
+                }
+            }
+        }
+    }
+//    cout << best_indexes[0] << best_indexes[1] << best_indexes[2] << endl;
+//    cout << max_gain << endl;
+    return best_indexes;
+}
+
+/**
+ * calculates the narrowest part of the triangle (based on the amounts)
+ * @param pair1
+ * @param pair2
+ * @param pair3
+ * @return -> smallest thickness
+ */
+long double Arbitrage::calculate_narrowest(
+        pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3
+        ) const{
+    vector<long double> thickness;
+    thickness.push_back(min(pair2.first * pair2.second, pair1.second));
+    thickness.push_back(min(pair3.first * pair3.second, pair2.second));
+    thickness.push_back(min(pair1.first * pair1.second, pair3.second));
+    if(calculation_type_linear){
+        thickness[1] = thickness[1] / pair1.first;
+        thickness[2] = thickness[2] / pair1.first / pair2.first;
+    }else {
+        thickness[1] = thickness[1] * pair1.first;
+        thickness[2] = thickness[2] * pair1.first * pair2.first;
+    }
+    return *min_element(thickness.begin(), thickness.end());
+}
+
+/**
  * the main cycle that goes through the files and tries to find arbitrages
  */
 void Arbitrage::run(){
     string coma;
-    ofstream ofs(OUTPUT_DIRECTORY + output_name + ".json");
+    const int dir = system(("mkdir -p " + OUTPUT_DIRECTORY + output_directory_name).c_str());
+    if(dir){
+        cout << "Output directory either does not exist or could not be created" << endl;
+        return;
+    }
+
+    ofstream ofs(OUTPUT_DIRECTORY + output_directory_name + output_name + ".json");
     if(!ofs.good()){
         cout << "Could not open output file" << endl;
         return;
@@ -44,11 +127,28 @@ void Arbitrage::run(){
     ofs << "[";
     while(! stop){
         int index = getOldest();
-        getNext(index);
         long double score;
+        vector<int> supply_gain, demand_gain;
+        getNext(index);
         if((score = detection()) > 1){
+            if( calculation_type_linear ){
+                supply_gain = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
+                                                       current[2].getSupply());
+                demand_gain = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
+                                                       current[2].getDemand());
+            } else {
+                supply_gain = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
+                                                       current[2].getDemand());
+                demand_gain = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
+                                                       current[2].getSupply());
+            }
             bool first_item = true;
+            if(supply_gain.size() != 3 || demand_gain.size() != 3)
+                continue;
             ofs << coma << "{\"score\": " << score << ",";
+            ofs << "\"supply_gain\": [" << demand_gain[0] << ", " << demand_gain[1] << ", " << demand_gain[2] << "],";
+            ofs << "\"demand_gain\": [" << supply_gain[0] << ", " << supply_gain[1] << ", " << supply_gain[2] << "],";
+            ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
             ofs << "\"pairs\": [";
             for(const auto& item: current){
                 if(first_item)
@@ -67,6 +167,7 @@ void Arbitrage::run(){
         df->close();
     }
 }
+
 /**
  * calculates if an arbitration occurred
  * @return long double representing the gain or the lost > 1 symbols gain
@@ -112,7 +213,8 @@ void Arbitrage::getNext(int index){
     try {
         current[index] = CurrencyPair(tmp, currency_pair_names[index]);
     } catch(const exception& e) {
-        cout << "wrong line no." << counter++ << endl;
+        if(++counter % 1000 == 0)
+            cout << "wrong line no." << counter << endl;
     }
 
 }

@@ -8,13 +8,10 @@ Triplet::Triplet(const string & f1, const string & f2, const string & f3, const 
     currency1 = f1;
     currency2 = f2;
     currency3 = f3;
+    output_directory_name = output_name + "/";
     linear = false;
     shuffle();
     output_filename = output_name + date;
-//    cout << endl;
-//    cout << output_filename << endl;
-//    cout << currency1 << " " << currency2 << " " << currency3 << endl;
-//    cout << endl;
     file1 = DATA_PATH + currency1 + date;
     file2 = DATA_PATH + currency2 + date;
     file3 = DATA_PATH + currency3 + date;
@@ -32,13 +29,11 @@ void Triplet::shuffle() {
 
     if(pair1.first == pair2.first){
         if(pair1.second == pair3.second) {
-            cout << "case 1" << endl;
             return;  // AB, AC, CB
         }
         tmp = currency1;
         currency1 = currency2;
         currency2 = tmp;
-        cout << "case 2" << endl;
         return;  // AC, AB, CB
     }
     if(pair1.first == pair3.first){
@@ -46,14 +41,12 @@ void Triplet::shuffle() {
             tmp = currency3;
             currency3 = currency2;
             currency2 = currency3;
-            cout << "case 3" << endl;
             return;  // AB, CB, AC
         }
         tmp = currency3;
         currency3 = currency2;
         currency2 = currency1;
         currency1 = tmp;
-        cout << "case 4" << endl;
         return;  // AC, CB, AB
     }
     if(pair2.first == pair3.first){
@@ -62,16 +55,13 @@ void Triplet::shuffle() {
             currency1 = currency2;
             currency2 = currency3;
             currency3 = tmp;
-            cout << "case 5" << endl;
             return;  // CB, AB, AC
         }
         tmp = currency1;
         currency1 = currency3;
         currency3 = tmp;
-        cout << "case 6" << endl;
         return;  // CB, AC, AB
     }
-    cout << "case 7 + 8" << endl;
     linear = true;
 }
 
@@ -110,4 +100,8 @@ const string & Triplet::getOutput_filename() const {
 
 const bool & Triplet::getLinear() const{
     return linear;
+}
+
+const string &Triplet::getOutputDirectoryName() const {
+    return output_directory_name;
 }
