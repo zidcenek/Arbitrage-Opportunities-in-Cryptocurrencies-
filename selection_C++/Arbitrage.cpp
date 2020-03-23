@@ -18,12 +18,15 @@ bool Arbitrage::initialize(const Triplet & triplet){
     openFile(triplet.getFile1());
     openFile(triplet.getFile2());
     openFile(triplet.getFile3());
+    currency_pair_names.push_back(triplet.getCurrency1());
+    currency_pair_names.push_back(triplet.getCurrency2());
+    currency_pair_names.push_back(triplet.getCurrency3());
     calculation_type_linear = triplet.getLinear();
     output_name = triplet.getOutput_filename();
-    for(auto &df: dataframes){
+    for(int i = 0 ; i < dataframes.size(); i++){
         string tmp;
-        getline(*df, tmp);
-        current.emplace_back(CurrencyPair(tmp));
+        getline(*dataframes[i], tmp);
+        current.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
     }
     return true;
 }
@@ -107,7 +110,7 @@ void Arbitrage::getNext(int index){
         return;
     }
     try {
-        current[index] = CurrencyPair(tmp);
+        current[index] = CurrencyPair(tmp, currency_pair_names[index]);
     } catch(const exception& e) {
         cout << "wrong line no." << counter++ << endl;
     }
@@ -121,3 +124,5 @@ int Arbitrage::getOldest(){
     }
     return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
 }
+
+

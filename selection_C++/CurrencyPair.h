@@ -13,7 +13,7 @@ using namespace std;
 
 class CurrencyPair {
 public:
-    explicit CurrencyPair(const string & input);
+    explicit CurrencyPair(const string & input, const string & currency_name);
     const vector<double> &getSupply() const;
     const vector<double> &getDemand() const;
     double getTimestamp() const;

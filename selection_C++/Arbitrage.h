@@ -14,7 +14,7 @@
 
 using namespace std;
 
-const string OUTPUT_DIRECTORY = "../output/test/";  // defines output directory
+const string OUTPUT_DIRECTORY = "../../statistics/test/";  // defines output directory
 
 class Arbitrage {
 public:
@@ -29,6 +29,7 @@ protected:
 private:
     vector<ifstream*> dataframes;
     vector<CurrencyPair> current;
+    vector<string> currency_pair_names;
     bool stop;
     string output_name;
     int counter;

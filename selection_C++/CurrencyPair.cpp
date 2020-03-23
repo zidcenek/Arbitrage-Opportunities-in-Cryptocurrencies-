@@ -8,7 +8,7 @@
  * constructor
  * @param input - one line from the file, which si parsed and stored in the class properties
  */
-CurrencyPair::CurrencyPair(const string & input){
+CurrencyPair::CurrencyPair(const string & input, const string & currency_name){
     string tmp;
     stringstream s(input);
     std::getline(s, tmp, ';');
@@ -19,7 +19,7 @@ CurrencyPair::CurrencyPair(const string & input){
     supply = parse_demand(stringstream(tmp));
     std::getline(s, tmp, ';');
     timestamp = stold(tmp);
-    currency = "BNB";
+    currency = currency_name;
 }
 
 const vector<double> & CurrencyPair::getSupply() const {
