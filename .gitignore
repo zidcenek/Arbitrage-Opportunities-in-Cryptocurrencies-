@@ -5,3 +5,4 @@ selection/output/*
 selection_C++/data/*
 selection_C++/output/*
 selection_C++/cmake-build-debug/*
+statistics/test/*
