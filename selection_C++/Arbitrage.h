@@ -27,8 +27,9 @@ public:
 protected:
     bool openFile(string const& filename);
     void getNext(int index);
-    vector<int> calculateMaxGainPosition(vector<double> pairs1, vector<double> pairs2, vector<double> pairs3) const;
-    long double calculateScore(double a, double b, double c) const;
+    vector<int> calculateMaxGainPosition(vector<double> pairs1, vector<double> pairs2, vector<double> pairs3,
+            bool demand_flag, long double & best_gain) const;
+    long double calculateScore(double a, double b, double c, bool demand_flag) const;
     long double calculate_narrowest(pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3) const;
     int getOldest();
 private:

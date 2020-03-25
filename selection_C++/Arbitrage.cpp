@@ -37,13 +37,18 @@ bool Arbitrage::initialize(const Triplet & triplet){
  * @param a
  * @param b
  * @param c
+ * @param demand_flag -> determines the calculation type
  * @return -> calculated score
  */
-long double Arbitrage::calculateScore(double a, double b, double c) const {
+long double Arbitrage::calculateScore(double a, double b, double c, bool demand_flag) const {
     if(calculation_type_linear){
-        return a * b * c;
+        if (demand_flag)
+            return a * b * c;
+        return 1 / a / b / c;
     }
-    return a / b / c;
+    if (demand_flag)
+        return a / b / c;
+    return b * c / a;
 }
 
 /**
@@ -51,10 +56,12 @@ long double Arbitrage::calculateScore(double a, double b, double c) const {
  * @param pairs1
  * @param pairs2
  * @param pairs3
+ * @param demand_flag -> determines the calculation type
+ * @param best_gain -> out parameter for the max_gain
  * @return -> position of the max_gain
  */
 vector<int> Arbitrage::calculateMaxGainPosition(
-        vector<double> pairs1, vector<double> pairs2, vector<double> pairs3
+        vector<double> pairs1, vector<double> pairs2, vector<double> pairs3, bool demand_flag, long double & best_gain
 ) const {
     long double max_gain = 0;
     vector<int> best_indexes(3, 0);
@@ -62,7 +69,7 @@ vector<int> Arbitrage::calculateMaxGainPosition(
     for(int i = 0; i < pairs1.size() - 1; i += 2){
         for(int j = 0; j < pairs2.size() - 1; j += 2){
             for(int k = 0; k < pairs2.size() - 1; k += 2){
-                long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k));
+                long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k), demand_flag);
                 if(score > 1) {
                     long double gain = calculate_narrowest(
                             pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
@@ -79,6 +86,8 @@ vector<int> Arbitrage::calculateMaxGainPosition(
             }
         }
     }
+    max_gain = max_gain * 0.999 * 0.999 * 0.999;  // due to binance fee for every trade
+    best_gain = max_gain;
 //    cout << best_indexes[0] << best_indexes[1] << best_indexes[2] << endl;
 //    cout << max_gain << endl;
     return best_indexes;
@@ -127,27 +136,31 @@ void Arbitrage::run(){
     ofs << "[";
     while(! stop){
         int index = getOldest();
-        long double score;
-        vector<int> supply_gain, demand_gain;
+        long double score, supply_gain, demand_gain;
+        vector<int> supply_gain_indexes, demand_gain_indexes;
         getNext(index);
         if((score = detection()) > 1){
             if( calculation_type_linear ){
-                supply_gain = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
-                                                       current[2].getSupply());
-                demand_gain = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
-                                                       current[2].getDemand());
+                supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
+                                                       current[2].getSupply(), false, supply_gain);
+                demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
+                                                       current[2].getDemand(), true, demand_gain);
             } else {
-                supply_gain = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
-                                                       current[2].getDemand());
-                demand_gain = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
-                                                       current[2].getSupply());
+                supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
+                                                       current[2].getDemand(), false, supply_gain);
+                demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
+                                                       current[2].getSupply(), true, demand_gain);
             }
             bool first_item = true;
-            if(supply_gain.size() != 3 || demand_gain.size() != 3)
+            if(supply_gain_indexes.size() != 3 || demand_gain_indexes.size() != 3)
                 continue;
             ofs << coma << "{\"score\": " << score << ",";
-            ofs << "\"supply_gain\": [" << demand_gain[0] << ", " << demand_gain[1] << ", " << demand_gain[2] << "],";
-            ofs << "\"demand_gain\": [" << supply_gain[0] << ", " << supply_gain[1] << ", " << supply_gain[2] << "],";
+            ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
+                << ", " << demand_gain_indexes[2] << "],";
+            ofs << "\"demand_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
+                << ", " << supply_gain_indexes[2] << "],";
+            ofs << "\"supply_gain\": " << supply_gain << ",";
+            ofs << "\"demand_gain\": " << demand_gain << ",";
             ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
             ofs << "\"pairs\": [";
             for(const auto& item: current){
@@ -176,17 +189,15 @@ long double Arbitrage::detection(){
     long double case1, case2;
     if(calculation_type_linear) {
         case1 = current[0].getDemand()[0] * current[1].getDemand()[0] * current[2].getDemand()[0];
-        case2 = current[0].getSupply()[0] * current[1].getSupply()[0] * current[2].getSupply()[0];
+        case2 = 1 / current[0].getSupply()[0] / current[1].getSupply()[0] / current[2].getSupply()[0];
     } else {
-        case1 = current[0].getSupply()[0] / current[1].getDemand()[0] / current[2].getDemand()[0];
+        case1 = current[1].getDemand()[0] * current[2].getDemand()[0] / current[0].getSupply()[0];
         case2 = current[0].getDemand()[0] / current[1].getSupply()[0] / current[2].getSupply()[0];
     }
-//    if(case1 < 1.0 && case2 < 1.0)
-//        cout << case1 << " - " << case1 << " ---- " << calculation_type_linear << output_name << endl;
     if(case1 < case2)
-        return case1;
-    else
         return case2;
+    else
+        return case1;
 }
 
 bool Arbitrage::openFile(string const& filename){

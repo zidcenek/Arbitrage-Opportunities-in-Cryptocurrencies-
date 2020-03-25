@@ -10,7 +10,6 @@
 
 using namespace std;
 
-//inline const string & DATA_PATH = "../data/input/test/";  // defines directory with data
 inline const string & DATA_PATH = "../data/input/data/";  // defines directory with data
 
 /**
