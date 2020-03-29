@@ -1,0 +1,326 @@
+% arara: pdflatex
+% arara: pdflatex
+% arara: pdflatex
+
+% options:
+% thesis=B bachelor's thesis
+% thesis=M master's thesis
+% czech thesis in Czech language
+% slovak thesis in Slovak language
+% english thesis in English language
+% hidelinks remove colour boxes around hyperlinks
+
+\documentclass[thesis=B,czech]{FITthesis}[2019/03/21]
+
+\usepackage[utf8]{inputenc} % LaTeX source encoded as UTF-8
+
+% \usepackage{amsmath} %advanced maths
+% \usepackage{amssymb} %additional math symbols
+
+\usepackage{dirtree} %directory tree visualisation
+
+% % list of acronyms
+% \usepackage[acronym,nonumberlist,toc,numberedsection=autolabel]{glossaries}
+% \iflanguage{czech}{\renewcommand*{\acronymname}{Seznam pou{\v z}it{\' y}ch zkratek}}{}
+% \makeglossaries
+
+\newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
+\newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% ODTUD DAL VSE ZMENTE
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\department{Katedra aplikované matematiky}
+\title{Arbitrážní příležitosti kryptoměn}
+\authorGN{Čeněk} %(křestní) jméno (jména) autora
+\authorFN{Žid} %příjmení autora
+\authorWithDegrees{Čeněk Žid} %jméno autora včetně současných akademických titulů
+\author{Čeněk Žid} %jméno autora bez akademických titulů
+\supervisor{Mgr. Jan Starý, Ph.D.}
+\acknowledgements{Doplňte, máte-li komu a za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
+\abstractCS{V~několika větách shrňte obsah a přínos této práce v~češtině. Po přečtení abstraktu by se čtenář měl mít čtenář dost informací pro rozhodnutí, zda chce Vaši práci číst.}
+\abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
+\placeForDeclarationOfAuthenticity{V~Praze}
+\declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
+\keywordsCS{kryptoměna, analýza dat,  arbitrážní příležitost, kryptoměnová burza, Python, Matplotlib}
+\keywordsEN{cryptocurrency, data analysis, arbitrage opportunities, cryptocurrency exchange, Python, Matplotlib}
+% \website{http://site.example/thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
+
+\begin{document}
+
+% \newacronym{CVUT}{{\v C}VUT}{{\v C}esk{\' e} vysok{\' e} u{\v c}en{\' i} technick{\' e} v Praze}
+% \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
+
+\begin{introduction}
+\paragraph{
+V této práci se budu zabývat arbitrážními příležitostmi kryptoměn. Jedná se o téma v dnešní době velmi aktuální a moderní. Za posledních několik let vzniklo velké množství kryptoměn a žádná z nich není moc stabilní. Díky této labilitě na burzách s kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se budu v této práci věnovat.
+}
+\paragraph{
+Význam této práce spočívá v analyzování jednotlivých burz jako takových. Zabývá se také otázkami, jak často se reálně objevují arbitrážní příležitosti v rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a jestli je možné nacházet arbitrážní příležitosti i mezi jednotlivými burzami.
+}
+\paragraph{
+Toto téma jsem si vybral především z toho důvodu, protože mě baví analyzovat data a snažit se najít výstupy, které je možné z dat vytěžit. Zároveň z toho důvodu, že dat týkajících se kryptoměn je na internetu k dispozici velké množství, jsou jednoduše dostupná a dají se na nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se jedná o transakce víceméně bez rizika, na rozdíl od klasického obchodování s kryptoměnami, kde je většinou riziko velké a o jistotě se mluvit nedá. Z toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněj. 
+}
+\paragraph{
+V práci se zabývám dostupností dat v rámci jednotlivých kryptoměnných burz a možnostmi ukládání těchto dat. Dále se v práci zabývám analýzou dat, analýzou výskytů korelací, které nastávají v rámci burz.
+}
+\paragraph{
+V první části práce se věnuji tomu, co to jsou kryptoměny a co znamenají arbitrážní příležitosti. V následující části se věnuji zkoumání dostupnosti dat na jednotlivých burzách a možnostem jejich získávání. Na to navazuji analýzou získaných dat z pohledu arbitrážních příležitostí. Zabývám se zde převážně otázkami, jak často arbitrážní příležitosti nastávají a jestli je reálně možné a vyplatí se snažit se arbitrážní příležitosti vytěžit.
+}
+\paragraph{
+Tato bakalářská práce volně navazuje na diplomovou práci Adama Pečeva s tématem Cryptocurrencies Exchange Rates Reporting Tool, ve které autor vytvořil program, který zobrazuje data jednotlivých kryptoměn na různých trzích. Já narozdíl od něho se více zaměřuji na analýzu dat jako takových pomocí informatických a matematických metod a výstupů, které z nich vyplývají.
+}
+\end{introduction}
+
+\chapter{Cíl práce}
+\paragraph{
+Hlavním cílem této práce je najít a analyzovat arbitrážní příležitosti na historických datech z kryptoměnových burz a spočítat statistiky výskytu, obchodovatelnosti a výnosnosti arbitrážních příležitostí na kryptoměnových burzách. 
+}
+\paragraph{
+V teoretické části se zaměřím na to, kde je možné historická data týkající se kryptoměn najít a získat. Popíšu zde, co jsou to kryptoměny a arbitrážní příležitosti. Dále se budu zabývat tím, jakými matematickými a informatickými metodami je možné tyto data analyzovat a vyberu ty metody, které se budou na moji problematiku hodit nejvíce.
+}
+\paragraph{
+V praktické části naimplementuji sběr dat na úrovní order book jednotlilvých měnových párů. Dále na těchto datech provedu analýzu, kde využiji metody, popsané v teoretické části. Zhodnotím jaké metody byly účinnější a vhodnější pro analýzu dat z kryptoměnových burz a jaké výsledky jsem vypozoroval.
+}
+\paragraph{
+V závěru praktické části zhodnotím výsledky z analýzy dat, a z vyhodnocených výsledků spočítám základní statistiky výskytu, obchodovatelnosti a výnosnosti arbitrážních příležitostí. 
+}
+\chapter{Současný stav řešení problému}
+\paragraph{
+V této části své bakalářské práce se zabývám teorií týkající se kryptoměn, jaké měny jsou aktuálně nejpoužívanější. Zabývám se zde také arbitrážemi, o co se jedná a jak se projevují na poli kryptoměnných burz.
+}
+\section{Kryptoměny}
+\paragraph{
+V této kapitole se obecně zabývám kryptoměnami. Zaměřuji se na jejich historii, která je spjatá převážně s první a nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se zde také i ostatními alternativními kryptoměnami. 
+Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny, a jejich porovnání. \cite{BudoucnostFinTrhu}
+}
+\subsection{Bitcoin}
+\paragraph{
+Bitcoin je první kryptoměna, která byla zavedena v roce 2009 anonymní skupinou lidí pod pseudonymem Satoshi Nakamoto. Hlavní myšlenkou bitcoinu je snaha o odstranění všech regulatorních pravidel a snaha o zvýšení transparentnosti a bezpečnosti plateb a transakcí v rámci bitcoinové sítě. \cite{Finex}
+}
+\paragraph{
+Hlavní charakteristikou bitcoinu je to, že nemá žádnou centrální autoritu, z čehož plyne, že s ním nikdo nemůže manipulovat tak, jako s běžnými penězi (například pro českou korunu je centrální autoritou Česká národná banka).
+}
+\paragraph{
+Dalšími předními výhodami je to, že transakce trvají řádově desítky minut, což v porovnání s bankami je v průměru rychlejší. Bitcoin se nedá zfalšofat, toto je zajištěno díky tomu, že je vše naprosto transparentní. 
+}
+\paragraph{
+Na druhou stranu má bitcoin i řadu nevýhod oproti běžným penězům, které vyplývají z jeho charakteristiky i z jeho předních výhod. Například hlavní nevýhodou je to, že je velice nestabilní oproti běžným penězům a v žádnou chvíli nelze s velkou pravděpodobností předpovídat, jak se bude jeho hodnota vyvíjet. 
+}
+\paragraph{
+Dalším velkým mínusem bitcoinu a celkově všech kryptoměn je to, že uživatelé jsou neustále vystavováni riziku krádeží jejich mění. Z toho důvodu je nutné využívat nějaké kryptoměnové peněženky, které však také nikdy nemohou zaručit 100\% bezpečnost.\cite{Finex}
+}
+\chapter{Realizace}
+\paragraph{
+V této sekci se zabývám praktickou částí své bakalářské práce, ve které se ze začátku zaměřuji na problémy se získáváním relevantních dat. Dále na to navazuji záznamem o svém počínání v rámci analýzy těchto získaných dat. 
+}
+\paragraph{
+V poslední podkapitole se poté věnuji praktickým výstupům své práce, zejména statistikám o mých úspěších z vytěžování reálných arbitrážních příležitostí a na to navazujícím výpočetem týkající se toho, jak moc je výhodné se prakticky snažit vytěžovat tyto příležitosti.
+}
+\section{Získání dat}
+\paragraph{
+V této kapitole se zaměřuji na problémy, na které jsem narazil při získávání dat. Zabývám se zde také dostupností dat na jednotlivých burzách či jiných serverech, které tata data poskytují. 
+}
+\paragraph{
+Obecně jsem potřeboval  taková data, která by mi byla schopna poskytnout informaci v konkrétním čase, týkající se aktuálních nabídek a poptávek pro jednotlivé dvojice měn, na kterých jsem chtěl provádět analýzu.
+}
+\subsection{Data na kryptoměnových burzách}
+\paragraph{
+Nejdříve jsem se snažil získat data na oficiálních stránkách jednotlivých burz, konkrétně binance.com, kraken.com a cryptowatch.com. Zde jsem se byl schopen po registraci připojit na jednotlivá api. Data zde byla veřejně k dispozici, avšak neodpovídala takovému formátu, který jsem pro svou práci požadoval. 
+}
+\paragraph{
+Na všech kryptoměnových burzách byla k dispozici data pouze o aktuálních nabídkách a poptávkách. Co se týče historických dat, tak bylo možné získat data o všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a čas provedení obchodu. Dále bylo možné získat data k vytvoření svícnových grafů. Všechna tato historická data byla pro mě však irelevantní. 
+}
+% todo - doplnit citace na jednotlivé burzy
+\subsection{Vlastní sběr dat}
+\paragraph{
+Z důvodu, že jsem nebyl schopen nikde sehnat odpovídající data, která jsem potřeboval pro svou práci, byl přinucen si data začít sbírat z burz sám.
+}
+\paragraph{
+Pro sběr dat jsem si vybral server Binance, protože má z mého pohledu jednoduché api, ke kterému jsem se snadno připojil. \cite{Binance api}
+}
+\paragraph{
+K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp.
+}
+\paragraph{
+Neboť jsem data potřeboval ukládat pořád a ne pouze v konkrétní časové intervaly, tak jsem sběr dat zapnul na AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
+}
+\subsubsection{Sledované měny}
+\paragraph{
+Na serveru Binance je možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020). Protože pro mě nebylo reálné sledovat tolik různých dvojic, vybral jsem si ke sledování následující měny: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Což celkově znamenalo sbírat data týkající se 39 dvojic (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1 GB za den.
+}
+% todo - napsat názvy měn
+\section{Zpracování dat}
+\paragraph{
+V této podkapitole se budu věnovat tématu se zpracováním nasbíraných dat.
+}
+\subsection{Filtrování surových dat}
+\paragraph{
+V prvním kroku bylo mým cílem pouze vyfiltrovat všechny potenciální arbitrážní příležitosti, které mohli nastat. Potenciální z toho důvodu že jsem ještě nebral v potaz poplatky, kterými Binance zpoplatňuje kažný provedený obchod.
+}
+\paragraph{
+Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však probíhalo filtrování moc pomalu. Z toho důvodu jsem výběr Pythonu přehodnotil a rozhodl jsem se využít jazyka C++. 
+}
+\paragraph{
+V jazyce C++ se mi podařilo filtrování zrychlit téměř šedesátkrát. Vyfiltrovaná data jsem nyní ukládal v JSON formátu. Tento formát jsem si vybral z toho důvodu, že je zde možné přehledněji strukturovat data. Ukládal jsem si do těchto souborů například i informace o tom, jaké konkrétní obchody jsou nejvýhodnější, jaký teoretický zisk mohl nastat. 
+}
+% todo - změnit obrázek na JSON example
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{pokus.png}
+	\caption{Pokusek}\label{fig:pokus}
+\end{figure}
+
+\begin{conclusion}
+\paragraph{
+V práci jsem zatím úspěšně naimplementoval program v programovacím jazyce Python, který se stará o sběr dat. Tento program jsem nasadil na cloudovou službu Amazon Web Services, kde běží bez přerušení. 
+}
+\paragraph{
+V teoretické části jsem zatím napsal velmi stručnou rešerši, kterou mám ještě v plánu značně rozšiřovat. Našel jsem si již zdroje i k následujícím částem teoretické části.  Plánuji se zde ještě více věnovat kryptoměnám podrobněji a popsat více jejich charakteristiky. Dále zde plánuji zpracovat rešerši týkající se dosavadních prací, které se také zabývají otázkou arbitrážních příležitostí.
+}
+\paragraph{
+Mým dalším krokem je napsání programu, který bude analyzovat nasbíraná data. Na tomto úkolu mohu pracovat i s prozatímními daty, neboť se na programu nic nezmění, pouze se změní výstupní statistiky. Tato část bude stěžejní částí mé celkové bakalářské práce.
+}
+\paragraph{
+Úplně nakonec se budu věnovat výstupům, které zjistím v části analýzy dat. Tyto data zpracuji jako celek a zaměřím se na výstupy, které je možné na datech pozorovat.
+}
+
+\end{conclusion}
+
+\bibliographystyle{csn690}
+\bibliography{mybibliographyfile}
+
+\appendix
+
+\chapter{Seznam použitých zkratek}
+% \printglossaries
+\begin{description}
+	\item[GUI] Graphical user interface
+	\item[XML] Extensible markup language
+\end{description}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% % Tuto kapitolu z výsledné práce ODSTRAŇTE.
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% 
+% \chapter{Návod k~použití této šablony}
+% 
+% Tento dokument slouží jako základ pro napsání závěrečné práce na Fakultě informačních technologií ČVUT v~Praze.
+% 
+% \section{Výběr základu}
+% 
+% Vyberte si šablonu podle druhu práce (bakalářská, diplomová), jazyka (čeština, angličtina) a kódování (ASCII, \mbox{UTF-8}, \mbox{ISO-8859-2} neboli latin2 a nebo \mbox{Windows-1250}). 
+% 
+% V~české variantě naleznete šablony v~souborech pojmenovaných ve formátu práce\_kódování.tex. Typ může být:
+% \begin{description}
+% 	\item[BP] bakalářská práce,
+% 	\item[DP] diplomová (magisterská) práce.
+% \end{description}
+% Kódování, ve kterém chcete psát, může být:
+% \begin{description}
+% 	\item[UTF-8] kódování Unicode,
+% 	\item[ISO-8859-2] latin2,
+% 	\item[Windows-1250] znaková sada 1250 Windows.
+% \end{description}
+% V~případě nejistoty ohledně kódování doporučujeme následující postup:
+% \begin{enumerate}
+% 	\item Otevřete šablony pro kódování UTF-8 v~editoru prostého textu, který chcete pro psaní práce použít -- pokud můžete texty s~diakritikou normálně přečíst, použijte tuto šablonu.
+% 	\item V~opačném případě postupujte dále podle toho, jaký operační systém používáte:
+% 	\begin{itemize}
+% 		\item v~případě Windows použijte šablonu pro kódování \mbox{Windows-1250},
+% 		\item jinak zkuste použít šablonu pro kódování \mbox{ISO-8859-2}.
+% 	\end{itemize}
+% \end{enumerate}
+% 
+% 
+% V~anglické variantě jsou šablony pojmenované podle typu práce, možnosti jsou:
+% \begin{description}
+% 	\item[bachelors] bakalářská práce,
+% 	\item[masters] diplomová (magisterská) práce.
+% \end{description}
+% 
+% \section{Použití šablony}
+% 
+% Šablona je určena pro zpracování systémem \LaTeXe{}. Text je možné psát v~textovém editoru jako prostý text, lze však také využít specializovaný editor pro \LaTeX{}, např. Kile.
+% 
+% Pro získání tisknutelného výstupu z~takto vytvořeného souboru použijte příkaz \verb|pdflatex|, kterému předáte cestu k~souboru jako parametr. Vhodný editor pro \LaTeX{} toto udělá za Vás. \verb|pdfcslatex| ani \verb|cslatex| \emph{nebudou} s~těmito šablonami fungovat.
+% 
+% Více informací o~použití systému \LaTeX{} najdete např. v~\cite{wikilatex}.
+% 
+% \subsection{Typografie}
+% 
+% Při psaní dodržujte typografické konvence zvoleného jazyka. České \uv{uvozovky} zapisujte použitím příkazu \verb|\uv|, kterému v~parametru předáte text, jenž má být v~uvozovkách. Anglické otevírací uvozovky se v~\LaTeX{}u zadávají jako dva zpětné apostrofy, uzavírací uvozovky jako dva apostrofy. Často chybně uváděný symbol "{} (palce) nemá s~uvozovkami nic společného.
+% 
+% Dále je třeba zabránit zalomení řádky mezi některými slovy, v~češtině např. za jednopísmennými předložkami a spojkami (vyjma \uv{a}). To docílíte vložením pružné nezalomitelné mezery -- znakem \texttt{\textasciitilde}. V~tomto případě to není třeba dělat ručně, lze použít program \verb|vlna|.
+% 
+% Více o~typografii viz \cite{kobltypo}.
+% 
+% \subsection{Obrázky}
+% 
+% Pro umožnění vkládání obrázků je vhodné použít balíček \verb|graphicx|, samotné vložení se provede příkazem \verb|\includegraphics|. Takto je možné vkládat obrázky ve formátu PDF, PNG a JPEG jestliže používáte pdf\LaTeX{} nebo ve formátu EPS jestliže používáte \LaTeX{}. Doporučujeme preferovat vektorové obrázky před rastrovými (vyjma fotografií).
+% 
+% \subsubsection{Získání vhodného formátu}
+% 
+% Pro získání vektorových formátů PDF nebo EPS z~jiných lze použít některý z~vektorových grafických editorů. Pro převod rastrového obrázku na vektorový lze použít rasterizaci, kterou mnohé editory zvládají (např. Inkscape). Pro konverze lze použít též nástroje pro dávkové zpracování běžně dodávané s~\LaTeX{}em, např. \verb|epstopdf|.
+% 
+% \subsubsection{Plovoucí prostředí}
+% 
+% Příkazem \verb|\includegraphics| lze obrázky vkládat přímo, doporučujeme však použít plovoucí prostředí, konkrétně \verb|figure|. Například obrázek \ref{fig:float} byl vložen tímto způsobem. Vůbec přitom nevadí, když je obrázek umístěn jinde, než bylo původně zamýšleno -- je tomu tak hlavně kvůli dodržení typografických konvencí. Namísto vynucování konkrétní pozice obrázku doporučujeme používat odkazování z~textu (dvojice příkazů \verb|\label| a \verb|\ref|).
+% 
+% \begin{figure}\centering
+% 	\includegraphics[width=0.5\textwidth, angle=30]{cvut-logo-bw}
+% 	\caption[Příklad obrázku]{Ukázkový obrázek v~plovoucím prostředí}\label{fig:float}
+% \end{figure}
+% 
+% \subsubsection{Verze obrázků}
+% 
+% % Gnuplot BW i barevně
+% Může se hodit mít více verzí stejného obrázku, např. pro barevný či černobílý tisk a nebo pro prezentaci. S~pomocí některých nástrojů na generování grafiky je to snadné.
+% 
+% Máte-li například graf vytvořený v programu Gnuplot, můžete jeho černobílou variantu (viz obr. \ref{fig:gnuplot-bw}) vytvořit parametrem \verb|monochrome dashed| příkazu \verb|set term|. Barevnou variantu (viz obr. \ref{fig:gnuplot-col}) vhodnou na prezentace lze vytvořit parametrem \verb|colour solid|.
+% 
+% \begin{figure}\centering
+% 	\includegraphics{gnuplot-bw}
+% 	\caption{Černobílá varianta obrázku generovaného programem Gnuplot}\label{fig:gnuplot-bw}
+% \end{figure}
+% 
+% \begin{figure}\centering
+% 	\includegraphics{gnuplot-col}
+% 	\caption{Barevná varianta obrázku generovaného programem Gnuplot}\label{fig:gnuplot-col}
+% \end{figure}
+% 
+% 
+% \subsection{Tabulky}
+% 
+% Tabulky lze zadávat různě, např. v~prostředí \verb|tabular|, avšak pro jejich vkládání platí to samé, co pro obrázky -- použijte plovoucí prostředí, v~tomto případě \verb|table|. Například tabulka \ref{tab:matematika} byla vložena tímto způsobem.
+% 
+% \begin{table}\centering
+% 	\caption[Příklad tabulky]{Zadávání matematiky}\label{tab:matematika}
+% 	\begin{tabular}{|l|l|c|c|}\hline
+% 		Typ		& Prostředí		& \LaTeX{}ovská zkratka	& \TeX{}ovská zkratka	\tabularnewline \hline \hline
+% 		Text		& \verb|math|		& \verb|\(...\)|	& \verb|$...$|		\tabularnewline \hline
+% 		Displayed	& \verb|displaymath|	& \verb|\[...\]|	& \verb|$$...$$|	\tabularnewline \hline
+% 	\end{tabular}
+% \end{table}
+% 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+\chapter{Obsah přiloženého CD}
+
+%upravte podle skutecnosti
+
+\begin{figure}
+	\dirtree{%
+		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
+		.1 exe\DTcomment{adresář se spustitelnou formou implementace}.
+		.1 src.
+		.2 impl\DTcomment{zdrojové kódy implementace}.
+		.2 thesis\DTcomment{zdrojová forma práce ve formátu \LaTeX{}}.
+		.1 text\DTcomment{text práce}.
+		.2 thesis.pdf\DTcomment{text práce ve formátu PDF}.
+		.2 thesis.ps\DTcomment{text práce ve formátu PS}.
+	}
+\end{figure}
+
+\end{document}
