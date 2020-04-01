@@ -93,7 +93,7 @@ V této části své bakalářské práce se zabývám teorií týkající se kr
 \section{Kryptoměny}
 \paragraph{
 V této kapitole se obecně zabývám kryptoměnami. Zaměřuji se na jejich historii, která je spjatá převážně s první a nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se zde také i ostatními alternativními kryptoměnami. 
-Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny, a jejich porovnání. \cite{BudoucnostFinTrhu}  \cite{svgspec}
+Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny, a jejich porovnání. \cite{BudoucnostFinTrhu}
 }
 \subsection{Bitcoin}
 \paragraph{
@@ -138,6 +138,43 @@ Chytrý kontrakt je zjednodušeně program, který se stará o provedení smlouv
 \paragraph{
 Na platformě Ethereum je možné si vytvářet tyto vlastní programy, které provádějí přesně to, co je jim nastaveno. \cite{ethereum}
 }
+\section{Arbitrážní příležitosti}
+\subsection{Arbitráž}
+\paragraph{
+Arbitráž je obchodní strategie, která je založena na principu nakoupit levně a prodat draze. Principem arbitráže je vytvořit zisk na malých rozdílech v ceně aktiv. Nejčastěji se jedná o nákup na jednom místě a téměř instantní prodej na místě jiném za vyšší cenu. \cite{Capital}
+}
+\subsection{Měnový pár v rámci kryptoměnových burz}
+\paragraph{
+Měnový pár je vztah mezi dvěma měnami určující hodnotu jedné vůči druhé. Například USD/CZK je vztah dolaru vůči koruně. První uváděná měna je vždy označována jako základní měna, zatímco druhá měna se označuje jako kótovaná měna.
+} \cite{Capital_menovy_par} 
+\paragraph{
+Poměr je uváděn ve vztahu k základní měně. Pokud je nákupní cena USD/CZK 22,5, znamená to, že je možné nakoupit 1~dolar za 25,5~ Korun českých. Běžně je uváděn i otočený kurz tedy CZK/USD. \cite{Capital_menovy_par} 
+}
+\paragraph{
+V rámci kryptoměnových burz je běžné uvádět pouze jeden kurz například LTC/BTC, ne však otočený BTC/LTC. Z toho důvodu jsou na kryptoměnových burzách u jednotlivých kurzů vždy uváděny dvě hodnoty bid (nabídka) a ask (poptávka). 
+}
+\paragraph{
+V rámci kryptoměnových burz se značení mezi měnovými páry často liší, avšak většinou se používá jedna z těchto tří možností (AAA/BBB, AAA-BBB, AAABBB), kde AAA a BBB zastupují zkratku nějaké měny (kryptoměny).
+}
+\subsection{Deterministické arbitrážní příležitosti}
+\paragraph{
+Deterministické arbitráže jsou základním typem arbitrážních příležitostí, které mohou vznikat na kryptoměnových burzách. Jedná se o nákup a prodej stejných měnových párů na různých burzách v co nejkratším časovém intervalu za účelem výdělku. \cite{CZInvestor} \cite{TowardsDataScience}
+}
+\paragraph{
+Například nakoupím v jednom čase litecoin na burze Binance za 38,31~\$ a co nejrychleji prodám na burze Coinmate za 38,70~\$ a tím vydělám 0,39~\$. Toto je nejjednodušší příklad a neberu zatím v potaz poplatky, které mají jednotlivé burzy zavedené. 
+}
+\subsection{Trojúhelníkové arbitrážní příležitosti}
+\paragraph{
+Trojúhelníková arbitráž na kryptoměnových burzách je takový obchod, kdy dojde k nákupu a prodeji mezi třemi měnami za cílem zisku. K této arbitráži může docházet, buď v rámci jedné burzy nebo mezi několika odlišnými (v následující části se budu věnovat arbitrážní příležitosti na jedné burze). \cite{TradingStrategy}
+}
+\paragraph{
+Příklad trojúhelníkové arbitrážní příležitosti: na burze jsou sledovanými páry LTCBTC, LTCETH, ETHBTC. V prvním kroku nakoupím za 1~bitcoin odpovídající množství litecoinů (podle LTCBTC). Toto množství v dalším kroku prodám za odpovídající množství etherea (podle LTCETC) a za zakoupenou sumu etherea koupím znovu bitcoin (podle ETHBTC). Pokud mám na konci více než bitcoinů, než kolik do trojúhelníku vstoupilo, vydělal jsem rozdíl mezi těmito dvěma obnosy (viz obr. \ref{triangle_arbitrage}).
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/ZMENIT-triangle.png}
+	\caption{Trojúhelníková arbitráž}\label{triangle_arbitrage}
+\end{figure}
+
 
 \chapter{Realizace}
 \paragraph{
@@ -161,18 +198,22 @@ Nejdříve jsem se snažil získat data na oficiálních stránkách jednotlivý
 Na všech kryptoměnových burzách byla k dispozici data pouze o aktuálních nabídkách a poptávkách. Co se týče historických dat, tak bylo možné získat data o všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a čas provedení obchodu. Dále bylo možné získat data k vytvoření svícnových grafů. Všechna tato historická data byla pro mě však irelevantní. 
 }
 % todo - doplnit citace na jednotlivé burzy
+\subsection{Burza Binance}
+\paragraph{
+Jako burzu, ze které jsem sbíral data, jsem si vybral server Binance. Tuto burzu jsem si vybral především z toho důvodu, že zde probíhá nejvíce obchodů, co se týče zobchodovaného objemu. Podle serveru CoinMarketCap je zde zobchodováno minimálně o 50~\% objemu více (objem za posledních 30 dní) než na jakékoli jiné burze. \cite{coinmarketcap}
+}
+\paragraph{
+Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé api, a dalo se na ni připojit jednoduše přes websocket. \cite{BinanceApi}
+}
 \subsection{Vlastní sběr dat}
 \paragraph{
 Z důvodu, že jsem nebyl schopen nikde sehnat odpovídající data, která jsem potřeboval pro svou práci, byl přinucen si data začít sbírat z burz sám.
 }
 \paragraph{
-Pro sběr dat jsem si vybral server Binance, protože má z mého pohledu jednoduché api, ke kterému jsem se snadno připojil. \cite{Binance api}
+K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp.\cite{BinanceApi}
 }
 \paragraph{
-K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp.
-}
-\paragraph{
-Neboť jsem data potřeboval ukládat pořád a ne pouze v konkrétní časové intervaly, tak jsem sběr dat zapnul na AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
+Neboť jsem data potřeboval ukládat pořád a ne pouze v konkrétní časové intervaly, tak jsem sběr dat spustil na cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
 }
 \subsubsection{Sledované měny}
 \paragraph{
