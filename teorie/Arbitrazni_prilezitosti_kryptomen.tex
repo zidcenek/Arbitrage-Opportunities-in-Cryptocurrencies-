@@ -111,6 +111,40 @@ Na druhou stranu má bitcoin i řadu nevýhod oproti běžným penězům, které
 \paragraph{
 Dalším velkým mínusem bitcoinu a celkově všech kryptoměn je to, že uživatelé jsou neustále vystavováni riziku krádeží jejich mění. Z toho důvodu je nutné využívat nějaké kryptoměnové peněženky, které však také nikdy nemohou zaručit 100\% bezpečnost.\cite{Finex}
 }
+\subsubsection{Blockchain}
+\paragraph{
+Bitcoin je založen na technologii blockchainu. Blockchain je možné si představit jako veřejně sdílenou účetní knihu, ve které jsou zachyceny veškeré transakce, které kdy proběhly. Jedná se však o distribuovanou decentralizovanou databázi, která uchovává chronologický řetězec záznamů. Tyto záznamy jsou propojeny pomocí kryptograficky zabezpečených peer-to-peer uzlů. Principem je, že tyto data jsou v blockchainu uchovány napořád a jsou veřejně dostupná pro všechny. \cite{Bitcoin_how_it_works}
+}
+\paragraph{
+Základní myšlenkou blochchainu je to, že je připraven o jakoukoli centrální autoritu (například banku). Z toho důvodu není možné s ním nijak centrálně manipulovat.
+}
+\paragraph{
+Blockchain se skládá ze dvou druhů záznamů, z transakcí a z bloků. Transakce jsou tvořeny uživateli, kteří chtějí například převádět kryptoměnu. Bloky tyto transakce potvrzují a shromažďují. \cite{Finex_blockchain}
+}
+\subsubsection{Transakce}
+\paragraph{
+Transakce jsou volně předávány od uzlu k uzlu. Těžaři se mezitím snaží vytvořit blok, který se zajistí o to, aby byly transakce potvrzeny a začleněny do dalšího bloku.
+}
+\paragraph{
+Za validní transakci je považována taková transakce, která splňuje následující podmínky:
+}
+\begin{itemize}
+    \item je v ní obsažen správný elektronický podpis uživatele,
+    \item je v peněžence patrný finanční pohyb,
+    \item uběhla adekvátně dlouhá doba od poslední transakce s tímto kusem měny. \cite{Finex_blockchain}
+\end{itemize}
+\paragraph{
+Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těžaře za to, aby transakci zahrnul do dalšího bloku. Těžař si ponechá poplatky všech transakcí, které do vytěženého bloku zahrnul, a proto nemá motivaci zahrnovat takovou transakci bez poplatku. \cite{Finex_blockchain}
+}
+% \subsubsection{Transakce}
+% \paragraph{
+% Bitcoin je definován řetězem digitálních podpisů. Každý majitel převede svůj bitcoin tím, že digitálně podepíše hash předchozí transakce a veřejný klíč budoucího majitele a tyto údaje přidá na konec bitcoinu. Příjemce je schopen si ověřit podpis tím, že zkontroluje řetězec předchozích majitelů.
+% }
+% \paragraph{
+% Zde se vyskytuje problém s tím, že je sice možné si ověřit validitu bitcoinu, avšak není možné ověřit, jestli nebyl bitcoin utracen vícekrát. Běžným řešením by bylo zavedení takzvané mincovny, která by po každé transakci vyměňovala bitcoiny za sebou ověřené. Problém s mincovnou je ten, že opět dojde k vytvoření závislosti na nějaké třetí straně.
+% }
+
+
 \subsection{Altcoiny}
 \paragraph{
 Pojmem altcoin se označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z anglického pojmu alternative to bitcoin, což v překladu znamená alternativa k bitcoinu. \cite{altcoin}
@@ -145,8 +179,8 @@ Arbitráž je obchodní strategie, která je založena na principu nakoupit levn
 }
 \subsection{Měnový pár v rámci kryptoměnových burz}
 \paragraph{
-Měnový pár je vztah mezi dvěma měnami určující hodnotu jedné vůči druhé. Například USD/CZK je vztah dolaru vůči koruně. První uváděná měna je vždy označována jako základní měna, zatímco druhá měna se označuje jako kótovaná měna.
-} \cite{Capital_menovy_par} 
+Měnový pár je vztah mezi dvěma měnami určující hodnotu jedné vůči druhé. Například USD/CZK je vztah dolaru vůči koruně. První uváděná měna je vždy označována jako základní měna, zatímco druhá měna se označuje jako kótovaná měna. \cite{Capital_menovy_par} 
+} 
 \paragraph{
 Poměr je uváděn ve vztahu k základní měně. Pokud je nákupní cena USD/CZK 22,5, znamená to, že je možné nakoupit 1~dolar za 25,5~ Korun českých. Běžně je uváděn i otočený kurz tedy CZK/USD. \cite{Capital_menovy_par} 
 }
@@ -168,13 +202,18 @@ Například nakoupím v jednom čase litecoin na burze Binance za 38,31~\$ a co 
 Trojúhelníková arbitráž na kryptoměnových burzách je takový obchod, kdy dojde k nákupu a prodeji mezi třemi měnami za cílem zisku. K této arbitráži může docházet, buď v rámci jedné burzy nebo mezi několika odlišnými (v následující části se budu věnovat arbitrážní příležitosti na jedné burze). \cite{TradingStrategy}
 }
 \paragraph{
+Cílem je mít nějakou obchodovatelnou měnu A, tu směníme na měnu B, tu následně na měnu C a nakonec opět zpátky na původní měnu A. Pokud máme měny A na konci více než na začátku, je možné detekovat arbitrážní příležitost. Tento efekt je způsoben neefektivností burzy.
+}
+\paragraph{
 Příklad trojúhelníkové arbitrážní příležitosti: na burze jsou sledovanými páry LTCBTC, LTCETH, ETHBTC. V prvním kroku nakoupím za 1~bitcoin odpovídající množství litecoinů (podle LTCBTC). Toto množství v dalším kroku prodám za odpovídající množství etherea (podle LTCETC) a za zakoupenou sumu etherea koupím znovu bitcoin (podle ETHBTC). Pokud mám na konci více než bitcoinů, než kolik do trojúhelníku vstoupilo, vydělal jsem rozdíl mezi těmito dvěma obnosy (viz obr. \ref{triangle_arbitrage}).
 }
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/ZMENIT-triangle.png}
 	\caption{Trojúhelníková arbitráž}\label{triangle_arbitrage}
 \end{figure}
-
+\paragraph{
+V rámci arbitrážních příležitostí je také nutné brát v potaz nákupní poplatky, které si burzy za každý nákup účtují. Tyto poplatky mohou být pro všechny dvojice stejné nebo se mohou pro každou obchodovatelnou dvojici lišit.  
+}
 
 \chapter{Realizace}
 \paragraph{
@@ -252,7 +291,7 @@ Ve své práci se věnuji pouze arbitrážním příležitostem pro 3 různé m�
 Z výsledných dvou různých kombinací je ještě nutné rozlišit, jakým způsobem bude docházet k detekci arbitrážní příležitosti. To je opět naznačeno pomocí znaků dělena ('/') a násobení ('*') a pomocí barev v tabulce \ref{2_kombinace}. Tato tři čísla se mezi sebou vždy příslušně vynásobí nebo vydělí a pokud je výsledné číslo vyšší než 1, pak je detekována potenciální arbitrážní příležitost. 
 }
 \paragraph{
-Dalším krokem v rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v mém případě celkem pěti, a zjišťovat, jestli není výhodnější provést obchod s menším procentuálním ziskem, avšak s vyšším absolutním ziskem. Snažím se tedy takovou možnost, při které dojde k zobchodování většího množství a tím vznikne vyšší zisk.
+Dalším krokem v rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v mém případě celkem pěti, a zjišťovat, jestli není výhodnější provést obchod s menším procentuálním ziskem, avšak s vyšším absolutním ziskem. Snažím se tedy najít takovou možnost, při které dojde k zobchodování většího množství a tím vznikne vyšší zisk.
 }
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{images/2_kombinace.PNG}
