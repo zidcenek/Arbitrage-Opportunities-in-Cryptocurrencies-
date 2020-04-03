@@ -173,10 +173,25 @@ Chytrý kontrakt je zjednodušeně program, který se stará o provedení smlouv
 Na platformě Ethereum je možné si vytvářet tyto vlastní programy, které provádějí přesně to, co je jim nastaveno. \cite{ethereum}
 }
 \section{Arbitrážní příležitosti}
+\subsection{Efektivita trhu}
+\paragraph{
+Efektivní je takový trh, kdy jsou všechny dostupné informace zpracovávány a zohledněny v ceně aktiv (měn, akcií, dluhopisů, komodit). Na dokonale efektivním trhu ovlivňuje výnosnost jednotlivých investic pouze náhoda a není možné ji zlepšit za pomoci jakýchkoliv technických prostředků ani technickou analýzou. \cite{efektivita_trhu}
+}
+\paragraph{
+Reálné trhy nikdy dokonale efektivní nejsou. Na těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z neefektivity trhu. \cite{what_is_arbitage}
+}
 \subsection{Arbitráž}
 \paragraph{
-Arbitráž je obchodní strategie, která je založena na principu nakoupit levně a prodat draze. Principem arbitráže je vytvořit zisk na malých rozdílech v ceně aktiv. Nejčastěji se jedná o nákup na jednom místě a téměř instantní prodej na místě jiném za vyšší cenu. \cite{Capital}
+Arbitráž je obchodní strategie, která má za cíl vytěžit na neefektivitě trhu. Arbitráž je založena na principu nakoupit levně a prodat draze. Principem arbitráže je vytvořit zisk na malých rozdílech v ceně aktiv. Nejčastěji se jedná o nákup na jednom místě a téměř instantní prodej na místě jiném za vyšší cenu. \cite{Capital}
 }
+\subsection{Arbitráže v rámci kryptoměnových burz}
+\paragraph{
+Arbitrážní příležitost vznikne většinou na základě rozdílu cen na dvou odlišných burzách. Důvod proč arbitráže vznikají právě na kryptoměnových burzách je ten, že na burzách, kde dochází k velkému obchodnímu objemu, vzniká i velká likvidita určité měny, která poté reaguje rychleji na změny cen. Zatímco na burzách, kde je menší nabídka dané měny, je likvidita nižší a cena dané měny bude daleko pomaleji reagovat na změny. Tím, že je možné nakoupit na jedné burze levněji a na druhé prodat dráže, vznikne neefektivita a s ní také potenciální zisk.
+}
+\paragraph{
+Tento efekt velice úzce souvisí s tím, že se kryptoměny staly v posledních letech velmi populárními a ceny na velkých burzách velmi rychle kolísají, zatímco menší burzy tomuto tempu nemusí vždy stíhat. \cite{finder}
+}
+
 \subsection{Měnový pár v rámci kryptoměnových burz}
 \paragraph{
 Měnový pár je vztah mezi dvěma měnami určující hodnotu jedné vůči druhé. Například USD/CZK je vztah dolaru vůči koruně. První uváděná měna je vždy označována jako základní měna, zatímco druhá měna se označuje jako kótovaná měna. \cite{Capital_menovy_par} 
@@ -214,7 +229,25 @@ Příklad trojúhelníkové arbitrážní příležitosti: na burze jsou sledova
 \paragraph{
 V rámci arbitrážních příležitostí je také nutné brát v potaz nákupní poplatky, které si burzy za každý nákup účtují. Tyto poplatky mohou být pro všechny dvojice stejné nebo se mohou pro každou obchodovatelnou dvojici lišit.  
 }
-
+\subsection{Potenciální problémy s vytěžováním arbitrážních příležitostí}
+\paragraph{
+O arbitrážních příležitostech se většinou mluví jako o obchodech bez rizika. Existují však nějaké bariéry a rizika, která je nutné brát v potaz.
+}
+\paragraph{
+Jedním z prvních problémů mohou být takzvané KYC regulace (know your customer - poznej svého zákazníka). Tyto regulace mohou například omezovat to, že pro obchodování na burze je nutné mít bankovní účet v zemi, kde je burza situována.
+}
+\paragraph{
+Kvůli tomu, že procentuální zisk arbitrážních příležitostí je většinou velmi nízký, je nutné provést obchod ve velké sumě. Z toho plyne, že je nutné mít poměrně velký obnos kryptoměn uložen na jednotlivých burzách kvůli tomu, aby bylo možné provést obchod co nejrychleji po detekci arbitrážní příležitosti. 
+}
+\paragraph{
+Poplatky mezi obchody na burzách mohou výrazně snížit potenciální zisk a i po detekci neefektivity trhu nemusí nutně dojít k okamžitému výdělku.  
+}
+\paragraph{
+Dalším problémem je, že se vůbec nemusí podařit provést transakci dostatečně rychle na to, aby ji neprovedl někdo jiný. Tím pádem se vždy nemusí podařit vytěžit arbitrážní příležitost nebo může proběhnout pouze část transakcí, které mohou skončit v záporných číslech.
+}
+\paragraph{
+Na některých burzách se objevovaly i problémy s pomalým proběhnutím transakcí, které mohly také způsobit určitou ztrátu, pokud je někdo závislý na rychlém pohybu mezi kryptoměnami. \cite{finder}
+}
 \chapter{Realizace}
 \paragraph{
 V této sekci se zabývám praktickou částí své bakalářské práce, ve které se ze začátku zaměřuji na problémy se získáváním relevantních dat. Dále na to navazuji záznamem o svém počínání v rámci analýzy těchto získaných dat. 
@@ -293,12 +326,11 @@ Z výsledných dvou různých kombinací je ještě nutné rozlišit, jakým zp�
 \paragraph{
 Dalším krokem v rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v mém případě celkem pěti, a zjišťovat, jestli není výhodnější provést obchod s menším procentuálním ziskem, avšak s vyšším absolutním ziskem. Snažím se tedy najít takovou možnost, při které dojde k zobchodování většího množství a tím vznikne vyšší zisk.
 }
+
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{images/2_kombinace.PNG}
 	\caption{Odlišné způsoby detekce arbitrážních příležitostí}\label{2_kombinace}
 \end{figure}
-
-
 
 \begin{conclusion}
 \paragraph{
