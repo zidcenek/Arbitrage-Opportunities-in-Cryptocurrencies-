@@ -43,8 +43,8 @@
 \abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
-\keywordsCS{kryptoměna, analýza dat,  arbitrážní příležitost, kryptoměnová burza, Python, Matplotlib}
-\keywordsEN{cryptocurrency, data analysis, arbitrage opportunities, cryptocurrency exchange, Python, Matplotlib}
+\keywordsCS{kryptoměna, analýza dat,  arbitrážní příležitost, kryptoměnová burza, Python, Matplotlib, C++}
+\keywordsEN{cryptocurrency, data analysis, arbitrage opportunities, cryptocurrency exchange, Python, Matplotlib, C++}
 % \website{http://site.example/thesis} %volitelná URL práce, objeví se v tiráži - úplně odstraňte, nemáte-li URL práce
 
 \begin{document}
@@ -95,7 +95,7 @@ V této části své bakalářské práce se zabývám teorií týkající se kr
 V této kapitole se obecně zabývám kryptoměnami. Zaměřuji se na jejich historii, která je spjatá převážně s první a nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se zde také i ostatními alternativními kryptoměnami. 
 Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny, a jejich porovnání. \cite{BudoucnostFinTrhu}
 }
-\subsection{Bitcoin}
+\subsection{Bitcoin - BTC}
 \paragraph{
 Bitcoin je první kryptoměna, která byla zavedena v roce 2009 anonymní skupinou lidí pod pseudonymem Satoshi Nakamoto. Hlavní myšlenkou bitcoinu je snaha o odstranění všech regulatorních pravidel a snaha o zvýšení transparentnosti a bezpečnosti plateb a transakcí v rámci bitcoinové sítě. \cite{Finex}
 }
@@ -136,42 +136,198 @@ Za validní transakci je považována taková transakce, která splňuje násled
 \paragraph{
 Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těžaře za to, aby transakci zahrnul do dalšího bloku. Těžař si ponechá poplatky všech transakcí, které do vytěženého bloku zahrnul, a proto nemá motivaci zahrnovat takovou transakci bez poplatku. \cite{Finex_blockchain}
 }
-% \subsubsection{Transakce}
-% \paragraph{
-% Bitcoin je definován řetězem digitálních podpisů. Každý majitel převede svůj bitcoin tím, že digitálně podepíše hash předchozí transakce a veřejný klíč budoucího majitele a tyto údaje přidá na konec bitcoinu. Příjemce je schopen si ověřit podpis tím, že zkontroluje řetězec předchozích majitelů.
-% }
-% \paragraph{
-% Zde se vyskytuje problém s tím, že je sice možné si ověřit validitu bitcoinu, avšak není možné ověřit, jestli nebyl bitcoin utracen vícekrát. Běžným řešením by bylo zavedení takzvané mincovny, která by po každé transakci vyměňovala bitcoiny za sebou ověřené. Problém s mincovnou je ten, že opět dojde k vytvoření závislosti na nějaké třetí straně.
-% }
-
 
 \subsection{Altcoiny}
 \paragraph{
-Pojmem altcoin se označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z anglického pojmu alternative to bitcoin, což v překladu znamená alternativa k bitcoinu. \cite{altcoin}
+Pojmem altcoin se označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z anglického pojmu alternative to bitcoin, což v překladu znamená alternativa k bitcoinu. Některé altcoiny jsou svojí techonologií a principem hodně podobné bitcoinu, jsou ale i takové, které se poměrně výrazně liší. \cite{altcoin}
 }
 \paragraph{
-V následujících podkapitolách se zaměřím na některé významné altcoiny.
+V následujících podkapitolách se zaměřím na nejvýznamnější zástupce altcoinů a vypíši zde všechny altcoiny, kterým se ve své praktické části věnuji.
 }
 \subsubsection{Litecoin - LTC}
 \paragraph{
-Litecoin je jedním z nejstarších altcoinů. Tato open source měna vznikla v roce 2011 a je svou charakteristikou velmi podobná svému předchůdci. 
+Litecoin je jedním z nejstarších altcoinů. Tato open source měna vznikla v roce 2011 a je svou charakteristikou velmi podobná svému předchůdci. \cite{litecoin} Dokonce i celý kód je pouze úpravou bitcoinu. \cite{alza_monero}
 }
 \paragraph{
 Hlavní rozdíl mezi litecoinem a bitcoinem je ten, že litecoin byl od počátku navržen tak, aby lépe zvládal větší počty transakcí a aby transakce probíhaly ještě rychleji. Touto vlastností se stal výhodnější na menší transakce. Tyto všechny vlastnosti jsou založeny na tom, že jsou bloky přidávány čtyřikrát rychleji, než je tomu u bitcoinu. \cite{litecoin}
 }
+\paragraph{
+Cena za jeden litecoin dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance) 40,63~\$. \cite{binance_markets}
+}
 \subsubsection{Ethereum - ETH}
 \paragraph{
-Ethereum je stejně jako litecoin open source měna založená na blockchainu. Vznik etherea se datuje na 30. 7. 2015. 
+Ethereum je stejně jako litecoin open source kryptoměna založená na technologii blockchainu. Vznik etherea se datuje na 30. 7. 2015. 
 }
 \paragraph{
-Hlavním rozdílem oproti bitcoinu je to, že se nejedná o měnu, ale o platformu se svou vlastní měnou Ethereum. Platforma ethereum tvoří alternativu ke všem klasickým smlouvám a dohodám a snaží se o zdokonalení chytrých kontraktů. \cite{btc_vs_eth}
+Hlavním rozdílem oproti bitcoinu je to, že se nejedná o měnu, ale o platformu se svou vlastní měnou Ethereum. Platforma Ethereum tvoří alternativu ke všem klasickým smlouvám a dohodám a snaží se o zdokonalení chytrých kontraktů. \cite{btc_vs_eth}
 }
 \paragraph{
-Chytrý kontrakt je zjednodušeně program, který se stará o provedení smlouvy. Tento program tedy nahrazuje třetí stranu (například právníky, či notáře) a zajišťuje transparentní převedení peněz, majetku nebo čehokoli jiného. 
+Chytrý kontrakt je zjednodušeně program, který se stará o provedení smlouvy. Tento program tedy nahrazuje třetí stranu (například právníky, či notáře) a zajišťuje transparentní převedení peněz, majetku nebo čehokoli jiného. \cite{ethereum}
 }
 \paragraph{
-Na platformě Ethereum je možné si vytvářet tyto vlastní programy, které provádějí přesně to, co je jim nastaveno. \cite{ethereum}
+Na platformě Ethereum je možné si vytvářet tyto vlastní programy, které provádějí přesně to, co je jim nastaveno. \cite{ethereum} Výhoda etherea je ta, že, na rozdíl od bitcoinu, nikdy nedojde k vytěžení všech mincí, nýbrž budou mince stále emitovány. \cite{alza_monero}
 }
+\paragraph{
+Cena za jedno ethereum dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance) 142,82~\$. \cite{binance_markets}
+}
+\subsubsection{Monero - XMR}
+\paragraph{
+Monero po vzoru svého nejstaršího předchůdce vzniklo jako open-source projekt. Samotný kód není vůbec založen na bitcoinu (na rozdíl od litecoinu), avšak je úplně unikátní. 
+}
+\paragraph{
+Monero se pyšní tím, že zaručuje naprostou anonymitu. Historii a stav konta v případě Monera si může prohlížet pouze majitel účtu. V případě bitcoinu všichni vidí, jaké transakce proběhly a pokud se tedy podaří identifikovat vlastníka nějaké adresy, je jednoduché dohledat si veškerou historii transakcí a stav konta.
+}
+\paragraph{
+Tento efekt je u monera zajištěn tím, že stejně jako ostatní kryptoměny má také dvojici privátního a veřejného klíče, má však ještě druhou dvojici privátního a veřejného klíče a to takzvaného klíče k prohížení (view key). Tento view key je možné poskytnout třetí osobě, která se přes něj je schopna dozvědět veškerou historii transakcí, které na adrese proběhly.
+}
+\paragraph{
+Posledním důležitým rozdílem oproti bitcoinu je ten, že celkový počet monera není omezen a má tedy teoreticky neomezený počet mincí. Emitování mincí stále nepoběží stejnou rychlostí pořád, ale postupně se bude snižovat, nikdy však ne na úplnou nulu. \cite{alza_monero}
+}
+\paragraph{
+Cena za jednu minci monera dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance) 54,59~\$. \cite{binance_markets}
+}
+\subsubsection{Ripple - XRP}
+\paragraph{
+Ripple není pouze označení pro kryptoměnu, ale také pro celosvětovou platební síť. Síť Ripple vznikla s předním účelem osvobození internetových plateb od poplatků za směnu, zpracování transakcí a časových prodlev. Ripple nebere rozdíly mezi tradičními měnami a kryptoměnami a tím zlevňuje veškeré výměny mezi nimi.
+}
+\paragraph{
+Ripple je stejně jako výše dříve zmiňované kryptoměny založen na principu blockchainu. Výrazně se oproti ostatním liší tím, že je všechny jeho mince byly emitovány při vzniku sítě, tedy se jejich počet nezvyšuje procesem těžení, jako tomu je u ostatních.
+}
+\paragraph{
+Kvůli tomu, že byly všechny mince emitovány při vzniku, vlastní zakládající společnost Ripple Labs více než polovinu veškerých tokenů. Z toho důvodu také velmi odporuje úplně původní myšlence bitcoinu a tedy zásah nějaké třetí strany. \cite{alza_ripple}
+}
+\paragraph{
+Díky tomu, že se transakce uzavírají na základě koncesu a také díky tomu, že velké množství ověřovacích serverů tvoří světové banky, finanční instituce, probíhají transakce v řádově rychleji, v řádech několika vteřin. Poplatky jsou taktéž minimální, většinu času méně než 0.001~USD. \cite{bitinfocharts} \cite{coincodex_ripple}
+}
+\subsubsection{Ostatní zpracovávané altcoiny}
+\paragraph{
+V předchozí části jsem zmínil nějaké dle mého názoru významné a zajímavé altcoiny. Ve své práci však potřebuji více kryptoměn, nad kterými budu pracovat. Proto jsem si vybral následující kryptoměny.
+}
+\paragraph{
+Bitcoin Cash (BCH) je kryptoměna, která vznikla odvětvením od bitcoinu, z důvodu obav přehlecení sítě. Je tedy se svým předchůdcem téměř totožná, co se týče základních vlastností. \cite{kurzy_bch}
+}
+\paragraph{
+EOS je kryptoměna, která se podobně jako Ethereum zaměřuje na využití chytrých kontraktů, kde každý uživatel v držení EOS tokenu může využívat příslušnou část výpočetní síly a uložiště. \cite{finex_eos}
+}
+\paragraph{
+Binance Coin (BNB) je interní kryptoměna platformy a burzy Binance, která vychází ze standardu platformy Etherea. Binance Coin je dostupný téměř pouze jenom na domovské platformě, kde však zaujímá svůj účel. \cite{martin_sistek_bnb}
+}
+\paragraph{
+TRON (TRX) je kryptoměna vytvořena za cílem decentralizace sdílení informací na internetu převážně multimediálního obsahu, jako jsou například videa, hudba, hry. TRON je schopný zpracovat až 2000 transakcí za sekundu a tím je až osmdesátrkát rychlejší než jeho konkurent Ethereum. \cite{finex_trx}
+}
+\paragraph{
+USD Tether (USDT) je zástupce stable coinu (stabilní měny), jeho cena je vázaná na běžnou měnu, v tomto případě na americký dolar. USD Tether je nejznámějším stable coinem, který je využíván velkým množstvím burz (například Binance, Huobi, Okex) a jeho celková kapitalizace je více než 2 miliardy amerických dolarů. \cite{mlady_investor_stable_coin} 
+}
+\section{Kryptoměnové burzy}
+\paragraph{
+V této podkapitole se zaměřuji na několik kryptoměnových burz. Poukazuji na jejich klady a zápory a věnuji se výběru těch nejlepších burz.
+}
+\subsection{Coinmate}
+\paragraph{
+Coinmate je kryptoměnová burza sídlící ve Velké Británii, která vznikla na základě technologií české společnosti Profinit v roce 2014. Burza se zaměřuje na tyto tři základní aspekty: rychlost, spolehlivost a bezpečnost. Coinmate se řadí mezi menší burzy, podle ohlašovaného zobchodovaného objemu za posledních 30~dní se burza neřadí ani mezi 100 nejlepších. \cite{coinmarketcap} Burza ani nenabízí velké množství obchodovatelných párů, pouze 20, na druhou stranu umožňuje obchodování přímo s Korunou českou. 
+}
+\paragraph{
+Coinmate se dále pyšní tím, že má nadprůměrně nízké poplatky. Pro dodavatel (maker) činí poplatek 0,12~\% až 0~\% (viz obrázky \ref{coinmate_standard} a \ref{coinmate_promotional}, zatímco pro odběratele (taker) se poplatek pohybuje v rozmezí 0,25~\% až 0.05~\% (viz obrázky \ref{coinmate_standard} a \ref{coinmate_promotional}. Tímto systémem poplatků, kdy má nižší poplatky pro dodavatele, se snaží burza podpořit likviditu na trhu. \cite{cryptowisser_coinmate} \cite{coinmate_fees}
+}
+\paragraph{
+Z obrázků \ref{coinmate_standard} a \ref{coinmate_promotional} je také možné vidět, že poplatky jsou sníženy pro obchodníky, kteří obchodují na burze s vyššími objemy, u dodavatelů tak může dojít ke snížení až na hranici nulových poplatků. \cite{coinmate_fees}
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/coinmate_standard.PNG}
+	\caption{Poplatky na burze Coinmate (taker - odběratel, maker - dodavatel) \cite{coinmate_fees}}\label{coinmate_standard}
+\end{figure}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/coinmate_promotional.PNG}
+	\caption{Poplatky na burze Coinmate (taker - odběratel, maker - dodavatel) \cite{coinmate_fees}}\label{coinmate_promotional}
+\end{figure}
+\subsection{Binance}
+\paragraph{
+Burza Binance byla založena v Číně v roce 2017, avšak později své sídlo přesunula na Maltu. Binance je podle dat z CoinMarketCap největší burzou, co se týče zobchodovaného objemu za posledních 30 dní. \cite{coinmarketcap} Burza podporuje obchodováním s 1320~odlišnými měnami, což silně převyšuje běžný standard.  
+}
+\paragraph{
+Binance je také specifické tím, že všechny obchodovatelné dvojice se stávají pouze ze kryptoměn a ne běžných měn. Například americké dolary jsou nahrazeny stable coiny, jako je například USDT nebo TUSD. 
+}
+\paragraph{
+Burza Binance si v průměru účtuje 0.1~\% za provedené obchody s měnami. Tento poplatek je stejný, jak pro dodavatele, tak i pro odběratele. Pokud se uživatel rozhodne zaplatit tyto poplatky domovskou měnou binance coin (BNB), pak jsou tyto poplatky redukovány o polovinu. Z toho plyne, že poplatky na burze Binance patří k jedněm z nejnižších.
+}
+\paragraph{
+Co se týče výběrových a vkladových poplatků, tak vkladové poplatky jsou zadarmo pro veškeré měny. Na druhou stranu výběrové poplatky se liší pro každou měnu (viz \ref{binance_fees}). \cite{blockonomi_binance}
+}
+\begin{figure}\centering
+    \begin{center}
+     \begin{tabular}{||c | c | c | c||} 
+     \hline
+     Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
+     \hline\hline
+     BTC & Bitcoin & 0,001 & 0,0004 \\ 
+     \hline
+     LTC & Litecoin & 0,002 & 0,001 \\
+     \hline
+     ETH & Ethereum & 0,02 & 0,003 \\
+     \hline
+     XMR & Monero & 0,0002 & 0,0001 \\
+     \hline
+     XRP & Ripple & 0,5 & 0,25 \\
+     \hline
+     BCH & Bitcoin Cash & 0,002 & 0,001 \\
+     \hline
+     EOS & EOS & 0,2 & 0,1 \\
+     \hline
+     BNB & BNB & 0,12 & 0 \\
+     \hline
+     TRX & TRON & 2,16 & 1,08 \\
+     \hline
+     USDT & TetherUS & 1,44 & 0,72 \\ [1ex] 
+     \hline
+    \end{tabular}
+    \end{center}
+    \caption{Výběrové poplatky na burze Binance \cite{binance_fees}}
+    \label{binance_fees}
+\end{figure}
+\subsection{MXC}
+\paragraph{
+Burza MXC je jednou z novějších burz, která vznikla v dubnu roku 2018 a od svého vzniku je registrována v Singapuru. Podle statistik serveru CoinMarketCap je tato burza druhou největší z pohledu zobchodovatelného objemu za poslesdních 30 dní. \cite{coinmarketcap} MXC podobně jako burza Binance podporuje velké množství altcoinů, celkově je zde možné obchodovat s 264 měnami. \cite{mxc_coins}
+}
+\paragraph{
+Burza se snaží nalákat uživatele na základě těchto tří propagovaných vlastností: velkým výkonem, super nodem a velmi pokročilým zabezpečením. Super node je distribuované decentralizované uložiště, které má zajistit adekvátní autonomii.
+}
+\paragraph{
+Co se týče poplatků, patří burza MXC se svými poplatky o~velikosti 0,2~\% v průměru stále mezi nadprůměrné. Poplatek pro dodavatele i odběratele je totožný. Tím, že tato burza patří mezi špičku, co se týče zobchodovaného objemu, je tím zaručena i dostatečná likvidita. \cite{cryptowisser_mxc} 
+}
+\paragraph{
+Burza MXC stejně jako Binance nezpoplatňuje vklad jakékoliv měny, zpoplatňuje také výběry jednotlivých měn. Tyto výběrové poplatky se mohou periodicky měnit na základě situace jednotlivých bloků. \cite{mxc_fees} Na základě tabulek \ref{mxc_fees} a \ref{binance_fees} je možné vidět, že jsou výběrové poplatky velmi podobné jako na burze Binance, jediný znatelný rozdíl je u TetherUS (USDT). \cite{cryptowisser_mxc}
+}
+\begin{figure}\centering
+    \begin{center}
+     \begin{tabular}{||c | c | c | c||} 
+     \hline
+     Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
+     \hline\hline
+     BTC & Bitcoin & 0,001 & 0,0005 \\ 
+     \hline
+     LTC & Litecoin & 0,01 & 0,001 \\
+     \hline
+     ETH & Ethereum & 0,04 & 0,005 \\
+     \hline
+     XMR & Monero & 0,1 & 0,01 \\
+     \hline
+     XRP & Ripple & 50 & 0,1 \\
+     \hline
+     BCH & Bitcoin Cash & 0,02 & 0,001 \\
+     \hline
+     EOS & EOS & 2 & 0,1 \\
+     \hline
+     BNB & BNB & 0,3 & 0,001 \\
+     \hline
+     TRX & TRON & 600 & 1 \\
+     \hline
+     USDT & TetherUS & 25 & 4,8 \\ [1ex] 
+     \hline
+    \end{tabular}
+    \end{center}
+    \caption{Výběrové poplatky na burze MXC \cite{mxc_fees}}
+    \label{mxc_fees}
+\end{figure}
 \section{Arbitrážní příležitosti}
 \subsection{Efektivita trhu}
 \paragraph{
@@ -229,7 +385,7 @@ Příklad trojúhelníkové arbitrážní příležitosti: na burze jsou sledova
 \paragraph{
 V rámci arbitrážních příležitostí je také nutné brát v potaz nákupní poplatky, které si burzy za každý nákup účtují. Tyto poplatky mohou být pro všechny dvojice stejné nebo se mohou pro každou obchodovatelnou dvojici lišit.  
 }
-\subsection{Potenciální problémy s vytěžováním arbitrážních příležitostí}
+\subsection{Problémy s vytěžováním arbitrážních příležitostí}
 \paragraph{
 O arbitrážních příležitostech se většinou mluví jako o obchodech bez rizika. Existují však nějaké bariéry a rizika, která je nutné brát v potaz.
 }
@@ -307,8 +463,8 @@ Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však prob�
 V jazyce C++ se mi podařilo filtrování zrychlit téměř šedesátkrát. Vyfiltrovaná data jsem nyní ukládal v JSON formátu. Tento formát jsem si vybral z toho důvodu, že je zde možné přehledněji strukturovat data. Ukládal jsem si do těchto souborů například i informace o tom, jaké konkrétní obchody jsou nejvýhodnější, jaký teoretický zisk mohl nastat. 
 }
 \begin{figure}\centering
-	\includegraphics[width=1\textwidth]{images/pokus.png}
-	\caption{Pokusek}\label{fig:pokus}
+	\includegraphics[width=1\textwidth]{images/placeholder.png}
+	\caption{Ukázka JSON formátu struktury dat}\label{fig:pokus}
 \end{figure}
 %\ref{fig:gnuplot-col}
 % todo - změnit obrázek na JSON example
