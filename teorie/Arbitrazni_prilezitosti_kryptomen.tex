@@ -88,12 +88,12 @@ V závěru praktické části zhodnotím výsledky z analýzy dat, a z vyhodnoce
 }
 \chapter{Současný stav řešení problému}
 \paragraph{
-V této části své bakalářské práce se zabývám teorií týkající se kryptoměn, jaké měny jsou aktuálně nejpoužívanější. Zabývám se zde také arbitrážemi, o co se jedná a jak se projevují na poli kryptoměnných burz.
+V této části své bakalářské práce se zabývám teorií týkající se kryptoměn, popíši základní funkcionalitu transakcí a technologie blockchainu. Zaměřuji se na zmapování jednotlivých kryptoměnových burz. Zabývám se zde také arbitrážemi, o co se jedná, jaké jsou druhy a jak se projevují na poli kryptoměnových burz.
 }
 \section{Kryptoměny}
 \paragraph{
 V této kapitole se obecně zabývám kryptoměnami. Zaměřuji se na jejich historii, která je spjatá převážně s první a nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se zde také i ostatními alternativními kryptoměnami. 
-Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny, a jejich porovnání. \cite{BudoucnostFinTrhu}
+Dalším tématem je krátký úvod do technologií, na kterých jsou založeny jednotlivé kryptoměny. \cite{BudoucnostFinTrhu}
 }
 \subsection{Bitcoin - BTC}
 \paragraph{
@@ -103,20 +103,20 @@ Bitcoin je první kryptoměna, která byla zavedena v roce 2009 anonymní skupin
 Hlavní charakteristikou bitcoinu je to, že nemá žádnou centrální autoritu, z čehož plyne, že s ním nikdo nemůže manipulovat tak, jako s běžnými měnami (například pro českou korunu je centrální autoritou Česká národná banka).
 }
 \paragraph{
-Dalšími předními výhodami je to, že transakce trvají řádově desítky minut, což v porovnání s bankami je v průměru rychlejší. Bitcoin se nedá zfalšofat, toto je zajištěno díky tomu, že je vše naprosto transparentní. 
+Jednu z předních výhod je to, že transakce trvají řádově desítky minut, což v porovnání s bankami je v průměru rychlejší. Bitcoin se nedá zfalšovat, toto je zajištěno díky tomu, že je vše naprosto transparentně uloženo v blockchainu.
 }
 \paragraph{
-Na druhou stranu má bitcoin i řadu nevýhod oproti běžným penězům, které vyplývají z jeho charakteristiky i z jeho předních výhod. Například hlavní nevýhodou je to, že je velice nestabilní oproti běžným měnám a v žádnou chvíli nelze s velkou pravděpodobností předpovídat, jak se bude jeho hodnota vyvíjet. 
+Na druhou stranu má bitcoin i řadu nevýhod oproti běžným měnám, které také vyplývají z toho, že nemá žádnou centrální autoritu. Jednou z hlavních nevýhod je to, že je velice nestabilní oproti běžným měnám a v žádnou chvíli nelze s velkou pravděpodobností předpovídat, jak se bude jeho hodnota vyvíjet. 
 }
 \paragraph{
 Dalším velkým mínusem bitcoinu a celkově všech kryptoměn je to, že uživatelé jsou neustále vystavováni riziku krádeží jejich mění. Z toho důvodu je nutné využívat nějaké kryptoměnové peněženky, které však také nikdy nemohou zaručit 100\% bezpečnost.\cite{Finex}
 }
 \subsubsection{Blockchain}
 \paragraph{
-Bitcoin je založen na technologii blockchainu. Blockchain je možné si představit jako veřejně sdílenou účetní knihu, ve které jsou zachyceny veškeré transakce, které kdy proběhly. Jedná se však o distribuovanou decentralizovanou databázi, která uchovává chronologický řetězec záznamů. Tyto záznamy jsou propojeny pomocí kryptograficky zabezpečených peer-to-peer uzlů. Principem je, že tyto data jsou v blockchainu uchovány napořád a jsou veřejně dostupná pro všechny. \cite{Bitcoin_how_it_works}
+Bitcoin je založen na technologii blockchainu. Blockchain je možné si představit jako veřejně sdílenou účetní knihu, ve které jsou zachyceny veškeré transakce, které kdy proběhly. Konkrétně se jedná o distribuovanou decentralizovanou databázi, která uchovává chronologický řetězec záznamů. Tyto záznamy jsou propojeny pomocí kryptograficky zabezpečených peer-to-peer uzlů. Principem je, že tyto data jsou v blockchainu uchovány napořád a jsou veřejně dostupná pro všechny, tudíž je není možné nijakým způsobem změnit nebo zfalšovat. \cite{Bitcoin_how_it_works}
 }
 \paragraph{
-Základní myšlenkou blochchainu je to, že je připraven o jakoukoli centrální autoritu (například banku). Z toho důvodu není možné s ním nijak centrálně manipulovat.
+Základní myšlenkou blochchainu je to, že je připraven o jakoukoli centrální autoritu (například banku). Z toho důvodu není možné s ním nijak centrálně manipulovat ani jakkoliv ovlivňovat jeho historii.
 }
 \paragraph{
 Blockchain se skládá ze dvou druhů záznamů, z transakcí a z bloků. Transakce jsou tvořeny uživateli, kteří chtějí například převádět kryptoměnu. Bloky tyto transakce potvrzují a shromažďují. \cite{Finex_blockchain}
@@ -134,7 +134,7 @@ Za validní transakci je považována taková transakce, která splňuje násled
     \item uběhla adekvátně dlouhá doba od poslední transakce s tímto kusem měny. \cite{Finex_blockchain}
 \end{itemize}
 \paragraph{
-Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těžaře za to, aby transakci zahrnul do dalšího bloku. Těžař si ponechá poplatky všech transakcí, které do vytěženého bloku zahrnul, a proto nemá motivaci zahrnovat takovou transakci bez poplatku. \cite{Finex_blockchain}
+Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těžaře za to, aby transakci zahrnul do dalšího bloku. Těžař si ponechává poplatky všech transakcí, které do vytěženého bloku zahrnul, a proto nemá motivaci zahrnovat transakci bez poplatku. \cite{Finex_blockchain}
 }
 
 \subsection{Altcoiny}
@@ -142,14 +142,14 @@ Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těž
 Pojmem altcoin se označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z anglického pojmu alternative to bitcoin, což v překladu znamená alternativa k bitcoinu. Některé altcoiny jsou svojí techonologií a principem hodně podobné bitcoinu, jsou ale i takové, které se poměrně výrazně liší. \cite{altcoin}
 }
 \paragraph{
-V následujících podkapitolách se zaměřím na nejvýznamnější zástupce altcoinů a vypíši zde všechny altcoiny, kterým se ve své praktické části věnuji.
+V následujících podkapitolách se zaměřím na nejvýznamnější zástupce altcoinů a vypíši zde všechny altcoiny, kterým ve své praktické části věnuji.
 }
 \subsubsection{Litecoin - LTC}
 \paragraph{
 Litecoin je jedním z nejstarších altcoinů. Tato open source měna vznikla v roce 2011 a je svou charakteristikou velmi podobná svému předchůdci. \cite{litecoin} Dokonce i celý kód je pouze úpravou bitcoinu. \cite{alza_monero}
 }
 \paragraph{
-Hlavní rozdíl mezi litecoinem a bitcoinem je ten, že litecoin byl od počátku navržen tak, aby lépe zvládal větší počty transakcí a aby transakce probíhaly ještě rychleji. Touto vlastností se stal výhodnější na menší transakce. Tyto všechny vlastnosti jsou založeny na tom, že jsou bloky přidávány čtyřikrát rychleji, než je tomu u bitcoinu. \cite{litecoin}
+Hlavní rozdíl mezi litecoinem a bitcoinem je ten, že litecoin byl od počátku navržen tak, aby lépe zvládal větší počty transakcí a aby transakce probíhaly ještě rychleji. Díky této vlastnosti se stal výhodnější na menší transakce. Tyto všechny charakteristiky jsou založeny na tom, že jsou bloky přidávány čtyřikrát rychleji, než je tomu u bitcoinu. \cite{litecoin}
 }
 \paragraph{
 Cena za jeden litecoin dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance) 40,63~\$. \cite{binance_markets}
@@ -172,16 +172,16 @@ Cena za jedno ethereum dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance
 }
 \subsubsection{Monero - XMR}
 \paragraph{
-Monero po vzoru svého nejstaršího předchůdce vzniklo jako open-source projekt. Samotný kód není vůbec založen na bitcoinu (na rozdíl od litecoinu), avšak je úplně unikátní. 
+Monero po vzoru svého nejstaršího předchůdce vzniklo jako open source projekt. Samotný kód není vůbec založen na bitcoinu (na rozdíl od litecoinu), avšak je úplně unikátní. 
 }
 \paragraph{
 Monero se pyšní tím, že zaručuje naprostou anonymitu. Historii a stav konta v případě Monera si může prohlížet pouze majitel účtu. V případě bitcoinu všichni vidí, jaké transakce proběhly a pokud se tedy podaří identifikovat vlastníka nějaké adresy, je jednoduché dohledat si veškerou historii transakcí a stav konta.
 }
 \paragraph{
-Tento efekt je u monera zajištěn tím, že stejně jako ostatní kryptoměny má také dvojici privátního a veřejného klíče, má však ještě druhou dvojici privátního a veřejného klíče a to takzvaného klíče k prohížení (view key). Tento view key je možné poskytnout třetí osobě, která se přes něj je schopna dozvědět veškerou historii transakcí, které na adrese proběhly.
+Tento efekt je u monera zajištěn tím, že stejně jako ostatní kryptoměny má také dvojici privátního a veřejného klíče, má však ještě druhou dvojici privátního a veřejného klíče a to takzvaného klíče k prohížení (view key). Tento view key je také možné poskytnout třetí osobě, aby se přes něj byla schopna dozvědět veškerou historii transakcí, které na adrese proběhly, tudíž je možné udělat i transparentní účet.
 }
 \paragraph{
-Posledním důležitým rozdílem oproti bitcoinu je ten, že celkový počet monera není omezen a má tedy teoreticky neomezený počet mincí. Emitování mincí stále nepoběží stejnou rychlostí pořád, ale postupně se bude snižovat, nikdy však ne na úplnou nulu. \cite{alza_monero}
+Posledním důležitým rozdílem oproti bitcoinu je ten, že celkový počet monera není omezen a má tedy teoreticky neomezený počet mincí. Emitování mincí stále nepoběží stejnou rychlostí, ale postupně se bude snižovat, nikdy však ne na úplnou nulu. \cite{alza_monero}
 }
 \paragraph{
 Cena za jednu minci monera dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Binance) 54,59~\$. \cite{binance_markets}
@@ -191,7 +191,7 @@ Cena za jednu minci monera dosahuje hodnoty (údaj k datu 4.4. 2020 na burze Bin
 Ripple není pouze označení pro kryptoměnu, ale také pro celosvětovou platební síť. Síť Ripple vznikla s předním účelem osvobození internetových plateb od poplatků za směnu, zpracování transakcí a časových prodlev. Ripple nebere rozdíly mezi tradičními měnami a kryptoměnami a tím zlevňuje veškeré výměny mezi nimi.
 }
 \paragraph{
-Ripple je stejně jako výše dříve zmiňované kryptoměny založen na principu blockchainu. Výrazně se oproti ostatním liší tím, že je všechny jeho mince byly emitovány při vzniku sítě, tedy se jejich počet nezvyšuje procesem těžení, jako tomu je u ostatních.
+Ripple je stejně jako výše zmiňované kryptoměny založen na principu blockchainu. Výrazně se oproti ostatním liší tím, že všechny jeho mince byly emitovány při vzniku sítě, tedy se jejich počet nezvyšuje procesem těžení, jako tomu je u ostatních.
 }
 \paragraph{
 Kvůli tomu, že byly všechny mince emitovány při vzniku, vlastní zakládající společnost Ripple Labs více než polovinu veškerých tokenů. Z toho důvodu také velmi odporuje úplně původní myšlence bitcoinu a tedy zásah nějaké třetí strany. \cite{alza_ripple}
@@ -201,7 +201,7 @@ Díky tomu, že se transakce uzavírají na základě koncesu a také díky tomu
 }
 \subsubsection{Ostatní zpracovávané altcoiny}
 \paragraph{
-V předchozí části jsem zmínil nějaké dle mého názoru významné a zajímavé altcoiny. Ve své práci však potřebuji více kryptoměn, nad kterými budu pracovat. Proto jsem si vybral následující kryptoměny.
+V předchozí části jsem zmínil nějaké dle mého názoru významné a zajímavé altcoiny. Ve své práci však potřebuji více kryptoměn, nad kterými budu pracovat. Proto jsem si vybral ještě následující kryptoměny.
 }
 \paragraph{
 Bitcoin Cash (BCH) je kryptoměna, která vznikla odvětvením od bitcoinu, z důvodu obav přehlecení sítě. Je tedy se svým předchůdcem téměř totožná, co se týče základních vlastností. \cite{kurzy_bch}
@@ -328,6 +328,60 @@ Burza MXC stejně jako Binance nezpoplatňuje vklad jakékoliv měny, zpoplatňu
     \caption{Výběrové poplatky na burze MXC \cite{mxc_fees}}
     \label{mxc_fees}
 \end{figure}
+\subsection{BitForex}
+\paragraph{
+Burza BitForex je krytpoměnová burza, která vznikla v červnu roku 2018 a v dnešní době se podle serveru CoinMarketCap řadí dvanácté místo, co se týče obchodovaného objemu za posledních 30 dní. \cite{coinmarketcap} BitForex svým více jak 3 milionům uživatelům umožňuje obchodování na 92 měnových párech.  \cite{cryptowisser_bitforex}
+}
+\paragraph{
+BitForex má oproti odhadovanému průměru (0,25~\%) velmi zajímavé poplatky, pouze 0,1~\% stejný pro dodavatele i odběratele. Burza BitForex se snaží cílit na větší obchodníky, a proto pro ty, kteří vlastní alespoň 50~bitcoinů v rámci burzy a k tomu mají obchodovatelný objem za posledních 30~dní alespoň 1000~bitcoinů (řádově jednotky milionů dolarů), poskytuje burza nulové poplatky. 
+}
+\paragraph{
+BitForex nezpoplatňuje jakékoliv vklady jednotlivých kryptoměn, ale stejně jako Binance nebo MXC zpoplatňuje výběry víceméně podobnými poplatky (viz tabulka \ref{bitforex_fees}). \cite{cryptowisser_bitforex}
+}
+
+\begin{figure}\centering
+    \begin{center}
+     \begin{tabular}{||c | c | c | c||} 
+     \hline
+     Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
+     \hline\hline
+     BTC & Bitcoin & 0,001 & 0,0005 \\ 
+     \hline
+     LTC & Litecoin & 0,1 & 0,001 \\
+     \hline
+     ETH & Ethereum & 0,01 & 0,02 \\
+     \hline
+     XMR & Monero & 0,01 & 0,00005 \\
+     \hline
+     XRP & Ripple & 20 & 0,15 \\
+     \hline
+     BCH & Bitcoin Cash & 0,012 & 0,0001 \\
+     \hline
+     EOS & EOS & 10 & 0,1 \\
+     \hline
+     BNB & BNB & 0,1 & 0,001 \\
+     \hline
+     TRX & TRON & 250 & 20 \\
+     \hline
+     USDT & TetherUS & 10 & 2 \\ [1ex] 
+     \hline
+    \end{tabular}
+    \end{center}
+    \caption{Výběrové poplatky na burze BitForex \cite{bitforex_fees}}
+    \label{bitforex_fees}
+\end{figure}
+
+\subsection{LBank}
+\paragraph{
+LBank je kryptoměnová burza sídlící v Hong Kongu. Jedná se o jednu z největších burz, která se podle statistik z CoinMarketCap řadí v obchodovaném objemu za posledních 30~dní na deváté místo. \cite{coinmarketcap} \cite{cryptowisser_lbank}
+}
+\paragraph{
+Co se týče poplatků, tak burza LBank využívá takzvaně plochý model poplatků, poplatky pro odběratele i dodavatele jsou totožné, ve výši 0,1~\%. Jedná se o nadprůměrně nízké poplatky. LBank je oproti svým konkurentům velmi zajímavá tím, že nezpoplatňuje ani vklad ani výběr jakýchkoliv měn. 
+}
+\paragraph{
+Malou nevýhodou LBank je, že neumožňuje vklad pomocí kreditné karty. \cite{cryptowisser_lbank}
+}
+
 \section{Arbitrážní příležitosti}
 \subsection{Efektivita trhu}
 \paragraph{
