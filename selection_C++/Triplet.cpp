@@ -4,7 +4,8 @@
 
 #include "Triplet.h"
 
-Triplet::Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name){
+Triplet::Triplet(const string & f1, const string & f2, const string & f3, const string & date,
+        const string & output_name, const string & data_path){
     currency1 = f1;
     currency2 = f2;
     currency3 = f3;
@@ -12,9 +13,9 @@ Triplet::Triplet(const string & f1, const string & f2, const string & f3, const 
     linear = false;
     shuffle();
     output_filename = output_name + date;
-    file1 = DATA_PATH + currency1 + date;
-    file2 = DATA_PATH + currency2 + date;
-    file3 = DATA_PATH + currency3 + date;
+    file1 = data_path + currency1 + date;
+    file2 = data_path + currency2 + date;
+    file3 = data_path + currency3 + date;
 }
 /**
  * shuffles currency1, currency2, currency3 to a desired output

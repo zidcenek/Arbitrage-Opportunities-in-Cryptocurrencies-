@@ -41,8 +41,8 @@ double CurrencyPair::getTimestamp() const {
 string CurrencyPair::to_JSON() const {
     string json = "{";
     json.append("\"id\":" + trade_id + ",");
-    json.append("\"demand\": " + array_to_string(demand) + ",");
-    json.append("\"supply\": " + array_to_string(supply) + ",");
+//    json.append("\"demand\": " + array_to_string(demand) + ",");
+//    json.append("\"supply\": " + array_to_string(supply) + ",");
     json.append("\"timestamp\":" + to_string(timestamp) + ",");
     json.append("\"currency\":\"" + currency + "\"");
     json.append("}");

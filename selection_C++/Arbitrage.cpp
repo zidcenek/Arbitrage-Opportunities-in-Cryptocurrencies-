@@ -25,9 +25,21 @@ bool Arbitrage::initialize(const Triplet & triplet){
     output_name = triplet.getOutput_filename();
     output_directory_name = triplet.getOutputDirectoryName();
     for(int i = 0 ; i < dataframes.size(); i++){
-        string tmp;
-        getline(*dataframes[i], tmp);
-        current.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
+        while(true){
+            if(dataframes[i]->eof()) {
+                cout << "eof return" << endl;
+                return false;
+            }
+            string tmp;
+            try {
+                getline(*dataframes[i], tmp);
+                current.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
+                break;
+            } catch(const exception& e) {
+                if(++counter % 1000 == 0)
+                    cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl;
+            }
+        }
     }
     return true;
 }

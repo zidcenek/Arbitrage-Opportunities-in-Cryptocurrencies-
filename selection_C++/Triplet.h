@@ -10,8 +10,8 @@
 
 using namespace std;
 
-//inline const string & DATA_PATH = "../data/input/data/";  // defines directory with data
-inline const string & DATA_PATH = "../../../../data/data_02-26=01/";  // defines directory with data
+//inline const string & data_path = "../data/input/data/";  // defines directory with data
+//inline const string & data_path = "../../../../data/data_02-26=01/";  // defines directory with data
 
 
 
@@ -20,7 +20,8 @@ inline const string & DATA_PATH = "../../../../data/data_02-26=01/";  // defines
  */
 class Triplet {
 public:
-    Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name);
+    Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name,
+            const string & data_path);
     void shuffle();
     pair<string, string> split_currency(const string &filename);
     const string & getFile1() const;

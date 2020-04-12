@@ -11,6 +11,7 @@
 FilesManager::FilesManager(const string & path){
     files = get_all_files_in_directory(path);
     currencies_combinations = makeCombi(currencies, 3);
+    data_path = path;
 }
 /**
  * Agregates all of the found files into appropriate triplets
@@ -36,12 +37,12 @@ vector<Triplet> FilesManager::select_triples(const vector<string> & filenames) c
     for(auto & file: filenames){
         // decomposes filename to the 2 currencies
         pair<string, string> currency_pair;
-        if(file.size() - DATA_PATH.size() == 17){
-            currency_pair.first = file.substr(DATA_PATH.size(), 3);
-            currency_pair.second = file.substr(DATA_PATH.size() + 3, 3);
-        } else if (file.size() - DATA_PATH.size() == 18){
-            currency_pair.first = file.substr(DATA_PATH.size(), 3);
-            currency_pair.second = file.substr(DATA_PATH.size() + 3, 4); // for USDT
+        if(file.size() - data_path.size() == 17){
+            currency_pair.first = file.substr(data_path.size(), 3);
+            currency_pair.second = file.substr(data_path.size() + 3, 3);
+        } else if (file.size() - data_path.size() == 18){
+            currency_pair.first = file.substr(data_path.size(), 3);
+            currency_pair.second = file.substr(data_path.size() + 3, 4); // for USDT
         }
         decomposed.push_back(currency_pair);
     }
@@ -54,7 +55,7 @@ vector<Triplet> FilesManager::select_triples(const vector<string> & filenames) c
         }
         if(res.size() == 3){
             triplets.emplace_back(Triplet(res[0].first + res[0].second, res[1].first + res[1].second
-                    , res[2].first + res[2].second, current_date, comb[0] + comb[1] + comb[2]));
+                    , res[2].first + res[2].second, current_date, comb[0] + comb[1] + comb[2], data_path));
         }
     }
     return triplets;
@@ -84,8 +85,9 @@ vector<string> FilesManager::select_files_by_date(){
     vector<string> filtered_files;
     vector<string> selected_files;
     vector<string> unselected_files;
+    string dp = data_path;
     copy_if (files.begin(), files.end(), std::back_inserter(filtered_files),
-             [](string s){return s.size() - DATA_PATH.size() == 17 || s.size() - DATA_PATH.size() == 18 ;} );
+             [dp](string s){return s.size() - dp.size() == 17 || s.size() - dp.size() == 18 ;} );
 
     if(filtered_files.empty())
         return vector<string>();

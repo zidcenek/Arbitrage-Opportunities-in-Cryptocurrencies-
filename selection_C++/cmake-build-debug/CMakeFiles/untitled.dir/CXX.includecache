@@ -79,6 +79,8 @@ algorithm
 -
 experimental/filesystem
 -
+thread
+-
 Arbitrage.h
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.h
 

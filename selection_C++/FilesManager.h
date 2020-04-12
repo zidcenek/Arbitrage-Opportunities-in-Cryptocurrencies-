@@ -33,6 +33,7 @@ protected:
     vector<vector<string> > currencies_combinations;
     vector<string> files;
     string current_date;
+    string data_path;
 };
 
 #endif //UNTITLED_FILESMANAGER_H
