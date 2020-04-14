@@ -41,6 +41,10 @@ private:
     string output_directory_name;
     int counter;
     bool calculation_type_linear;
+    int arbitrages;
+    int without_fees;
+    int all;
+    long double fees;
 };
 
 

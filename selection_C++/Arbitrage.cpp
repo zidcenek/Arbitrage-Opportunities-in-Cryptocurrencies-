@@ -27,6 +27,9 @@ bool Arbitrage::initialize(const Triplet & triplet){
     for(int i = 0 ; i < dataframes.size(); i++){
         while(true){
             if(dataframes[i]->eof()) {
+                for(auto & df: dataframes){
+                    df->close();
+                }
                 cout << "eof return" << endl;
                 return false;
             }
@@ -41,6 +44,10 @@ bool Arbitrage::initialize(const Triplet & triplet){
             }
         }
     }
+    arbitrages = 0;
+    without_fees = 0;
+    all = 0;
+    fees = 0.999 * 0.999 * 0.999;
     return true;
 }
 
@@ -82,6 +89,7 @@ vector<int> Arbitrage::calculateMaxGainPosition(
         for(int j = 0; j < pairs2.size() - 1; j += 2){
             for(int k = 0; k < pairs2.size() - 1; k += 2){
                 long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k), demand_flag);
+                score = score * 0.999 * 0.999 * 0.999;  // due to binance fee for every trade
                 if(score > 1) {
                     long double gain = calculate_narrowest(
                             pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
@@ -98,7 +106,6 @@ vector<int> Arbitrage::calculateMaxGainPosition(
             }
         }
     }
-    max_gain = max_gain * 0.999 * 0.999 * 0.999;  // due to binance fee for every trade
     best_gain = max_gain;
 //    cout << best_indexes[0] << best_indexes[1] << best_indexes[2] << endl;
 //    cout << max_gain << endl;
@@ -145,49 +152,61 @@ void Arbitrage::run(){
         cout << "Could not open output file" << endl;
         return;
     }
-    ofs << "[";
+    ofs << "{";
+    ofs << "\"arbitrage_stats\":[";
     while(! stop){
         int index = getOldest();
         long double score, supply_gain, demand_gain;
         vector<int> supply_gain_indexes, demand_gain_indexes;
         getNext(index);
-        if((score = detection()) > 1){
-            if( calculation_type_linear ){
-                supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
-                                                       current[2].getSupply(), false, supply_gain);
-                demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
-                                                       current[2].getDemand(), true, demand_gain);
-            } else {
-                supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
-                                                       current[2].getDemand(), false, supply_gain);
-                demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
-                                                       current[2].getSupply(), true, demand_gain);
+        if((score = detection()) > 1) {
+            without_fees++;
+            // writes stats only for those with score higher even after fees
+            if (score * fees > 1) {
+                arbitrages++;
+                    if (calculation_type_linear) {
+                        supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
+                                                                       current[2].getSupply(), false, supply_gain);
+                        demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
+                                                                       current[2].getDemand(), true, demand_gain);
+                    } else {
+                        supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
+                                                                       current[2].getDemand(), false, supply_gain);
+                        demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
+                                                                       current[2].getSupply(), true, demand_gain);
+                    }
+                bool first_item = true;
+                if (supply_gain_indexes.size() != 3 || demand_gain_indexes.size() != 3)
+                    continue;
+                ofs << coma << "{\"score\": " << score << ",";
+                ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
+                    << ", " << demand_gain_indexes[2] << "],";
+                ofs << "\"demand_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
+                    << ", " << supply_gain_indexes[2] << "],";
+                ofs << "\"supply_gain\": " << supply_gain << ",";
+                ofs << "\"demand_gain\": " << demand_gain << ",";
+                ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
+                ofs << "\"pairs\": [";
+                for (const auto &item: current) {
+                    if (first_item)
+                        first_item = false;
+                    else
+                        ofs << ",";
+                    ofs << item.to_JSON();
+                }
+                ofs << "]}";
+                coma = ",";
             }
-            bool first_item = true;
-            if(supply_gain_indexes.size() != 3 || demand_gain_indexes.size() != 3)
-                continue;
-            ofs << coma << "{\"score\": " << score << ",";
-            ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
-                << ", " << demand_gain_indexes[2] << "],";
-            ofs << "\"demand_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
-                << ", " << supply_gain_indexes[2] << "],";
-            ofs << "\"supply_gain\": " << supply_gain << ",";
-            ofs << "\"demand_gain\": " << demand_gain << ",";
-            ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
-            ofs << "\"pairs\": [";
-            for(const auto& item: current){
-                if(first_item)
-                    first_item = false;
-                else
-                    ofs << ",";
-                ofs << item.to_JSON();
-            }
-            ofs << "]}";
-            coma = ",";
         }
+        all++;
     }
-    ofs << "]";
+    ofs << "],";
+    ofs << "\"arbitrages_count\": " << arbitrages << ",";
+    ofs << "\"without_fees_count\": " << without_fees << ",";
+    ofs << "\"all_count\": " << all;
+    ofs << "}";
     ofs.close();
+    cout << arbitrages << ":" << without_fees << ":" << all << endl;
     for(auto & df: dataframes){
         df->close();
     }
@@ -206,10 +225,25 @@ long double Arbitrage::detection(){
         case1 = current[1].getDemand()[0] * current[2].getDemand()[0] / current[0].getSupply()[0];
         case2 = current[0].getDemand()[0] / current[1].getSupply()[0] / current[2].getSupply()[0];
     }
-    if(case1 < case2)
+    if(case1 < case2) {
+//        cout << case1 << " and " << case2 << endl;
+//        if (case2 > 1.0 && !calculation_type_linear) {
+//            cout << case2 << ">" << 1 << " = " << (case2 > 1.0) << endl;
+//            cout << case2 << " = " <<
+//                 current[0].getDemand()[0] << "/" << current[1].getSupply()[0] << "/" << current[2].getSupply()[0]
+//                 << endl;
+//        }
         return case2;
-    else
+    }
+    else {
+//        cout << case1 << " and " << case2 << endl;
+//        if (case1 > 1.0 && !calculation_type_linear) {
+//            cout << case1 << " = " <<
+//            current[1].getDemand()[0] << "*" << current[2].getDemand()[0] << "/" << current[0].getSupply()[0]
+//                 << endl;
+//        }
         return case1;
+    }
 }
 
 bool Arbitrage::openFile(string const& filename){
