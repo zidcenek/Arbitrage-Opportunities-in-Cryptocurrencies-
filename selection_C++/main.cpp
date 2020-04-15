@@ -37,17 +37,18 @@ void split_work(const vector<string> & paths){
 int main() {
     int number_of_chunks = 4;
     vector<string> paths;
-//    paths.emplace_back("../../../../data/data_02-04=10/");
+    paths.emplace_back("../../../../data/data_02-04=10/");
 //    paths.emplace_back("../../../../data/data_02-18=21/");
 //    paths.emplace_back("../../../../data/data_02-20=23/");
 //    paths.emplace_back("../../../../data/data_02-23=26/");
 //    paths.emplace_back("../../../../data/data_02-26=01/");
-    paths.emplace_back("../../../../data/data_03-01=06/");
+//    paths.emplace_back("../../../../data/data_03-01=06/");
 //    paths.emplace_back("../../../../data/data_03-06=10/");
 //    paths.emplace_back("../../../../data/data_03-11=15/");
 //    paths.emplace_back("../../../../data/data_03-16=21/");
-    paths.emplace_back("../../../../data/data_03-22=02/");
-//    paths.emplace_back("../../../../data/data_03-31-09/");
+//    paths.emplace_back("../../../../data/data_03-22=02/");
+//    paths.emplace_back("../../../../data/data_03-31=09/");
+    paths.emplace_back("../../../../data/data_04-10=12/");
 
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
