@@ -219,12 +219,13 @@ TRON (TRX) je kryptoměna vytvořena za cílem decentralizace sdílení informac
 USD Tether (USDT) je zástupce stable coinu (stabilní měny), jeho cena je vázaná na běžnou měnu, v tomto případě na americký dolar. USD Tether je nejznámějším stable coinem, který je využíván velkým množstvím burz (například Binance, Huobi, Okex) a jeho celková kapitalizace je více než 2 miliardy amerických dolarů. \cite{mlady_investor_stable_coin} 
 }
 \section{Kryptoměnové burzy}
+\label{cryptocurrency_exchanges}
 \paragraph{
 V této podkapitole se zaměřuji na několik kryptoměnových burz. Poukazuji na jejich klady a zápory a věnuji se výběru těch nejlepších mezi nimi.
 }
 \subsection{Coinmate}
 \paragraph{
-Coinmate je kryptoměnová burza sídlící ve Velké Británii, která vznikla na základě technologií české společnosti Profinit v roce 2014. Burza se zaměřuje na tyto tři základní aspekty: rychlost, spolehlivost a bezpečnost. Coinmate se řadí mezi menší burzy, podle ohlašovaného obchodovaného objemu za posledních 30~dní se burza neřadí ani mezi 100 nejlepších. \cite{coinmarketcap} Burza ani nenabízí velké množství obchodovatelných párů, pouze 20, na druhou stranu umožňuje obchodování přímo s Korunou českou. 
+Coinmate je kryptoměnová burza sídlící ve Velké Británii, která vznikla na základě technologií české společnosti Profinit v roce 2014. Burza se zaměřuje na tyto tři základní aspekty: rychlost, spolehlivost a bezpečnost. Coinmate se řadí mezi menší burzy, podle ohlašovaného obchodovaného objemu za posledních 30~dní ve velikosti (21~658~191 amerických dolarů \cite{coin360}) se burza neřadí ani mezi 100 nejlepších. \cite{coinmarketcap} Burza ani nenabízí velké množství obchodovatelných párů, pouze 20, na druhou stranu umožňuje obchodování přímo s Korunou českou. 
 }
 \paragraph{
 Coinmate se dále pyšní tím, že má nadprůměrně nízké poplatky. Pro dodavatele (maker) činí poplatek 0,12~\% až 0~\% (viz obrázky \ref{coinmate_standard} a \ref{coinmate_promotional}, zatímco pro odběratele (taker) se poplatek pohybuje v rozmezí 0,25~\% až 0.05~\% (viz obrázky \ref{coinmate_standard} a \ref{coinmate_promotional}. Tímto systémem poplatků, kdy má nižší poplatky pro dodavatele, se snaží burza podpořit likviditu na trhu. \cite{cryptowisser_coinmate} \cite{coinmate_fees}
@@ -463,43 +464,90 @@ Na některých burzách se objevovaly i problémy s pomalým proběhnutím trans
 V této sekci se zabývám praktickou částí své bakalářské práce, ve které se ze začátku zaměřuji na problémy se získáváním relevantních dat. Dále na to navazuji záznamem o svém počínání v rámci analýzy těchto získaných dat. 
 }
 \paragraph{
-V poslední podkapitole se poté věnuji praktickým výstupům své práce, zejména statistikám o mých úspěších z vytěžování reálných arbitrážních příležitostí a na to navazujícím výpočetem týkající se toho, jak moc je výhodné se prakticky snažit vytěžovat tyto příležitosti.
+V poslední podkapitole se poté věnuji praktickým výstupům své práce, ve kterých se zaměřuji na to jaké druhy arbitrážních příležitostí jsou vhodné, diskutuji na jaké trojúhelníky je nejvýhodnější se zaměřit a naopak, které jsou úplně nezajímavé.
 }
 \section{Získání dat}
 \paragraph{
-V této kapitole se zaměřuji na problémy, na které jsem narazil při získávání dat. Zabývám se zde také dostupností dat na jednotlivých burzách či jiných serverech, které tata data poskytují. 
+V této kapitole se zaměřuji na problémy, na které jsem narazil při získávání dat. Zabývám se zde také dostupností dat na jednotlivých burzách a jiných serverech, které tato data poskytují. 
 }
 \paragraph{
-Obecně jsem potřeboval  taková data, která by mi byla schopna poskytnout informaci v konkrétním čase, týkající se aktuálních nabídek a poptávek pro jednotlivé dvojice měn, na kterých jsem chtěl provádět analýzu.
+Obecně jsem pro svou práci potřeboval získat taková data, která by mi byla schopna poskytnout informaci v konkrétním čase, týkající se aktuálních nabídek a poptávek pro jednotlivé dvojice měn, na kterých jsem chtěl provádět analýzu. Tomuto typu dat se běžně říká order book (kniha objednávek).
+}
+\paragraph{
+Problém s tímto typem dat je ten, že tím, že se aktuální nabídka na větších burzách mění klidně až několikrát za sekundu, a proto tato data nabývají velmi velkých objemů.
 }
 \subsection{Data na kryptoměnových burzách}
 \paragraph{
-Nejdříve jsem se snažil získat data na oficiálních stránkách jednotlivých burz, konkrétně binance.com, kraken.com a cryptowatch.com. Zde jsem se byl schopen po registraci připojit na jednotlivá api. Data zde byla veřejně k dispozici, avšak neodpovídala takovému formátu, který jsem pro svou práci požadoval. 
+Nejdříve jsem se snažil získat data na oficiálních stránkách jednotlivých burz, konkrétně Binance, CoinMate, MXC, LBank. Zde jsem se byl schopen po registraci připojit na jednotlivá api. Data zde byla veřejně k dispozici, avšak neodpovídala takovému formátu, který jsem pro svou práci požadoval. 
 }
 \paragraph{
-Na všech kryptoměnových burzách byla k dispozici data pouze o aktuálních nabídkách a poptávkách. Co se týče historických dat, tak bylo možné získat data o všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a čas provedení obchodu. Dále bylo možné získat data k vytvoření svícnových grafů. Všechna tato historická data byla pro mě však irelevantní. 
+Na všech kryptoměnových burzách byla k dispozici data pouze o aktuálních nabídkách a poptávkách. Co se týče historických dat, tak bylo možné získat data o všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a čas provedení obchodu. Dále bylo možné získat data k vytvoření svícnových grafů. Všechna tato historická data byla pro mě však irelevantní.
 }
 % todo - doplnit citace na jednotlivé burzy
-\subsection{Burza Binance}
-\paragraph{
-Jako burzu, ze které jsem sbíral data, jsem si vybral server Binance. Tuto burzu jsem si vybral především z toho důvodu, že zde probíhá nejvíce obchodů, co se týče zobchodovaného objemu. Podle serveru CoinMarketCap je zde zobchodováno minimálně o 50~\% objemu více (objem za posledních 30 dní) než na jakékoli jiné burze. \cite{coinmarketcap}
-}
-\paragraph{
-Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé api, a dalo se na ni připojit jednoduše přes websocket. \cite{BinanceApi}
-}
 \subsection{Vlastní sběr dat}
 \paragraph{
-Z důvodu, že jsem nebyl schopen nikde sehnat odpovídající data, která jsem potřeboval pro svou práci, byl přinucen si data začít sbírat z burz sám.
+Z důvodu, že jsem nebyl schopen nikde sehnat odpovídající historická data, která jsem potřeboval pro svou práci, byl jsem přinucen si data začít sbírat z burz sám. Díky tomuto rozhodnutí zmizel problém s dostupností dat, protože všechny zmiňované burzy poskytovaly order book pro všechny své dvojice měn.
+}
+\subsection{Výběr burzy}
+\paragraph{
+Při výběru burzy bylo nutné zohlednit několik faktorů, které mohou mít vliv na výskyt arbitrážních příležitostí: 
+}
+\begin{itemize}
+    \item zdali, burza poskytuje data v požadovaném formátu,
+    \item jak velkými poplatky zpoplatňuje burza jednotlivé transakce,
+    \item jak velký objem se na burze zobchoduje,
+    \item s kolika různými měnami je možné obchodovat.
+\end{itemize}
+\paragraph{
+Z toho důvodu, že jsem si data sbíral sám, tak zmizel problém s dostupností dat a tedy faktor správného formátu dat se stal irelevantním. 
 }
 \paragraph{
-K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp.\cite{BinanceApi}
+Další faktor, který bylo možné zanedbat byl počet různých měn, neboť většina burz poskytuje daleko větší počet měn, než kolik jsem byl reálně schopný ukládat. 
+}
+\paragraph{
+Nejdůležitějšími faktory při výběru burzy se staly rozdíly mezi obchodovaný objemem a rozdíly ve výší poplatků.
+}
+\begin{figure}\centering
+    \begin{center}
+     \begin{tabular}{||c | c | c | c||} 
+     \hline
+     Burza & Obchodovaný objem & Taker fee & Maker fee \\ [0.5ex]
+     \hline\hline
+     CoiMate & 21,658,191\$ & 0,25~\% až 0,05~\% & 0,12~\% až 0~\%  \\ 
+     \hline
+     Binance & 158 302 486 366~\$ & 0,1~\% (resp. 0,05~\%) & 0,1~\% (resp. 0,05~\%)  \\ 
+     \hline
+     MXC & 101 249 688 459~\$ & 0,2~\% & 0,2~\%  \\ 
+     \hline
+     BitForex & 66 241 217 666~\$ & 0,1~\% & 0,1~\%  \\ 
+     \hline
+     LBank & 71 679 777 662~\$ & 0,1~\% & 0,1~\%  \\ 
+     \hline
+    \end{tabular}
+    \end{center}
+    \caption{Porovnání parametrů jednotlivých burz}
+    \label{exchanges_comparison}
+\end{figure}
+\paragraph{
+Po porovnání parametrů dvou vybraných parametrů (viz tabulka \ref{exchanges_comparison})
+}
+\subsection{Burza Binance}
+\paragraph{
+Po porovnání vybraných parametrů (viz tabulka \ref{exchanges_comparison} nebo pro podrobnější informace kapitola \nameref{cryptocurrency_exchanges}) jsem si jako burzu, ze které jsem sbíral data, vybral server Binance. Tato burza má nejlepší obchodovaný objem za posledních 30~dní ze všech kryptoměnových burz \cite{coinmarketcap} a také má ze všech zkoumaných burz nejpřívětivější systém poplatků ve výši 0,1~\% (respektive 0,05~\% při placení poplatků v domovské měně Binance Coin).
+}
+\paragraph{
+Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé api, a dalo se k ní připojit jednoduše přes websocket. \cite{BinanceApi}
+}
+
+\paragraph{
+K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp. \cite{BinanceApi}
 }
 \paragraph{
 Neboť jsem data potřeboval ukládat pořád a ne pouze v konkrétní časové intervaly, tak jsem sběr dat spustil na cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
 }
 \subsubsection{Sledované měny}
 \paragraph{
-Na serveru Binance je možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020). Protože pro mě nebylo reálné sledovat tolik různých dvojic, vybral jsem si ke sledování následující měny: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Což celkově znamenalo sbírat data týkající se 39 dvojic (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1 GB za den.
+Díky tomu, že je na serveru Binance možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020), mohl jsem si k obchodování vybrat téměř jakékoliv měny. Z toho důvodu, že pro mě nebylo reálné sledovat tolik různých dvojic, vybral jsem si ke sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Což celkově znamenalo sbírat data týkající se 39 dvojic (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1 GB za den.
 }
 % todo - napsat názvy měn
 \section{Zpracování dat}
