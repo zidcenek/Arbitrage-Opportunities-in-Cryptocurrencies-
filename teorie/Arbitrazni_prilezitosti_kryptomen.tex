@@ -536,18 +536,25 @@ Po porovnání parametrů dvou vybraných parametrů (viz tabulka \ref{exchanges
 Po porovnání vybraných parametrů (viz tabulka \ref{exchanges_comparison} nebo pro podrobnější informace kapitola \nameref{cryptocurrency_exchanges}) jsem si jako burzu, ze které jsem sbíral data, vybral server Binance. Tato burza má nejlepší obchodovaný objem za posledních 30~dní ze všech kryptoměnových burz \cite{coinmarketcap} a také má ze všech zkoumaných burz nejpřívětivější systém poplatků ve výši 0,1~\% (respektive 0,05~\% při placení poplatků v domovské měně Binance Coin).
 }
 \paragraph{
-Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé api, a dalo se k ní připojit jednoduše přes websocket. \cite{BinanceApi}
+Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé api, ke kterému jsem se připojil přes websocket. \cite{BinanceApi} Tímto způsobem mi při každé změně chodila data ve formě order book, ohledně aktuální nabídky a poptávky sledované dvojice měn. \cite{BinanceApi}
 }
-
+\subsection{Sběr dat}
 \paragraph{
-K Binance api jsem se připojil přes websocket, přes který mi při každé změně chodila data ohledně aktuální nabídky a poptávky sledované dvojice měn. Tato data jsem si vždy ihned uložil včetně aktuálního časového záznamu ve formátu unix timestamp. \cite{BinanceApi}
+Data, která mi přicházela přes websocket, ve kterých bylo uvedeno pořadí jako identifikační číslo, cena a množství nabídky a poptávky v order book, jsem si ukládal do souborů ve formátu csv. K těmto datům jsem ještě vždy přidal údaj o časového záznamu ve formátu unix timestamp (viz obrázek \ref{csv_data}). Identifikační číslo jsem si ukládal jako celé číslo. Výpis nabídek a poptávek jsem ponechával jako dvourozměrné pole, kde v prvním sloupci byla uvedena prodejní (resp. nákupní) cena a v druhém sloupci bylo uvedeno množství.
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/csv_data.PNG}
+	\caption{Ukázka csv souboru jednoho dne dat dvojice kryptoměn}\label{csv_data}
+\end{figure}
+\paragraph{
+Z toho důvodu, že může mít order book hloubku až několika stovek objednávek a poptávek, jsem si neukládal jeho celou velikost. Naopak jsem si ukládal pouze pět nejvýhodnějších záznamů. To jsem mohl udělat z toho důvodu, že arbitrážní příležitost bude vždy nastávat na nejvýhodnějších nabídkách, protože kdyby nastala na méně výhodné, tak musela nutně nastat i na té nejvýhodnější. 
 }
 \paragraph{
-Neboť jsem data potřeboval ukládat pořád a ne pouze v konkrétní časové intervaly, tak jsem sběr dat spustil na cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
+Neboť jsem data potřeboval ukládat neustále a ne pouze v konkrétní časové intervaly, tak jsem sběr dat spustil na cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
 }
 \subsubsection{Sledované měny}
 \paragraph{
-Díky tomu, že je na serveru Binance možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020), mohl jsem si k obchodování vybrat téměř jakékoliv měny. Z toho důvodu, že pro mě nebylo reálné sledovat tolik různých dvojic, vybral jsem si ke sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Což celkově znamenalo sbírat data týkající se 39 dvojic (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1 GB za den.
+Díky tomu, že je na serveru Binance možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020), mohl jsem si k obchodování vybrat téměř jakékoliv měny. Z toho důvodu, že pro mě nebylo reálné sledovat všechny různé dvojice, vybral jsem si ke sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Toto celkově znamenalo sběr dat týkající se 39 dvojic kryptoměn (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1~GB za den.
 }
 % todo - napsat názvy měn
 \section{Zpracování dat}
@@ -556,17 +563,40 @@ V této podkapitole se budu věnovat tématu se zpracováním nasbíraných dat.
 }
 \subsection{Filtrování surových dat}
 \paragraph{
-V prvním kroku bylo mým cílem pouze vyfiltrovat všechny potenciální arbitrážní příležitosti, které mohli nastat. Potenciální z toho důvodu že jsem ještě nebral v potaz poplatky, kterými Binance zpoplatňuje kažný provedený obchod.
+V prvním kroku bylo mým cílem pouze vyfiltrovat všechny potenciální arbitrážní příležitosti, které se na vybraném trojúhelníku objevily.
 }
 \paragraph{
-Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však probíhalo filtrování moc pomalu. Z toho důvodu jsem výběr Pythonu přehodnotil a rozhodl jsem se využít jazyka C++. 
+Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však probíhalo filtrování moc pomalu, řádově několik minut pro provedení jednoho trojúhelníku za jeden den, což se po pře násobení počtem trojúhelníků dostalo na několik hodin denně. Z toho důvodu jsem výběr Pythonu přehodnotil a rozhodl jsem se využít jazyka C++. 
 }
 \paragraph{
-V jazyce C++ se mi podařilo filtrování zrychlit téměř šedesátkrát. Vyfiltrovaná data jsem nyní ukládal v JSON formátu. Tento formát jsem si vybral z toho důvodu, že je zde možné přehledněji strukturovat data. Ukládal jsem si do těchto souborů například i informace o tom, jaké konkrétní obchody jsou nejvýhodnější, jaký teoretický zisk mohl nastat. 
+V jazyce C++ se mi podařilo filtrování zrychlit téměř šedesátkrát, tudíž jsem se dostal z řádů hodin denně na řády minuty.
 }
+\subsubsection{Struktura filtrovaných dat}
+\paragraph{
+Vyfiltrovaná data jsem nyní ukládal v JSON formátu. Tento formát jsem si vybral z toho důvodu, že je zde možné přehledněji strukturovat data (viz \ref{json_data}).
+}
+\paragraph{
+Na nejnižší úrovni JSON formátu jsem si ukládal tyto informace:
+}
+\begin{itemize}
+    \item arbitrages\_count -- celé číslo popisující počet nalezených arbitrážních příležitostí,
+    \item without\_fees\_count -- celé číslo popisující počet nalezených neefektivit trhu, (kolikrát by se vyskytla arbitrážní příležitost, kdyby na burze neexistovaly poplatky), 
+    \item all\_count -- celé číslo, které udává kolik celkově proběhlo kontrol na výskyt arbitrážní příležitosti (neboli součet záznamů v kontrolovaných třech souborech).
+    \item arbitrages\_stats - pole, ve kterém jsou uvedeny bližší informace, ke každé arbitrážní příležitosti. 
+\end{itemize}
+\paragraph{
+Co se týče bližších informací k jednotlivým arbitrážním příležitostem, tak jsem zachovával následující data:
+}
+\begin{itemize}
+    \item score -- desetinné číslo popisující teoretický procentuální zisk (bez zahrnutí poplatků),
+    \item supply\_gain\_index (demand\_gain\_index) -- pole tří indexů popisující nejlepší kombinaci z order book k získání nejvyššího absolutního zisku na straně trojúhelníku začínajícího nabídkou resp. poptávkou (viz obrázek \ref{2_kombinace}),
+    \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v první dvojici měn v odrážce pairs na straně trojúhelníku začínajícího nabídkou resp. poptávkou (viz obrázek \ref{2_kombinace}), pokud nedojde žádnému zisku je hodnota ponechána na 0,
+    \item calculation\_type\_linear -- popisuje typ výpočtu (viz modré a zelené kombinace na obrázku \ref{tabulka_kombinaci})
+    \item pairs -- jedná se o pole o velikosti 3, na jehož každé položce je uloženo příslušné identifikační číslo, časový záznam a typ měnové dvojice ze čtených csv souborů (viz ukázka csv souboru \ref{csv_data}).
+\end{itemize}
 \begin{figure}\centering
-	\includegraphics[width=1\textwidth]{images/placeholder.png}
-	\caption{Ukázka JSON formátu struktury dat}\label{fig:pokus}
+	\includegraphics[width=0.6\textwidth]{images/json_data.PNG}
+	\caption{Ukázka JSON formátu struktury dat}\label{json_data}
 \end{figure}
 %\ref{fig:gnuplot-col}
 % todo - změnit obrázek na JSON example
