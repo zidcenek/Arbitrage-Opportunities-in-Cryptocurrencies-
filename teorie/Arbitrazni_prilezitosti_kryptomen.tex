@@ -566,7 +566,7 @@ V této podkapitole se budu věnovat tématu se zpracováním nasbíraných dat.
 V prvním kroku bylo mým cílem pouze vyfiltrovat všechny potenciální arbitrážní příležitosti, které se na vybraném trojúhelníku objevily.
 }
 \paragraph{
-Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však probíhalo filtrování moc pomalu, řádově několik minut pro provedení jednoho trojúhelníku za jeden den, což se po pře násobení počtem trojúhelníků dostalo na několik hodin denně. Z toho důvodu jsem výběr Pythonu přehodnotil a rozhodl jsem se využít jazyka C++. 
+Nejdříve jsem tento filtrovací skript napsal v jazyce Python. Zde však probíhalo filtrování moc pomalu, řádově několik minut pro provedení jednoho trojúhelníku za jeden den, což se po pře násobení počtem trojúhelníků dostalo na několik hodin denně. Z toho důvodu jsem výběr jazyka Python přehodnotil a rozhodl jsem se využít jazyk C++. 
 }
 \paragraph{
 V jazyce C++ se mi podařilo filtrování zrychlit téměř šedesátkrát, tudíž jsem se dostal z řádů hodin denně na řády minuty.
@@ -602,7 +602,7 @@ Co se týče bližších informací k jednotlivým arbitrážním příležitost
 % todo - změnit obrázek na JSON example
 \subsection{Arbitrážní příležitosti}
 \paragraph{
-Ve své práci se věnuji pouze arbitrážním příležitostem pro 3 různé měny. Protože mám pro libovolnou obchodovatelnou dvojici kryptoměn (AAA a BBB) vždy údaj pouze z jedné strany (poptávka i nabídka je pouze z pohledu jedné z kryptoměn) může docházet v trojúhelníku k následujícím možnostem (viz tabulka \ref{tabulka_kombinaci}). Těchto osm možností je však možné pouhým přeházením dostat do dvou odlišných kombinací (viz zelené a modré možnosti v tabulce \ref{tabulka_kombinaci}).
+Ve své práci se věnuji pouze trojúhelníkovým arbitrážním příležitostem, tedy vždy příležitostem pro 3 odlišné měny. Neboť mám pro libovolnou obchodovatelnou dvojici kryptoměn (AAA a BBB) vždy údaj pouze z jedné strany (poptávka i nabídka je pouze z pohledu jedné z kryptoměn) může docházet v trojúhelníku k následujícím možnostem (viz tabulka \ref{tabulka_kombinaci}). Těchto osm možností je však možné pouhým přeházením dostat do dvou odlišných kombinací (viz zelené a modré možnosti ve stejné tabulce \ref{tabulka_kombinaci}).
 }
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/tabulka_kombinací.PNG}
@@ -611,18 +611,68 @@ Ve své práci se věnuji pouze arbitrážním příležitostem pro 3 různé m�
 \paragraph{
 Z výsledných dvou různých kombinací je ještě nutné rozlišit, jakým způsobem bude docházet k detekci arbitrážní příležitosti. To je opět naznačeno pomocí znaků dělena ('/') a násobení ('*') a pomocí barev v tabulce \ref{2_kombinace}. Tato tři čísla se mezi sebou vždy příslušně vynásobí nebo vydělí a pokud je výsledné číslo vyšší než 1, pak je detekována potenciální arbitrážní příležitost. 
 }
-\paragraph{
-Dalším krokem v rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v mém případě celkem pěti, a zjišťovat, jestli není výhodnější provést obchod s menším procentuálním ziskem, avšak s vyšším absolutním ziskem. Snažím se tedy najít takovou možnost, při které dojde k zobchodování většího množství a tím vznikne vyšší zisk.
-}
-
 \begin{figure}\centering
 	\includegraphics[width=0.5\textwidth]{images/2_kombinace.PNG}
 	\caption{Odlišné způsoby detekce arbitrážních příležitostí}\label{2_kombinace}
 \end{figure}
+\paragraph{
+Dalším krokem v rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v mém případě do hloubky pět, a zjišťovat, jestli není výhodnější provést obchod s menším procentuálním ziskem, avšak s vyšším absolutním ziskem. Snažím se tedy najít takovou možnost, při které dojde k zobchodování většího množství a tím vznikne vyšší zisk.
+}
+\paragraph{
+Ve většině případů je i k získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v rámci order book. Celkově je v mém případě využita první hodnota z order book ve více než 81~\% případech (statistika byla prováděna na reálných arbitrážních příležitostech získaných v mé praktické části, celkově bylo vzato v potaz více než 24~milionů indexů). Využití dalších indexů v pořadí je využito o poznání méně řádově v jednotkách procent, které se snižují s každým dalším indexem (viz koláčový graf \ref{index_distribution}).
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/index_distribution.png}
+	\caption{Distribuce indexů obsahující nejlepší hodnoty pro získání nejvyššího absolutního zisku v rámci arbitrážní příležitosti}\label{index_distribution}
+\end{figure}
+\subsubsection{Detekce trojúhelníkové arbitrážní příležitosti}
+\paragraph{
+Nechť máme tři odlišné měny \(C_1,C_2,C_3\) a nechť existují směnné kurzy mezi každou dvojicí měn. Nechť \(x_i(t)\) reprezentuje směnný kurz mezi \(C_i\) a \(C_{i+1}\). Následně definujme \(x_i(t)\) jako výši prodejní ceny (bid) v čase \(t\) mezi \(C_i\) a \(C_{i+1}\) za předpokladu, že \(C_{i+1}\) odpovídá hlavní měně a \(C_{i}\) odpovídá kótované měně v uvedeném kurzu. V opačném případě, kdy \(C_{i}\) je hlavní měna a \(C_{i+1}\) je měna kótovaná, nastavíme hodnotu \(x_i(t)\) jako převrácenou hodnotu nákupní ceny (ask) v čase \(t\), tedy \(\frac{1}{nakupni\:cena}\).
+}
+\paragraph{
+Dále definujme \(f_i\) jako poplatek mezi měnami \(C_i\) a \(C_{i+1}\), kde pro zjednodušení notace \(C_1 = C_4\).
+}
+\paragraph{
+Následně definujme
+}
+\[D_{C_1,C_2,C_3}(t) = \prod_i^3\Big(x_i(t)*(1-f_i)\Big)\]
+\paragraph{
+jako procentuální efektivitu trojúhelníku v čase \(t\).
+}
+\paragraph{
+V závislosti na vztahu mezi \(1\) a \(D_{C_1,C_2,C_3}(t)\) je možné vyhodnotit, zdali se jedná o arbitrážní příležitost. Možnosti jsou následující:
+}
+\begin{itemize}
+    \item za předpokladu, že \(D_{C_1,C_2,C_3}(t) < 1\), není detekována arbitrážní příležitost a při provedení obchodu by došlo ke ztrátě,
+    \item pokud \(D_{C_1,C_2,C_3}(t) > 1\), poté dochází k detekci arbitrážní příležitosti a je možné vydělat \( (D_{C_1,C_2,C_3}(t) - 1) * m\), kde \(m\) reprezentuje zobchodované množství,
+    \item pokud \(D_{C_1,C_2,C_3}(t) = 1\), poté není nutné trojúhelník obchodovat, protože by nedošlo k žádnému výdělku.
+\end{itemize}
+\chapter{Analýza dat}
+\paragraph{
+V této kapitole se věnuji analýze vlastních grafů vytvořených na základě průběžně získávaných reálných dat. Data jsou vyhodnocena na základě více než dvou měsíční sbírky dat.
+}
+\section{Selekce nejlepších trojúhelníků}
+\paragraph{
+V této sekci se zabývám selekcí těch nejlepších trojúhelníků vzhledem k nejčastějším výskytům arbitrážních příležitostí, největších potenciálních zisků. Tato část je nutná z toho důvodu, že celkově pozoruji 40 odlišných trojúhelníků a velké části z nich není nutné se věnovat, protože nejsou z pohledu vytěžování arbitrážních příležitostí vůbec zajímané.
+}
+\subsection{Základní statistiky trojúhelníků}
+\paragraph{
+V této podkapitole se úzce věnuji nejzákladnějším statistikám jednotlivých trojúhelníků a diskutuji nad tím, jakým se vyplatí se věnovat podrobně v dalších částech této kapitoly.
+}
+\paragraph{
+Nejdůležitějšími faktory jsou: 
+}
+\begin{itemize}
+    \item jak často se pozitivní arbitrážní příležitosti vyskytují,
+    \item jak dlouho průměrně trvají, jak moc velká pravděpodobnost na včasné vytěžení reálně existuje,
+    \item kolik je možné průměrně vydělat na úspěšném vytěžení jednotlivé arbitrážní příležitosti,
+    \item k jak velkému potenciálnímu zisku mohlo dojít.
+\end{itemize}
 
+% todo - Změnit celý závěr
 \begin{conclusion}
 \paragraph{
-V práci jsem zatím úspěšně naimplementoval program v programovacím jazyce Python, který se stará o sběr dat. Tento program jsem nasadil na cloudovou službu Amazon Web Services, kde běží bez přerušení. 
+V práci jsem zatím úspěšně implementoval program v programovacím jazyce Python, který se stará o sběr dat. Tento program jsem nasadil na cloudovou službu Amazon Web Services, kde běží bez přerušení. 
 }
 \paragraph{
 V teoretické části jsem zatím napsal velmi stručnou rešerši, kterou mám ještě v plánu značně rozšiřovat. Našel jsem si již zdroje i k následujícím částem teoretické části.  Plánuji se zde ještě více věnovat kryptoměnám podrobněji a popsat více jejich charakteristiky. Dále zde plánuji zpracovat rešerši týkající se dosavadních prací, které se také zabývají otázkou arbitrážních příležitostí.
@@ -752,7 +802,8 @@ Mým dalším krokem je napsání programu, který bude analyzovat nasbíraná d
 % 		Displayed	& \verb|displaymath|	& \verb|\[...\]|	& \verb|$$...$$|	\tabularnewline \hline
 % 	\end{tabular}
 % \end{table}
-% 
+% \(2^3+\frac{86}{23}\)
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 \chapter{Obsah přiloženého CD}
