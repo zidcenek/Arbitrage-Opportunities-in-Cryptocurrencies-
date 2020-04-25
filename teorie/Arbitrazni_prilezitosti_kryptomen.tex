@@ -668,6 +668,129 @@ Nejdůležitějšími faktory jsou:
     \item kolik je možné průměrně vydělat na úspěšném vytěžení jednotlivé arbitrážní příležitosti,
     \item k jak velkému potenciálnímu zisku mohlo dojít.
 \end{itemize}
+\paragraph{
+Jak je možné vidět v tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se velice liší, pohybuje se od jednotek denně až po tisíce denně. V případě trojúhelníku USDTBTCBCH je tomu až několik desítek tisíc denně. Je zde také možné si všimnout, že průměrná neefektivita arbitrážní příležitosti (jedná se o hodnotu zisku bez zahrnutí poplatků, s odečtením poplatků by tato čísla byla ještě menší) v žádném případě nedosahuje ani jednotek procent, v nejlepších případech je to pouze několik promile.
+}
+\paragraph{
+Z toho důvodu, že vysoký procentuální zisk z tabulky \ref{table_averages} nemusí nutně znamenat vysoký reálný zisk, je nutné se podívat do tabulky \ref{table_gains}. V této tabulce jsou uvedeny průměrné denní potenciální zisky, jak v hodnotách jedné z kryptoměn daného trojúhelníku, tak v hodnotách přepočtených na americké dolary USD (podle tabulky kurzů \ref{table_rates}), z důvodu lepšího porovnání mezi sebou. V tabulce potenciálních zisků \ref{table_gains} je vidět, že se hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než tomu tak bylo v tabulce průměrných počtů \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od hodnot blízkých nule až po hodnoty několika tisíců amerických dolarů (údaje jsou nechány v exponenciálním tvaru, neboť rozdíly mezi nejmenšími a nejvyššími hodnotami jsou až 21 řádů). 
+}
+% \hline
+% Nazev & Prumerny denni pocet & \vtop{\hbox{\strut Prumerna}\hbox{\strut neefektivita}}\\ [0.5ex]
+% \hline 
+
+\begin{table}\centering
+\caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí}
+\label{table_averages}
+\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Průměrná procentuální neefektivita\\ [0.5ex]
+ \hline\hline BTCBCHBNB & 903,2105 & 1,0016\\ 
+ \hline BTCBNBTRX & 54,7692 & 1,0005\\ 
+ \hline BTCBNBXMR & 234,3590 & 1,0012\\ 
+ \hline BTCETHBNB & 515,4359 & 1,0006\\ 
+ \hline BTCETHEOS & 1742,0769 & 1,0004\\ 
+ \hline BTCETHTRX & 4,8246 & 1,0004\\ 
+ \hline BTCETHXRP & 25,7193 & 1,0006\\ 
+ \hline BTCLTCBNB & 309,6410 & 1,0008\\ 
+ \hline BTCLTCETH & 26,2105 & 1,0005\\ 
+ \hline BTCXRPBNB & 301,6410 & 1,0006\\ 
+ \hline BTCXRPTRX & 56,9825 & 1,0009\\ 
+ \hline ETHBNBTRX & 980,2564 & 1,0004\\ 
+ \hline ETHBNBXMR & 20,8070 & 1,0006\\ 
+ \hline ETHEOSBNB & 1048,7692 & 1,0005\\ 
+ \hline ETHXRPBNB & 6,7544 & 1,0003\\ 
+ \hline ETHXRPTRX & 10,3333 & 1,0004\\ 
+ \hline LTCETHBNB & 8,2281 & 1,0004\\ 
+ \hline USDTBCHBNB & 42,6071 & 1,0028\\ 
+ \hline USDTBNBTRX & 1076,5385 & 1,0022\\ 
+ \hline USDTBNBXMR & 92,5088 & 1,0027\\ 
+ \hline USDTBTCBCH & 43895,2051 & 1,0047\\ 
+ \hline USDTBTCBNB & 7823,8205 & 1,0036\\ 
+ \hline USDTBTCEOS & 5198,4483 & 1,0036\\ 
+ \hline USDTBTCETH & 3099,1026 & 1,0028\\ 
+ \hline USDTBTCLTC & 5700,4912 & 1,0034\\ 
+ \hline USDTBTCTRX & 5128,7544 & 1,0025\\ 
+ \hline USDTBTCXMR & 4005,2105 & 1,0034\\ 
+ \hline USDTBTCXRP & 3779,0702 & 1,0034\\ 
+ \hline USDTEOSBNB & 62,9123 & 1,0028\\ 
+ \hline USDTETHBNB & 1392,8974 & 1,0024\\ 
+ \hline USDTETHEOS & 664,3333 & 1,0018\\ 
+ \hline USDTETHTRX & 1216,0769 & 1,0017\\ 
+ \hline USDTETHXMR & 1000,4615 & 1,0020\\ 
+ \hline USDTETHXRP & 1311,7179 & 1,0017\\ 
+ \hline USDTLTCBNB & 50,8246 & 1,0025\\ 
+ \hline USDTLTCETH & 1291,5128 & 1,0018\\ 
+ \hline USDTXRPBNB & 28,7193 & 1,0027\\ 
+ \hline USDTXRPTRX & 79,3333 & 1,0019\\ 
+ \hline XRPBNBTRX & 466,3846 & 1,0010\\ 
+ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}\centering
+\caption{Tabulka potenciálního výnostu arbitrážních příležitostí}
+\label{table_gains}
+\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
+ \hline\hline BTCBCHBNB & 7,232724e-01 BCH & 1,612753e+02\\ 
+ \hline BTCBNBTRX & 7,531697e-15 TRX & 9,487679e-17\\ 
+ \hline BTCBNBXMR & 1,212417e-04 XMR & 6,470671e-03\\ 
+ \hline BTCETHBNB & 4,005811e-05 BNB & 6,221025e-04\\ 
+ \hline BTCETHEOS & 4,247258e-05 EOS & 1,036331e-04\\ 
+ \hline BTCETHTRX & 2,675907e-12 TRX & 3,370839e-14\\ 
+ \hline BTCETHXRP & 8,296201e-09 XRP & 1,542803e-09\\ 
+ \hline BTCLTCBNB & 6,896793e-04 LTC & 2,827685e-02\\ 
+ \hline BTCLTCETH & 7,007199e-06 LTC & 2,872952e-04\\ 
+ \hline BTCXRPBNB & 2,339707e-07 XRP & 4,351036e-08\\ 
+ \hline BTCXRPTRX & 1,116005e-08 TRX & 1,405831e-10\\ 
+ \hline ETHBNBTRX & 1,222977e-12 TRX & 1,540585e-14\\ 
+ \hline ETHBNBXMR & 7,658620e-04 XMR & 4,087406e-02\\ 
+ \hline ETHEOSBNB & 2,351345e-03 EOS & 5,737283e-03\\ 
+ \hline ETHXRPBNB & 1,301694e-07 XRP & 2,420695e-08\\ 
+ \hline ETHXRPTRX & 1,095958e-06 TRX & 1,380578e-08\\ 
+ \hline LTCETHBNB & 6,773773e-04 LTC & 2,777247e-02\\ 
+ \hline USDTBCHBNB & 2,750812e+00 BCH & 6,133760e+02\\ 
+ \hline USDTBNBTRX & 3,757523e-05 TRX & 4,733352e-07\\ 
+ \hline USDTBNBXMR & 5,985690e-01 XMR & 3,194563e+01\\ 
+ \hline USDTBTCBCH & 2,429589e+02 BCH & 5,417499e+04\\ 
+ \hline USDTBTCBNB & 1,213585e+01 BNB & 1,884698e+02\\ 
+ \hline USDTBTCEOS & 7,533229e-01 EOS & 1,838108e+00\\ 
+ \hline USDTBTCETH & 1,738009e+01 ETH & 2,723461e+03\\ 
+ \hline USDTBTCLTC & 3,060321e+01 LTC & 1,254732e+03\\ 
+ \hline USDTBTCTRX & 3,193358e-06 TRX & 4,022673e-08\\ 
+ \hline USDTBTCXMR & 1,868465e+01 XMR & 9,971996e+02\\ 
+ \hline USDTBTCXRP & 2,521137e-03 XRP & 4,688433e-04\\ 
+ \hline USDTEOSBNB & 2,809629e+01 EOS & 6,855495e+01\\ 
+ \hline USDTETHBNB & 1,840816e+01 BNB & 2,858787e+02\\ 
+ \hline USDTETHEOS & 4,496845e+00 EOS & 1,097230e+01\\ 
+ \hline USDTETHTRX & 1,075687e-04 TRX & 1,355043e-06\\ 
+ \hline USDTETHXMR & 1,490794e+01 XMR & 7,956367e+02\\ 
+ \hline USDTETHXRP & 2,325367e-02 XRP & 4,324369e-03\\ 
+ \hline USDTLTCBNB & 5,610373e+00 LTC & 2,300253e+02\\ 
+ \hline USDTLTCETH & 2,523501e+01 LTC & 1,034635e+03\\ 
+ \hline USDTXRPBNB & 3,116302e-01 XRP & 5,795231e-02\\ 
+ \hline USDTXRPTRX & 5,745734e-01 TRX & 7,237900e-03\\ 
+ \hline XRPBNBTRX & 4,959630e-03 TRX & 6,247646e-05\\ 
+ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}\centering
+\caption{Tabulka kurzů využitých na přepočet na americké dolary (údaj z burzy Binance ze dne 13.4.2020)}
+\label{table_rates}
+\begin{tabular}{|| c | c ||}
+\hline Kryptoměna & Kurz na USD \\ 
+\hline\hline BTC & 6837,51 \\ 
+\hline LTC & 41 \\ 
+\hline ETH & 156,7 \\ 
+\hline XRP & 0,185965 \\ 
+\hline USDT & 1 \\ 
+\hline BCH & 222,98 \\ 
+\hline BNB & 15,53 \\ 
+\hline EOS & 2,44 \\ 
+\hline XMR & 53,37 \\ 
+\hline TRX & 0,012597 \\ 
+\hline
+\end{tabular}
+\end{table}
 
 % todo - Změnit celý závěr
 \begin{conclusion}
@@ -794,15 +917,15 @@ Mým dalším krokem je napsání programu, který bude analyzovat nasbíraná d
 % 
 % Tabulky lze zadávat různě, např. v~prostředí \verb|tabular|, avšak pro jejich vkládání platí to samé, co pro obrázky -- použijte plovoucí prostředí, v~tomto případě \verb|table|. Například tabulka \ref{tab:matematika} byla vložena tímto způsobem.
 % 
-% \begin{table}\centering
-% 	\caption[Příklad tabulky]{Zadávání matematiky}\label{tab:matematika}
-% 	\begin{tabular}{|l|l|c|c|}\hline
-% 		Typ		& Prostředí		& \LaTeX{}ovská zkratka	& \TeX{}ovská zkratka	\tabularnewline \hline \hline
-% 		Text		& \verb|math|		& \verb|\(...\)|	& \verb|$...$|		\tabularnewline \hline
-% 		Displayed	& \verb|displaymath|	& \verb|\[...\]|	& \verb|$$...$$|	\tabularnewline \hline
-% 	\end{tabular}
-% \end{table}
-% \(2^3+\frac{86}{23}\)
+\begin{table}\centering
+	\caption[Příklad tabulky]{Zadávání matematiky}\label{tab:matematika}
+	\begin{tabular}{|l|l|c|c|}\hline
+		Typ		& Prostředí		& \LaTeX{}ovská zkratka	& \TeX{}ovská zkratka	\tabularnewline \hline \hline
+		Text		& \verb|math|		& \verb|\(...\)|	& \verb|$...$|		\tabularnewline \hline
+		Displayed	& \verb|displaymath|	& \verb|\[...\]|	& \verb|$$...$$|	\tabularnewline \hline
+	\end{tabular}
+\end{table}
+\(2^3+\frac{86}{23}\)
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
