@@ -653,7 +653,7 @@ V této kapitole se věnuji analýze vlastních grafů vytvořených na základ�
 }
 \section{Selekce nejlepších trojúhelníků}
 \paragraph{
-V této sekci se zabývám selekcí těch nejlepších trojúhelníků vzhledem k nejčastějším výskytům arbitrážních příležitostí, největších potenciálních zisků. Tato část je nutná z toho důvodu, že celkově pozoruji 40 odlišných trojúhelníků a velké části z nich není nutné se věnovat, protože nejsou z pohledu vytěžování arbitrážních příležitostí vůbec zajímané.
+V této sekci se zabývám selekcí těch nejlepších trojúhelníků vzhledem k nejčastějším výskytům arbitrážních příležitostí, největších potenciálních zisků. Tato část je nutná z toho důvodu, že celkově pozoruji 41 odlišných trojúhelníků a velké části z nich není nutné se věnovat, protože nejsou z pohledu vytěžování arbitrážních příležitostí vůbec zajímané.
 }
 \subsection{Základní statistiky trojúhelníků}
 \paragraph{
@@ -791,6 +791,50 @@ Z toho důvodu, že vysoký procentuální zisk z tabulky \ref{table_averages} n
 \hline
 \end{tabular}
 \end{table}
+
+
+\section{Korelace mezi výskytem arbitrážních příležitostí a vnějšími jevy}
+\paragraph{
+V této sekci se zabývám tím, jaké vnější jevy mohou mít na výskyt arbitrážních příležitostí vliv a jak moc s výskytem korelují nebo nekorelují. Je nutné podotknout, že nějaké vztahy nemusí být úplně vypovídající, protože korelace jsou prováděny pouze na datech o velikosti dvou až tří měsíců.
+}
+\subsection{Závislost na dni v týdnu}
+\paragraph{
+Z grafu \ref{weekday_distribution} je možné vidět, že se arbitrážní příležitosti vyskytovaly nejvíce v prvních třech dnech týdne a také v sobotu. Na druhou stranu při pohledu na graf \ref{occurences} je jasně vidět, že se ve výskytu arbitrážních příležitostí nevyskytuje žádný periodický vzor, který by se opakoval po sedmi dnech. Z tohoto důvodu si dovoluji tvrdit, že z mých dat není zřejmá žádná korelace mezi výskytem arbitrážních příležitostí a dnem v týdnu, nevyvracím však možnost, že se nějaká vyskytovat může. Velké výkyvy ve výskytu arbitráží ovlivňují data natolik, že ostatní hodnoty mají téměř nulový význam.
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/weekday_distribution.png}
+	\caption{Rozložení arbitrážních příležitostí v závislosti na dni v týdnu }\label{weekday_distribution}
+\end{figure}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/occurences.png}
+	\caption{Rozložení arbitrážních příležitostí v jednotlivých sledovaných dnech}\label{occurences}
+\end{figure}
+\subsection{Závislost na denní hodině}
+\paragraph{
+Z grafu \ref{hours_distribution} je vidět, že nějaké hodiny silně převažují v počtu výskytu arbitrážních příležitostí. Domnívám se však, že je to způsobeno stejným jevem, jako v případě korelace s dny v týdnu a to tím, že se arbitrážní příležitosti neobjevují rovnoměrně v čase (viz \ref{occurences}, nýbrž se vyskytují vždy ve velkém množství po krátkou dobu. Tento efekt spojený s faktem, že nemám dostatečné množství dat poté může způsobovat velké výkyvy v grafu rozložení v závislosti na hodině dne \ref{hours_distribution}.
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/hours_distribution.png}
+	\caption{Rozložení arbitrážních příležitostí v závislosti na hodině výskytu }\label{hours_distribution}
+\end{figure}
+\subsection{Závislost na počtu provedených transakcí}
+\paragraph{
+Počet transakcí je číslo, které by také mohlo ovlivňovat počet výskytu arbitrážních příležitostí, protože nebudou prováděny žádné transakce, tak se nemohou vytvářet ani nové arbitrážní příležitosti.
+}
+\paragraph{
+Pearsonův korelační koeficient diskrétních hodnot s četností po jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,305\), z čehož vyplývá, že tyto dvě veličiny spolu korelují poměrně málo a ještě k tomu nepřímo (viz vývoj počtu transakcí a arbitrážních příležitostí na grafu \ref{occurence_correlation}.
+}
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/occurence_correlation.png}
+	\caption{Vývoj rozložení výskytu arbitrážních příležitostí, neefektivit trhu a celkového počtu provedených transakcí}\label{occurence_correlation}
+\end{figure}
+\subsection{Závislost na počtu neefektivit trhu}
+\paragraph{
+Dalším faktorem, na který jsem se zaměřil v souvislosti s otázku, na čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se jednalo o arbitrážní příležitost za předpokladu, že by nemusely být zahrnuty poplatky. Z této definice vyplývá, že každá arbitrážní příležitost je také neefektivita trhu.
+}
+\paragraph{
+Z grafu \ref{occurence_correlation} je poměrně zřejmé, že výskyt arbitrážních příležitostí a výskyt neefektivit trhu spolu korelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po jednotlivých dnech to potvrzuje výsledkem \(\sim 0,642\). Z korelačního koeficientu tedy plyne, že jsou si tyto dva efekty poměrně příbuzné a částečně spolu přímo korelují. 
+}
 
 % todo - Změnit celý závěr
 \begin{conclusion}
