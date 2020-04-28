@@ -204,6 +204,33 @@ FilesManager.cpp.s:
 	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.s
 .PHONY : FilesManager.cpp.s
 
+OutputFormat.o: OutputFormat.cpp.o
+
+.PHONY : OutputFormat.o
+
+# target to build an object file
+OutputFormat.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.o
+.PHONY : OutputFormat.cpp.o
+
+OutputFormat.i: OutputFormat.cpp.i
+
+.PHONY : OutputFormat.i
+
+# target to preprocess a source file
+OutputFormat.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.i
+.PHONY : OutputFormat.cpp.i
+
+OutputFormat.s: OutputFormat.cpp.s
+
+.PHONY : OutputFormat.s
+
+# target to generate assembly for a file
+OutputFormat.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.s
+.PHONY : OutputFormat.cpp.s
+
 Triplet.o: Triplet.cpp.o
 
 .PHONY : Triplet.o
@@ -276,6 +303,9 @@ help:
 	@echo "... FilesManager.o"
 	@echo "... FilesManager.i"
 	@echo "... FilesManager.s"
+	@echo "... OutputFormat.o"
+	@echo "... OutputFormat.i"
+	@echo "... OutputFormat.s"
 	@echo "... Triplet.o"
 	@echo "... Triplet.i"
 	@echo "... Triplet.s"

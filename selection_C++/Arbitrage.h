@@ -12,11 +12,12 @@
 #include <cstdlib>
 #include "CurrencyPair.h"
 #include "FilesManager.h"
+#include "OutputFormat.h"
 
 using namespace std;
 
-const string OUTPUT_DIRECTORY = "../../statistics/output_data/";  // defines output directory
-//const string OUTPUT_DIRECTORY = "../statistics/test/";  // defines output directory
+//const string OUTPUT_DIRECTORY = "../../statistics/output_data/";  // defines output directory
+const string OUTPUT_DIRECTORY = "../../statistics/test/";  // defines output directory
 
 class Arbitrage {
 public:
@@ -35,6 +36,7 @@ protected:
 private:
     vector<ifstream*> dataframes;
     vector<CurrencyPair> current;
+    vector<CurrencyPair> buffer;
     vector<string> currency_pair_names;
     bool stop;
     string output_name;
@@ -45,6 +47,7 @@ private:
     int without_fees;
     int all;
     long double fees;
+    int would_have; //todo - delete
 };
 
 

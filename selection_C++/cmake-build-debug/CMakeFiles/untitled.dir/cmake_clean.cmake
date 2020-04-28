@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/untitled.dir/FilesManager.cpp.o"
   "CMakeFiles/untitled.dir/CurrencyPair.cpp.o"
   "CMakeFiles/untitled.dir/Triplet.cpp.o"
+  "CMakeFiles/untitled.dir/OutputFormat.cpp.o"
   "untitled.pdb"
   "untitled"
 )

@@ -4,6 +4,8 @@
 
 #include "CurrencyPair.h"
 
+CurrencyPair::CurrencyPair(){}
+
 /**
  * constructor
  * @param input - one line from the file, which si parsed and stored in the class properties

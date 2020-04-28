@@ -25,6 +25,8 @@ CurrencyPair.h
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
 FilesManager.h
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.h
+OutputFormat.h
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
 
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp
 CurrencyPair.h
@@ -52,6 +54,18 @@ vector
 glob.h
 -
 algorithm
+-
+
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.cpp
+OutputFormat.h
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
+
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
+vector
+-
+CurrencyPair.h
+/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
+iostream
 -
 
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp

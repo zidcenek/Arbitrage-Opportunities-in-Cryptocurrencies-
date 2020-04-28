@@ -13,6 +13,7 @@ using namespace std;
 
 class CurrencyPair {
 public:
+    CurrencyPair();
     explicit CurrencyPair(const string & input, const string & currency_name);
     const vector<double> &getSupply() const;
     const vector<double> &getDemand() const;

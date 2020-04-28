@@ -5,6 +5,7 @@ CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../Arbitrage.cpp
 CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../Arbitrage.h
 CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../CurrencyPair.h
 CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../FilesManager.h
+CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../OutputFormat.h
 CMakeFiles/untitled.dir/Arbitrage.cpp.o: ../Triplet.h
 
 CMakeFiles/untitled.dir/CurrencyPair.cpp.o: ../CurrencyPair.cpp
@@ -14,12 +15,17 @@ CMakeFiles/untitled.dir/FilesManager.cpp.o: ../FilesManager.cpp
 CMakeFiles/untitled.dir/FilesManager.cpp.o: ../FilesManager.h
 CMakeFiles/untitled.dir/FilesManager.cpp.o: ../Triplet.h
 
+CMakeFiles/untitled.dir/OutputFormat.cpp.o: ../CurrencyPair.h
+CMakeFiles/untitled.dir/OutputFormat.cpp.o: ../OutputFormat.cpp
+CMakeFiles/untitled.dir/OutputFormat.cpp.o: ../OutputFormat.h
+
 CMakeFiles/untitled.dir/Triplet.cpp.o: ../Triplet.cpp
 CMakeFiles/untitled.dir/Triplet.cpp.o: ../Triplet.h
 
 CMakeFiles/untitled.dir/main.cpp.o: ../Arbitrage.h
 CMakeFiles/untitled.dir/main.cpp.o: ../CurrencyPair.h
 CMakeFiles/untitled.dir/main.cpp.o: ../FilesManager.h
+CMakeFiles/untitled.dir/main.cpp.o: ../OutputFormat.h
 CMakeFiles/untitled.dir/main.cpp.o: ../Triplet.h
 CMakeFiles/untitled.dir/main.cpp.o: ../main.cpp
 

@@ -6,6 +6,7 @@
 
 Arbitrage::Arbitrage(){
     stop = false;
+    would_have = 0;
 }
 
 /**
@@ -140,6 +141,7 @@ long double Arbitrage::calculate_narrowest(
  * the main cycle that goes through the files and tries to find arbitrages
  */
 void Arbitrage::run(){
+    int a = 0;
     string coma;
     const int dir = system(("mkdir -p " + OUTPUT_DIRECTORY + output_directory_name).c_str());
     if(dir){
@@ -154,7 +156,11 @@ void Arbitrage::run(){
     }
     ofs << "{";
     ofs << "\"arbitrage_stats\":[";
+    bool start_of_sequence = true;
+    // represents the first and current in sequence of arbitrage arbitrage, if many follow, it will be saved as only 1
+    OutputFormat first_in_sequence, current_in_sequence;
     while(! stop){
+        all++;
         int index = getOldest();
         long double score, supply_gain, demand_gain;
         vector<int> supply_gain_indexes, demand_gain_indexes;
@@ -175,30 +181,61 @@ void Arbitrage::run(){
                         demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
                                                                        current[2].getSupply(), true, demand_gain);
                     }
-                bool first_item = true;
                 if (supply_gain_indexes.size() != 3 || demand_gain_indexes.size() != 3)
                     continue;
-                ofs << coma << "{\"score\": " << score << ",";
-                ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
-                    << ", " << demand_gain_indexes[2] << "],";
-                ofs << "\"demand_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
-                    << ", " << supply_gain_indexes[2] << "],";
-                ofs << "\"supply_gain\": " << supply_gain << ",";
-                ofs << "\"demand_gain\": " << demand_gain << ",";
-                ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
-                ofs << "\"pairs\": [";
-                for (const auto &item: current) {
-                    if (first_item)
-                        first_item = false;
-                    else
-                        ofs << ",";
-                    ofs << item.to_JSON();
+
+                if(start_of_sequence){
+                    // start of sequence -> first and current are the same
+                    start_of_sequence = false;
+                    first_in_sequence = OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
+                                                   supply_gain, calculation_type_linear, current, a++);
+                    current_in_sequence = first_in_sequence;
+                } else {
+                    // if more follows after first in sequence
+                    OutputFormat tmp = OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
+                                      supply_gain, calculation_type_linear, current, a++);
+                    // if the new and current equal each other, continue
+                    if(current_in_sequence.eq(tmp)){
+                        current_in_sequence = tmp;
+                        continue;
+                    } else{
+                        // else save the first sequence with deltatime
+//                        cout << "-------------------" << endl;
+                        vector<long double> temp;
+                        for(const auto & curr: current) {
+                            temp.push_back(curr.getTimestamp());
+//                            printf("%9.5f ", curr.getTimestamp());
+                        }
+//                        cout << endl;
+                        ofs << first_in_sequence.to_JSON(coma, tmp.getLatestTimestamp(), 1).rdbuf();
+//                        cout << "/------------------" << endl;
+                        coma = ",";
+                        first_in_sequence = current_in_sequence;
+                    }
                 }
-                ofs << "]}";
+
+            } else {
+                if( ! start_of_sequence ){
+                    // else save the first sequence with deltatime of current
+                    vector<long double> tmp;
+                    for(const auto & curr: current)
+                        tmp.push_back(curr.getTimestamp());
+                    ofs << first_in_sequence.to_JSON(coma, *max_element(tmp.begin(), tmp.end()), 2).rdbuf();
+                    coma = ",";
+                    start_of_sequence = true;
+                }
+            }
+        } else {
+            if( ! start_of_sequence ){
+                // else save the first sequence with deltatime of current
+                vector<long double> tmp;
+                for(const auto & curr: current)
+                    tmp.push_back(curr.getTimestamp());
+                ofs << first_in_sequence.to_JSON(coma, *max_element(tmp.begin(), tmp.end()), 3).rdbuf();
                 coma = ",";
+                start_of_sequence = true;
             }
         }
-        all++;
     }
     ofs << "],";
     ofs << "\"arbitrages_count\": " << arbitrages << ",";
@@ -226,22 +263,9 @@ long double Arbitrage::detection(){
         case2 = current[0].getDemand()[0] / current[1].getSupply()[0] / current[2].getSupply()[0];
     }
     if(case1 < case2) {
-//        cout << case1 << " and " << case2 << endl;
-//        if (case2 > 1.0 && !calculation_type_linear) {
-//            cout << case2 << ">" << 1 << " = " << (case2 > 1.0) << endl;
-//            cout << case2 << " = " <<
-//                 current[0].getDemand()[0] << "/" << current[1].getSupply()[0] << "/" << current[2].getSupply()[0]
-//                 << endl;
-//        }
         return case2;
     }
     else {
-//        cout << case1 << " and " << case2 << endl;
-//        if (case1 > 1.0 && !calculation_type_linear) {
-//            cout << case1 << " = " <<
-//            current[1].getDemand()[0] << "*" << current[2].getDemand()[0] << "/" << current[0].getSupply()[0]
-//                 << endl;
-//        }
         return case1;
     }
 }
@@ -262,18 +286,27 @@ void Arbitrage::getNext(int index){
         return;
     }
     string tmp;
+    long double old_timestamp = current[index].getTimestamp();
     getline(*dataframes[index], tmp);
     if(tmp.empty()) {
         stop = true;
         return;
     }
+    CurrencyPair tempCP;
     try {
-        current[index] = CurrencyPair(tmp, currency_pair_names[index]);
+        tempCP = CurrencyPair(tmp, currency_pair_names[index]);
     } catch(const exception& e) {
         if(++counter % 1000 == 0)
             cout << "wrong line no." << counter << endl;
+        return;
     }
-
+    if(tempCP.getTimestamp() < (old_timestamp + 3600*24)) {
+        current[index] = tempCP;
+    }
+//    else {
+//        if(++would_have % 1000 == 0)
+//            cout << "would have no." << would_have << endl;
+//    }
 }
 
 int Arbitrage::getOldest(){
