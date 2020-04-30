@@ -38,7 +38,7 @@ stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, i
 //    }
 //    cout << timestamp - latest << endl;
     stringstream ofs;
-    printf("saving: %1.15Lf\n", score);
+//    printf("saving: %1.15Lf\n", score);
     ofs << coma << "{\"score\": " << score << ",";
     ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
         << ", " << demand_gain_indexes[2] << "],";

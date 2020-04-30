@@ -18,6 +18,7 @@
 using namespace std;
 
 const string OUTPUT_DIRECTORY = "../../statistics/output_data/";  // defines output directory
+//const string OUTPUT_DIRECTORY = "../../../../data/testing-out/";  // defines output directory
 //const string OUTPUT_DIRECTORY = "../../statistics/test/";  // defines output directory
 
 class Arbitrage {

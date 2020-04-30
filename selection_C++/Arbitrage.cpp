@@ -179,7 +179,7 @@ void Arbitrage::run(){
             // writes stats only for those with score higher even after fees
             if (score * fees > 1) {
                 arbitrages++;
-                cout << "found" << endl;
+//                cout << "found" << endl;
                     if (calculation_type_linear) {
                         supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
                                                                        current[2].getSupply(), false, supply_gain);
@@ -291,6 +291,7 @@ bool Arbitrage::openFile(string const& filename){
 }
 
 bool Arbitrage::getNext(int index){
+//    cout << "getting next" << endl;
     if(dataframes[index]->eof()) {
         stop = true;
         return false;
@@ -310,7 +311,8 @@ bool Arbitrage::getNext(int index){
             cout << "wrong line no." << counter << endl;
         return false;
     }
-    if(tempCP.getTimestamp() < (old_timestamp + 3600*24) && tempCP.getTimestamp() > (old_timestamp - 3600*24)) {
+    int hours = 1;
+    if(tempCP.getTimestamp() < (old_timestamp + 3600*hours) && tempCP.getTimestamp() > (old_timestamp - 3600*hours)) {
         current[index] = buffer[index];
         buffer[index] = tempCP;
         if(! looked_into.empty()) {
