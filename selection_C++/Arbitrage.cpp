@@ -38,17 +38,21 @@ bool Arbitrage::initialize(const Triplet & triplet){
             try {
                 getline(*dataframes[i], tmp);
                 current.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
+                buffer.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
                 break;
             } catch(const exception& e) {
                 if(++counter % 1000 == 0)
                     cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl;
             }
         }
+//        current.emplace_back(CurrencyPair());
+        while(! getNext(i)){}
     }
     arbitrages = 0;
     without_fees = 0;
     all = 0;
     fees = 0.999 * 0.999 * 0.999;
+    looked_into = vector<int>(3, 0);
     return true;
 }
 
@@ -160,16 +164,22 @@ void Arbitrage::run(){
     // represents the first and current in sequence of arbitrage arbitrage, if many follow, it will be saved as only 1
     OutputFormat first_in_sequence, current_in_sequence;
     while(! stop){
-        all++;
         int index = getOldest();
+        if(! getNext(index))
+            continue;
         long double score, supply_gain, demand_gain;
         vector<int> supply_gain_indexes, demand_gain_indexes;
-        getNext(index);
+        if(!looked_into.empty()) {
+//            cout << "skiping" << endl;
+            continue;
+        }
+        all++;
         if((score = detection()) > 1) {
             without_fees++;
             // writes stats only for those with score higher even after fees
             if (score * fees > 1) {
                 arbitrages++;
+                cout << "found" << endl;
                     if (calculation_type_linear) {
                         supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
                                                                        current[2].getSupply(), false, supply_gain);
@@ -210,7 +220,7 @@ void Arbitrage::run(){
                         ofs << first_in_sequence.to_JSON(coma, tmp.getLatestTimestamp(), 1).rdbuf();
 //                        cout << "/------------------" << endl;
                         coma = ",";
-                        first_in_sequence = current_in_sequence;
+                        first_in_sequence = tmp;
                     }
                 }
 
@@ -280,17 +290,17 @@ bool Arbitrage::openFile(string const& filename){
     return true;
 }
 
-void Arbitrage::getNext(int index){
+bool Arbitrage::getNext(int index){
     if(dataframes[index]->eof()) {
         stop = true;
-        return;
+        return false;
     }
     string tmp;
-    long double old_timestamp = current[index].getTimestamp();
+    long double old_timestamp = buffer[index].getTimestamp();
     getline(*dataframes[index], tmp);
     if(tmp.empty()) {
         stop = true;
-        return;
+        return false;
     }
     CurrencyPair tempCP;
     try {
@@ -298,22 +308,33 @@ void Arbitrage::getNext(int index){
     } catch(const exception& e) {
         if(++counter % 1000 == 0)
             cout << "wrong line no." << counter << endl;
-        return;
+        return false;
     }
-    if(tempCP.getTimestamp() < (old_timestamp + 3600*24)) {
-        current[index] = tempCP;
+    if(tempCP.getTimestamp() < (old_timestamp + 3600*24) && tempCP.getTimestamp() > (old_timestamp - 3600*24)) {
+        current[index] = buffer[index];
+        buffer[index] = tempCP;
+        if(! looked_into.empty()) {
+            looked_into[index] = 1;
+            int sum = std::accumulate(std::begin(looked_into), std::end(looked_into), 0);
+            if(sum == 3)
+                looked_into.clear();
+        }
+        return true;
+    }else {
+        if(++would_have % 1000 == 0)
+            printf("%9.5Lf %9.5Lf\n", old_timestamp, tempCP.getTimestamp());
     }
-//    else {
-//        if(++would_have % 1000 == 0)
-//            cout << "would have no." << would_have << endl;
-//    }
+    return false;
+
 }
 
 int Arbitrage::getOldest(){
     vector<double> tmp;
-    for(auto const& item: current){
+    for(auto const& item: buffer){
         tmp.push_back(item.getTimestamp());
+//        printf("%9.5Lf ", item.getTimestamp());
     }
+//    cout << endl << std::min_element(tmp.begin(), tmp.end()) - tmp.begin() << endl;
     return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
 }
 

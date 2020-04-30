@@ -21,6 +21,8 @@ algorithm
 -
 cstdlib
 -
+numeric
+-
 CurrencyPair.h
 /mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
 FilesManager.h

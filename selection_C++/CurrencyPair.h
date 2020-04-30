@@ -17,7 +17,7 @@ public:
     explicit CurrencyPair(const string & input, const string & currency_name);
     const vector<double> &getSupply() const;
     const vector<double> &getDemand() const;
-    double getTimestamp() const;
+    long double getTimestamp() const;
     string to_JSON() const;
     string array_to_string(const vector<double> & arr) const;
 protected:

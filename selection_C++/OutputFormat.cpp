@@ -32,11 +32,13 @@ OutputFormat::OutputFormat(long double score1, const vector<int> & supply_gain_i
 }
 
 stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, int origin) {
-    if(timestamp - getLatestTimestamp() == 0) {
-        cout << timestamp - getLatestTimestamp() << " from " << origin << endl;
-    }
-//    cout << timestamp - getLatestTimestamp() << endl;
+    long double latest = getLatestTimestamp();
+//    if(timestamp - latest == 0) {
+//        cout << timestamp - latest << " from " << origin << endl;
+//    }
+//    cout << timestamp - latest << endl;
     stringstream ofs;
+    printf("saving: %1.15Lf\n", score);
     ofs << coma << "{\"score\": " << score << ",";
     ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
         << ", " << demand_gain_indexes[2] << "],";
@@ -45,7 +47,7 @@ stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, i
     ofs << "\"supply_gain\": " << supply_gain << ",";
     ofs << "\"demand_gain\": " << demand_gain << ",";
     ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
-    ofs << "\"time_delta\": " << timestamp - getLatestTimestamp() << ",";
+    ofs << "\"time_delta\": " << timestamp - latest << ",";
     ofs << "\"pairs\": [";
     bool first_item = true;
     for (const auto &item: current) {
@@ -81,10 +83,11 @@ bool OutputFormat::eq (const OutputFormat & other){
 long double OutputFormat::getLatestTimestamp() {
     long double max = -1;
     for(const auto & curr: current){
-//        printf("%9.5f ", curr.getTimestamp());
+//        printf("%9.5Lf ", curr.getTimestamp());
         if(curr.getTimestamp() > max)
             max = curr.getTimestamp();
     }
 //    cout << endl;
+//    printf("%9.5Lf\n", max);
     return max;
 }

@@ -32,7 +32,7 @@ const vector<double> & CurrencyPair::getDemand() const {
     return demand;
 }
 
-double CurrencyPair::getTimestamp() const {
+long double CurrencyPair::getTimestamp() const {
     return timestamp;
 }
 

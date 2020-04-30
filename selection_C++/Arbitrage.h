@@ -10,14 +10,15 @@
 #include <fstream>
 #include <algorithm>
 #include <cstdlib>
+#include <numeric>
 #include "CurrencyPair.h"
 #include "FilesManager.h"
 #include "OutputFormat.h"
 
 using namespace std;
 
-//const string OUTPUT_DIRECTORY = "../../statistics/output_data/";  // defines output directory
-const string OUTPUT_DIRECTORY = "../../statistics/test/";  // defines output directory
+const string OUTPUT_DIRECTORY = "../../statistics/output_data/";  // defines output directory
+//const string OUTPUT_DIRECTORY = "../../statistics/test/";  // defines output directory
 
 class Arbitrage {
 public:
@@ -27,7 +28,7 @@ public:
     long double detection();
 protected:
     bool openFile(string const& filename);
-    void getNext(int index);
+    bool getNext(int index);
     vector<int> calculateMaxGainPosition(vector<double> pairs1, vector<double> pairs2, vector<double> pairs3,
             bool demand_flag, long double & best_gain) const;
     long double calculateScore(double a, double b, double c, bool demand_flag) const;
@@ -47,7 +48,8 @@ private:
     int without_fees;
     int all;
     long double fees;
-    int would_have; //todo - delete
+    int would_have;
+    vector<int> looked_into;
 };
 
 
