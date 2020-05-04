@@ -669,10 +669,10 @@ Nejdůležitějšími faktory jsou:
     \item k jak velkému potenciálnímu zisku mohlo dojít.
 \end{itemize}
 \paragraph{
-Jak je možné vidět v tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se velice liší, pohybuje se od jednotek denně až po tisíce denně. V případě trojúhelníku USDTBTCBCH je tomu až několik desítek tisíc denně. Je zde také možné si všimnout, že průměrná neefektivita arbitrážní příležitosti (jedná se o hodnotu zisku bez zahrnutí poplatků, s odečtením poplatků by tato čísla byla ještě menší) v žádném případě nedosahuje ani jednotek procent, v nejlepších případech je to pouze několik promile.
+Jak je možné vidět v tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se poměrně hodně liší, pohybuje se od ani ne jednotek denně až po několik desítek denně. V případě trojúhelníku USDT/BNB/XMR je tomu nejvíce a jedná se v průměru o více než 60 arbitrážních příležitostí denně. Je zde také možné si všimnout, že průměrná neefektivita arbitrážní příležitosti (jedná se o hodnotu zisku bez zahrnutí poplatků, s odečtením poplatků by tato čísla byla ještě menší) v žádném případě nedosahuje ani jednotek procent, v nejlepších případech je to pouze několik promile, většina trojúhelníků nepřesahuje ani 3 promile.
 }
 \paragraph{
-Z toho důvodu, že vysoký procentuální zisk z tabulky \ref{table_averages} nemusí nutně znamenat vysoký reálný zisk, je nutné se podívat do tabulky \ref{table_gains}. V této tabulce jsou uvedeny průměrné denní potenciální zisky, jak v hodnotách jedné z kryptoměn daného trojúhelníku, tak v hodnotách přepočtených na americké dolary USD (podle tabulky kurzů \ref{table_rates}), z důvodu lepšího porovnání mezi sebou. V tabulce potenciálních zisků \ref{table_gains} je vidět, že se hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než tomu tak bylo v tabulce průměrných počtů \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od hodnot blízkých nule až po hodnoty několika tisíců amerických dolarů (údaje jsou nechány v exponenciálním tvaru, neboť rozdíly mezi nejmenšími a nejvyššími hodnotami jsou až 21 řádů). 
+Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} nemusí nutně znamenat vysoký reálný zisk, je nutné se podívat do tabulky \ref{table_gains}. V této tabulce jsou uvedeny průměrné denní potenciální zisky, jak v hodnotách jedné z kryptoměn daného trojúhelníku, tak v hodnotách přepočtených na americké dolary USD (podle tabulky kurzů \ref{table_rates}), z důvodu lepšího porovnání mezi sebou. V tabulce potenciálních zisků \ref{table_gains} je vidět, že se hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než tomu tak bylo v tabulce průměrných počtů arbitrážních příležitostí v tabulce \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od hodnot blízkých nule až po hodnoty desítek až stovek amerických dolarů (údaje jsou nechány v exponenciálním tvaru, neboť rozdíly mezi nejmenšími a nejvyššími hodnotami jsou až 21 řádů). 
 }
 % \hline
 % Nazev & Prumerny denni pocet & \vtop{\hbox{\strut Prumerna}\hbox{\strut neefektivita}}\\ [0.5ex]
@@ -681,94 +681,94 @@ Z toho důvodu, že vysoký procentuální zisk z tabulky \ref{table_averages} n
 \begin{table}\centering
 \caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí}
 \label{table_averages}
-\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Průměrná procentuální neefektivita\\ [0.5ex]
- \hline\hline BTCBCHBNB & 903,2105 & 1,0016\\ 
- \hline BTCBNBTRX & 54,7692 & 1,0005\\ 
- \hline BTCBNBXMR & 234,3590 & 1,0012\\ 
- \hline BTCETHBNB & 515,4359 & 1,0006\\ 
- \hline BTCETHEOS & 1742,0769 & 1,0004\\ 
- \hline BTCETHTRX & 4,8246 & 1,0004\\ 
- \hline BTCETHXRP & 25,7193 & 1,0006\\ 
- \hline BTCLTCBNB & 309,6410 & 1,0008\\ 
- \hline BTCLTCETH & 26,2105 & 1,0005\\ 
- \hline BTCXRPBNB & 301,6410 & 1,0006\\ 
- \hline BTCXRPTRX & 56,9825 & 1,0009\\ 
- \hline ETHBNBTRX & 980,2564 & 1,0004\\ 
- \hline ETHBNBXMR & 20,8070 & 1,0006\\ 
- \hline ETHEOSBNB & 1048,7692 & 1,0005\\ 
- \hline ETHXRPBNB & 6,7544 & 1,0003\\ 
- \hline ETHXRPTRX & 10,3333 & 1,0004\\ 
- \hline LTCETHBNB & 8,2281 & 1,0004\\ 
- \hline USDTBCHBNB & 42,6071 & 1,0028\\ 
- \hline USDTBNBTRX & 1076,5385 & 1,0022\\ 
- \hline USDTBNBXMR & 92,5088 & 1,0027\\ 
- \hline USDTBTCBCH & 43895,2051 & 1,0047\\ 
- \hline USDTBTCBNB & 7823,8205 & 1,0036\\ 
- \hline USDTBTCEOS & 5198,4483 & 1,0036\\ 
- \hline USDTBTCETH & 3099,1026 & 1,0028\\ 
- \hline USDTBTCLTC & 5700,4912 & 1,0034\\ 
- \hline USDTBTCTRX & 5128,7544 & 1,0025\\ 
- \hline USDTBTCXMR & 4005,2105 & 1,0034\\ 
- \hline USDTBTCXRP & 3779,0702 & 1,0034\\ 
- \hline USDTEOSBNB & 62,9123 & 1,0028\\ 
- \hline USDTETHBNB & 1392,8974 & 1,0024\\ 
- \hline USDTETHEOS & 664,3333 & 1,0018\\ 
- \hline USDTETHTRX & 1216,0769 & 1,0017\\ 
- \hline USDTETHXMR & 1000,4615 & 1,0020\\ 
- \hline USDTETHXRP & 1311,7179 & 1,0017\\ 
- \hline USDTLTCBNB & 50,8246 & 1,0025\\ 
- \hline USDTLTCETH & 1291,5128 & 1,0018\\ 
- \hline USDTXRPBNB & 28,7193 & 1,0027\\ 
- \hline USDTXRPTRX & 79,3333 & 1,0019\\ 
- \hline XRPBNBTRX & 466,3846 & 1,0010\\ 
+\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Průměrná \% neefektivita\\ [0.5ex]
+ \hline\hline BTCBCHBNB & 2,4651 & 1,0015\\ 
+ \hline BTCBNBTRX & 0,2500 & 1,0005\\ 
+ \hline BTCBNBXMR & 1,3864 & 1,0015\\ 
+ \hline BTCETHBNB & 0,7500 & 1,0010\\ 
+ \hline BTCETHEOS & 0,7500 & 1,0006\\ 
+ \hline BTCETHTRX & 3,5070 & 1,0004\\ 
+ \hline BTCETHXRP & 12,1127 & 1,0007\\ 
+ \hline BTCLTCBNB & 0,6364 & 1,0007\\ 
+ \hline BTCLTCETH & 18,8310 & 1,0004\\ 
+ \hline BTCXRPBNB & 0,2045 & 1,0005\\ 
+ \hline BTCXRPTRX & 25,3662 & 1,0010\\ 
+ \hline ETHBNBTRX & 0,4545 & 1,0007\\ 
+ \hline ETHBNBXMR & 12,6761 & 1,0008\\ 
+ \hline ETHEOSBNB & 0,6136 & 1,0008\\ 
+ \hline ETHXRPBNB & 4,6479 & 1,0005\\ 
+ \hline ETHXRPTRX & 6,1972 & 1,0005\\ 
+ \hline LTCETHBNB & 5,7746 & 1,0007\\ 
+ \hline USDTBCHBNB & 33,5857 & 1,0033\\ 
+ \hline USDTBNBTRX & 2,4091 & 1,0022\\ 
+ \hline USDTBNBXMR & 65,1549 & 1,0028\\ 
+ \hline USDTBTCBCH & 4,8636 & 1,0026\\ 
+ \hline USDTBTCBNB & 6,5227 & 1,0028\\ 
+ \hline USDTBTCEOS & 49,5000 & 1,0032\\ 
+ \hline USDTBTCETH & 3,9545 & 1,0023\\ 
+ \hline USDTBTCLTC & 22,0563 & 1,0028\\ 
+ \hline USDTBTCTRX & 11,8310 & 1,0019\\ 
+ \hline USDTBTCXMR & 47,7042 & 1,0031\\ 
+ \hline USDTBTCXRP & 35,4930 & 1,0030\\ 
+ \hline USDTEOSBNB & 47,3239 & 1,0028\\ 
+ \hline USDTETHBNB & 3,2273 & 1,0026\\ 
+ \hline USDTETHEOS & 2,0227 & 1,0021\\ 
+ \hline USDTETHTRX & 1,0909 & 1,0022\\ 
+ \hline USDTETHXMR & 3,1364 & 1,0024\\ 
+ \hline USDTETHXRP & 2,2955 & 1,0023\\ 
+ \hline USDTLTCBNB & 32,1268 & 1,0026\\ 
+ \hline USDTLTCETH & 1,9318 & 1,0024\\ 
+ \hline USDTXRPBNB & 20,2394 & 1,0026\\ 
+ \hline USDTXRPTRX & 49,0141 & 1,0020\\ 
+ \hline XRPBNBTRX & 0,2727 & 1,0009\\ 
  \hline
 \end{tabular}
 \end{table}
 
 
 \begin{table}\centering
-\caption{Tabulka potenciálního výnostu arbitrážních příležitostí}
+\caption{Tabulka potenciálního výnosu arbitrážních příležitostí}
 \label{table_gains}
 \begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline BTCBCHBNB & 7,232724e-01 BCH & 1,612753e+02\\ 
- \hline BTCBNBTRX & 7,531697e-15 TRX & 9,487679e-17\\ 
- \hline BTCBNBXMR & 1,212417e-04 XMR & 6,470671e-03\\ 
- \hline BTCETHBNB & 4,005811e-05 BNB & 6,221025e-04\\ 
- \hline BTCETHEOS & 4,247258e-05 EOS & 1,036331e-04\\ 
- \hline BTCETHTRX & 2,675907e-12 TRX & 3,370839e-14\\ 
- \hline BTCETHXRP & 8,296201e-09 XRP & 1,542803e-09\\ 
- \hline BTCLTCBNB & 6,896793e-04 LTC & 2,827685e-02\\ 
- \hline BTCLTCETH & 7,007199e-06 LTC & 2,872952e-04\\ 
- \hline BTCXRPBNB & 2,339707e-07 XRP & 4,351036e-08\\ 
- \hline BTCXRPTRX & 1,116005e-08 TRX & 1,405831e-10\\ 
- \hline ETHBNBTRX & 1,222977e-12 TRX & 1,540585e-14\\ 
- \hline ETHBNBXMR & 7,658620e-04 XMR & 4,087406e-02\\ 
- \hline ETHEOSBNB & 2,351345e-03 EOS & 5,737283e-03\\ 
- \hline ETHXRPBNB & 1,301694e-07 XRP & 2,420695e-08\\ 
- \hline ETHXRPTRX & 1,095958e-06 TRX & 1,380578e-08\\ 
- \hline LTCETHBNB & 6,773773e-04 LTC & 2,777247e-02\\ 
- \hline USDTBCHBNB & 2,750812e+00 BCH & 6,133760e+02\\ 
- \hline USDTBNBTRX & 3,757523e-05 TRX & 4,733352e-07\\ 
- \hline USDTBNBXMR & 5,985690e-01 XMR & 3,194563e+01\\ 
- \hline USDTBTCBCH & 2,429589e+02 BCH & 5,417499e+04\\ 
- \hline USDTBTCBNB & 1,213585e+01 BNB & 1,884698e+02\\ 
- \hline USDTBTCEOS & 7,533229e-01 EOS & 1,838108e+00\\ 
- \hline USDTBTCETH & 1,738009e+01 ETH & 2,723461e+03\\ 
- \hline USDTBTCLTC & 3,060321e+01 LTC & 1,254732e+03\\ 
- \hline USDTBTCTRX & 3,193358e-06 TRX & 4,022673e-08\\ 
- \hline USDTBTCXMR & 1,868465e+01 XMR & 9,971996e+02\\ 
- \hline USDTBTCXRP & 2,521137e-03 XRP & 4,688433e-04\\ 
- \hline USDTEOSBNB & 2,809629e+01 EOS & 6,855495e+01\\ 
- \hline USDTETHBNB & 1,840816e+01 BNB & 2,858787e+02\\ 
- \hline USDTETHEOS & 4,496845e+00 EOS & 1,097230e+01\\ 
- \hline USDTETHTRX & 1,075687e-04 TRX & 1,355043e-06\\ 
- \hline USDTETHXMR & 1,490794e+01 XMR & 7,956367e+02\\ 
- \hline USDTETHXRP & 2,325367e-02 XRP & 4,324369e-03\\ 
- \hline USDTLTCBNB & 5,610373e+00 LTC & 2,300253e+02\\ 
- \hline USDTLTCETH & 2,523501e+01 LTC & 1,034635e+03\\ 
- \hline USDTXRPBNB & 3,116302e-01 XRP & 5,795231e-02\\ 
- \hline USDTXRPTRX & 5,745734e-01 TRX & 7,237900e-03\\ 
- \hline XRPBNBTRX & 4,959630e-03 TRX & 6,247646e-05\\ 
+ \hline\hline BTCBCHBNB & 4,419113e-05 BCH & 9,853739e-03\\ 
+ \hline BTCBNBTRX & 2,333645e-15 TRX & 2,939693e-17\\ 
+ \hline BTCBNBXMR & 3,016967e-06 XMR & 1,610155e-04\\ 
+ \hline BTCETHBNB & 2,927920e-08 BNB & 4,547059e-07\\ 
+ \hline BTCETHEOS & 5,985557e-09 EOS & 1,460476e-08\\ 
+ \hline BTCETHTRX & 3,725827e-12 TRX & 4,693424e-14\\ 
+ \hline BTCETHXRP & 2,107271e-10 XRP & 3,918787e-11\\ 
+ \hline BTCLTCBNB & 1,410859e-06 LTC & 5,784524e-05\\ 
+ \hline BTCLTCETH & 3,891696e-05 LTC & 1,595595e-03\\ 
+ \hline BTCXRPBNB & 2,366390e-11 XRP & 4,400656e-12\\ 
+ \hline BTCXRPTRX & 1,593265e-07 TRX & 2,007036e-09\\ 
+ \hline ETHBNBTRX & 2,850354e-11 TRX & 3,590590e-13\\ 
+ \hline ETHBNBXMR & 4,112905e-04 XMR & 2,195057e-02\\ 
+ \hline ETHEOSBNB & 2,634973e-06 EOS & 6,429333e-06\\ 
+ \hline ETHXRPBNB & 8,860329e-08 XRP & 1,647711e-08\\ 
+ \hline ETHXRPTRX & 8,227061e-07 TRX & 1,036363e-08\\ 
+ \hline LTCETHBNB & 3,780171e-04 LTC & 1,549870e-02\\ 
+ \hline USDTBCHBNB & 2,230023e+00 BCH & 4,972506e+02\\ 
+ \hline USDTBNBTRX & 2,015034e-05 TRX & 2,538338e-07\\ 
+ \hline USDTBNBXMR & 3,422176e-01 XMR & 1,826415e+01\\ 
+ \hline USDTBTCBCH & 4,916836e-03 BCH & 1,096356e+00\\ 
+ \hline USDTBTCBNB & 5,541003e-04 BNB & 8,605178e-03\\ 
+ \hline USDTBTCEOS & 2,394959e-03 EOS & 5,843701e-03\\ 
+ \hline USDTBTCETH & 6,044486e-03 ETH & 9,471709e-01\\ 
+ \hline USDTBTCLTC & 1,036748e-01 LTC & 4,250665e+00\\ 
+ \hline USDTBTCTRX & 7,487126e-08 TRX & 9,431532e-10\\ 
+ \hline USDTBTCXMR & 1,522814e-02 XMR & 8,127257e-01\\ 
+ \hline USDTBTCXRP & 1,309092e-05 XRP & 2,434452e-06\\ 
+ \hline USDTEOSBNB & 4,491558e+00 EOS & 1,095940e+01\\ 
+ \hline USDTETHBNB & 3,840955e-02 BNB & 5,965003e-01\\ 
+ \hline USDTETHEOS & 3,878244e-03 EOS & 9,462915e-03\\ 
+ \hline USDTETHTRX & 6,624806e-08 TRX & 8,345268e-10\\ 
+ \hline USDTETHXMR & 9,329797e-03 XMR & 4,979313e-01\\ 
+ \hline USDTETHXRP & 1,067932e-04 XRP & 1,985980e-05\\ 
+ \hline USDTLTCBNB & 4,070549e+00 LTC & 1,668925e+02\\ 
+ \hline USDTLTCETH & 9,101869e-03 LTC & 3,731766e-01\\ 
+ \hline USDTXRPBNB & 2,448773e-01 XRP & 4,553861e-02\\ 
+ \hline USDTXRPTRX & 2,215846e-01 TRX & 2,791302e-03\\ 
+ \hline XRPBNBTRX & 4,067842e-07 TRX & 5,124261e-09\\ 
  \hline
 \end{tabular}
 \end{table}
@@ -799,7 +799,10 @@ V této sekci se zabývám tím, jaké vnější jevy mohou mít na výskyt arbi
 }
 \subsection{Závislost na dni v týdnu}
 \paragraph{
-Z grafu \ref{weekday_distribution} je možné vidět, že se arbitrážní příležitosti vyskytovaly nejvíce v prvních třech dnech týdne a také v sobotu. Na druhou stranu při pohledu na graf \ref{occurences} je jasně vidět, že se ve výskytu arbitrážních příležitostí nevyskytuje žádný periodický vzor, který by se opakoval po sedmi dnech. Z tohoto důvodu si dovoluji tvrdit, že z mých dat není zřejmá žádná korelace mezi výskytem arbitrážních příležitostí a dnem v týdnu, nevyvracím však možnost, že se nějaká vyskytovat může. Velké výkyvy ve výskytu arbitráží ovlivňují data natolik, že ostatní hodnoty mají téměř nulový význam.
+Z grafu \ref{weekday_distribution} je možné vidět, že se arbitrážní příležitosti vyskytovaly nejvíce v pondělí a v sobotu. Na druhou stranu při pohledu na graf \ref{occurences} je jasně vidět, že se ve výskytu arbitrážních příležitostí nevyskytuje žádný periodický vzor, který by se opakoval po každých sedmi dnech. Je zde spíše možné vidět, že je graf velice plochý s pár výkyvy, které naprosto převáží všechny ostatní výskyty.
+}
+\paragraph{
+ Z tohoto důvodu si dovoluji tvrdit, že z mých dat není zřejmá žádná korelace mezi výskytem arbitrážních příležitostí a dnem v týdnu, nevyvracím však možnost, že se nějaká vyskytovat může. Velké výkyvy ve výskytu arbitráží ovlivňují data natolik, že ostatní hodnoty mají téměř nulový význam.
 }
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/weekday_distribution.png}
@@ -813,16 +816,19 @@ Z grafu \ref{weekday_distribution} je možné vidět, že se arbitrážní pří
 \paragraph{
 Z grafu \ref{hours_distribution} je vidět, že nějaké hodiny silně převažují v počtu výskytu arbitrážních příležitostí. Domnívám se však, že je to způsobeno stejným jevem, jako v případě korelace s dny v týdnu a to tím, že se arbitrážní příležitosti neobjevují rovnoměrně v čase (viz \ref{occurences}, nýbrž se vyskytují vždy ve velkém množství po krátkou dobu. Tento efekt spojený s faktem, že nemám dostatečné množství dat poté může způsobovat velké výkyvy v grafu rozložení v závislosti na hodině dne \ref{hours_distribution}.
 }
+\paragraph{
+Díky tomuto efektu dále není možné z mých dat docházet k jakýmkoliv hlubším závěrům, neboť bych potřeboval, abych měl zaevidovaný vyšší počet výkyvů. Z toho důvodu nemohu potvrdit ani vyvrátit možnost výskytu korelace mezi výskytem arbitrážních příležitostí a hodinou ve dni.
+}
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/hours_distribution.png}
 	\caption{Rozložení arbitrážních příležitostí v závislosti na hodině výskytu }\label{hours_distribution}
 \end{figure}
 \subsection{Závislost na počtu provedených transakcí}
 \paragraph{
-Počet transakcí je číslo, které by také mohlo ovlivňovat počet výskytu arbitrážních příležitostí, protože nebudou prováděny žádné transakce, tak se nemohou vytvářet ani nové arbitrážní příležitosti.
+Počet transakcí je číslo, které by také mohlo ovlivňovat počet výskytu arbitrážních příležitostí, protože za předpokladu, že nebudou prováděny žádné transakce, se nemohou vytvářet ani nové arbitrážní příležitosti.
 }
 \paragraph{
-Pearsonův korelační koeficient diskrétních hodnot s četností po jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,305\), z čehož vyplývá, že tyto dvě veličiny spolu korelují poměrně málo a ještě k tomu nepřímo (viz vývoj počtu transakcí a arbitrážních příležitostí na grafu \ref{occurence_correlation}.
+Pearsonův korelační koeficient diskrétních hodnot s četností po jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,071\), z čehož vyplývá, že tyto dvě veličiny spolu téměř vůbec nekorelují, a proto není možné mluvit o jakékoliv závislosti jedné na druhé. \ref{occurence_correlation}.
 }
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/occurence_correlation.png}
@@ -830,11 +836,41 @@ Pearsonův korelační koeficient diskrétních hodnot s četností po jednotliv
 \end{figure}
 \subsection{Závislost na počtu neefektivit trhu}
 \paragraph{
-Dalším faktorem, na který jsem se zaměřil v souvislosti s otázku, na čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se jednalo o arbitrážní příležitost za předpokladu, že by nemusely být zahrnuty poplatky. Z této definice vyplývá, že každá arbitrážní příležitost je také neefektivita trhu.
+Dalším faktorem, na který jsem se zaměřil v souvislosti s otázku, na čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se jednalo o arbitrážní příležitost za předpokladu, že by nemusely být zahrnuty poplatky. Z této definice vyplývá, že každá arbitrážní příležitost je také nutně neefektivitou trhu.
 }
 \paragraph{
-Z grafu \ref{occurence_correlation} je poměrně zřejmé, že výskyt arbitrážních příležitostí a výskyt neefektivit trhu spolu korelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po jednotlivých dnech to potvrzuje výsledkem \(\sim 0,642\). Z korelačního koeficientu tedy plyne, že jsou si tyto dva efekty poměrně příbuzné a částečně spolu přímo korelují. 
+Z grafů \ref{ineffictivity_correlation} a \ref{occurences} je poměrně zřejmé, že výskyt arbitrážních příležitostí a neefektivit trhu spolu moc nekorelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po jednotlivých dnech to potvrzuje výsledkem \(\sim-0,066\). Z korelačního koeficientu tedy plyne, že tyto dvě hodnoty spolu téměř nekorelují.
 }
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/ineffictivity_correlation.png}
+	\caption{Vývoj rozložení výskytu arbitrážních příležitostí a neefektivit trhu}\label{ineffictivity_correlation}
+\end{figure}
+\section{Konkrétní hodnoty nejzajímavějších trojúhelníků}
+\paragraph{
+V této sekci se podrobněji věnuji nejzajímavějším trojúhelníkům, které jsem vyselektoval na základě téměř tří měsíců dat. 
+}
+\subsection{Selekce}
+\paragraph{
+Trojúhelníky jsem vybíral převážně na základě hodnot z předchozí sekce (konkrétně z tabulek \ref{table_gains} a \ref{table_averages}). Z toho důvodu, že se většina pozorovaných hodnot mezi jednotlivými měnami velice neliší, bral jsem v potaz převážně faktor celkového potenciálního zisku.
+}
+\paragraph{
+V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u kterých je možné v průměru každý den vydělat alespoň 1 americký dolar. V této sekci se budu podrobněji věnovat čtyřem nejlukrativnějším trojúhelníkům (USDT/BCH/BNB, USDT/BNB/XMR, USDT/EOS/BNB, USDT/LTC/BNB).
+Je zajímavé si povšimnout, že ve všech nejzajímavějších trojúhelnících figurují USDT Tether a Binance coin.
+}
+
+\begin{table}\centering
+\caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí na nejlepších trojúhelnících}
+\label{table_combined_best}
+\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
+ \hline\hline USDTBCHBNB & 33,585714 & 497,250595\\ 
+ \hline USDTBNBXMR & 65,154930 & 18,264153\\ 
+ \hline USDTBTCBCH & 4,863636 & 1,096356\\ 
+ \hline USDTBTCLTC & 22,056338 & 4,250665\\ 
+ \hline USDTEOSBNB & 47,323944 & 10,959402\\ 
+ \hline USDTLTCBNB & 32,126761 & 166,892515\\ 
+ \hline
+\end{tabular}
+\end{table}
 
 % todo - Změnit celý závěr
 \begin{conclusion}
