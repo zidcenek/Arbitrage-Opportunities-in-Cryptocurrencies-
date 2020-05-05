@@ -672,7 +672,7 @@ Nejdůležitějšími faktory jsou:
 Jak je možné vidět v tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se poměrně hodně liší, pohybuje se od ani ne jednotek denně až po několik desítek denně. V případě trojúhelníku USDT/BNB/XMR je tomu nejvíce a jedná se v průměru o více než 60 arbitrážních příležitostí denně. Je zde také možné si všimnout, že průměrná neefektivita arbitrážní příležitosti (jedná se o hodnotu zisku bez zahrnutí poplatků, s odečtením poplatků by tato čísla byla ještě menší) v žádném případě nedosahuje ani jednotek procent, v nejlepších případech je to pouze několik promile, většina trojúhelníků nepřesahuje ani 3 promile.
 }
 \paragraph{
-Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} nemusí nutně znamenat vysoký reálný zisk, je nutné se podívat do tabulky \ref{table_gains}. V této tabulce jsou uvedeny průměrné denní potenciální zisky, jak v hodnotách jedné z kryptoměn daného trojúhelníku, tak v hodnotách přepočtených na americké dolary USD (podle tabulky kurzů \ref{table_rates}), z důvodu lepšího porovnání mezi sebou. V tabulce potenciálních zisků \ref{table_gains} je vidět, že se hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než tomu tak bylo v tabulce průměrných počtů arbitrážních příležitostí v tabulce \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od hodnot blízkých nule až po hodnoty desítek až stovek amerických dolarů (údaje jsou nechány v exponenciálním tvaru, neboť rozdíly mezi nejmenšími a nejvyššími hodnotami jsou až 21 řádů). 
+Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} a grafu \ref{average_percentage_inefficiency} nemusí nutně znamenat vysoký reálný zisk, je nutné se podívat do tabulky \ref{table_gains}. V této tabulce jsou uvedeny průměrné denní potenciální zisky, jak v hodnotách jedné z kryptoměn daného trojúhelníku, tak v hodnotách přepočtených na americké dolary USD (podle tabulky kurzů \ref{table_rates}), z důvodu lepšího porovnání mezi sebou. V tabulce potenciálních zisků \ref{table_gains} je vidět, že se hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než tomu tak bylo v tabulce průměrných počtů arbitrážních příležitostí v tabulce \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od hodnot blízkých nule až po hodnoty desítek až stovek amerických dolarů (údaje jsou nechány v exponenciálním tvaru, neboť rozdíly mezi nejmenšími a nejvyššími hodnotami jsou až 21 řádů). 
 }
 % \hline
 % Nazev & Prumerny denni pocet & \vtop{\hbox{\strut Prumerna}\hbox{\strut neefektivita}}\\ [0.5ex]
@@ -725,6 +725,10 @@ Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} 
 \end{tabular}
 \end{table}
 
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/average_percentage_inefficiency.png}
+	\caption{Průměrná procentuální neefektivita jednotlivých trojúhelníků (bez zahrnutí poplatků)}\label{average_percentage_inefficiency}
+\end{figure}
 
 \begin{table}\centering
 \caption{Tabulka potenciálního výnosu arbitrážních příležitostí}
@@ -871,6 +875,61 @@ Je zajímavé si povšimnout, že ve všech nejzajímavějších trojúhelnící
  \hline
 \end{tabular}
 \end{table}
+
+\subsection{Bližší statistiky}
+\paragraph{
+V této sekci vypisuji blízké statistiky k vybraným zajímavým trojúhelníkům. Statistiky ke všem ostatním trojúhelníkům jsou k dispozici v příloze.
+}
+\subsubsection{Trojúhelník USDT/BCH/BNB}
+\paragraph{
+Trojúhelník USDT/BCH/BNB je z pohledu potenciálního zisku nejlepší, je však nutné podotknout, že pro zobchodování nějakých trojúhelníků by bylo nutné provést nějaké velmi velké transakce. Například na nejvýhodnějším trojúhelníku bylo možné vydělat 3,07~BCH (685,14~USD). Pro uskutečnění takto velké transakce je však nutné zobchodovat obrovské množství peněz, které většina běžných obchodníků na kontě připravené nemá.
+}
+\paragraph{
+Jednou z negativních vlastností, kterou tento trojúhelník má je nadprůměrně krátká doba trvání arbitrážních příležitostí, která činí 0,36~s a je tak o 20~\% méně než je průměr 0,45~s.
+}
+\paragraph{
+Průměrně se v každý den vyskytne na tomto trojúhelníku přes 30 arbitrážních příležitostí, toto číslo je však velmi ovlivněno lokálními výkyvy (viz graf \ref{occurences_arbitrage_USDTBCHBNB}), protože medián výskytu činí pouhé 2 výskyty denně.
+}
+\begin{table}\centering
+\caption{Základní statistiky trojúhelníku USDT/BCH/BNB}
+\label{USDTBCHBNB_stats}
+\begin{tabular}{|| l | r ||}
+\hline Název & Hodnota \\ 
+\hline\hline Name & USDT/BCH/BNB \\ 
+\hline Days & 70 \\ 
+\hline Average count & 33,58571428571429 \\ 
+\hline Average score & 1,0033129439959507 \\ 
+\hline The best score & 1,11494 \\ 
+\hline The best gain & 3,072660 BCH \\ 
+\hline Total inefficiency & 127,035890 BCH \\ 
+\hline Average daily inefficiency & 2,230023 BCH \\ 
+\hline Average daily inefficiency (USD) & 497,2505954591991 \\ 
+\hline The best gain (USD) & 685,1417267999999 \\ 
+\hline Total inefficiency (USD) & 28326,46277302901 \\ 
+\hline Median of daily number of arbitrages & 2,0 \\ 
+\hline Average deltatime & 0,36364725282858357 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTBCHBNB.png}
+	\caption{Vývoj arbitrážních příležitostí na trojúhelníku USDT/BCH/BNB }\label{occurences_arbitrage_USDTBCHBNB}
+\end{figure}
+\section{Konkrétní hodnoty nejzajímavějších trojúhelníků}
+
+\subsubsection{Trojúhelník USDT/LTC/BNB}
+\paragraph{
+sd
+}
+\subsubsection{Trojúhelník USDT/BNB/XMR}
+\paragraph{
+sd
+}
+\subsubsection{Trojúhelník USDT/EOS/BNB}
+\paragraph{
+sd
+}
 
 % todo - Změnit celý závěr
 \begin{conclusion}
