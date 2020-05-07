@@ -395,9 +395,19 @@ Reálné trhy nikdy dokonale efektivní nejsou. Na těchto neefektivních trzíc
 \paragraph{
 Arbitráž je obchodní strategie, která má za cíl vytěžit na neefektivitě trhu. Arbitráž je založena na principu nakoupit levně a prodat draze. Principem arbitráže je vytvořit zisk na malých rozdílech v ceně aktiv téměř bez jakéhokoliv rizika. Nejčastěji se jedná o nákup na jednom místě a téměř instantní prodej na místě jiném za vyšší cenu. \cite{Capital}
 }
+\subsection{Arbitráže na forexových trzích}
+\paragraph{
+Ještě předtím než vůbec vznikly kryptoměny, bylo možné se s arbitrážními příležitostmi setkat a to v rámci forexových trhů. Arbitráže se úplně původně začaly objevovat, kdy bylo možné v rámci jednoho měnového páru na jedné burze nakoupit levně a na druhé prodat draze. 
+}
+\paragraph{
+Díky počítačům a vysoké rychlosti výpočtů bylo možné se následně věnovat i složitějším trojúhelníkovým arbitrážím a vydělávat na nich. \cite{investopedia_forex_arbitrage}
+}
 \subsection{Arbitráže v rámci kryptoměnových burz}
 \paragraph{
-Arbitrážní příležitost vznikne většinou na základě rozdílu cen na dvou odlišných burzách. Důvod proč arbitráže vznikají právě na kryptoměnových burzách je ten, že na burzách, kde dochází k velkému obchodnímu objemu, vzniká i velká likvidita určité měny, která poté reaguje rychleji na změny cen. Zatímco na burzách, kde je menší nabídka dané měny, je likvidita nižší a cena dané měny bude daleko pomaleji reagovat na změny. Tím, že je možné nakoupit na jedné burze levněji a na druhé prodat dráže, vzniká neefektivita a s ní také potenciální zisk.
+Arbitrážní příležitosti na kryptoměnových burzách jsou pouhou obdobou arbitráží vyskytujících se na forexových trzích. Jedná se prakticky o úplně to samé, jediným rozdílem je fakt, že se místo reálných měn obchoduje s kryptoměnami. 
+}
+\paragraph{
+Arbitrážní příležitost na kryptoměnových burzách (podobně jako na forexových trzích) vznikne většinou na základě rozdílu cen na dvou odlišných burzách. Důvod proč arbitráže vznikají právě na kryptoměnových burzách je ten, že na burzách, kde dochází k velkému obchodnímu objemu, vzniká i velká likvidita určité měny, která poté reaguje rychleji na změny cen. Zatímco na burzách, kde je menší nabídka dané měny, je likvidita nižší a cena dané měny bude daleko pomaleji reagovat na změny. Tím, že je možné nakoupit na jedné burze levněji a na druhé prodat dráže, vzniká neefektivita a s ní také potenciální zisk.
 }
 \paragraph{
 Tento efekt velice úzce souvisí s tím, že se kryptoměny staly v posledních letech velmi populárními a ceny na velkých burzách velmi rychle kolísají, zatímco menší burzy tomuto tempu nemusí vždy stíhat. \cite{finder}
@@ -552,11 +562,25 @@ Z toho důvodu, že může mít order book hloubku až několika stovek objedná
 \paragraph{
 Neboť jsem data potřeboval ukládat neustále a ne pouze v konkrétní časové intervaly, tak jsem sběr dat spustil na cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do souborů po jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a ukládat i na lokální disk.
 }
+\subsubsection{Kontrola správnosti dat}
+\paragraph{
+Z toho důvodu, že mi data chodila z cizího serveru přes websocket a nebylo stoprocentně zaručené, že data budou chodit vždy ve správném tvaru už jen například v závislosti na latenci mezi burzou Binance a mým serverem. Kvůli tomu bylo nutné zavést některá opatření, aby mi jisté chyby nezkreslily statistiky.
+}
+\paragraph{
+První kontrolou bylo to, že při postupném procházení dat kontroluji vždy časový údaj a porovnávám ho s předchozím. Pokud takováto situace nastane, tak řádek jednoduše přeskakuji. Pokud by se však tento efekt opakoval častěji chybu mi program nahlásí a je nutné data zkontrolovat ručně.  
+}
+\paragraph{
+Tento efekt se objevil, když mi na tři sledované dvojice měn začala chodit data po několik dní opakovaně s několika minutovou (až hodinovou) časovou prodlevou. Kvůli tomu jsem si napsal program, který mi celé soubory dat zkontroluje, seřadí podle identifikátoru knihy objednávek (order book) a časového razítka (timestamp) a následně odstraní duplicity. 
+}
+\paragraph{
+Tímto kontrolujícím programem jsem zkontroloval všechny soubory a téměř žádné, až na pár výjimek (kde byla data duplikovaná), nebyly programem modifikovány, protože data chodila v korektním formátu.
+}
 \subsubsection{Sledované měny}
 \paragraph{
 Díky tomu, že je na serveru Binance možné obchodovat s 1320 různými měnami (údaj k 29.3. 2020), mohl jsem si k obchodování vybrat téměř jakékoliv měny. Z toho důvodu, že pro mě nebylo reálné sledovat všechny různé dvojice, vybral jsem si ke sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Toto celkově znamenalo sběr dat týkající se 39 dvojic kryptoměn (obchody mezi některými dvojicemi na severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v průměru téměř 1~GB za den.
 }
 % todo - napsat názvy měn
+
 \section{Zpracování dat}
 \paragraph{
 V této podkapitole se budu věnovat tématu se zpracováním nasbíraných dat.
@@ -647,6 +671,22 @@ V závislosti na vztahu mezi \(1\) a \(D_{C_1,C_2,C_3}(t)\) je možné vyhodnoti
     \item pokud \(D_{C_1,C_2,C_3}(t) > 1\), poté dochází k detekci arbitrážní příležitosti a je možné vydělat \( (D_{C_1,C_2,C_3}(t) - 1) * m\), kde \(m\) reprezentuje zobchodované množství,
     \item pokud \(D_{C_1,C_2,C_3}(t) = 1\), poté není nutné trojúhelník obchodovat, protože by nedošlo k žádnému výdělku.
 \end{itemize}
+\subsubsection{Reálná detekce arbitrážní příležitosti}
+\paragraph{
+Ve své praktické části detekuji arbitrážní příležitosti stejným způsobem, jaký je popsán v předchozí sekci. 
+}
+\paragraph{
+Protože se na data koukám později a analýzu provádím na historických datech, je nutné určit, co považuji za novou arbitrážní příležitost. 
+}
+\paragraph{
+Problém totiž může nastat, pokud se objeví arbitrážní příležitost, která není vytěžena nebo je pouze částečně vytěžena do příchodu dalšího záznamu (order book). S takovýmto efektem nakládám tím způsobem, že pokud se vyskytne několik stejných arbitrážní příležitostí po sobě, považuji je za jednu a pouze zvětšuji dobu trvání výskytu dané arbitrážní příležitosti.
+}
+\paragraph{
+Je nutné ještě zadefinovat, co považuji za stejnou arbitrážní příležitost. Jako stejnou arbitrážní příležitost považuji takovou, která má stejné právě 2 časové razítka (timestamp) a stejný procentuální zisk. 
+}
+\paragraph{
+Absolutní zisky neporovnávám z toho důvodu, že může dojít pouze ke změně v obchodovatelnému objemu arbitrážní příležitosti. Tudíž kdybych tyto menší arbitrážní příležitosti detekoval jako nové, došlo by k duplikování stejných hodnot na jiných arbitrážních příležitostech. Další obrácenou možností je to, že by někdo vytvořil podobnou nabídku a tím zvýšil potenciální zisk to by však bylo moc složité na detekci, a proto se tomu ve své práci nevěnuji. 
+}
 \chapter{Analýza dat}
 \paragraph{
 V této kapitole se věnuji analýze vlastních grafů vytvořených na základě průběžně získávaných reálných dat. Data jsou vyhodnocena na základě více než dvou měsíční sbírky dat.
@@ -681,46 +721,46 @@ Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} 
 \begin{table}\centering
 \caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí}
 \label{table_averages}
-\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Průměrná \% neefektivita\\ [0.5ex]
- \hline\hline BTCBCHBNB & 2,4651 & 1,0015\\ 
- \hline BTCBNBTRX & 0,2500 & 1,0005\\ 
- \hline BTCBNBXMR & 1,3864 & 1,0015\\ 
- \hline BTCETHBNB & 0,7500 & 1,0010\\ 
- \hline BTCETHEOS & 0,7500 & 1,0006\\ 
- \hline BTCETHTRX & 3,5070 & 1,0004\\ 
- \hline BTCETHXRP & 12,1127 & 1,0007\\ 
- \hline BTCLTCBNB & 0,6364 & 1,0007\\ 
- \hline BTCLTCETH & 18,8310 & 1,0004\\ 
- \hline BTCXRPBNB & 0,2045 & 1,0005\\ 
- \hline BTCXRPTRX & 25,3662 & 1,0010\\ 
- \hline ETHBNBTRX & 0,4545 & 1,0007\\ 
- \hline ETHBNBXMR & 12,6761 & 1,0008\\ 
- \hline ETHEOSBNB & 0,6136 & 1,0008\\ 
- \hline ETHXRPBNB & 4,6479 & 1,0005\\ 
- \hline ETHXRPTRX & 6,1972 & 1,0005\\ 
- \hline LTCETHBNB & 5,7746 & 1,0007\\ 
- \hline USDTBCHBNB & 33,5857 & 1,0033\\ 
- \hline USDTBNBTRX & 2,4091 & 1,0022\\ 
- \hline USDTBNBXMR & 65,1549 & 1,0028\\ 
- \hline USDTBTCBCH & 4,8636 & 1,0026\\ 
- \hline USDTBTCBNB & 6,5227 & 1,0028\\ 
- \hline USDTBTCEOS & 49,5000 & 1,0032\\ 
- \hline USDTBTCETH & 3,9545 & 1,0023\\ 
- \hline USDTBTCLTC & 22,0563 & 1,0028\\ 
- \hline USDTBTCTRX & 11,8310 & 1,0019\\ 
- \hline USDTBTCXMR & 47,7042 & 1,0031\\ 
- \hline USDTBTCXRP & 35,4930 & 1,0030\\ 
- \hline USDTEOSBNB & 47,3239 & 1,0028\\ 
- \hline USDTETHBNB & 3,2273 & 1,0026\\ 
- \hline USDTETHEOS & 2,0227 & 1,0021\\ 
- \hline USDTETHTRX & 1,0909 & 1,0022\\ 
- \hline USDTETHXMR & 3,1364 & 1,0024\\ 
- \hline USDTETHXRP & 2,2955 & 1,0023\\ 
- \hline USDTLTCBNB & 32,1268 & 1,0026\\ 
- \hline USDTLTCETH & 1,9318 & 1,0024\\ 
- \hline USDTXRPBNB & 20,2394 & 1,0026\\ 
- \hline USDTXRPTRX & 49,0141 & 1,0020\\ 
- \hline XRPBNBTRX & 0,2727 & 1,0009\\ 
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Průměrný denní počet & Průměrná \% neefektivita\\ [0.5ex]
+ \hline\hline BTC/BCH/BNB & 2,4651 & 1,0015\\ 
+ \hline BTC/BNB/TRX & 0,2500 & 1,0005\\ 
+ \hline BTC/BNB/XMR & 1,3864 & 1,0015\\ 
+ \hline BTC/ETH/BNB & 0,7500 & 1,0010\\ 
+ \hline BTC/ETH/EOS & 0,7500 & 1,0006\\ 
+ \hline BTC/ETH/TRX & 3,5070 & 1,0004\\ 
+ \hline BTC/ETH/XRP & 12,1127 & 1,0007\\ 
+ \hline BTC/LTC/BNB & 0,6364 & 1,0007\\ 
+ \hline BTC/LTC/ETH & 18,8310 & 1,0004\\ 
+ \hline BTC/XRP/BNB & 0,2045 & 1,0005\\ 
+ \hline BTC/XRP/TRX & 25,3662 & 1,0010\\ 
+ \hline ETH/BNB/TRX & 0,4545 & 1,0007\\ 
+ \hline ETH/BNB/XMR & 12,6761 & 1,0008\\ 
+ \hline ETH/EOS/BNB & 0,6136 & 1,0008\\ 
+ \hline ETH/XRP/BNB & 4,6479 & 1,0005\\ 
+ \hline ETH/XRP/TRX & 6,1972 & 1,0005\\ 
+ \hline LTC/ETH/BNB & 5,7746 & 1,0007\\ 
+ \hline USDT/BCH/BNB & 33,5857 & 1,0033\\ 
+ \hline USDT/BNB/TRX & 2,4091 & 1,0022\\ 
+ \hline USDT/BNB/XMR & 65,1549 & 1,0028\\ 
+ \hline USDT/BTC/BCH & 4,8636 & 1,0026\\ 
+ \hline USDT/BTC/BNB & 6,5227 & 1,0028\\ 
+ \hline USDT/BTC/EOS & 49,5000 & 1,0032\\ 
+ \hline USDT/BTC/ETH & 3,9545 & 1,0023\\ 
+ \hline USDT/BTC/LTC & 22,0563 & 1,0028\\ 
+ \hline USDT/BTC/TRX & 11,8310 & 1,0019\\ 
+ \hline USDT/BTC/XMR & 47,7042 & 1,0031\\ 
+ \hline USDT/BTC/XRP & 35,4930 & 1,0030\\ 
+ \hline USDT/EOS/BNB & 47,3239 & 1,0028\\ 
+ \hline USDT/ETH/BNB & 3,2273 & 1,0026\\ 
+ \hline USDT/ETH/EOS & 2,0227 & 1,0021\\ 
+ \hline USDT/ETH/TRX & 1,0909 & 1,0022\\ 
+ \hline USDT/ETH/XMR & 3,1364 & 1,0024\\ 
+ \hline USDT/ETH/XRP & 2,2955 & 1,0023\\ 
+ \hline USDT/LTC/BNB & 32,1268 & 1,0026\\ 
+ \hline USDT/LTC/ETH & 1,9318 & 1,0024\\ 
+ \hline USDT/XRP/BNB & 20,2394 & 1,0026\\ 
+ \hline USDT/XRP/TRX & 49,0141 & 1,0020\\ 
+ \hline XRP/BNB/TRX & 0,2727 & 1,0009\\ 
  \hline
 \end{tabular}
 \end{table}
@@ -733,46 +773,46 @@ Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} 
 \begin{table}\centering
 \caption{Tabulka potenciálního výnosu arbitrážních příležitostí}
 \label{table_gains}
-\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline BTCBCHBNB & 4,419113e-05 BCH & 9,853739e-03\\ 
- \hline BTCBNBTRX & 2,333645e-15 TRX & 2,939693e-17\\ 
- \hline BTCBNBXMR & 3,016967e-06 XMR & 1,610155e-04\\ 
- \hline BTCETHBNB & 2,927920e-08 BNB & 4,547059e-07\\ 
- \hline BTCETHEOS & 5,985557e-09 EOS & 1,460476e-08\\ 
- \hline BTCETHTRX & 3,725827e-12 TRX & 4,693424e-14\\ 
- \hline BTCETHXRP & 2,107271e-10 XRP & 3,918787e-11\\ 
- \hline BTCLTCBNB & 1,410859e-06 LTC & 5,784524e-05\\ 
- \hline BTCLTCETH & 3,891696e-05 LTC & 1,595595e-03\\ 
- \hline BTCXRPBNB & 2,366390e-11 XRP & 4,400656e-12\\ 
- \hline BTCXRPTRX & 1,593265e-07 TRX & 2,007036e-09\\ 
- \hline ETHBNBTRX & 2,850354e-11 TRX & 3,590590e-13\\ 
- \hline ETHBNBXMR & 4,112905e-04 XMR & 2,195057e-02\\ 
- \hline ETHEOSBNB & 2,634973e-06 EOS & 6,429333e-06\\ 
- \hline ETHXRPBNB & 8,860329e-08 XRP & 1,647711e-08\\ 
- \hline ETHXRPTRX & 8,227061e-07 TRX & 1,036363e-08\\ 
- \hline LTCETHBNB & 3,780171e-04 LTC & 1,549870e-02\\ 
- \hline USDTBCHBNB & 2,230023e+00 BCH & 4,972506e+02\\ 
- \hline USDTBNBTRX & 2,015034e-05 TRX & 2,538338e-07\\ 
- \hline USDTBNBXMR & 3,422176e-01 XMR & 1,826415e+01\\ 
- \hline USDTBTCBCH & 4,916836e-03 BCH & 1,096356e+00\\ 
- \hline USDTBTCBNB & 5,541003e-04 BNB & 8,605178e-03\\ 
- \hline USDTBTCEOS & 2,394959e-03 EOS & 5,843701e-03\\ 
- \hline USDTBTCETH & 6,044486e-03 ETH & 9,471709e-01\\ 
- \hline USDTBTCLTC & 1,036748e-01 LTC & 4,250665e+00\\ 
- \hline USDTBTCTRX & 7,487126e-08 TRX & 9,431532e-10\\ 
- \hline USDTBTCXMR & 1,522814e-02 XMR & 8,127257e-01\\ 
- \hline USDTBTCXRP & 1,309092e-05 XRP & 2,434452e-06\\ 
- \hline USDTEOSBNB & 4,491558e+00 EOS & 1,095940e+01\\ 
- \hline USDTETHBNB & 3,840955e-02 BNB & 5,965003e-01\\ 
- \hline USDTETHEOS & 3,878244e-03 EOS & 9,462915e-03\\ 
- \hline USDTETHTRX & 6,624806e-08 TRX & 8,345268e-10\\ 
- \hline USDTETHXMR & 9,329797e-03 XMR & 4,979313e-01\\ 
- \hline USDTETHXRP & 1,067932e-04 XRP & 1,985980e-05\\ 
- \hline USDTLTCBNB & 4,070549e+00 LTC & 1,668925e+02\\ 
- \hline USDTLTCETH & 9,101869e-03 LTC & 3,731766e-01\\ 
- \hline USDTXRPBNB & 2,448773e-01 XRP & 4,553861e-02\\ 
- \hline USDTXRPTRX & 2,215846e-01 TRX & 2,791302e-03\\ 
- \hline XRPBNBTRX & 4,067842e-07 TRX & 5,124261e-09\\ 
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
+ \hline\hline BTC/BCH/BNB & 4,419113e-05 BCH & 9,853739e-03\\ 
+ \hline BTC/BNB/TRX & 2,333645e-15 TRX & 2,939693e-17\\ 
+ \hline BTC/BNB/XMR & 3,016967e-06 XMR & 1,610155e-04\\ 
+ \hline BTC/ETH/BNB & 2,927920e-08 BNB & 4,547059e-07\\ 
+ \hline BTC/ETH/EOS & 5,985557e-09 EOS & 1,460476e-08\\ 
+ \hline BTC/ETH/TRX & 3,725827e-12 TRX & 4,693424e-14\\ 
+ \hline BTC/ETH/XRP & 2,107271e-10 XRP & 3,918787e-11\\ 
+ \hline BTC/LTC/BNB & 1,410859e-06 LTC & 5,784524e-05\\ 
+ \hline BTC/LTC/ETH & 3,891696e-05 LTC & 1,595595e-03\\ 
+ \hline BTC/XRP/BNB & 2,366390e-11 XRP & 4,400656e-12\\ 
+ \hline BTC/XRP/TRX & 1,593265e-07 TRX & 2,007036e-09\\ 
+ \hline ETH/BNB/TRX & 2,850354e-11 TRX & 3,590590e-13\\ 
+ \hline ETH/BNB/XMR & 4,112905e-04 XMR & 2,195057e-02\\ 
+ \hline ETH/EOS/BNB & 2,634973e-06 EOS & 6,429333e-06\\ 
+ \hline ETH/XRP/BNB & 8,860329e-08 XRP & 1,647711e-08\\ 
+ \hline ETH/XRP/TRX & 8,227061e-07 TRX & 1,036363e-08\\ 
+ \hline LTC/ETH/BNB & 3,780171e-04 LTC & 1,549870e-02\\ 
+ \hline USDT/BCH/BNB & 2,230023e+00 BCH & 4,972506e+02\\ 
+ \hline USDT/BNB/TRX & 2,015034e-05 TRX & 2,538338e-07\\ 
+ \hline USDT/BNB/XMR & 3,422176e-01 XMR & 1,826415e+01\\ 
+ \hline USDT/BTC/BCH & 4,916836e-03 BCH & 1,096356e+00\\ 
+ \hline USDT/BTC/BNB & 5,541003e-04 BNB & 8,605178e-03\\ 
+ \hline USDT/BTC/EOS & 2,394959e-03 EOS & 5,843701e-03\\ 
+ \hline USDT/BTC/ETH & 6,044486e-03 ETH & 9,471709e-01\\ 
+ \hline USDT/BTC/LTC & 1,036748e-01 LTC & 4,250665e+00\\ 
+ \hline USDT/BTC/TRX & 7,487126e-08 TRX & 9,431532e-10\\ 
+ \hline USDT/BTC/XMR & 1,522814e-02 XMR & 8,127257e-01\\ 
+ \hline USDT/BTC/XRP & 1,309092e-05 XRP & 2,434452e-06\\ 
+ \hline USDT/EOS/BNB & 4,491558e+00 EOS & 1,095940e+01\\ 
+ \hline USDT/ETH/BNB & 3,840955e-02 BNB & 5,965003e-01\\ 
+ \hline USDT/ETH/EOS & 3,878244e-03 EOS & 9,462915e-03\\ 
+ \hline USDT/ETH/TRX & 6,624806e-08 TRX & 8,345268e-10\\ 
+ \hline USDT/ETH/XMR & 9,329797e-03 XMR & 4,979313e-01\\ 
+ \hline USDT/ETH/XRP & 1,067932e-04 XRP & 1,985980e-05\\ 
+ \hline USDT/LTC/BNB & 4,070549e+00 LTC & 1,668925e+02\\ 
+ \hline USDT/LTC/ETH & 9,101869e-03 LTC & 3,731766e-01\\ 
+ \hline USDT/XRP/BNB & 2,448773e-01 XRP & 4,553861e-02\\ 
+ \hline USDT/XRP/TRX & 2,215846e-01 TRX & 2,791302e-03\\ 
+ \hline XRP/BNB/TRX & 4,067842e-07 TRX & 5,124261e-09\\ 
  \hline
 \end{tabular}
 \end{table}
@@ -780,7 +820,7 @@ Z toho důvodu, že vyšší procentuální zisk z tabulky \ref{table_averages} 
 \begin{table}\centering
 \caption{Tabulka kurzů využitých na přepočet na americké dolary (údaj z burzy Binance ze dne 13.4.2020)}
 \label{table_rates}
-\begin{tabular}{|| c | c ||}
+\begin{tabular}{|| l | r ||}
 \hline Kryptoměna & Kurz na USD \\ 
 \hline\hline BTC & 6837,51 \\ 
 \hline LTC & 41 \\ 
@@ -865,13 +905,13 @@ Je zajímavé si povšimnout, že ve všech nejzajímavějších trojúhelnící
 \begin{table}\centering
 \caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí na nejlepších trojúhelnících}
 \label{table_combined_best}
-\begin{tabular}{|| c | c | c ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline USDTBCHBNB & 33,585714 & 497,250595\\ 
- \hline USDTBNBXMR & 65,154930 & 18,264153\\ 
- \hline USDTBTCBCH & 4,863636 & 1,096356\\ 
- \hline USDTBTCLTC & 22,056338 & 4,250665\\ 
- \hline USDTEOSBNB & 47,323944 & 10,959402\\ 
- \hline USDTLTCBNB & 32,126761 & 166,892515\\ 
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
+ \hline\hline USDT/BCH/BNB & 33,585714 & 497,250595\\ 
+ \hline USDT/BNB/XMR & 65,154930 & 18,264153\\ 
+ \hline USDT/BTC/BCH & 4,863636 & 1,096356\\ 
+ \hline USDT/BTC/LTC & 22,056338 & 4,250665\\ 
+ \hline USDT/EOS/BNB & 47,323944 & 10,959402\\ 
+ \hline USDT/LTC/BNB & 32,126761 & 166,892515\\ 
  \hline
 \end{tabular}
 \end{table}
