@@ -28,10 +28,10 @@ void split_work(const vector<string> & paths){
             for(const Triplet & triplet: vec){
 //                if(i++ < 2)
 //                    continue;
-                string ending = "2020-03-02";
+                string ending = "2020-03-13";
                 const string & tmp = triplet.getOutput_filename();
-                if(! (tmp.substr(tmp.size() - ending.size(), ending.size()) == ending))
-                    continue;
+//                if(! (tmp.substr(tmp.size() - ending.size(), ending.size()) == ending))
+//                    continue;
                 cout << triplet.getOutput_filename() << endl;
                 cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
                 Arbitrage arbitrage = Arbitrage();
@@ -44,7 +44,7 @@ void split_work(const vector<string> & paths){
 }
 
 int main() {
-    int number_of_chunks = 1; // min number of threads
+    int number_of_chunks = 3; // min number of threads
     vector<string> paths;
 //    paths.emplace_back("../../../../data/data_02-04=10/");
 //    paths.emplace_back("../../../../data/data_02-18=21/");
@@ -57,8 +57,9 @@ int main() {
 //    paths.emplace_back("../../../../data/corrupted/out/data_02-20=23/");
 //    paths.emplace_back("../../../../data/corrupted/out/data_02-23=26/");
 //    paths.emplace_back("../../../../data/corrupted/out/data_02-26=01/");
-    paths.emplace_back("../../../../data/corrupted/out/data_03-01=06/");
+//    paths.emplace_back("../../../../data/corrupted/out/data_03-01=06/");
 //    paths.emplace_back("../../../../data/testing/");
+//    paths.emplace_back("../../../../data/corrupted/out/data_03-11=15/");
 
 //    paths.emplace_back("../../../../data/data_03-06=10/");
 //    paths.emplace_back("../../../../data/data_03-11=15/");
@@ -68,6 +69,9 @@ int main() {
 //    paths.emplace_back("../../../../data/data_04-10=12/");
 //    paths.emplace_back("../../../../data/data_04-13=16/");
 //    paths.emplace_back("../../../../data/data_04-17=20/");
+    paths.emplace_back("../../../../data/corrupted/out/data_04-21=24/");
+    paths.emplace_back("../../../../data/corrupted/out/data_04-25=28/");
+    paths.emplace_back("../../../../data/corrupted/out/data_04-29=01/");
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
     int jump = paths.size() / number_of_chunks;

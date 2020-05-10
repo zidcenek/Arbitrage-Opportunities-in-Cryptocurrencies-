@@ -9,3 +9,4 @@ statistics/test/*
 statistics/output_data/*
 statistics/output_data_old/
 statistics/arbitrages_count/
+statistics/images/

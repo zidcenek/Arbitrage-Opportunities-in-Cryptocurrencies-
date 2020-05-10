@@ -33,9 +33,9 @@ OutputFormat::OutputFormat(long double score1, const vector<int> & supply_gain_i
 
 stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, int origin) {
     long double latest = getLatestTimestamp();
-//    if(timestamp - latest == 0) {
-//        cout << timestamp - latest << " from " << origin << endl;
-//    }
+    if(timestamp - latest <= 0) {
+        cout << timestamp - latest << endl;
+    }
 //    cout << timestamp - latest << endl;
     stringstream ofs;
 //    printf("saving: %1.15Lf\n", score);

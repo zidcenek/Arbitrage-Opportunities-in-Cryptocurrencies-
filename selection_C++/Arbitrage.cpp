@@ -311,7 +311,7 @@ bool Arbitrage::getNext(int index){
             cout << "wrong line no." << counter << endl;
         return false;
     }
-    int hours = 1;
+    int hours = 2;
     if(tempCP.getTimestamp() < (old_timestamp + 3600*hours) && tempCP.getTimestamp() > (old_timestamp - 3600*hours)) {
         current[index] = buffer[index];
         buffer[index] = tempCP;
