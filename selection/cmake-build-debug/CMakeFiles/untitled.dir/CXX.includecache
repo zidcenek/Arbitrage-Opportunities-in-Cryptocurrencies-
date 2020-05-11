@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/Arbitrage.cpp
 Arbitrage.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Arbitrage.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Arbitrage.h
 string
 -
 iostream
@@ -24,17 +24,17 @@ cstdlib
 numeric
 -
 CurrencyPair.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.h
 FilesManager.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.h
 OutputFormat.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/OutputFormat.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.cpp
 CurrencyPair.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.h
 string
 -
 sstream
@@ -42,13 +42,13 @@ sstream
 vector
 -
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.cpp
 FilesManager.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.h
 Triplet.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Triplet.h
 string
 -
 vector
@@ -57,30 +57,34 @@ glob.h
 -
 algorithm
 -
+sys/stat.h
+-
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/OutputFormat.cpp
+iomanip
+-
 OutputFormat.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/OutputFormat.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/OutputFormat.h
 vector
 -
 CurrencyPair.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.h
 iostream
 -
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/Triplet.cpp
 Triplet.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Triplet.h
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Triplet.h
 iostream
 -
 string
 -
 
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/main.cpp
+/mnt/d/School/bakalarka/git/bakalarka/selection/main.cpp
 iostream
 -
 string
@@ -93,10 +97,14 @@ sstream
 -
 algorithm
 -
-experimental/filesystem
--
 thread
 -
+string.h
+-
 Arbitrage.h
-/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.h
+/mnt/d/School/bakalarka/git/bakalarka/selection/Arbitrage.h
+sys/stat.h
+-
+cmath
+-
 

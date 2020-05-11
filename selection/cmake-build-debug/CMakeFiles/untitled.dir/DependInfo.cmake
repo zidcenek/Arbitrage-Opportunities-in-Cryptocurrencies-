@@ -4,12 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Arbitrage.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/Arbitrage.cpp.o"
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/CurrencyPair.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/CurrencyPair.cpp.o"
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/FilesManager.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/FilesManager.cpp.o"
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/OutputFormat.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/OutputFormat.cpp.o"
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/Triplet.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/Triplet.cpp.o"
-  "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/main.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection_C++/cmake-build-debug/CMakeFiles/untitled.dir/main.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/Arbitrage.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/Arbitrage.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/CurrencyPair.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/CurrencyPair.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/FilesManager.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/OutputFormat.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/OutputFormat.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/Triplet.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/Triplet.cpp.o"
+  "/mnt/d/School/bakalarka/git/bakalarka/selection/main.cpp" "/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/untitled.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

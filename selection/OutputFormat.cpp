@@ -2,6 +2,7 @@
 // Created by zidce on 27.04.2020.
 //
 
+#include <iomanip>
 #include "OutputFormat.h"
 
 OutputFormat::OutputFormat() {}
@@ -15,7 +16,6 @@ OutputFormat::OutputFormat(const OutputFormat & other)
         calculation_type_linear(other.calculation_type_linear),
         name(other.name),
         current(other.current)
-
 {}
 
 OutputFormat::OutputFormat(long double score1, const vector<int> & supply_gain_indexes1, const vector<int> & demand_gain_indexes1,
@@ -31,22 +31,16 @@ OutputFormat::OutputFormat(long double score1, const vector<int> & supply_gain_i
     name = name1;
 }
 
-stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, int origin) {
+stringstream OutputFormat::to_JSON(const string & coma, long double timestamp) {
     long double latest = getLatestTimestamp();
-    if(timestamp - latest <= 0) {
-        cout << timestamp - latest << endl;
-    }
-//    cout << timestamp - latest << endl;
     stringstream ofs;
-//    printf("saving: %1.15Lf\n", score);
-    ofs << coma << "{\"score\": " << score << ",";
-    ofs << "\"supply_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
-        << ", " << demand_gain_indexes[2] << "],";
-    ofs << "\"demand_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
+    ofs << coma << "{\"score\": " << setprecision(10) << score << ",";
+    ofs << "\"supply_gain_index\": [" << supply_gain_indexes[0] << ", " << supply_gain_indexes[1]
         << ", " << supply_gain_indexes[2] << "],";
+    ofs << "\"demand_gain_index\": [" << demand_gain_indexes[0] << ", " << demand_gain_indexes[1]
+        << ", " << demand_gain_indexes[2] << "],";
     ofs << "\"supply_gain\": " << supply_gain << ",";
     ofs << "\"demand_gain\": " << demand_gain << ",";
-    ofs << "\"calculation_type_linear\": " << calculation_type_linear << ",";
     ofs << "\"time_delta\": " << timestamp - latest << ",";
     ofs << "\"pairs\": [";
     bool first_item = true;
@@ -64,8 +58,17 @@ stringstream OutputFormat::to_JSON(const string & coma, long double timestamp, i
 bool OutputFormat::eq (const OutputFormat & other){
     vector<long double> first, second;
     int match_counter = 0;
-    if(score != other.score)
+    if(score != other.score) {
+//        printf("%.10Lf %.10Lf\n", score, other.score);
+//        for(const auto & curr: current) {
+//            printf("%6.10Lf ", curr.getTimestamp());
+//        }
+//        cout << endl;
+//        for(const auto & curr: other.current)
+//            printf("%6.10Lf ", curr.getTimestamp());
+//        cout << endl;
         return false;
+    }
     for(const auto & curr: current)
         first.push_back(curr.getTimestamp());
     for(const auto & curr: other.current)
@@ -76,6 +79,18 @@ bool OutputFormat::eq (const OutputFormat & other){
         if(first[i] == second[i])
             match_counter++;
     }
+//    if(match_counter < 2){
+//        if(score != other.score) {
+//            printf("%.10Lf %.10Lf\n", score, other.score);
+//            for(const auto & curr: current)
+//                printf("%6.10Lf ", curr.getTimestamp());
+//            cout << endl;
+//            for(const auto & curr: other.current)
+//                printf("%6.10Lf ", curr.getTimestamp());
+//            cout << endl;
+//            return false;
+//        }
+//    }
     return match_counter >= 2;
 }
 
@@ -90,4 +105,8 @@ long double OutputFormat::getLatestTimestamp() {
 //    cout << endl;
 //    printf("%9.5Lf\n", max);
     return max;
+}
+
+OutputFormat& OutputFormat::operator=(const OutputFormat &rhs) {
+    return *this;
 }

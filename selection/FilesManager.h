@@ -10,6 +10,7 @@
 #include <vector>
 #include <glob.h>
 #include <algorithm>
+#include <sys/stat.h>
 
 using namespace std;
 

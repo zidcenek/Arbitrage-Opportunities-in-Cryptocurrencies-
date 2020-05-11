@@ -14,7 +14,7 @@ Arbitrage::Arbitrage(){
  * @param triplet - Triplet class containing the files
  * @return - true or false based on the initialization status
  */
-bool Arbitrage::initialize(const Triplet & triplet){
+bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
     counter = 0;
     openFile(triplet.getFile1());
     openFile(triplet.getFile2());
@@ -25,6 +25,7 @@ bool Arbitrage::initialize(const Triplet & triplet){
     calculation_type_linear = triplet.getLinear();
     output_name = triplet.getOutput_filename();
     output_directory_name = triplet.getOutputDirectoryName();
+    OUTPUT_DIRECTORY = output_path;
     for(int i = 0 ; i < dataframes.size(); i++){
         while(true){
             if(dataframes[i]->eof()) {
@@ -162,7 +163,7 @@ void Arbitrage::run(){
     ofs << "\"arbitrage_stats\":[";
     bool start_of_sequence = true;
     // represents the first and current in sequence of arbitrage arbitrage, if many follow, it will be saved as only 1
-    OutputFormat first_in_sequence, current_in_sequence;
+    OutputFormat * first_in_sequence, * current_in_sequence;
     while(! stop){
         int index = getOldest();
         if(! getNext(index))
@@ -197,30 +198,31 @@ void Arbitrage::run(){
                 if(start_of_sequence){
                     // start of sequence -> first and current are the same
                     start_of_sequence = false;
-                    first_in_sequence = OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
+                    first_in_sequence = new OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
                                                    supply_gain, calculation_type_linear, current, a++);
                     current_in_sequence = first_in_sequence;
                 } else {
                     // if more follows after first in sequence
-                    OutputFormat tmp = OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
+                    auto * tmp = new OutputFormat(score, supply_gain_indexes, demand_gain_indexes, demand_gain,
                                       supply_gain, calculation_type_linear, current, a++);
                     // if the new and current equal each other, continue
-                    if(current_in_sequence.eq(tmp)){
-                        current_in_sequence = tmp;
+                    if(current_in_sequence->eq(*tmp)){
+                        delete current_in_sequence;
+                        current_in_sequence = new OutputFormat(*tmp);
+                        delete tmp;
                         continue;
                     } else{
                         // else save the first sequence with deltatime
-//                        cout << "-------------------" << endl;
                         vector<long double> temp;
                         for(const auto & curr: current) {
                             temp.push_back(curr.getTimestamp());
-//                            printf("%9.5f ", curr.getTimestamp());
                         }
-//                        cout << endl;
-                        ofs << first_in_sequence.to_JSON(coma, tmp.getLatestTimestamp(), 1).rdbuf();
+                        ofs << first_in_sequence->to_JSON(coma, tmp->getLatestTimestamp()).rdbuf();
 //                        cout << "/------------------" << endl;
                         coma = ",";
-                        first_in_sequence = tmp;
+                        delete first_in_sequence;
+                        first_in_sequence = new OutputFormat(*tmp);
+                        delete tmp;
                     }
                 }
 
@@ -230,8 +232,9 @@ void Arbitrage::run(){
                     vector<long double> tmp;
                     for(const auto & curr: current)
                         tmp.push_back(curr.getTimestamp());
-                    ofs << first_in_sequence.to_JSON(coma, *max_element(tmp.begin(), tmp.end()), 2).rdbuf();
+                    ofs << first_in_sequence->to_JSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
                     coma = ",";
+                    delete first_in_sequence;
                     start_of_sequence = true;
                 }
             }
@@ -241,8 +244,9 @@ void Arbitrage::run(){
                 vector<long double> tmp;
                 for(const auto & curr: current)
                     tmp.push_back(curr.getTimestamp());
-                ofs << first_in_sequence.to_JSON(coma, *max_element(tmp.begin(), tmp.end()), 3).rdbuf();
+                ofs << first_in_sequence->to_JSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
                 coma = ",";
+                delete first_in_sequence;
                 start_of_sequence = true;
             }
         }

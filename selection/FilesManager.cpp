@@ -114,7 +114,12 @@ vector<string> FilesManager::get_all_files_in_directory(const string & path){
     glob_t glob_result;
     glob((path + "*").c_str(),GLOB_TILDE, nullptr,&glob_result);
     for(unsigned int i=0; i<glob_result.gl_pathc; ++i){
-        filenames.emplace_back(glob_result.gl_pathv[i]);
+        struct stat s;
+        if(stat(glob_result.gl_pathv[i], &s) == 0){
+            if(s.st_mode & S_IFREG){
+                filenames.emplace_back(glob_result.gl_pathv[i]);
+            }
+        }
     }
     return filenames;
 }

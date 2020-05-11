@@ -7,35 +7,30 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
-#include <experimental/filesystem>
 #include <thread>
+#include <string.h>
 #include "Arbitrage.h"
+#include <sys/stat.h>
+#include <cmath>
 
 using namespace std;
-namespace fs = std::experimental::filesystem;
 
-
-void split_work(const vector<string> & paths){
+void thread_start(const vector<string> &paths, const string & output_path){
     printf("Starting thread\n");
-//    int i = 0;
     for(const auto & path: paths){
         printf("%s\n", path.c_str());
         FilesManager fm = FilesManager(path);
         vector<vector<Triplet> > triplets = fm.select_files();
         for(const auto & vec: triplets){
-//            if(i++ < 1)
-//                continue;
             for(const Triplet & triplet: vec){
-//                if(i++ < 2)
-//                    continue;
-                string ending = "2020-03-13";
+//                string ending = "2020-03-13";
                 const string & tmp = triplet.getOutput_filename();
 //                if(! (tmp.substr(tmp.size() - ending.size(), ending.size()) == ending))
 //                    continue;
                 cout << triplet.getOutput_filename() << endl;
                 cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
                 Arbitrage arbitrage = Arbitrage();
-                if(arbitrage.initialize(triplet))
+                if(arbitrage.initialize(triplet, output_path))
                     arbitrage.run();
             }
         }
@@ -43,47 +38,77 @@ void split_work(const vector<string> & paths){
     printf("Ending thread\n");
 }
 
-int main() {
-    int number_of_chunks = 3; // min number of threads
+vector<string> get_subdirectories(const string &path){
+    vector<string> subdirectories;
+    glob_t glob_result;
+    glob((path + "*").c_str(),GLOB_TILDE, nullptr, &glob_result);
+    for(unsigned int i=0; i<glob_result.gl_pathc; ++i){
+        struct stat s;
+        if(stat(glob_result.gl_pathv[i], &s) == 0){
+            if(s.st_mode & S_IFDIR){
+                string tmp = glob_result.gl_pathv[i];
+                tmp += '/';
+                subdirectories.emplace_back(tmp);
+            }
+        }
+    }
+    return subdirectories;
+}
+
+int main(int argc, char *argv[]) {
+    int number_of_threads = 1; // min number of threads
+    bool recursive_flag = false;
     vector<string> paths;
-//    paths.emplace_back("../../../../data/data_02-04=10/");
-//    paths.emplace_back("../../../../data/data_02-18=21/");
-//    paths.emplace_back("../../../../data/data_02-20=23/");
-//    paths.emplace_back("../../../../data/data_02-23=26/");
-//    paths.emplace_back("../../../../data/data_02-26=01/");
-//    paths.emplace_back("../../../../data/data_03-01=06/");
+    string path, output_path;
 
-//    paths.emplace_back("../../../../data/corrupted/out/data_02-18=21/");
-//    paths.emplace_back("../../../../data/corrupted/out/data_02-20=23/");
-//    paths.emplace_back("../../../../data/corrupted/out/data_02-23=26/");
-//    paths.emplace_back("../../../../data/corrupted/out/data_02-26=01/");
-//    paths.emplace_back("../../../../data/corrupted/out/data_03-01=06/");
-//    paths.emplace_back("../../../../data/testing/");
-//    paths.emplace_back("../../../../data/corrupted/out/data_03-11=15/");
+    // checking passed arguments
+    if(argc >= 1){
+        path = argv[1];
+        printf("Path: %s\n", argv[1]);
+    }
+    if(argc >= 2){
+        output_path = argv[2];
+        printf("Output path: %s\n", argv[2]);
+    }
+    if(argc >= 3 && strcmp(argv[3], "-r") == 0){
+        recursive_flag = true;
+        printf("Recursive directories (depth 1): %s\n", argv[1]);
+        if(argc >= 5 && strcmp(argv[4], "-t") == 0){
+            try{
+                number_of_threads = stoi(argv[5]);
+            }catch(exception & e) {
+                printf("Please write an integer representing number of threads.\n");
+            }
+        }
+    }else {
+        printf("No recusive depth (no threads), for more threads use (-r and -t).\n");
+        number_of_threads = 1;
+    }
+    printf("Starting on %d thread(s).", number_of_threads);
 
-//    paths.emplace_back("../../../../data/data_03-06=10/");
-//    paths.emplace_back("../../../../data/data_03-11=15/");
-//    paths.emplace_back("../../../../data/data_03-16=21/");
-//    paths.emplace_back("../../../../data/data_03-22=30/");
-//    paths.emplace_back("../../../../data/data_03-31=09/");
-//    paths.emplace_back("../../../../data/data_04-10=12/");
-//    paths.emplace_back("../../../../data/data_04-13=16/");
-//    paths.emplace_back("../../../../data/data_04-17=20/");
-    paths.emplace_back("../../../../data/corrupted/out/data_04-21=24/");
-    paths.emplace_back("../../../../data/corrupted/out/data_04-25=28/");
-    paths.emplace_back("../../../../data/corrupted/out/data_04-29=01/");
+//     getting all subdirctories
+    if(recursive_flag){
+        for(auto & item: get_subdirectories(path))
+            paths.emplace_back(item);
+    } else{
+        paths.emplace_back(path);
+    }
+    cout << paths.size() << endl;
+
+
+    // starting threads
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
-    int jump = paths.size() / number_of_chunks;
+    int jump = ceil(paths.size() / number_of_threads);
     if(jump == 0)
         jump = 1;
     while (itr < paths.cend()){
-        subVecs.emplace_back(std::vector<string>{itr, itr+jump});
+        subVecs.emplace_back(vector<string>{itr, itr+jump});
         itr += jump;
     }
     vector<thread> workers;
     for(const auto & item: subVecs){
-        workers.emplace_back(thread(split_work, item));
+        workers.emplace_back(thread(thread_start, item, output_path));
     }
     for(auto & t: workers)
         t.join();
