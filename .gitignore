@@ -7,6 +7,8 @@ selection_C++/output/*
 selection_C++/cmake-build-debug/*
 statistics/test/*
 statistics/output_data/*
+statistics/output_data2/*
+statistics/output_data3/*
 statistics/output_data_old/
 statistics/arbitrages_count/
 statistics/images/
