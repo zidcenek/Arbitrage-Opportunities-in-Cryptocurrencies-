@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named untitled
+# Target rules for targets named selection
 
 # Build rule for target.
-untitled: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 untitled
-.PHONY : untitled
+selection: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 selection
+.PHONY : selection
 
 # fast build rule for target.
-untitled/fast:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
-.PHONY : untitled/fast
+selection/fast:
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/build
+.PHONY : selection/fast
 
 Arbitrage.o: Arbitrage.cpp.o
 
@@ -129,7 +129,7 @@ Arbitrage.o: Arbitrage.cpp.o
 
 # target to build an object file
 Arbitrage.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Arbitrage.cpp.o
 .PHONY : Arbitrage.cpp.o
 
 Arbitrage.i: Arbitrage.cpp.i
@@ -138,7 +138,7 @@ Arbitrage.i: Arbitrage.cpp.i
 
 # target to preprocess a source file
 Arbitrage.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Arbitrage.cpp.i
 .PHONY : Arbitrage.cpp.i
 
 Arbitrage.s: Arbitrage.cpp.s
@@ -147,7 +147,7 @@ Arbitrage.s: Arbitrage.cpp.s
 
 # target to generate assembly for a file
 Arbitrage.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Arbitrage.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Arbitrage.cpp.s
 .PHONY : Arbitrage.cpp.s
 
 CurrencyPair.o: CurrencyPair.cpp.o
@@ -156,7 +156,7 @@ CurrencyPair.o: CurrencyPair.cpp.o
 
 # target to build an object file
 CurrencyPair.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/CurrencyPair.cpp.o
 .PHONY : CurrencyPair.cpp.o
 
 CurrencyPair.i: CurrencyPair.cpp.i
@@ -165,7 +165,7 @@ CurrencyPair.i: CurrencyPair.cpp.i
 
 # target to preprocess a source file
 CurrencyPair.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/CurrencyPair.cpp.i
 .PHONY : CurrencyPair.cpp.i
 
 CurrencyPair.s: CurrencyPair.cpp.s
@@ -174,7 +174,7 @@ CurrencyPair.s: CurrencyPair.cpp.s
 
 # target to generate assembly for a file
 CurrencyPair.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/CurrencyPair.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/CurrencyPair.cpp.s
 .PHONY : CurrencyPair.cpp.s
 
 FilesManager.o: FilesManager.cpp.o
@@ -183,7 +183,7 @@ FilesManager.o: FilesManager.cpp.o
 
 # target to build an object file
 FilesManager.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/FilesManager.cpp.o
 .PHONY : FilesManager.cpp.o
 
 FilesManager.i: FilesManager.cpp.i
@@ -192,7 +192,7 @@ FilesManager.i: FilesManager.cpp.i
 
 # target to preprocess a source file
 FilesManager.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/FilesManager.cpp.i
 .PHONY : FilesManager.cpp.i
 
 FilesManager.s: FilesManager.cpp.s
@@ -201,7 +201,7 @@ FilesManager.s: FilesManager.cpp.s
 
 # target to generate assembly for a file
 FilesManager.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/FilesManager.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/FilesManager.cpp.s
 .PHONY : FilesManager.cpp.s
 
 OutputFormat.o: OutputFormat.cpp.o
@@ -210,7 +210,7 @@ OutputFormat.o: OutputFormat.cpp.o
 
 # target to build an object file
 OutputFormat.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/OutputFormat.cpp.o
 .PHONY : OutputFormat.cpp.o
 
 OutputFormat.i: OutputFormat.cpp.i
@@ -219,7 +219,7 @@ OutputFormat.i: OutputFormat.cpp.i
 
 # target to preprocess a source file
 OutputFormat.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/OutputFormat.cpp.i
 .PHONY : OutputFormat.cpp.i
 
 OutputFormat.s: OutputFormat.cpp.s
@@ -228,7 +228,7 @@ OutputFormat.s: OutputFormat.cpp.s
 
 # target to generate assembly for a file
 OutputFormat.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/OutputFormat.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/OutputFormat.cpp.s
 .PHONY : OutputFormat.cpp.s
 
 Triplet.o: Triplet.cpp.o
@@ -237,7 +237,7 @@ Triplet.o: Triplet.cpp.o
 
 # target to build an object file
 Triplet.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Triplet.cpp.o
 .PHONY : Triplet.cpp.o
 
 Triplet.i: Triplet.cpp.i
@@ -246,7 +246,7 @@ Triplet.i: Triplet.cpp.i
 
 # target to preprocess a source file
 Triplet.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Triplet.cpp.i
 .PHONY : Triplet.cpp.i
 
 Triplet.s: Triplet.cpp.s
@@ -255,7 +255,7 @@ Triplet.s: Triplet.cpp.s
 
 # target to generate assembly for a file
 Triplet.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/Triplet.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/Triplet.cpp.s
 .PHONY : Triplet.cpp.s
 
 main.o: main.cpp.o
@@ -264,7 +264,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -273,7 +273,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -282,7 +282,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -292,7 +292,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... untitled"
+	@echo "... selection"
 	@echo "... edit_cache"
 	@echo "... Arbitrage.o"
 	@echo "... Arbitrage.i"

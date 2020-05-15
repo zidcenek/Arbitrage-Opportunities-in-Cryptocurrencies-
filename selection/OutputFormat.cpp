@@ -51,7 +51,7 @@ stringstream OutputFormat::to_JSON(const string & coma, long double timestamp) {
             ofs << ",";
         ofs << item.to_JSON();
     }
-    ofs << "]}";
+    ofs << "]}\n";
     return ofs;
 }
 

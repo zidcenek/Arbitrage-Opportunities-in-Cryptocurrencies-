@@ -23,10 +23,7 @@ void thread_start(const vector<string> &paths, const string & output_path){
         vector<vector<Triplet> > triplets = fm.select_files();
         for(const auto & vec: triplets){
             for(const Triplet & triplet: vec){
-//                string ending = "2020-03-13";
                 const string & tmp = triplet.getOutput_filename();
-//                if(! (tmp.substr(tmp.size() - ending.size(), ending.size()) == ending))
-//                    continue;
                 cout << triplet.getOutput_filename() << endl;
                 cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
                 Arbitrage arbitrage = Arbitrage();
@@ -41,7 +38,11 @@ void thread_start(const vector<string> &paths, const string & output_path){
 vector<string> get_subdirectories(const string &path){
     vector<string> subdirectories;
     glob_t glob_result;
-    glob((path + "*").c_str(),GLOB_TILDE, nullptr, &glob_result);
+    string new_path = path;
+    if(path.substr(path.size()-1, 1) != "/"){
+        new_path += "/";
+    }
+    glob((new_path + "*").c_str(),GLOB_TILDE, nullptr, &glob_result);
     for(unsigned int i=0; i<glob_result.gl_pathc; ++i){
         struct stat s;
         if(stat(glob_result.gl_pathv[i], &s) == 0){
@@ -60,20 +61,25 @@ int main(int argc, char *argv[]) {
     bool recursive_flag = false;
     vector<string> paths;
     string path, output_path;
-
     // checking passed arguments
-    if(argc >= 1){
+    if(argc > 1){
         path = argv[1];
         printf("Path: %s\n", argv[1]);
+    } else {
+        printf("Please specify the input directory path\n");
+        return 0;
     }
-    if(argc >= 2){
+    if(argc > 2){
         output_path = argv[2];
         printf("Output path: %s\n", argv[2]);
+    } else {
+        printf("Please specify the output directory path\n");
+        return 0;
     }
-    if(argc >= 3 && strcmp(argv[3], "-r") == 0){
+    if(argc > 3 && strcmp(argv[3], "-r") == 0){
         recursive_flag = true;
         printf("Recursive directories (depth 1): %s\n", argv[1]);
-        if(argc >= 5 && strcmp(argv[4], "-t") == 0){
+        if(argc > 5 && strcmp(argv[4], "-t") == 0){
             try{
                 number_of_threads = stoi(argv[5]);
             }catch(exception & e) {
@@ -81,6 +87,9 @@ int main(int argc, char *argv[]) {
             }
         }
     }else {
+        if(path.substr(path.size()-1, 1) != "/"){
+            path += "/";
+        }
         printf("No recusive depth (no threads), for more threads use (-r and -t).\n");
         number_of_threads = 1;
     }

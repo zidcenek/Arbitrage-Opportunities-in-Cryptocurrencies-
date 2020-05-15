@@ -86,10 +86,14 @@ long double Arbitrage::calculateScore(double a, double b, double c, bool demand_
  * @return -> position of the max_gain
  */
 vector<int> Arbitrage::calculateMaxGainPosition(
-        vector<double> pairs1, vector<double> pairs2, vector<double> pairs3, bool demand_flag, long double & best_gain
+        vector<double> pairs1, vector<double> pairs2, vector<double> pairs3, bool demand_flag, long double & best_gain,
+        long double & new_score
 ) const {
+    if(calculation_type_linear)
+        cout << "linear" << endl;
     long double max_gain = 0;
     vector<int> best_indexes(3, 0);
+    new_score = 0;
     // goes through all the combinations of the best demand/supply
     for(int i = 0; i < pairs1.size() - 1; i += 2){
         for(int j = 0; j < pairs2.size() - 1; j += 2){
@@ -100,13 +104,14 @@ vector<int> Arbitrage::calculateMaxGainPosition(
                     long double gain = calculate_narrowest(
                             pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
                             pair<double, double> (pairs2.at(j), pairs2.at(j+1)),
-                            pair<double, double> (pairs3.at(k), pairs3.at(k+1))
-                            ) * (score - 1);
+                            pair<double, double> (pairs3.at(k), pairs3.at(k+1)),
+                            demand_flag) * (score - 1);
                     if(gain > max_gain) {
                         max_gain = gain;
                         best_indexes[0] = i / 2;  // "/ 2" because of i += 2 etc.
                         best_indexes[1] = j / 2;  // etc.
                         best_indexes[2] = k / 2;  // etc.
+                        new_score = score;
                     }
                 }
             }
@@ -126,19 +131,40 @@ vector<int> Arbitrage::calculateMaxGainPosition(
  * @return -> smallest thickness
  */
 long double Arbitrage::calculate_narrowest(
-        pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3
+        pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3, bool demand_flag
         ) const{
     vector<long double> thickness;
-    thickness.push_back(min(pair2.first * pair2.second, pair1.second));
-    thickness.push_back(min(pair3.first * pair3.second, pair2.second));
-    thickness.push_back(min(pair1.first * pair1.second, pair3.second));
     if(calculation_type_linear){
-        thickness[1] = thickness[1] / pair1.first;
-        thickness[2] = thickness[2] / pair1.first / pair2.first;
-    }else {
-        thickness[1] = thickness[1] * pair1.first;
-        thickness[2] = thickness[2] * pair1.first * pair2.first;
+        if(demand_flag){
+            thickness.push_back(pair1.second);
+            thickness.push_back(pair2.second * pair1.first);
+            thickness.push_back(pair3.second * pair2.first * pair1.first);
+        } else {
+            thickness.push_back(pair1.second);
+            thickness.push_back(pair2.second / pair2.first / pair3.first);
+            thickness.push_back(pair3.second / pair3.first);
+        }
+    } else{
+        if(demand_flag){
+            thickness.push_back(pair1.second);
+            thickness.push_back(pair2.second);
+            thickness.push_back(pair3.second / pair2.first);
+        } else {
+            thickness.push_back(pair1.second);
+            thickness.push_back(pair2.second);
+            thickness.push_back(pair3.second * pair3.first / pair1.first);
+        }
     }
+//    if(*min_element(thickness.begin(), thickness.end()) > 0.5){
+//        printf("--------------------------------------\n");
+//        printf("%d\n", demand_flag);
+//        printf("%f %f\n", pair1.first, pair1.second);
+//        printf("%f %f\n", pair2.first, pair2.second);
+//        printf("%f %f\n", pair3.first, pair3.second);
+//        for(auto item: thickness)
+//            printf("%Lf\n", item);
+//    }
+
     return *min_element(thickness.begin(), thickness.end());
 }
 
@@ -168,7 +194,7 @@ void Arbitrage::run(){
         int index = getOldest();
         if(! getNext(index))
             continue;
-        long double score, supply_gain, demand_gain;
+        long double score, supply_gain, demand_gain, supply_score, demand_score;
         vector<int> supply_gain_indexes, demand_gain_indexes;
         if(!looked_into.empty()) {
 //            cout << "skiping" << endl;
@@ -183,18 +209,19 @@ void Arbitrage::run(){
 //                cout << "found" << endl;
                     if (calculation_type_linear) {
                         supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
-                                                                       current[2].getSupply(), false, supply_gain);
+                                                                       current[2].getSupply(), false, supply_gain, supply_score);
                         demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getDemand(),
-                                                                       current[2].getDemand(), true, demand_gain);
+                                                                       current[2].getDemand(), true, demand_gain, demand_score);
                     } else {
                         supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getDemand(),
-                                                                       current[2].getDemand(), false, supply_gain);
+                                                                       current[2].getDemand(), false, supply_gain, supply_score);
                         demand_gain_indexes = calculateMaxGainPosition(current[0].getDemand(), current[1].getSupply(),
-                                                                       current[2].getSupply(), true, demand_gain);
+                                                                       current[2].getSupply(), true, demand_gain, demand_score);
                     }
                 if (supply_gain_indexes.size() != 3 || demand_gain_indexes.size() != 3)
                     continue;
 
+                score = max(supply_score, demand_score);
                 if(start_of_sequence){
                     // start of sequence -> first and current are the same
                     start_of_sequence = false;

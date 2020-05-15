@@ -41,14 +41,15 @@ long double CurrencyPair::getTimestamp() const {
  * @return string in a JSON format
  */
 string CurrencyPair::to_JSON() const {
-    string json = "{";
-    json.append("\"id\":" + trade_id + ",");
-//    json.append("\"demand\": " + array_to_string(demand) + ",");
-//    json.append("\"supply\": " + array_to_string(supply) + ",");
-    json.append("\"timestamp\":" + to_string(timestamp) + ",");
-    json.append("\"currency\":\"" + currency + "\"");
-    json.append("}");
-    return json;
+    stringstream json;
+    json << "{";
+    json << "\"id\":" + trade_id + ",";
+    json << "\n\"demand\": " + array_to_string(demand) + ",";
+    json << "\n\"supply\": " + array_to_string(supply) + ",";
+    json << "\"timestamp\":" + to_string(timestamp) + ",";
+    json << "\"currency\":\"" + currency + "\"";
+    json << "}";
+    return json.str();
 }
 /**
  * Transorms an array into JSON string of array of pairs
@@ -56,14 +57,15 @@ string CurrencyPair::to_JSON() const {
  * @return - string in a JSON format
  */
 string CurrencyPair::array_to_string(const vector<double> & arr) const {
-    string output = "[";
+    stringstream ss;
+    ss << "[";
     for(int i = 0; i < arr.size() - 1; i += 2){
         if(i)
-            output.append(", ");
-        output.append("[" + to_string(arr[i]) + "," + to_string(arr[i+1]) + "]");
+            ss << ", ";
+        ss << std::setprecision(15) << "[" << arr[i] << "," << arr[i+1] << "]";
     }
-    output.append("]");
-    return output;
+    ss << "]";
+    return ss.str();
 }
 
 /**

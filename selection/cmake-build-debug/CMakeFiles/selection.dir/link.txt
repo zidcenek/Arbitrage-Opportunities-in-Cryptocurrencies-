@@ -1,0 +1,1 @@
+/usr/bin/c++  -pthread -g  -rdynamic CMakeFiles/selection.dir/main.cpp.o CMakeFiles/selection.dir/Arbitrage.cpp.o CMakeFiles/selection.dir/FilesManager.cpp.o CMakeFiles/selection.dir/CurrencyPair.cpp.o CMakeFiles/selection.dir/Triplet.cpp.o CMakeFiles/selection.dir/OutputFormat.cpp.o  -o selection 

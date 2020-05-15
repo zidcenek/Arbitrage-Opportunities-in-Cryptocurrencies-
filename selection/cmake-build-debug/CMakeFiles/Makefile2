@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /mnt/d/School/bakalarka/git/bakalarka/selection
 CMAKE_BINARY_DIR = /mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/untitled.dir
+# Target rules for target CMakeFiles/selection.dir
 
 # All Build rule for target.
-CMakeFiles/untitled.dir/all:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/depend
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target untitled"
-.PHONY : CMakeFiles/untitled.dir/all
+CMakeFiles/selection.dir/all:
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/depend
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target selection"
+.PHONY : CMakeFiles/selection.dir/all
 
 # Include target in all.
-all: CMakeFiles/untitled.dir/all
+all: CMakeFiles/selection.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/untitled.dir/rule: cmake_check_build_system
+CMakeFiles/selection.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles 7
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/untitled.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/selection.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/untitled.dir/rule
+.PHONY : CMakeFiles/selection.dir/rule
 
 # Convenience name for target.
-untitled: CMakeFiles/untitled.dir/rule
+selection: CMakeFiles/selection.dir/rule
 
-.PHONY : untitled
-
-# clean rule for target.
-CMakeFiles/untitled.dir/clean:
-	$(MAKE) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/clean
-.PHONY : CMakeFiles/untitled.dir/clean
+.PHONY : selection
 
 # clean rule for target.
-clean: CMakeFiles/untitled.dir/clean
+CMakeFiles/selection.dir/clean:
+	$(MAKE) -f CMakeFiles/selection.dir/build.make CMakeFiles/selection.dir/clean
+.PHONY : CMakeFiles/selection.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/selection.dir/clean
 
 .PHONY : clean
 
