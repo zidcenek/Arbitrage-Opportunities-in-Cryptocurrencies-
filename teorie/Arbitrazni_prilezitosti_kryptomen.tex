@@ -41,8 +41,20 @@
 \author{Čeněk Žid} %jméno autora bez akademických titulů
 \supervisor{Mgr. Jan Starý, Ph.D.}
 \acknowledgements{Doplňte, máte-li komu a~za co děkovat. V~opačném případě úplně odstraňte tento příkaz.}
-\abstractCS{V~několika větách shrňte obsah a~přínos této práce v~češtině. po~přečtení abstraktu by se~čtenář měl mít čtenář dost informací pro rozhodnutí, zda chce Vaši práci číst.}
-\abstractEN{Sem doplňte ekvivalent abstraktu Vaší práce v~angličtině.}
+\abstractCS{
+Tato bakalářská práce se zabývá analýzou arbitrážních příležitostí. Rešeršní část práce se zaměřuje na problematiku bitcoinu, jeho historii, technologie a základní principy. Dále práce popisuje rozdíly mezi několika kryptoměnovými burzami a rozebírá různé druhy arbitrážních příležitostí.
+
+Praktická část práce dále navazuje výběrem nejvhodnější burzy, problematikou dostupností a sběru dat a jejich následným zpracováním.
+
+Analytická část se s pomocí tabulek a grafů, vytvořených z reálných dat, zabývá základními statistikami výskytu a výnosnosti trojúhelníkových arbitrážních příležitostí. Statistiky jsou následně zhodnoceny a jsou vyselektovány nejvýnosnější trojúhelníky. 
+}
+\abstractEN{
+This thesis deals with the analysis of arbitrage opportunities. The theoretical part of the thesis focuses on the bitcoin, its history, technologies and basic principles. The thesis further describes the differences among several cryptocurrency exchanges and narrates about the various types of the arbitrage opportunities. 
+
+The practical part follows up with a selection of the suitable cryptocurrency exchange. In the next part the problematic of data availability and its furhter processing is described. 
+
+The analytic part focuses on the basic statistics of the occurence and profitability of the triangle arbitrage opportunities. These statistics are based on the charts and tables created from the collected data. The statistics are further more evaluated and the most profitable triangles are selected.
+}
 \placeForDeclarationOfAuthenticity{V~Praze}
 \declarationOfAuthenticityOption{4} %volba Prohlášení (číslo 1-6)
 \keywordsCS{kryptoměna, analýza dat,  arbitrážní příležitost, kryptoměnová burza, Python, Matplotlib, C++}
@@ -56,17 +68,17 @@
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
-V této práci se~budu zabývat arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není moc stabilní. Díky této labilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se~budu v~této práci věnovat.
+V této práci se zabývám arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není stabilní. Díky této volatilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se~budu v~této práci věnovat.
 
-Význam této práce spočívá v~analyzování jednotlivých burz jako takových. Zabývá se~také otázkami, jak často se~reálně objevují arbitrážní příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti i~mezi jednotlivými burzami.
+Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~také zabývá otázkami, jak často se~reálně objevují arbitrážní příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
 
-Toto téma jsem si vybral především z~toho důvodu, protože mě baví analyzovat data a~snažit se~najít výstupy, které je možné z~dat vytěžit. Zároveň z~toho důvodu, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněj. 
+Toto téma jsem vybral především, protože mě baví analyzovat data a~snažit se~najít výstupy, které je možné z~dat vytěžit. Zároveň z~toho důvodu, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněji. 
 
-V práci se~zabývám dostupností dat v~rámci jednotlivých kryptoměnných burz a~možnostmi ukládání těchto dat. Dále se~v~práci zabývám analýzou dat, analýzou výskytů korelací, které nastávají v~rámci burz.
+V práci se~zabývám dostupností dat v~rámci jednotlivých kryptoměnových burz a~možnostmi ukládání těchto dat. Dále se~v~práci zabývám analýzou dat a analýzou výskytů korelací, které v~rámci burz nastávají.
 
 V první části práce se~věnuji tomu, co to jsou kryptoměny a~co znamenají arbitrážní příležitosti. V~následující části se~věnuji zkoumání dostupnosti dat na~jednotlivých burzách a~možnostem jejich získávání. Na~to navazuji analýzou získaných dat z~pohledu arbitrážních příležitostí. Zabývám se~zde převážně otázkami, jak často arbitrážní příležitosti nastávají a~jestli je reálně možné a~vyplatí se~snažit se~arbitrážní příležitosti vytěžit.
 
-Tato bakalářská práce volně navazuje na~diplomovou práci Adama Pečeva s~tématem Cryptocurrencies Exchange Rates Reporting Tool, ve~které autor vytvořil program, který zobrazuje data jednotlivých kryptoměn na~různých trzích. Já narozdíl od~něho se~více zaměřuji na~analýzu dat jako takových pomocí informatických a~matematických metod a~výstupů, které z~nich vyplývají.
+Tato bakalářská práce volně navazuje na~diplomovou práci Adama Pečeva s~tématem Cryptocurrencies Exchange Rates Reporting Tool, ve~které autor vytvořil program, který zobrazuje data jednotlivých kryptoměn na~různých trzích. Já na rozdíl od~něho se~více zaměřuji na~analýzu dat jako takových pomocí informatických a~matematických metod.
 
 \end{introduction}
 
@@ -206,8 +218,9 @@ Burza Binance si v~průměru účtuje 0.1~\% za~provedené obchody s~měnami. Te
 
 Vkladové poplatky jsou nulové pro veškeré měny. Na~druhou stranu \linebreak výběrové poplatky se~liší pro každou měnu (viz \ref{binance_fees}). \cite{blockonomi_binance}
 
-\begin{figure}\centering
-    \begin{center}
+\begin{table}\centering
+    \caption{Výběrové poplatky na~burze Binance \cite{binance_fees}}
+    \label{binance_fees}
      \begin{tabular}{||c | c | c | c||} 
      \hline
      Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
@@ -230,13 +243,10 @@ Vkladové poplatky jsou nulové pro veškeré měny. Na~druhou stranu \linebreak
      \hline
      TRX & TRON & 2,16 & 1,08 \\
      \hline
-     USDT & TetherUS & 1,44 & 0,72 \\ [1ex] 
+     USDT & TetherUS & 1,44 & 0,72 \\
      \hline
     \end{tabular}
-    \end{center}
-    \caption{Výběrové poplatky na~burze Binance \cite{binance_fees}}
-    \label{binance_fees}
-\end{figure}
+\end{table}
 \subsection{MXC}
 Burza MXC je jednou z~novějších burz. Vznikla v~dubnu roku 2018 a~je registrována v~Singapuru. Podle statistik serveru CoinMarketCap je druhou největší z~pohledu obchodovaného objemu za~posledních 30 dní s~objemem 101~249~688~459 amerických dolarů. \cite{coinmarketcap} MXC podobně jako burza Binance podporuje velké množství altcoinů, celkově je zde možné obchodovat s~264 měnami. \cite{mxc_coins}
 
@@ -244,8 +254,9 @@ Co se~týče poplatků, patří burza MXC se~svými poplatky o~velikosti 0,2~\% 
 
 Burza MXC stejně jako Binance nezpoplatňuje vklady, zpoplatňuje ale výběry. Výběrové poplatky se~mohou periodicky měnit na~základě situace jednotlivých bloků. \cite{mxc_fees} na~základě tabulek \ref{mxc_fees} a~\ref{binance_fees} je možné vidět, že jsou výběrové poplatky velmi podobné jako na~burze Binance, jediný znatelný rozdíl je u~TetherUS (USDT). \cite{cryptowisser_mxc}
 
-\begin{figure}\centering
-    \begin{center}
+\begin{table}\centering
+    \caption{Výběrové poplatky na~burze MXC \cite{mxc_fees}}
+    \label{mxc_fees}
      \begin{tabular}{||c | c | c | c||} 
      \hline
      Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
@@ -268,13 +279,11 @@ Burza MXC stejně jako Binance nezpoplatňuje vklady, zpoplatňuje ale výběry.
      \hline
      TRX & TRON & 600 & 1 \\
      \hline
-     USDT & TetherUS & 25 & 4,8 \\ [1ex] 
+     USDT & TetherUS & 25 & 4,8 \\
      \hline
     \end{tabular}
-    \end{center}
-    \caption{Výběrové poplatky na~burze MXC \cite{mxc_fees}}
-    \label{mxc_fees}
-\end{figure}
+\end{table}
+
 \subsection{BitForex}
 Burza BitForex je kryptoměnová burza, která vznikla v~červnu roku 2018 a~v~dnešní době se~podle serveru CoinMarketCap řadí na~dvanácté místo, co se~týče obchodovaného objemu za~posledních 30 dní s~objemem 66~241~217~666 amerických dolarů. \cite{coinmarketcap} BitForex svým více jak 3 milionům uživatelům \linebreak umožňuje obchodování na~92 měnových párech.  \cite{cryptowisser_bitforex}
 
@@ -282,9 +291,10 @@ BitForex má stejné poplatky pro maker i~taker o~velikosti 0,1~\% . BitForex se
 
 BitForex nezpoplatňuje vklady, ale stejně jako Binance nebo MXC zpoplatňuje výběry víceméně podobnými poplatky (viz tabulka \ref{bitforex_fees}). \cite{cryptowisser_bitforex}
 
-\begin{figure}\centering
-    \begin{center}
-     \begin{tabular}{||l | l | r | r||} 
+\begin{table}\centering
+    \caption{Výběrové poplatky na~burze BitForex \cite{bitforex_fees}}
+    \label{bitforex_fees}
+    \begin{tabular}{||l | l | r | r||} 
      \hline
      Měna/token & Název & Minimální výběr & Výběrový poplatek \\ [0.5ex] 
      \hline\hline
@@ -306,20 +316,15 @@ BitForex nezpoplatňuje vklady, ale stejně jako Binance nebo MXC zpoplatňuje v
      \hline
      TRX & TRON & 250 & 20 \\
      \hline
-     USDT & TetherUS & 10 & 2 \\ [1ex] 
+     USDT & TetherUS & 10 & 2 \\
      \hline
     \end{tabular}
-    \end{center}
-    \caption{Výběrové poplatky na~burze BitForex \cite{bitforex_fees}}
-    \label{bitforex_fees}
-\end{figure}
+\end{table}
 
 \subsection{LBank}
 LBank je kryptoměnová burza sídlící v~Hong Kongu. Jedná se~o jednu \linebreak z~největších burz, která se~podle statistik z~CoinMarketCap řadí v~obchodovaném objemu za~posledních 30~dní na~deváté místo s~objemem 71~679~777~662 amerických dolarů. \cite{coinmarketcap} \cite{cryptowisser_lbank}
 
-Co se~týče poplatků, využívá LBank takzvaně plochý model poplatků, poplatky pro taker i~maker jsou totožné, ve~výši 0,1~\%. Jedná se~o nadprůměrně nízké poplatky. LBank je oproti svým konkurentům velmi zajímavá tím, že nezpoplatňuje ani vklady ani výběry jakýchkoliv měn. 
-
-Malou nevýhodou LBank je, že neumožňuje vklad pomocí kreditní karty. \cite{cryptowisser_lbank}
+Co se~týče poplatků, využívá LBank takzvaně plochý model poplatků, poplatky pro taker i~maker jsou totožné, ve~výši 0,1~\%. Jedná se~o nadprůměrně nízké poplatky. LBank je oproti svým konkurentům velmi zajímavá tím, že nezpoplatňuje ani vklady ani výběry jakýchkoliv měn. \cite{cryptowisser_lbank}
 
 
 \section{Arbitrážní příležitosti}
@@ -410,8 +415,9 @@ Další faktor, který bylo možné zanedbat, byl počet různých měn, neboť 
 
 Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodovaný objemem a~rozdíly ve~výši poplatků.
 
-\begin{figure}\centering
-    \begin{center}
+\begin{table}\centering
+     \caption{Porovnání parametrů jednotlivých burz}
+     \label{exchanges_comparison}
      \begin{tabular}{||l | r | l | l||} 
      \hline
      Burza & Obchodovaný objem & Taker fee & Maker fee \\ [0.5ex]
@@ -427,10 +433,7 @@ Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodo
      LBank & 71 679 777 662~\$ & 0,1~\% & 0,1~\%  \\ 
      \hline
     \end{tabular}
-    \end{center}
-    \caption{Porovnání parametrů jednotlivých burz}
-    \label{exchanges_comparison}
-\end{figure}
+\end{table}
 Po porovnání parametrů dvou vybraných parametrů (viz tabulka \ref{exchanges_comparison})
 
 \subsection{Burza Binance}
@@ -960,14 +963,19 @@ Dále je nutné podotknout, že pro zobchodování některých arbitrážních p
 
 % todo - Změnit celý závěr
 \begin{conclusion}
-V práci jsem zatím úspěšně implementoval program v~programovacím jazyce Python, který se~stará o~sběr dat. Tento program jsem nasadil na~cloudovou službu Amazon Web Services, kde běží bez přerušení. 
+Cílem práce bylo zanalyzovat arbitrážní příležitosti kryptoměn a na základě reálných dat z kryptoměnových burz vyhodnotit základní statistiky výskytu a výdělečnosti.
 
-V teoretické části jsem zatím napsal velmi stručnou rešerši, kterou mám ještě v~plánu značně rozšiřovat. Našel jsem si již zdroje i~k~následujícím částem teoretické části.  Plánuji se~zde ještě více věnovat kryptoměnám podrobněji a~popsat více jejich charakteristiky. Dále zde plánuji zpracovat rešerši týkající se~dosavadních prací, které se~také zabývají otázkou arbitrážních příležitostí.
+Do teoretické části jsem popsal historii bitcoinu a rozebral jsem jeho princip a základní technologie. Dále jsem se zaměřil na několik altcoinů a několik kryptoměnových burz a zaobíral jsem se tématem arbitrážních příležitostí. 
 
-Mým dalším krokem je napsání programu, který bude analyzovat nasbíraná data. Na~tomto úkolu mohu pracovat i~s prozatímními daty, neboť se~na~programu nic nezmění, pouze se~změní výstupní statistiky. Tato část bude stěžejní částí mé celkové bakalářské práce.
+V praktické části jsem úspěšně implementoval program, který sbíral data s burzy Binance. Na datech jsem následně vyhledával trojúhelníkové arbitrážní příležitosti, které jsem v poslední části své bakalářské práce vyhodnocoval. 
 
-Úplně nakonec se~budu věnovat výstupům, které zjistím v~části analýzy dat. Tyto data zpracuji jako celek a~zaměřím se~na~výstupy, které je možné na~datech pozorovat.
+Po nalezení arbitrážních příležitostí jsem se v rámci analytické části věnoval statistikám výskytů a výdělečnosti arbitrážních příležitostí, ke kterým jsem využíval tabulky a grafy vytvořené z nasbíraných dat. Zabýval jsem se selekcí těch nejlepších trojúhelníků z pohledu jejich výdělečnosti a potenciální vytěžitelnosti.
 
+Ze statistik jsem zjistil, že problematika trojúhelníkových arbitrážních příležitostí je stále aktuální a je na ni možné vydělat poměrně velké množství peněz. Úkol vydělávání se však nyní stává náročnější z důvodu krátké životnosti arbitrážních příležitostí, kterou člověk nemá šanci sledovat dostatečně rychle bez využití počítačové síly.
+
+Práci je možné dále rozšířit, převážně části závisející na sběru dat. V rámci bakalářské práce jsem neměl dostatek času na vytvoření větší datové kolekce a tří měsíční data nebyla dostatečně rozmanitá k vyhodnocení některých závěrů převážně v částech hodnotících korelace s arbitrážními příležitostmi.
+
+V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních arbitrážních příležitostí, které si však plánuji na základě zjištěných závěrů v budoucnu vytvořit. Data ze skutečného vytěžování arbitrážních příležitostí by bylo také zajímavé zahrnout do analytické části práce.
 
 \end{conclusion}
 
