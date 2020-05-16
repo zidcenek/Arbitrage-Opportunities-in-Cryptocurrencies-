@@ -27,7 +27,13 @@
 \newcommand{\tg}{\mathop{\mathrm{tg}}} %cesky tangens
 \newcommand{\cotg}{\mathop{\mathrm{cotg}}} %cesky cotangens
 
+\usepackage[T1]{fontenc}
 
+\hyphenation{de-ve-lop-ment}
+\hyphenation{výs-kyt}
+\hyphenation{pří-le-ži-tos-ti}
+\hyphenation{pří-le-ži-tost}
+\hyphenation{změ-ně}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % ODTUD DAL VSE ZMENTE
@@ -70,7 +76,7 @@ The analytic part focuses on the basic statistics of the occurence and profitabi
 \begin{introduction}
 V této práci se zabývám arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není stabilní. Díky této volatilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se~budu v~této práci věnovat.
 
-Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~také zabývá otázkami, jak často se~reálně objevují arbitrážní příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
+Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~také zabývá otázkami, jak často se~reálně objevují arbitrážní \linebreak příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
 
 Toto téma jsem vybral především, protože mě baví analyzovat data a~snažit se~najít výstupy, které je možné z~dat vytěžit. Zároveň z~toho důvodu, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněji. 
 
@@ -149,7 +155,7 @@ Ethereum je stejně jako litecoin open source kryptoměna založená na~technolo
 
 Hlavním rozdílem oproti bitcoinu je to, že se~nejedná o~měnu, ale o~platformu se~svou vlastní měnou Ethereum. Platforma Ethereum tvoří alternativu ke~všem klasickým smlouvám a~dohodám a~snaží se~o zdokonalení chytrých kontraktů. \cite{btc_vs_eth}
 
-Chytrý kontrakt je zjednodušeně program, který se~stará o~provedení smlouvy. Tento program tak nahrazuje třetí stranu (například právníky, či notáře) a~zajišťuje transparentní převedení peněz, majetku nebo čehokoli jiného. \cite{ethereum}
+Chytrý kontrakt je zjednodušeně program, který se~stará o~provedení smlouvy. Tento program tak nahrazuje třetí stranu (například právníky, či notáře) a~zajišťuje transparentní převedení peněz, majetku nebo čehokoli \linebreak jiného. \cite{ethereum}
 
 Na platformě Ethereum je možné vytvářet tyto vlastní programy. \cite{ethereum} Rozdíl Etherea oproti bitcoinu je ten, že nikdy nedojde k~vytěžení všech mincí, nýbrž budou mince stále emitovány. \cite{alza_monero}
 
@@ -645,45 +651,45 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 \caption{Tabulka potenciálních výnosů arbitrážních příležitostí na~jednotlivých trojúhelnících}
 \label{table_gains}
 \begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline BTC/BCH/BNB & 2,789278e-03 BCH & 6,219532e-01\\ 
- \hline BTC/BNB/TRX & 7,573400e+00 TRX & 9,540212e-02\\ 
- \hline BTC/BNB/XMR & 2,626474e-03 XMR & 1,401749e-01\\ 
- \hline BTC/ETH/BNB & 6,453608e-02 BNB & 1,002245e+00\\ 
- \hline BTC/ETH/EOS & 2,278326e-01 EOS & 5,559115e-01\\ 
- \hline BTC/ETH/TRX & 5,277399e+01 TRX & 6,647940e-01\\ 
- \hline BTC/ETH/XRP & 4,654306e+01 XRP & 8,655381e+00\\ 
- \hline BTC/LTC/BNB & 5,058650e-04 LTC & 2,074046e-02\\ 
- \hline BTC/LTC/ETH & 1,644170e-01 LTC & 6,741097e+00\\ 
- \hline BTC/XRP/BNB & 3,136049e-01 XRP & 5,831954e-02\\ 
- \hline BTC/XRP/TRX & 4,266696e+02 TRX & 5,374757e+00\\ 
- \hline ETH/BNB/TRX & 2,591426e+01 TRX & 3,264419e-01\\ 
- \hline ETH/BNB/XMR & 5,727905e-02 XMR & 3,056983e+00\\ 
- \hline ETH/EOS/BNB & 6,051972e-02 EOS & 1,476681e-01\\ 
- \hline ETH/XRP/BNB & 2,834378e+00 XRP & 5,270950e-01\\ 
- \hline ETH/XRP/TRX & 1,933581e+01 TRX & 2,435733e-01\\ 
- \hline LTC/ETH/BNB & 1,129460e-02 LTC & 4,630786e-01\\ 
- \hline USDT/BCH/BNB & 4,236630e-01 BCH & 9,446838e+01\\ 
- \hline USDT/BNB/TRX & 5,190934e+01 TRX & 6,539020e-01\\ 
- \hline USDT/BNB/XMR & 2,209484e+00 XMR & 1,179202e+02\\ 
- \hline USDT/BTC/BCH & 1,038361e-01 BCH & 2,315336e+01\\ 
- \hline USDT/BTC/BNB & 1,268093e+00 BNB & 1,969348e+01\\ 
- \hline USDT/BTC/EOS & 7,046822e+02 EOS & 1,719424e+03\\ 
- \hline USDT/BTC/ETH & 1,591693e-01 ETH & 2,494183e+01\\ 
- \hline USDT/BTC/LTC & 3,429549e+00 LTC & 1,406115e+02\\ 
- \hline USDT/BTC/TRX & 1,144626e+04 TRX & 1,441885e+02\\ 
- \hline USDT/BTC/XMR & 1,360074e+00 XMR & 7,258717e+01\\ 
- \hline USDT/BTC/XRP & 2,153838e+03 XRP & 4,005385e+02\\ 
- \hline USDT/EOS/BNB & 9,776393e+01 EOS & 2,385440e+02\\ 
- \hline USDT/ETH/BNB & 2,918565e-01 BNB & 4,532531e+00\\ 
- \hline USDT/ETH/EOS & 1,208823e+00 EOS & 2,949528e+00\\ 
- \hline USDT/ETH/TRX & 1,051102e+02 TRX & 1,324073e+00\\ 
- \hline USDT/ETH/XMR & 5,186252e-02 XMR & 2,767902e+00\\ 
- \hline USDT/ETH/XRP & 1,125902e+01 XRP & 2,093783e+00\\ 
- \hline USDT/LTC/BNB & 2,439327e+00 LTC & 1,000124e+02\\ 
- \hline USDT/LTC/ETH & 9,987930e-02 LTC & 4,095052e+00\\ 
- \hline USDT/XRP/BNB & 6,182105e+02 XRP & 1,149655e+02\\ 
- \hline USDT/XRP/TRX & 1,955658e+03 TRX & 2,463543e+01\\ 
- \hline XRP/BNB/TRX & 6,924775e-01 TRX & 8,723139e-03\\ 
+ \hline\hline BTC/BCH/BNB & 0,003773 BCH & 0,841370\\ 
+ \hline BTC/BNB/TRX & 44,763598 TRX & 0,563887\\ 
+ \hline BTC/BNB/XMR & 0,006775 XMR & 0,361575\\ 
+ \hline BTC/ETH/BNB & 0,073839 BNB & 1,146721\\ 
+ \hline BTC/ETH/EOS & 0,311366 EOS & 0,759733\\ 
+ \hline BTC/ETH/TRX & 213,992235 TRX & 2,695660\\ 
+ \hline BTC/ETH/XRP & 52,556131 XRP & 9,773601\\ 
+ \hline BTC/LTC/BNB & 0,002389 LTC & 0,097950\\ 
+ \hline BTC/LTC/ETH & 0,162971 LTC & 6,681805\\ 
+ \hline BTC/XRP/BNB & 6,008707 XRP & 1,117409\\ 
+ \hline BTC/XRP/TRX & 470,805325 TRX & 5,930735\\ 
+ \hline ETH/BNB/TRX & 47,194492 TRX & 0,594509\\ 
+ \hline ETH/BNB/XMR & 0,055400 XMR & 2,956701\\ 
+ \hline ETH/EOS/BNB & 0,060669 EOS & 0,148031\\ 
+ \hline ETH/XRP/BNB & 3,059024 XRP & 0,568871\\ 
+ \hline ETH/XRP/TRX & 26,132470 TRX & 0,329191\\ 
+ \hline LTC/ETH/BNB & 0,011310 LTC & 0,463712\\ 
+ \hline USDT/BCH/BNB & 0,411577 BCH & 91,773489\\ 
+ \hline USDT/BNB/TRX & 95,263771 TRX & 1,200038\\ 
+ \hline USDT/BNB/XMR & 2,142761 XMR & 114,359142\\ 
+ \hline USDT/BTC/BCH & 0,145601 BCH & 32,466046\\ 
+ \hline USDT/BTC/BNB & 2,258871 BNB & 35,080263\\ 
+ \hline USDT/BTC/EOS & 681,827077 EOS & 1663,658068\\ 
+ \hline USDT/BTC/ETH & 0,262058 ETH & 41,064461\\ 
+ \hline USDT/BTC/LTC & 3,487130 LTC & 142,972325\\ 
+ \hline USDT/BTC/TRX & 11755,941183 TRX & 148,089591\\ 
+ \hline USDT/BTC/XMR & 1,366404 XMR & 72,924984\\ 
+ \hline USDT/BTC/XRP & 2123,484765 XRP & 394,893844\\ 
+ \hline USDT/EOS/BNB & 95,119309 EOS & 232,091114\\ 
+ \hline USDT/ETH/BNB & 0,397124 BNB & 6,167342\\ 
+ \hline USDT/ETH/EOS & 2,131723 EOS & 5,201404\\ 
+ \hline USDT/ETH/TRX & 616,858351 TRX & 7,770565\\ 
+ \hline USDT/ETH/XMR & 0,061040 XMR & 3,257712\\ 
+ \hline USDT/ETH/XRP & 24,420090 XRP & 4,541282\\ 
+ \hline USDT/LTC/BNB & 2,363843 LTC & 96,917559\\ 
+ \hline USDT/LTC/ETH & 0,112075 LTC & 4,595065\\ 
+ \hline USDT/XRP/BNB & 609,046931 XRP & 113,261413\\ 
+ \hline USDT/XRP/TRX & 2007,307464 TRX & 25,286052\\ 
+ \hline XRP/BNB/TRX & 4,744872 TRX & 0,059771\\ 
  \hline
 \end{tabular}
 \end{table}
@@ -757,7 +763,7 @@ V této sekci se~podrobněji věnuji nejzajímavějším trojúhelníkům, kter�
 \subsection{Selekce}
 Trojúhelníky jsem vybíral převážně na~základě hodnot z~předchozí sekce \linebreak (konkrétně z~tabulek \ref{table_gains} a~\ref{table_averages}). Z~toho důvodu, že se~většina pozorovaných hodnot mezi jednotlivými měnami moc neliší, bral jsem v~potaz převážně faktor průměrného denního potenciálního zisku (ne všechny mají data ze všech dní, proto byl zvolen průměr).
 
-V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u~kterých je možné v~průměru každý den vydělat více než 10 amerických dolarů. V~této sekci se~však nevěnuji všem, ale pouze pěti nejlukrativnějším trojúhelníkům (USDT/BTC/EOS, USDT/BTC/XRP, USDT/EOS/BNB, USDT/BTC/TRX, USDT/BTC/LTC).
+V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u~kterých je možné v~průměru každý den vydělat více než 10 amerických dolarů. V~této sekci se~však nevěnuji všem, ale pouze pěti nejlukrativnějším trojúhelníkům \linebreak (USDT/BTC/EOS, USDT/BTC/XRP, USDT/EOS/BNB, USDT/BTC/TRX, USDT/BTC/LTC).
 
 Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnících figuruje USD Tether, zástupce stabilní měny odpovídající americkému dolaru.
 
@@ -823,9 +829,9 @@ Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 30 arbitrá�
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/BTC/XRP}
-Trojúhelník USDT/BTC/XRP je z~pohledu velikosti celkového potenciálního zisku druhý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelník USDT/BTC/EOS. Denně se průměrně objevuje přes 25 arbitrážních příležitostí, avšak medián výskytu je stejně jako u předchozího trojúhelníku pouze 2. Tento vysoký rozdíl je taktéž způsoben velkým výkyvem z~12. A~13. března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
+Trojúhelník USDT/BTC/XRP je z~pohledu velikosti celkového potenciálního zisku druhý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelník USDT/BTC/EOS. Denně se průměrně objevuje přes 25 arbitrážních \linebreak příležitostí, avšak medián výskytu je stejně jako u předchozího trojúhelníku pouze 2. Tento vysoký rozdíl je taktéž způsoben velkým výkyvem z~12. A~13. března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
 
-Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážních příležitostí a to 0,43~s. Zajímavou hodntou je, že se na nejvýdělečnější arbitrážní příležitosti dalo zhodnotit zobchodovaný objem o 12~\%. 
+Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážních příležitostí a to 0,43~s. Zajímavou hodntou je, že se na \linebreak nejvýdělečnější arbitrážní příležitosti dalo zhodnotit zobchodovaný \linebreak objem o~12~\%. 
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/XRP}
@@ -854,7 +860,7 @@ Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážn
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/EOS/BNB}
-Tento trojúhelník má velmi podobné vlastnosti jako oba výše zmiňované trojúhelníky. Průměrný počet denního výskytu arbitrážních příležitostí je zaokrouhleně 25 a medián se díky velkým výkyvům drží pouze na hodnotě 1 (viz \ref{USDTEOSBNB_stats}).
+Tento trojúhelník má velmi podobné vlastnosti jako oba výše zmiňované \linebreak trojúhelníky. Průměrný počet denního výskytu arbitrážních příležitostí je zaokrouhleně 25 a medián se díky velkým výkyvům drží pouze na hodnotě 1 (viz \ref{USDTEOSBNB_stats}).
 
 Doba trvání pozitivní arbitrážní příležitosti trojúhelníku USDT/EOS/BNB je něco málo přes půl sekundy.
 
@@ -920,7 +926,7 @@ I přes to, že není tento trojúhelník moc aktivní, má velmi nízkou prům�
 
 
 \subsubsection{Trojúhelník USDT/BTC/LTC}
-Trojúhelník USDT/BTC/LTC má velmi podobné vlastnosti jako všechny výše zmiňované. Má také o poznání vyšší denní průměr výskytu arbitrážních příležitostí než medián (viz \ref{USDTBTCLTC_stats}). Celkově má tento trojúhelník poměrně krátkou dobu trvání arbitrážních příležitostí, pouze 0,31~s. 
+Trojúhelník USDT/BTC/LTC má velmi podobné vlastnosti jako všechny výše zmiňované. Má také o poznání vyšší denní průměr výskytu arbitrážních \linebreak příležitostí než medián (viz \ref{USDTBTCLTC_stats}). Celkově má tento trojúhelník poměrně krátkou dobu trvání arbitrážních příležitostí, pouze 0,31~s. 
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/LTC}
@@ -952,7 +958,7 @@ Trojúhelník USDT/BTC/LTC má velmi podobné vlastnosti jako všechny výše zm
 \subsubsection{Zhodnocení nejlepších trojúhelníků}
 Z předchozích podkapitol, kde se~blíže věnuji nejzajímavějším trojúhelníkům je vidět, že všechny mají velmi podobné vlastnosti, co se~týče data výskytu i~délky výskytu (viz spojený graf nejlepších trojúhelníků \ref{occurence_of_best}). Tento jev může být částečně způsobený tím, že ve~všech trojúhelnících figuruje USD Tether (USDT). 
 
-Z toho důvodu, že průměrná doba životnosti arbitrážní příležitosti v~žádném případě ani nedosahuje jedné vteřiny, není reálně možné detekovat a~vytěžit arbitrážní příležitosti ručně bez jakéhokoliv bota, který by se~staral o~detekci a~následné vytěžování. 
+Z toho důvodu, že průměrná doba životnosti arbitrážní příležitosti \linebreak v~žádném případě ani nedosahuje jedné vteřiny, není reálně možné detekovat a~vytěžit arbitrážní příležitosti ručně bez jakéhokoliv bota, který by se~staral o~detekci a~následné vytěžování. 
 
 Dále je nutné podotknout, že pro zobchodování některých arbitrážních příležitostí by bylo nutné zobchodovat jmění o objemech několika desítek tisíc amerických dolarů. Jelikož na většině výdělečných trojúhelnících figuruje USDT stačí mít teoreticky pro vytěžování většiny trojúhelníků velký obnos pouze v této měně.
 
@@ -987,8 +993,16 @@ V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních a
 \chapter{Seznam použitých zkratek}
 % \printglossaries
 \begin{description}
-	\item[GUI] Graphical user interface
-	\item[XML] Extensible markup language
+	\item[BTC] Bitcoin
+	\item[LTC] Linecoin
+	\item[ETH] Ethereum
+	\item[TRX] TRON
+	\item[XMR] Monero
+	\item[USDT] USD Tether
+	\item[BNB] Binance coin
+	\item[BCH] Bitcoin Cash
+	\item[XRP] Ripple
+	\item[API] Application Program Interface
 \end{description}
 
 
@@ -1087,16 +1101,6 @@ V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních a
 % 
 % Tabulky lze zadávat různě, např. V~prostředí \verb|tabular|, avšak pro jejich vkládání platí to samé, co pro obrázky -- použijte plovoucí prostředí, v~tomto případě \verb|table|. Například tabulka \ref{tab:matematika} byla vložena tímto způsobem.
 % 
-\begin{table}\centering
-	\caption[Příklad tabulky]{Zadávání matematiky}\label{tab:matematika}
-	\begin{tabular}{|l|l|c|c|}\hline
-		Typ		& Prostředí		& \LaTeX{}ovská zkratka	& \TeX{}ovská zkratka	\tabularnewline \hline \hline
-		Text		& \verb|math|		& \verb|\(...\)|	& \verb|$...$|		\tabularnewline \hline
-		Displayed	& \verb|displaymath|	& \verb|\[...\]|	& \verb|$$...$$|	\tabularnewline \hline
-	\end{tabular}
-\end{table}
-\(2^3+\frac{86}{23}\)
-
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 
 \chapter{Obsah přiloženého CD}
