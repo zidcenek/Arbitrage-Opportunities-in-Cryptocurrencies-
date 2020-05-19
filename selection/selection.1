@@ -1,0 +1,24 @@
+.Dd May 18, 2020
+.Dt Selection 1
+.Os
+.Sh NAME
+.Nm ft
+.Nd find arbitrage triangles in order books
+.Sh SYNOPSIS
+.Nm
+.Ar input_dir output_dir [<options>]
+.Sh DESCRIPTION
+.Nm
+finds the positive arbitrage opportunities in given order book data. The input data are supposed to be in the following .csv format
+\fIid bid ask timestamp\fR.
+Where \fIbid\fR and \fIask\fR are 2-D arrays (the first column is price and the second column is amount).
+\n
+.Sh OPTIONS
+.SH OPTIONS
+.TP
+\-r Add if you want the program to go through the children directories instead of the given directory.
+\n
+\-t, \fI-t NUMBER\fR Set the number of threads. This option is only relevant if \fI\-r\fR flag is also written.
+The program then redistributes the child directories to the number of given threads. One thread is default.
+.Sh AUTHORS
+.An Čeněk Žid
