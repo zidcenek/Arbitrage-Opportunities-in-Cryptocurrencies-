@@ -5,7 +5,8 @@
 #include <dirent.h>
 #include <err.h>
 
-#define MAX(_a, _b) (((_a) > (_b)) ? (_a) : (_b))
+#define MAX(_a, _b)	(((_a) > (_b)) ? (_a) : (_b))
+#define ABS(_f)		(((_f) > 0 ) ? (_f) : (-(_f)))
 
 struct coin {
 	const char *name;
@@ -150,6 +151,7 @@ addbook(struct pair *pair, const char *dir, const char *file)
 	fclose(book->file);
 	if (NULL == pair->books) {
 		pair->books = book;
+		pair->ts = book->ts;
 		return;
 	}
 	prev = NULL;
@@ -336,6 +338,19 @@ tellcoins()
 	struct coin *c;
 	for (c = coins; c && c->name; c++)
 		tellcoin(c);
+}
+
+/* A triangle is synced if the timestamps of all its pairs' books
+ * are within half a second of each other, i.e., no two are more
+ * than half a second apart. Such a triangle might be traded. */
+int
+synced(struct triangle *t)
+{
+	return
+		ABS(t->XY->ts - t->YZ->ts) < 0.5 &&
+		ABS(t->YZ->ts - t->ZX->ts) < 0.5 &&
+		ABS(t->ZX->ts - t->XY->ts) < 0.5
+	;
 }
 
 void
