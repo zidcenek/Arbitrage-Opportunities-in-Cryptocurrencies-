@@ -5,6 +5,8 @@
 #include <dirent.h>
 #include <err.h>
 
+#define MAX(_a, _b) (((_a) > (_b)) ? (_a) : (_b))
+
 struct coin {
 	const char *name;
 	struct cpair {
@@ -26,21 +28,27 @@ struct coin {
 };
 
 struct book {
+	double ts;
 	char* path;
 	FILE* file;
-	double start;
 	struct book *next;
 };
 
 struct pair {
 	int used;
-	struct coin *a;
-	struct coin *b;
-	struct book *books;
-	struct pair *next;
+	double ts;
+	struct coin	*a;
+	struct coin	*b;
+	struct book	*books;
+	struct ptgle {
+		struct triangle	*tgle;
+		struct ptgle	*next; /* in the pair's list */
+	} *tgles;
+	struct pair	*next;
 } *pairs = NULL;
 
 struct triangle {
+	double ts;
 	struct coin *X;
 	struct coin *Y;
 	struct coin *Z;
@@ -83,7 +91,7 @@ tellpair(struct pair *p)
 		return;
 	printf("%s:%s\n", p->a->name, p->b->name);
 	for (b = p->books; b; b = b->next) {
-		printf("\t%f in %s\n", b->start, b->path);
+		printf("\t%f in %s\n", b->ts, b->path);
 	}
 }
 
@@ -109,7 +117,7 @@ getstamp(struct book *book)
 	strsep(&line, ";");
 	strsep(&line, ";");
 	strsep(&line, ";");
-	book->start = strtod(line, NULL);
+	book->ts = strtod(line, NULL);
 	free(p);
 	return 0;
 }
@@ -146,7 +154,7 @@ addbook(struct pair *pair, const char *dir, const char *file)
 	}
 	prev = NULL;
 	this = pair->books;
-	while (this && this->start < book->start) {
+	while (this && this->ts < book->ts) {
 		prev = this;
 		this = this->next;
 	}
@@ -213,6 +221,20 @@ mkcpairs()
 	}
 }
 
+/* Add triangle to a pairs's list of triangles */
+void
+addtgle(struct triangle *t, struct pair *p)
+{
+	struct ptgle *pt;
+	if (NULL == t || NULL == p)
+		return;
+	if (NULL == (pt = calloc(1, sizeof(struct ptgle))))
+		err(1, NULL);
+	pt->tgle = t;
+	pt->next = p->tgles;
+	p->tgles = pt;
+}
+
 void
 newtriangle(
 	struct coin *X, struct coin *Y, struct coin *Z,
@@ -227,8 +249,16 @@ newtriangle(
 	t->XY = xp->pair;
 	t->YZ = yp->pair;
 	t->ZX = zp->pair;
+	/* Initial ts: the latest of the three */
+	t->ts = MAX(t->XY->books->ts, t->YZ->books->ts);
+	t->ts = MAX(t->ZX->books->ts, t->ts);
+	/* Add to the global list of triangles. */
 	t->next = triangles;
 	triangles = t;
+	/* Add to the relevant pairs' lists. */
+	addtgle(t, xp->pair);
+	addtgle(t, yp->pair);
+	addtgle(t, zp->pair);
 }
 
 /* Go through the coins' pairs and build all triangles */
@@ -274,11 +304,12 @@ telltriangle(struct triangle *t)
 {
 	if (NULL == t)
 		return;
-	printf("%s/%s/%s via %s:%s, %s:%s, %s:%s\n",
+	printf("%s/%s/%s (%s:%s,%s:%s,%s:%s) starts %f\n",
 		t->X->name, t->Y->name, t->Z->name,
 		t->XY->a->name, t->XY->b->name,
 		t->YZ->a->name, t->YZ->b->name,
-		t->ZX->a->name, t->ZX->b->name);
+		t->ZX->a->name, t->ZX->b->name,
+		t->ts);
 }
 
 void
