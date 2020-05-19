@@ -28,7 +28,7 @@ struct coin {
 struct book {
 	char* path;
 	FILE* file;
-	double start, end;
+	double start;
 	struct book *next;
 };
 
@@ -95,27 +95,21 @@ tellpairs()
 		tellpair(p);
 }
 
-double
-getstamp(char* line)
-{
-	strsep(&line, ";");
-	strsep(&line, ";");
-	strsep(&line, ";");
-	return strtod(line, NULL);
-}
-
 int
-getspan(struct book *book)
+getstamp(struct book *book)
 {
 	ssize_t len;
 	size_t size = 0;
 	char *p, *line = NULL;
 	if (-1 == (len = getline(&line, &size, book->file))) {
-		warn("getspan");
+		warn("getstamp");
 		return -1;
 	}
 	p = line;
-	book->start = getstamp(line);
+	strsep(&line, ";");
+	strsep(&line, ";");
+	strsep(&line, ";");
+	book->start = strtod(line, NULL);
 	free(p);
 	return 0;
 }
@@ -141,7 +135,7 @@ addbook(struct pair *pair, const char *dir, const char *file)
 		warn("cannot open %s\n", book->path);
 		return;
 	}
-	if (getspan(book) == -1) {
+	if (getstamp(book) == -1) {
 		warnx("cannot get timestamp of %s\n", book->path);
 		return;
 	}
