@@ -28,6 +28,17 @@ struct coin {
 	{  NULL,  NULL },
 };
 
+struct deal {
+	double price;
+	double amount;
+};
+
+struct book {
+	double ts;
+	struct deal bid[5];
+	struct deal ask[5];
+};
+
 struct blog {
 	double ts;
 	char* path;
@@ -37,19 +48,20 @@ struct blog {
 
 struct pair {
 	int used;
-	double ts;
 	struct coin	*a;
 	struct coin	*b;
-	struct blog	*blogs;
+	struct book	*book;	/* latest */
+	struct blog	*blog;	/* reading now */
+	struct blog	*blogs; /* list of all */
 	struct ptgle {
 		struct triangle	*tgle;
+		struct pair	*pair; /* this pair of the triangle */
 		struct ptgle	*next; /* in the pair's list */
 	} *tgles;
 	struct pair	*next;
 } *pairs = NULL;
 
 struct triangle {
-	double ts;
 	struct coin *X;
 	struct coin *Y;
 	struct coin *Z;
@@ -90,7 +102,7 @@ tellpair(struct pair *p)
 	struct blog *b;
 	if (NULL == p)
 		return;
-	printf("%s:%s\n", p->a->name, p->b->name);
+	printf("%s:%s %f\n", p->a->name, p->b->name, p->book->ts);
 	for (b = p->blogs; b; b = b->next) {
 		printf("\t%f in %s\n", b->ts, b->path);
 	}
@@ -104,23 +116,27 @@ tellpairs()
 		tellpair(p);
 }
 
-int
-getstamp(struct blog *blog)
+struct book*
+readbook(FILE* file)
 {
 	ssize_t len;
 	size_t size = 0;
 	char *p, *line = NULL;
-	if (-1 == (len = getline(&line, &size, blog->file))) {
+	struct book* book;
+	if (-1 == (len = getline(&line, &size, file))) {
 		warn("getstamp");
-		return -1;
+		return NULL;
 	}
 	p = line;
+	if (NULL == (book = calloc(1, sizeof(struct book))))
+		err(1, NULL);
+	/* FIXME parse the book */
 	strsep(&line, ";");
 	strsep(&line, ";");
 	strsep(&line, ";");
-	blog->ts = strtod(line, NULL);
+	book->ts = strtod(line, NULL);
 	free(p);
-	return 0;
+	return book;
 }
 
 void
@@ -130,6 +146,7 @@ addblog(struct pair *pair, const char *dir, const char *file)
 	struct blog *blog;
 	struct blog *prev;
 	struct blog *this;
+	struct book *book;
 	if (NULL == pair)
 		return;
 	if (NULL == dir || NULL == file) {
@@ -144,14 +161,15 @@ addblog(struct pair *pair, const char *dir, const char *file)
 		warn("cannot open %s\n", blog->path);
 		return;
 	}
-	if (getstamp(blog) == -1) {
-		warnx("cannot get timestamp of %s\n", blog->path);
+	if (NULL == (book = readbook(blog->file))) {
+		warnx("cannot read book from of %s\n", blog->path);
 		return;
 	}
 	fclose(blog->file);
+	blog->file = NULL;
+	blog->ts = book->ts;
 	if (NULL == pair->blogs) {
 		pair->blogs = blog;
-		pair->ts = blog->ts;
 		return;
 	}
 	prev = NULL;
@@ -233,6 +251,7 @@ addtgle(struct triangle *t, struct pair *p)
 	if (NULL == (pt = calloc(1, sizeof(struct ptgle))))
 		err(1, NULL);
 	pt->tgle = t;
+	pt->pair = p;
 	pt->next = p->tgles;
 	p->tgles = pt;
 }
@@ -251,9 +270,6 @@ newtriangle(
 	t->XY = xp->pair;
 	t->YZ = yp->pair;
 	t->ZX = zp->pair;
-	/* Initial ts: the latest of the three */
-	t->ts = MAX(t->XY->blogs->ts, t->YZ->blogs->ts);
-	t->ts = MAX(t->ZX->blogs->ts, t->ts);
 	/* Add to the global list of triangles. */
 	t->next = triangles;
 	triangles = t;
@@ -301,17 +317,31 @@ tribuild()
 	}
 }
 
+/* A triangle is synced if the timestamps of all its pairs' books
+ * are within half a second of each other, i.e., no two are more
+ * than half a second apart. Such a triangle might be traded. */
+int
+synced(struct triangle *t)
+{
+	return
+		ABS(t->XY->book->ts - t->YZ->book->ts) < 0.5 &&
+		ABS(t->YZ->book->ts - t->ZX->book->ts) < 0.5 &&
+		ABS(t->ZX->book->ts - t->XY->book->ts) < 0.5
+	;
+}
+
 void
 telltriangle(struct triangle *t)
 {
 	if (NULL == t)
 		return;
-	printf("%s/%s/%s (%s:%s,%s:%s,%s:%s) starts %f\n",
-		t->X->name, t->Y->name, t->Z->name,
-		t->XY->a->name, t->XY->b->name,
-		t->YZ->a->name, t->YZ->b->name,
-		t->ZX->a->name, t->ZX->b->name,
-		t->ts);
+	printf("%s:%s:%s", t->X->name, t->Y->name, t->Z->name);
+	if (synced(t)) {
+		printf(" (synced @ %f)",
+			MAX(t->XY->book->ts,
+			MAX(t->YZ->book->ts, t->ZX->book->ts)));
+	}
+	putchar('\n');
 }
 
 void
@@ -340,17 +370,27 @@ tellcoins()
 		tellcoin(c);
 }
 
-/* A triangle is synced if the timestamps of all its pairs' books
- * are within half a second of each other, i.e., no two are more
- * than half a second apart. Such a triangle might be traded. */
-int
-synced(struct triangle *t)
+/* Go through the global list of pairs,
+ * open the first book log and read in the first order book. */
+void
+initbooks()
 {
-	return
-		ABS(t->XY->ts - t->YZ->ts) < 0.5 &&
-		ABS(t->YZ->ts - t->ZX->ts) < 0.5 &&
-		ABS(t->ZX->ts - t->XY->ts) < 0.5
-	;
+	struct pair *p;
+	for (p = pairs; p; p = p->next) {
+		p->blog = p->blogs;
+		if (NULL == (p->blog->file = fopen(p->blog->path, "r"))) {
+			warn("cannot open %s", p->blog->path);
+			p->blog = NULL;
+			continue;
+		}
+		if (NULL == (p->book = readbook(p->blog->file))) {
+			warn("cannot read book from %s", p->blog->path);
+			continue;
+		}
+		/* FIXME If this was the last book in the log,
+		 * fclose(path) and fopen() the new one, so that
+		 * the last read happens transparently. */
+	}
 }
 
 void
@@ -388,6 +428,7 @@ main(int argc, char** argv)
 
 	mkcpairs();
 	tribuild();
+	initbooks();
 
 	tellpairs();
 	tellcoins();
