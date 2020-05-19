@@ -1,0 +1,21 @@
+.Dd May 18, 2020
+.Dt Cleanup 1
+.Os
+.Sh NAME
+.Nm Cleanup
+.Nd cleans up the .csv files with orderbooks from Getbook script.
+.Sh SYNOPSIS
+.Nm
+.Ar input_dir output_dir [<options>]
+.Sh DESCRIPTION
+.Nm
+Goes thorugh all the lines in .csv files with orderbooks from Getbook script. 
+.Nm
+checks all lines for correct datatypes,
+correct timestamps, correct ID order and removes any dupplicities (based on ID).
+.Sh OPTIONS
+.SH OPTIONS
+.TP
+\-r Add if you want the program to go through the children directories instead of the given directory.
+.Sh AUTHORS
+.An Čeněk Žid
