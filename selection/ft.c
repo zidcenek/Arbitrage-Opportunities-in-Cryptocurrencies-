@@ -110,11 +110,12 @@ getspan(struct book *book)
 	ssize_t len;
 	size_t size = 0;
 	char *p, *line = NULL;
-	if (-1 == (len = getline(&line, &size, book->file)))
+	if (-1 == (len = getline(&line, &size, book->file))) {
+		warn("getspan");
 		return -1;
+	}
 	p = line;
 	book->start = getstamp(line);
-	fseek(book->file, 0, SEEK_SET);
 	free(p);
 	return 0;
 }
@@ -137,13 +138,14 @@ addbook(struct pair *pair, const char *dir, const char *file)
 	snprintf(name, 1024, "%s/%s", dir, file);
 	book->path = realpath(name, NULL);
 	if (NULL == (book->file = fopen(name, "r"))) {
-		warnx("cannot open %s\n", book->path);
+		warn("cannot open %s\n", book->path);
 		return;
 	}
 	if (getspan(book) == -1) {
-		warnx("%s is damaged\n", book->path);
+		warnx("cannot get timestamp of %s\n", book->path);
 		return;
 	}
+	fclose(book->file);
 	if (NULL == pair->books) {
 		pair->books = book;
 		return;
