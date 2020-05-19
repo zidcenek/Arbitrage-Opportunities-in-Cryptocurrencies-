@@ -28,11 +28,11 @@ struct coin {
 	{  NULL,  NULL },
 };
 
-struct book {
+struct blog {
 	double ts;
 	char* path;
 	FILE* file;
-	struct book *next;
+	struct blog *next;
 };
 
 struct pair {
@@ -40,7 +40,7 @@ struct pair {
 	double ts;
 	struct coin	*a;
 	struct coin	*b;
-	struct book	*books;
+	struct blog	*blogs;
 	struct ptgle {
 		struct triangle	*tgle;
 		struct ptgle	*next; /* in the pair's list */
@@ -87,11 +87,11 @@ getpair(struct coin *a, struct coin *b)
 void
 tellpair(struct pair *p)
 {
-	struct book *b;
+	struct blog *b;
 	if (NULL == p)
 		return;
 	printf("%s:%s\n", p->a->name, p->b->name);
-	for (b = p->books; b; b = b->next) {
+	for (b = p->blogs; b; b = b->next) {
 		printf("\t%f in %s\n", b->ts, b->path);
 	}
 }
@@ -105,12 +105,12 @@ tellpairs()
 }
 
 int
-getstamp(struct book *book)
+getstamp(struct blog *blog)
 {
 	ssize_t len;
 	size_t size = 0;
 	char *p, *line = NULL;
-	if (-1 == (len = getline(&line, &size, book->file))) {
+	if (-1 == (len = getline(&line, &size, blog->file))) {
 		warn("getstamp");
 		return -1;
 	}
@@ -118,54 +118,54 @@ getstamp(struct book *book)
 	strsep(&line, ";");
 	strsep(&line, ";");
 	strsep(&line, ";");
-	book->ts = strtod(line, NULL);
+	blog->ts = strtod(line, NULL);
 	free(p);
 	return 0;
 }
 
 void
-addbook(struct pair *pair, const char *dir, const char *file)
+addblog(struct pair *pair, const char *dir, const char *file)
 {
 	char name[1024];
-	struct book *book;
-	struct book *prev;
-	struct book *this;
+	struct blog *blog;
+	struct blog *prev;
+	struct blog *this;
 	if (NULL == pair)
 		return;
 	if (NULL == dir || NULL == file) {
-		warnx("book file not specified\n");
+		warnx("blog file not specified\n");
 		return;
 	}
-	if (NULL == (book = calloc(1, sizeof(struct book))))
+	if (NULL == (blog = calloc(1, sizeof(struct blog))))
 		err(1, NULL);
 	snprintf(name, 1024, "%s/%s", dir, file);
-	book->path = realpath(name, NULL);
-	if (NULL == (book->file = fopen(name, "r"))) {
-		warn("cannot open %s\n", book->path);
+	blog->path = realpath(name, NULL);
+	if (NULL == (blog->file = fopen(name, "r"))) {
+		warn("cannot open %s\n", blog->path);
 		return;
 	}
-	if (getstamp(book) == -1) {
-		warnx("cannot get timestamp of %s\n", book->path);
+	if (getstamp(blog) == -1) {
+		warnx("cannot get timestamp of %s\n", blog->path);
 		return;
 	}
-	fclose(book->file);
-	if (NULL == pair->books) {
-		pair->books = book;
-		pair->ts = book->ts;
+	fclose(blog->file);
+	if (NULL == pair->blogs) {
+		pair->blogs = blog;
+		pair->ts = blog->ts;
 		return;
 	}
 	prev = NULL;
-	this = pair->books;
-	while (this && this->ts < book->ts) {
+	this = pair->blogs;
+	while (this && this->ts < blog->ts) {
 		prev = this;
 		this = this->next;
 	}
 	if (prev) {
-		prev->next = book;
-		book->next = this;
+		prev->next = blog;
+		blog->next = this;
 	} else {
-		pair->books = book;
-		book->next = this;
+		pair->blogs = blog;
+		blog->next = this;
 	}
 }
 
@@ -181,18 +181,18 @@ mkpair(struct coin *a, struct coin *b)
 }
 
 void
-newbook(struct coin *a, struct coin *b, const char *dir, const char *file)
+newblog(struct coin *a, struct coin *b, const char *dir, const char *file)
 {
 	struct pair *p;
 	if ((p = getpair(a, b))) {
-		addbook(p, dir, file);
+		addblog(p, dir, file);
 		return;
 	}
 	if (NULL == (p = mkpair(a, b))) {
 		warnx("cannot create %s %s", a->name, b->name);
 		return;
 	}
-	addbook(p, dir, file);
+	addblog(p, dir, file);
 	p->next = pairs;
 	pairs = p;
 }
@@ -252,8 +252,8 @@ newtriangle(
 	t->YZ = yp->pair;
 	t->ZX = zp->pair;
 	/* Initial ts: the latest of the three */
-	t->ts = MAX(t->XY->books->ts, t->YZ->books->ts);
-	t->ts = MAX(t->ZX->books->ts, t->ts);
+	t->ts = MAX(t->XY->blogs->ts, t->YZ->blogs->ts);
+	t->ts = MAX(t->ZX->blogs->ts, t->ts);
 	/* Add to the global list of triangles. */
 	t->next = triangles;
 	triangles = t;
@@ -382,7 +382,7 @@ main(int argc, char** argv)
 			continue;
 		if (NULL == (b = getcoin(bf->d_name + strlen(a->name))))
 			continue;
-		newbook(a, b, argv[1], bf->d_name);
+		newblog(a, b, argv[1], bf->d_name);
 	}
 	closedir(d);
 
