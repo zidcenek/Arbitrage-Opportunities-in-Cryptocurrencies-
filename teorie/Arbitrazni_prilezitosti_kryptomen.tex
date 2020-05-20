@@ -500,8 +500,8 @@ Co se~týče bližších informací k~jednotlivým arbitrážním příležitost
 
 \begin{itemize}
     \item score -- desetinné číslo popisující teoretický procentuální zisk (bez zahrnutí poplatků),
-    \item supply\_gain\_index (demand\_gain\_index) -- pole tří indexů popisující nejlepší kombinaci z~order book k~získání nejvyššího absolutního zisku na~straně trojúhelníku začínajícího nabídkou resp. poptávkou (viz \linebreak obrázek \ref{2_kombinace}),
-    \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v~první dvojici měn v~odrážce pairs na~straně trojúhelníku začínajícího nabídkou resp. poptávkou (viz obrázek \ref{2_kombinace}), pokud nedojde žádnému zisku je hodnota ponechána na~0,
+    \item supply\_gain\_index (demand\_gain\_index) -- pole tří indexů popisující nejlepší kombinaci z~order book k~získání nejvyššího absolutního zisku na~straně trojúhelníku začínajícího nabídkou resp. poptávkou,
+    \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v~první dvojici měn v~odrážce pairs na~straně trojúhelníku začínajícího nabídkou resp. poptávkou, pokud nedojde žádnému zisku je hodnota ponechána na~0,
     \item time\_delta -- zaznamenává detekovanou dobu výskytu arbitrážní \linebreak příležitosti, 
     \item pairs -- jedná se~o pole o~velikosti 3, na~jehož každé položce je uloženo příslušné identifikační číslo, časový záznam a~typ měnové dvojice \linebreak ze~čtených csv souborů (viz ukázka csv souboru \ref{csv_data}).
 \end{itemize}
@@ -565,11 +565,79 @@ Ve své praktické části detekuji arbitrážní příležitosti stejným způs
 
 Problém může nastat, pokud se~objeví arbitrážní příležitost, která není vytěžena nebo je pouze částečně vytěžena do~příchodu dalšího záznamu (order book). S~takovýmto efektem nakládám tím způsobem, že pokud se~vyskytne několik stejných arbitrážní příležitostí po~sobě, považuji je za~jednu a~pouze zvětšuji dobu trvání výskytu dané arbitrážní příležitosti.
 
-Je nutné ještě zadefinovat, co považuji za~stejnou arbitrážní příležitost. Jako stejnou arbitrážní příležitost považuji takovou, která má stejné právě 2 časové razítka (timestamp) a~stejný procentuální zisk. 
+Je nutné ještě zadefinovat, co považuji za~stejnou arbitrážní příležitost. Jako stejnou arbitrážní příležitost považuji takovou, která má stejné právě 2~časov8 razítka (timestamp) a~stejný procentuální zisk. 
 
 Absolutní zisky neporovnávám z~toho důvodu, že může dojít pouze ke~změně v~obchodovatelnému objemu arbitrážní příležitosti. Tudíž kdybych tyto menší arbitrážní příležitosti detekoval jako nové, došlo by k~duplikování stejných hodnot na~jiných arbitrážních příležitostech. Další obrácenou možností je to, že by někdo vytvořil podobnou nabídku a~tím zvýšil potenciální zisk to by však bylo moc složité na~detekci, a~proto se~tomu ve~své práci nevěnuji. 
 
+\subsubsection{Příklad výskytu a jeho detekce}
+Neboť je detekce arbitrážních příležitostí prováděna na historických datech a neboť je k~jednotlivým order book záznamům přidáváno časové razítko až po~přečtení dat, považuji daný order book za aktuální až do příchodu nadcházejícího záznamu na stejném měnovém páru. Proto je nutné při inicializaci detekce příležitostí přečíst na každém měnovém páru alespoň dva záznamy. Přičemž je nutné v programu dohlédnout na to, aby bylo přečteno dostatek záznamů na to, aby se intervaly počítaných měnových párů překrývaly. 
+
+Program vyhledávající pozitivní arbitrážní příležitosti iteruje postupně všemi třemi soubory měnových párů následujícím algoritmem. 
+
+Předpokládám, že se nejedná o začátek programu, proto mám již načtený trojúhelník, který byl zkontrolován na výskyt arbitrážní příležitosti. Dále mám načtené hodnoty nadcházejících záznamů. V dalším kroku je vyměněna ta hrana trojúhelníku, která má z~dopředu načtených hodnot nejnižší timestamp. Takto je zajištěno, že se stále intervaly překrývají. 
+
+\begin{table}\centering
+\caption{Příklad k postupné kontrole na pozitivní arbitrážní příležitosti}
+\label{timestamp_example}
+\begin{tabular}{|| l | r | r | r ||}\hline Měnový pár & 1. hodnota & 2. hodnota & 3. hodnota\\ [0.5ex]
+ \hline
+ \hline A & 0,01 & 0,03 & 0,06\\ 
+ \hline B & 0,00 & 0,02 & 0,07\\ 
+ \hline C & 0,00 & 0,04 & 0,05\\ 
+ \hline
+\end{tabular}
+\end{table}
+
+Trojúhelníky jsou vybírány a kontrolovány následovně (viz tabulka \ref{timestamp_example}), T(t) značí čas začátku nového trojúhelníku:
+\begin{itemize}
+    \item T(0,01) = A1, B1, C1,
+    \item T(0,02) = A1, B2, C1 (výskyt),
+    \item T(0,03) = A2, B2, C1,
+    \item T(0,04) = A2, B2, C2 (zánik),
+    \item T(0,05) = A2, B2, C3,
+    \item T(0,06) = A3, B2, C3,
+    \item T(0,07) = A3, B3, C3,
+\end{itemize}
+
+Řekněme že se s příchodem nové hodnoty na měnové páru B v čase T(0,02) objeví nová pozitivní arbitrážní příležitost. Tato příležitost zanikne hned v čase T(0,04) se změnou hodnoty na měnovém páru C. Arbitrážní příležitost tedy v~tomto případě stihla zmizet dříve, než byl přečten nový order book na~měnovém páru, který způsobil výskyt pozitivní příležitosti. 
+
+\section{Struktura modulů praktické části}
+Celkově je moje praktická část rozdělena do čtyř na sobě nezávislých modulů
+\begin{itemize}
+    \item sběr dat,
+    \item vyčištění dat,
+    \item selekce trojúhelníků,
+    \item statistika na trojúhelnících.
+\end{itemize}
+
+Neboť je každý modul odlišný ve svém chování, je důležité zmínit některé jejich důležité vlastnosti.
+
+\subsection{Sběr dat}
+Sběr dat je implementován jako spustitelný soubor v jazyce Python 3. Tento program stahuje data z burzy Binance přes websocket a ukládá data ve formě order book do souborů po jednotlivých měnových párech a jednotlivých dnech.
+
+Dny jsou rozděleny na základě časové zóny GMT. Zóna GMT byla zvolena z toho důvodu, že nesbírám data z české burzy, ale ze světové. 
+
+Ke sběru dat je napsaná manuálová stránka vysvětlující jeho funkcionalitu a spouštění a je součástí přílohy (ve stejném adresáři jako je program samotný).
+
+\subsection{Čištění dat}
+Program na čištění dat je stejně jako program pro sběr dat napsaný v jazyce Python 3 a~i~on má svou manuálovou stránku s~bližšími informacemi ohledně funkcionality a~ spouštění zahrnutou v příloze. 
+
+Program čištění dat není nutné spouštět na data sebraná z burzy, je to však doporučené, protože data chodí ze vzdáleného serveru přes websocket a občas se v datech vyskytly chyby (například s duplikováním některých záznamů), které program odstraní.
+
+\subsection{Selekce trojúhelníků}
+Program na selekci pozitivních trojúhelníků je jako jediná část kódu z důvodu rychlosti napsaná v jazyce C++ Program je možné spouštět na více vláknech. Opět je k němu napsaná manuálová stránka zahrnutá v příloze. 
+
+Selekce trojúhelníků bere data ve formátu csv (viz obrázek \ref{csv_data}) a hledá na~nich pozitivní trojúhelníky (se zahrnutím poplatků burzy), které ukládá opět po dnech a po jednotlivých trojúhelnících ve formátu JSON (viz ukázka dat \ref{json_data}).
+
+\subsection{Statistiky na trojúhelnících}
+Poslední část zaobírající se analýzou trojúhelníků je napsaná opět v~jazyce Python 3 avšak ve formě Jupyter notebooku. Tento formát byl zvolen z toho důvodu, že se jedná o přehledný způsob zobrazení grafů a tabulek včetně jejich generujícího kódu. Velkou část kódu totiž tvoří části vykreslující grafy, které se dají jednoduše upravit a vygenerovat podobné grafy.
+
+V této části jsou vytvořené dvě hlavní třídy starající se o přehledné uložení dat, které jsou zdokumentovány v kódu. K Jupyter notebooku neexistuje manuálová stránky, poněvadž jsou jednotlivé kusy kódu okomentovány pomocí jazyka Markdown v rámci Jupyter notebooku. Popis výstupů z Jupyter notebooku je možný najít v poslední kapitole \ref{chapter:analyza_dat}.
+
+
+
 \chapter{Analýza dat}
+\label{chapter:analyza_dat}
 V této kapitole se~věnuji analýze  reálných dat s~pomocí vlastních grafů. Data jsou vyhodnocena na~základě více než dvou měsíční sbírky dat.
 
 \section{Selekce nejlepších trojúhelníků}
@@ -792,8 +860,6 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 
 \subsection{Bližší statistiky}
 V této sekci vypisuji blízké statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
-
-
 
 \subsubsection{Trojúhelník USDT/BTC/EOS}
 Trojúhelník USDT/BTC/EOS je z~pohledu potenciálního zisku nejlepší, je však nutné podotknout, že pro zobchodování nějakých trojúhelníků by bylo nutné provést nějaké velmi velké transakce. Například na~nejvýhodnější příležitosti bylo možné vydělat 135,37~EOS (330,31~USD) viz \ref{USDTBTCEOS_stats}. Pro uskutečnění takto velké transakce je však nutné zobchodovat obrovské množství peněz, které většina běžných obchodníků na~kontě připravené nemá.
