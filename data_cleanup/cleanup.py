@@ -36,7 +36,7 @@ def is_relevant_timestamp(x: any) -> bool:
     '''
     try:
         fl = float(x)
-        if 1500000000 < fl < time():
+        if not (1500000000 < fl < time()):
             return False
     except ValueError:
         return False
@@ -46,6 +46,7 @@ def clean_csv(filename: str) -> pd.DataFrame:
     '''
         Cleans a specific file.
     '''
+    print('Cleaning', filename)
     if getsize(filename) == 0:
         return None
     cols = pd.read_csv(filename, nrows=1, delimiter=';').columns

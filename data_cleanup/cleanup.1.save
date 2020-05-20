@@ -1,0 +1,22 @@
+.Dd May 18, 2020
+.Dt Cleanup 1
+.Os
+.Sh NAME
+.Nm ft
+.Nd cleans up the .csv files with orderbooks from Getbook script.
+.Sh SYNOPSIS
+.Nm
+.Ar input_dir output_dir [<options>]
+.Sh DESCRIPTION
+.Nm
+goes though all the lines and checks wether they are correct. Checks for dupplicities, correct order, correct
+timestamps and correct data types.
+\n
+.Sh OPTIONS
+.SH OPTIONS
+.TP
+\-r Add if you want the program to go through the children directories instead of the given directory.
+\n
+\-t, \fI-t NUMBER\fR Set the number of threads. This option is only relevant if \fI\-r\fR flag is also written.The program then redistributes the child directories to the number of given threads. One thread is default.
+.Sh AUTHORS
+.An Čeněk Žid
