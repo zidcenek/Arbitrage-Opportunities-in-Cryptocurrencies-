@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <err.h>
 
+#define MAXDIFF		(0.25)
 #define MAX(_a, _b)	(((_a) > (_b)) ? (_a) : (_b))
 #define ABS(_f)		(((_f) > 0 ) ? (_f) : (-(_f)))
 
@@ -317,16 +318,17 @@ tribuild()
 	}
 }
 
-/* A triangle is synced if the timestamps of all its pairs' books
- * are within half a second of each other, i.e., no two are more
- * than half a second apart. Such a triangle might be traded. */
+/* A triangle is synced if
+ * the timestamps of all its pairs' books
+ * are within MAXDIFF of each other, i.e.,
+ * no two are more than MAXDIFF apart. */
 int
 synced(struct triangle *t)
 {
 	return
-		ABS(t->XY->book->ts - t->YZ->book->ts) < 0.5 &&
-		ABS(t->YZ->book->ts - t->ZX->book->ts) < 0.5 &&
-		ABS(t->ZX->book->ts - t->XY->book->ts) < 0.5
+		ABS(t->XY->book->ts - t->YZ->book->ts) < MAXDIFF &&
+		ABS(t->YZ->book->ts - t->ZX->book->ts) < MAXDIFF &&
+		ABS(t->ZX->book->ts - t->XY->book->ts) < MAXDIFF
 	;
 }
 
