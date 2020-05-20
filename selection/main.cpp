@@ -72,6 +72,9 @@ int main(int argc, char *argv[]) {
     if(argc > 2){
         output_path = argv[2];
         printf("Output path: %s\n", argv[2]);
+        if(output_path.substr(output_path.size()-1, 1) != "/"){
+            output_path += "/";
+        }
     } else {
         printf("Please specify the output directory path\n");
         return 0;
@@ -102,13 +105,13 @@ int main(int argc, char *argv[]) {
     } else{
         paths.emplace_back(path);
     }
-    cout << paths.size() << endl;
+    cout << "size" << paths.size() << endl;
 
 
     // starting threads
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
-    int jump = ceil(paths.size() / number_of_threads);
+    int jump = floor(paths.size() / number_of_threads);
     if(jump == 0)
         jump = 1;
     while (itr < paths.cend()){

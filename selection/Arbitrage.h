@@ -35,6 +35,7 @@ protected:
     long double calculateScore(double a, double b, double c, bool demand_flag) const;
     long double calculate_narrowest(pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3, bool demand_flag) const;
     int getOldest();
+    bool closeTimestamps(double t1, double t2, double t3);
 private:
     vector<ifstream*> dataframes;
     vector<CurrencyPair> current;
@@ -49,8 +50,9 @@ private:
     int without_fees;
     int all;
     long double fees;
-    int would_have;
+    int stuck_counter;
     vector<int> looked_into;
+    vector<int> stucked;
     string OUTPUT_DIRECTORY;
 };
 

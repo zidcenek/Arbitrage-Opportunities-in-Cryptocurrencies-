@@ -6,7 +6,16 @@
 
 Arbitrage::Arbitrage(){
     stop = false;
-    would_have = 0;
+    stuck_counter = 0;
+    arbitrages = 0;
+    without_fees = 0;
+    all = 0;
+    fees = 0.999 * 0.999 * 0.999;
+    looked_into = vector<int>(3, 0);
+    stucked = vector<int>(3, 0);
+    counter = 0;
+    calculation_type_linear = false;
+
 }
 
 /**
@@ -15,7 +24,6 @@ Arbitrage::Arbitrage(){
  * @return - true or false based on the initialization status
  */
 bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
-    counter = 0;
     openFile(triplet.getFile1());
     openFile(triplet.getFile2());
     openFile(triplet.getFile3());
@@ -42,18 +50,17 @@ bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
                 buffer.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
                 break;
             } catch(const exception& e) {
+                cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl; // todo - delete (err message)
                 if(++counter % 1000 == 0)
                     cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl;
             }
         }
 //        current.emplace_back(CurrencyPair());
-        while(! getNext(i)){}
+        while(! getNext(i)){
+            if (stop)
+                return false;
+        }
     }
-    arbitrages = 0;
-    without_fees = 0;
-    all = 0;
-    fees = 0.999 * 0.999 * 0.999;
-    looked_into = vector<int>(3, 0);
     return true;
 }
 
@@ -99,7 +106,7 @@ vector<int> Arbitrage::calculateMaxGainPosition(
         for(int j = 0; j < pairs2.size() - 1; j += 2){
             for(int k = 0; k < pairs2.size() - 1; k += 2){
                 long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k), demand_flag);
-                score = score * 0.999 * 0.999 * 0.999;  // due to binance fee for every trade
+                score = score * fees;  // due to binance fee for every trade
                 if(score > 1) {
                     long double gain = calculate_narrowest(
                             pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
@@ -155,16 +162,6 @@ long double Arbitrage::calculate_narrowest(
             thickness.push_back(pair3.second * pair3.first / pair1.first);
         }
     }
-//    if(*min_element(thickness.begin(), thickness.end()) > 0.5){
-//        printf("--------------------------------------\n");
-//        printf("%d\n", demand_flag);
-//        printf("%f %f\n", pair1.first, pair1.second);
-//        printf("%f %f\n", pair2.first, pair2.second);
-//        printf("%f %f\n", pair3.first, pair3.second);
-//        for(auto item: thickness)
-//            printf("%Lf\n", item);
-//    }
-
     return *min_element(thickness.begin(), thickness.end());
 }
 
@@ -202,11 +199,13 @@ void Arbitrage::run(){
         }
         all++;
         if((score = detection()) > 1) {
+            // checks if timestamps are maximally 1 minute apart from each other
+            if ( ! closeTimestamps(current[0].getTimestamp(), current[1].getTimestamp(), current[2].getTimestamp()))
+                continue;
             without_fees++;
             // writes stats only for those with score higher even after fees
             if (score * fees > 1) {
                 arbitrages++;
-//                cout << "found" << endl;
                     if (calculation_type_linear) {
                         supply_gain_indexes = calculateMaxGainPosition(current[0].getSupply(), current[1].getSupply(),
                                                                        current[2].getSupply(), false, supply_gain, supply_score);
@@ -311,6 +310,11 @@ long double Arbitrage::detection(){
     }
 }
 
+/**
+ * This method tries to open the given file
+ * @param
+ * @return - bool representing opening status
+ */
 bool Arbitrage::openFile(string const& filename){
     ifstream *fin = new ifstream("../data/" + filename);
     if (! fin->is_open() ){
@@ -321,12 +325,17 @@ bool Arbitrage::openFile(string const& filename){
     return true;
 }
 
+/**
+ * Overwites the value in current[index] to a new CurrencyPair value
+ * @param index -> represents which value to overwrite
+ * @return -> true if the overwrite went well
+ */
 bool Arbitrage::getNext(int index){
-//    cout << "getting next" << endl;
     if(dataframes[index]->eof()) {
         stop = true;
         return false;
     }
+
     string tmp;
     long double old_timestamp = buffer[index].getTimestamp();
     getline(*dataframes[index], tmp);
@@ -342,25 +351,79 @@ bool Arbitrage::getNext(int index){
             cout << "wrong line no." << counter << endl;
         return false;
     }
-    int hours = 2;
+    int hours = 1;
     if(tempCP.getTimestamp() < (old_timestamp + 3600*hours) && tempCP.getTimestamp() > (old_timestamp - 3600*hours)) {
         current[index] = buffer[index];
         buffer[index] = tempCP;
         if(! looked_into.empty()) {
-            looked_into[index] = 1;
+            // looked_into makes sure all currency pairs have been properly initialized
+            if (looked_into[index] == 1)
+                looked_into[index] = 2;
+            else
+                looked_into[index] = 1;
             int sum = std::accumulate(std::begin(looked_into), std::end(looked_into), 0);
-            if(sum == 3)
+            if(sum == 6) {
                 looked_into.clear();
+                cout << "Initialized successfully" << endl;
+            }
         }
+        stuck_counter = 0;
         return true;
     }else {
-        if(++would_have % 1000 == 0)
+        if(stuck_counter == 40){
+            cout << "Big jump in timestamps trying to reinitialize" << endl;
+            for(int i = 0; i < buffer.size(); i++){
+                if(dataframes[i]->eof()) {
+                    stop = true;
+                    return false;
+                }
+                try{
+                    getline(*dataframes[index], tmp);
+                    if(tmp.empty()) {
+                        stop = true;
+                        return false;
+                    }
+                    tempCP = CurrencyPair(tmp, currency_pair_names[index]);
+                    buffer[i] = tempCP;
+                } catch (const exception &e){
+                    stop = true;
+                    return false;
+                }
+            }
+            looked_into = vector<int>(3, 0);
+            stuck_counter = 0;
+        }
+        if(++stuck_counter % 1000 == 0)
             printf("%9.5Lf %9.5Lf\n", old_timestamp, tempCP.getTimestamp());
     }
     return false;
 
 }
 
+/**
+ * Checks if the given timestamps are within a minute from each other
+ * @param t1
+ * @param t2
+ * @param t3
+ * @return
+ */
+bool Arbitrage::closeTimestamps(double t1, double t2, double t3) {
+    int seconds_difference = 60;
+    if(t1 - seconds_difference < t2 && t2 < t1 + seconds_difference){
+        if(t1 - seconds_difference < t3 && t3 < t1 + seconds_difference){
+            if(t3 - seconds_difference < t2 && t2 < t3 + seconds_difference){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+/**
+ * returns an index of an element with the oldest timestamp (min out of timestamps in the buffer)
+ * @return
+ */
 int Arbitrage::getOldest(){
     vector<double> tmp;
     for(auto const& item: buffer){
