@@ -52,10 +52,12 @@ def clean_csv(filename: str) -> pd.DataFrame:
     cols = pd.read_csv(filename, nrows=1, delimiter=';').columns
     df = pd.read_csv(filename, usecols=cols, delimiter=';', skip_blank_lines=True, error_bad_lines=False, 
                          warn_bad_lines=False, dtype=str)
+    
     if len(df.columns) != 5:
         return None
     df.columns = ['id', 'demand', 'supply', 'timestamp', 'none']
     df = df[df.id.apply(lambda x: x.isnumeric())]
+    df.id = df.id.astype(int)
     df = df[df.timestamp.apply(lambda x: is_relevant_timestamp(x))]
     df = df.sort_values(['id', 'timestamp'])
     df = df.drop(['none'], axis=1)
@@ -67,6 +69,7 @@ def cleanup(path: str, output_path: str, children_directories: bool):
     '''
     Goes through all the files in a specific directory
     '''
+
     if children_directories:
         for directory in fetch_directories(path):
             for f in fetch_files(directory):
