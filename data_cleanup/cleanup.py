@@ -36,7 +36,7 @@ def is_relevant_timestamp(x: any) -> bool:
     '''
     try:
         fl = float(x)
-        if not (1500000000 < fl < time()):
+        if not (1500000000 < fl < max_time):
             return False
     except ValueError:
         return False
@@ -106,4 +106,5 @@ def initialize():
     output_path = sys.argv[2]
     cleanup(path, output_path, children_directories=children_directories)
 
+max_time = time()
 initialize()

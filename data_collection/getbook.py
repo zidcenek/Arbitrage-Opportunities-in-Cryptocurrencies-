@@ -104,8 +104,5 @@ def initialize():
         print('init end')
     except Exception as e:
         print(e)
-   
-   
-module_logger = logging.getLogger('log_test')   
-
+  
 initialize()
