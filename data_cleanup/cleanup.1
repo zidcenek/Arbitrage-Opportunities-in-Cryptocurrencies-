@@ -12,7 +12,14 @@
 Goes thorugh all the lines in .csv files with orderbooks from Getbook script. 
 .Nm
 checks all lines for correct datatypes,
-correct timestamps, correct ID order and removes any dupplicities (based on ID).
+correct timestamps, correct ID order and removes any dupplicities (based on ID).\n
+.Nm
+removes any lines that does not have ID column in an integer format,
+removes any lines that does not have timestamp in a float format,
+removes any lines with missing values.
+.Nm
+then sorts values by ID and timestamp and drops any dupplicities based on ID value (the line with the lowest 
+timestamp is always kept).
 .Sh OPTIONS
 .SH OPTIONS
 .TP
