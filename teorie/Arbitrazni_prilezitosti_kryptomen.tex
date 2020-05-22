@@ -35,6 +35,8 @@
 \hyphenation{pří-le-ži-tost}
 \hyphenation{změ-ně}
 
+\usepackage[obeyFinal]{todonotes}
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % ODTUD DAL VSE ZMENTE
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -458,9 +460,10 @@ Hloubku sběru dat z~order booku je možné vybrat libovolnou, vyšší hloubka 
 Jelikož jsem data potřeboval ukládat neustále a~ne pouze v~konkrétní časové intervaly, tak jsem sběr dat spustil na~cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do~souborů po~jednom dni (v časovém pásmu GMT), protože jsem kvůli omezenému uložišti musel data stahovat a~ukládat i~na~lokální disk.
 
 \subsubsection{Kontrola správnosti dat}
+\label{section:kontrola_spravnosti_dat}
 Data chodila z~cizího serveru přes websocket a~nebylo stoprocentně zaručené, že budou chodit vždy ve~správném tvaru už jen například v~závislosti na~latenci mezi burzou Binance a~mým serverem. Kvůli tomu bylo nutné zavést některá opatření, aby mi jisté chyby nezkreslily statistiky.
 
-Tento efekt se~objevil, když mi na~několik sledovaných měnových párů začala chodit data po~několik dní opakovaně s~několika minutovou (až hodinovou) časovou prodlevou. Kvůli tomu jsem si napsal program, který mi celé soubory dat zkontroluje, seřadí podle identifikátoru knihy objednávek (order book) a~časového razítka (timestamp) a~následně odstraní duplicity (pro více informací viz kapiola \ref{subsection:cleanup}). 
+Tento efekt se~objevil, když mi na~několik sledovaných měnových párů začala chodit data po~několik dní (od 18.~2. 2020 až do 3.~3. 2020) opakovaně s~několika sekundovou (až minutovou) časovou prodlevou. Kvůli tomu jsem si napsal program, který mi celé soubory dat zkontroluje, seřadí podle identifikátoru knihy objednávek (order book) a~časového razítka (timestamp) a~následně odstraní duplicity (pro více informací viz kapiola \ref{subsection:cleanup}). 
 
 Tímto kontrolujícím programem jsem zkontroloval všechny soubory a~téměř žádné, až na~pár výjimek (kde byla data duplikovaná), nebyly programem modifikovány, protože data chodila v~korektním formátu.
 
@@ -513,7 +516,7 @@ Tyto dvě kombinace je nutné příslušně vynásobit (resp. vydělit) v~závis
 
 Dalším krokem v~rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v~mém případě do~hloubky pět, a~zjišťovat, jestli není výhodnější provést obchod s~menším procentuálním ziskem, avšak s~vyšším absolutním ziskem. Snažím se~tedy najít takovou možnost, při které dojde k~zobchodování většího množství a~tím vznikne vyšší zisk (viz \ref{triangle_arbitrage}).
 
-Ve většině případů je i~k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mém případě využita první hodnota z~order book ve~více než 88~\% případech (statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části, celkově bylo vzato v~potaz více než 160~tisíc indexů). Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
+Ve většině případů je i~k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mém případě využita první hodnota z~order book ve~více než 90~\% (statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části, celkově bylo vzato v~potaz více než 140~tisíc indexů). Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
 
 K získání úplně nejvyššího absolutního zisku by bylo nutné neobchodovat trojúhelník v hloubce s nejvyšším absolutním ziskem, ale zobchodovat všechny kladné trojúhelníky do sbírané hloubky v pořadí od nejlepšího procentuálního zisku. Takovýto obchod by sice přinesl nejvyšší zisk, ale pro jeho provedení by bylo nutné provést velké množství transakcí, které není většinou reálně možné stihnout.
 
@@ -562,7 +565,7 @@ Ve své praktické části detekuji arbitrážní příležitosti stejným způs
 
 Problém může nastat, pokud se~objeví arbitrážní příležitost, která není vytěžena nebo je pouze částečně vytěžena do~příchodu dalšího záznamu (order book). S~takovýmto efektem nakládám tím způsobem, že pokud se~vyskytne několik stejných arbitrážní příležitostí po~sobě, považuji je za~jednu a~pouze zvětšuji dobu trvání výskytu dané arbitrážní příležitosti.
 
-Je nutné ještě zadefinovat, co považuji za~stejnou arbitrážní příležitost. Jako stejnou arbitrážní příležitost považuji takovou, která má stejné právě 2~časov8 razítka (timestamp) a~stejný procentuální zisk. 
+Je nutné ještě zadefinovat, co považuji za~stejnou arbitrážní příležitost. Jako stejnou arbitrážní příležitost považuji takovou, která má stejné právě 2~časová razítka (timestamp) a~stejný procentuální zisk. 
 
 Absolutní zisky neporovnávám z~toho důvodu, že může dojít pouze ke~změně v~obchodovatelnému objemu arbitrážní příležitosti. Tudíž kdybych tyto menší arbitrážní příležitosti detekoval jako nové, došlo by k~duplikování stejných hodnot na~jiných arbitrážních příležitostech. Další obrácenou možností je to, že by někdo vytvořil podobnou nabídku a~tím zvýšil potenciální zisk to by však bylo moc složité na~detekci, a~proto se~tomu ve~své práci nevěnuji. 
 
@@ -597,11 +600,12 @@ Trojúhelníky jsou vybírány a kontrolovány následovně (viz tabulka \ref{ti
 \end{itemize}
 
 Řekněme že se s příchodem nové hodnoty na měnové páru B v čase T(0,02) objeví nová pozitivní arbitrážní příležitost. Tato příležitost zanikne v čase T(0,04) se změnou hodnoty na měnovém páru C. Arbitrážní příležitost tedy v~tomto případě stihla zmizet dříve, než byl přečten nový order book na~měnovém páru B, který způsobil výskyt pozitivní příležitosti. 
-
+\subsection{Kontrola dat}
 \subsubsection{Kontrola korektnosti záznamů}
+\label{section:kontrola_korektnosti_zaznamu}
 V rámci procházení souborů je nutné kontrolovat, zdali jsou záznamy korektní. Data jsou kontrolována na správnost typů a správnost požadovaného formátu. Je nutné však ještě kontrolovat záznamy na správnost pořadí.
 
-Záznamy jsou kontrolovány na souslednost identifikačních čísel. Dále jsou kontrolována časová razítka (timestamp) a to tak, že se porovnává rozdíl mezi aktuálním a následujícím záznamem. Jako korektní je považován záznam s adekvátní časovou prodlevou. 
+Záznamy jsou kontrolovány na souslednost identifikačních čísel. Dále jsou kontrolována časová razítka (timestamp) a to tak, že se porovnává rozdíl mezi aktuálním a následujícím záznamem. Jako korektní je považován monotónní záznam s adekvátní časovou prodlevou. 
 
 Adekvátní časovou prodlevu je nutné určit pro každý měnový pár zvlášť, neboť jsou nějaké měnové páry vytíženější než jiné. Adekvátní časové prodlevy jsem volil následujícím způsobem:
 
@@ -612,11 +616,9 @@ Adekvátní časovou prodlevu je nutné určit pro každý měnový pár zvláš
     \item tento medián jsem vynásobil konstantou 1,1 a tím určil adekvátní časovou prodlevu.
 \end{enumerate}
 
-Byl zvolen percentil 99,9, neboť data byla konzistentní a nedocházelo k velkým výkyvům. Medián byl vybrán, protože jsem nechtěl, aby případný větší výkyv v některém dni nerozházel data. Konstanta 1,1 byla vybrána, aby došlo k zahození menší části dat a stále byly detekovány velké výkyvy.
+Byl zvolen percentil 99,9, neboť data byla konzistentní a nedocházelo k~velkým výkyvům. Medián byl vybrán, protože jsem nechtěl, aby případný větší výkyv v některém dni nerozházel data. Konstanta 1,1 byla vybrána, aby došlo k zahození menší části dat a stále byly detekovány velké výkyvy.
 
-Konstanta 1,1 byla zaměněna za konstantu 1,5 pro takové výskyty, kdy na sebe přímo navazovala identifikační čísla po sobě jdoucích záznamů. Identifikační čísla obchodů na sebe vždy nenavazovala, byla však vždy seřazená. 
-
-
+Konstanta 1,1 byla zaměněna za konstantu 1,5 pro takové výskyty, kdy na~sebe přímo navazovala identifikační čísla po sobě jdoucích záznamů. Identifikační čísla obchodů na sebe vždy nenavazovala, byla však vždy seřazená. 
 
 \begin{table}\centering
 \caption{Hodnoty adekvátní časové prodlevy pro jednotlivé měnové páry}
@@ -658,9 +660,25 @@ Konstanta 1,1 byla zaměněna za konstantu 1,5 pro takové výskyty, kdy na sebe
 \end{table}
 
 \subsubsection{Kontrola pozitivních arbitrážních příležitostí}
+\label{section:kontrola_pozitivnich_arbitraznich_prilezitosti}
 V předchozí sekci byla zmíněna problematika správnosti záznamů v rámci jednotlivých měnových párů, je však nutné kontrolovat i nalezené arbitrážní příležitosti na správnost časového překrytí intervalů. 
 
 Arbitrážní příležitosti jsou kontrolovány následovně. Je spočítán rozdíl nejvzdálenějších časových razítek s~nejvyšší adekvátní časovou prodlevou ze zúčastněných párů. Pokud je tato hodnota záporná je považována arbitrážní příležitost za validní.
+
+\subsubsection{Problém s duplicitami}
+V datech (od 18.~2. 2020 do 3.~3. 2020) se objevily zmiňované duplicity z~kapitoly \ref{section:kontrola_spravnosti_dat}. Duplicity se mi podařilo odstranit kompletně. Vznikl však problém, že v nějakých časových okamžicích byla data uložena rozházeně podle identifikačních čísel (není zřejmé, jestli byla chyba na mojí straně nebo na~straně serveru Binance).
+
+Tyto chyby následně způsobily, že časová razítka nebyla monotónně rostoucí. Těchto chyb se objevovalo na některých měnových párech několik stovek až několik tisíc za den (většina souborů měla okolo 60 až 100 tisíc záznamů). 
+
+S poškozenými soubory se naskytly dvě možnosti:
+\begin{enumerate}
+    \item zahodit několikadenní data,
+    \item přizpůsobit program, tak aby ignoroval chyby.
+\end{enumerate}
+
+Rozhodl jsem se pro druhou možnost, tedy přizpůsobit program chybám. Při výskytu chyby v monotonii jsem restartoval počítací algoritmu a začal jsem znovu s dalšími správnými hodnotami. Správné hodnoty byly vyhodnocovány na základě algoritmu z předchozích sekcí \ref{section:kontrola_korektnosti_zaznamu} a \ref{section:kontrola_pozitivnich_arbitraznich_prilezitosti}.
+
+V datech byla celkově přeskakována poškozená místa v rámci programu, výpočty na výskyt trojúhelníkových arbitrážních příležitostí byly prováděny na korektních částech záznamů. Celkově jsem tedy výběrem možnosti přizpůsobení programu přišel o několik procent záznamů, kde se mohly vyskytovat arbitrážní příležitosti, nepřišel jsem však o všechny záznamy. Upraveným algoritmem by neměly být detekovány nereálné arbitrážní příležitosti. V rámci těchto několika dní se neobjevily žádné větší výkyvy v počtu arbitrážních příležitostí (viz grafy \ref{occurence_correlation} a \ref{occurences}), proto se dovoluji tvrdit, že se podařilo provést analýzu dat i na~částečně poškozených datech.
 
 \section{Struktura modulů praktické části}
 Celkově je moje praktická část rozdělena do čtyř na sobě nezávislých modulů
@@ -676,9 +694,9 @@ Neboť je každý modul odlišný ve svém chování, je důležité zmínit ně
 \subsection{Sběr dat}
 Sběr dat je implementován jako spustitelný soubor v jazyce Python 3. Tento program stahuje data z burzy Binance přes websocket a ukládá data ve formě order book do souborů po jednotlivých měnových párech a jednotlivých dnech.
 
-Dny jsou rozděleny na základě časové zóny GMT. Zóna GMT byla zvolena z toho důvodu, že nesbírám data z české burzy, ale ze světové. 
+Dny jsou rozděleny na základě časové zóny UTC. Univerzální zóna UTC byla zvolena, protože sbírám data ze světové burzy. 
 
-Ke sběru dat je napsaná manuálová stránka vysvětlující jeho funkcionalitu a spouštění a je součástí přílohy (ve stejném adresáři jako je program samotný).
+Ke sběru dat je napsaná manuálová stránka vysvětlující jeho funkcionalitu a spouštění a je součástí přílohy (ve stejném adresáři jako program samotný).
 
 \subsection{Čištění dat}
 \label{subsection:cleanup}
@@ -715,7 +733,7 @@ Nejdůležitějšími faktory jsou:
     \item kolik je v~průměru možné vydělat na~úspěšném vytěžení jednotlivé arbitrážní příležitosti,
     \item k~jak velkému potenciálnímu zisku došlo.
 \end{itemize}
-Jak je možné vidět v~tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se~pro jednotlivé trojúhelníky hodně liší, pohybuje se od~ani ne jednotek denně až po~několik desítek denně. V~případě trojúhelníku  \linebreak USDT/BNB/XMR je tomu nejvíce a~jedná se~v~průměru o~více než 30 pozitivních arbitrážních příležitostí denně. Průměrná neefektivita arbitrážní příležitosti (jedná se~o hodnotu procentuálního zisku se zahrnutím poplatků) dosahuje promile pouze u trojúhelníku USDT/BTC/EOS, u všech ostatních sledovaných trojúhelníků se hodnota pohybuje v řádu desetin promile.
+Jak je možné vidět v~tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se~pro jednotlivé trojúhelníky hodně liší, pohybuje se od~ani ne jednotek denně až po~několik desítek denně. V~případě trojúhelníku  \linebreak USDT/XRP/TRX je tomu nejvíce a~jedná se~v~průměru o~více než 30 pozitivních arbitrážních příležitostí denně. Průměrná neefektivita arbitrážní příležitosti (jedná se~o hodnotu procentuálního zisku se zahrnutím poplatků) dosahuje hodnot promile pouze u trojúhelníků USDT/BCH/BNB \linebreak a USDT/ETH/BNB, u všech ostatních sledovaných trojúhelníků se hodnota pohybuje v řádu desetin promile.
 
 Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average_percentage_inefficiency} nemusí nutně znamenat vysoký reálný zisk. V~tabulce \ref{table_gains} jsou uvedeny průměrné denní potenciální zisky, jak v~hodnotách jedné z~kryptoměn příslušného trojúhelníku, tak v~hodnotách přepočtených na~americké dolary (podle tabulky kurzů \ref{table_rates}) kvůli lepšího porovnání. V~tabulce potenciálních zisků \ref{table_gains} je vidět, že se~hodnoty liší mezi jednotlivými trojúhelníky znatelněji, než v~tabulce průměrných počtů arbitrážních příležitostí v~tabulce \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od~hodnot blízkých nule až po~hodnoty desítek až stovek amerických dolarů (údaje jsou nechány v~exponenciálním tvaru, neboť rozdíly mezi nejmenšími a~nejvyššími hodnotami jsou až 6 řádů). 
 
@@ -776,7 +794,7 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/average_percentage_inefficiency.png}
-	\caption{Průměrná procentuální neefektivita jednotlivých trojúhelníků (bez zahrnutí poplatků)}\label{average_percentage_inefficiency}
+	\caption{Celkový průměr procentuální neefektivity jednotlivých trojúhelníků (se zahrnutím poplatků)}\label{average_percentage_inefficiency}
 \end{figure}
 
 \begin{table}\centering
@@ -876,7 +894,7 @@ Díky tomuto efektu dále není možné z~mých dat docházet k~jakýmkoliv hlub
 \subsection{Závislost na~počtu provedených transakcí}
 Počet transakcí je číslo, které by také mohlo ovlivňovat počet výskytu arbitrážních příležitostí, protože za~předpokladu, že nebudou prováděny žádné transakce, se~nemohou vytvářet ani nové arbitrážní příležitosti.
 
-Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,067\), z~čehož vyplývá, že tyto dvě veličiny spolu téměř vůbec nekorelují, a~proto není možné mluvit o~jakékoliv závislosti jedné na~druhé (obrázek \ref{occurence_correlation}).
+Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,085\), z~čehož vyplývá, že tyto dvě veličiny spolu téměř vůbec nekorelují, a~proto není možné mluvit o~jakékoliv závislosti jedné na~druhé (obrázek \ref{occurence_correlation}).
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/occurence_correlation.png}
@@ -885,7 +903,7 @@ Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotliv
 \subsection{Závislost na~počtu obecných neefektivit trhu}
 Dalším faktorem, na~který jsem se~zaměřil v~souvislosti s~otázku, na~čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se~jednalo o~arbitrážní příležitost za~předpokladu, že by nemusely být zahrnuty poplatky. Z~této definice vyplývá, že každá arbitrážní příležitost je také nutně neefektivitou trhu.
 
-Z grafů \ref{ineffictivity_correlation} a~\ref{occurences} je poměrně zřejmé, že výskyt arbitrážních příležitostí a~neefektivit trhu spolu moc nekorelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po~jednotlivých dnech to potvrzuje výsledkem \(\sim-0,066\). Z~korelačního koeficientu tedy plyne, že tyto dvě hodnoty spolu téměř nekorelují.
+Z grafů \ref{ineffictivity_correlation} a~\ref{occurences} je poměrně zřejmé, že výskyt arbitrážních příležitostí a~neefektivit trhu spolu moc nekorelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po~jednotlivých dnech to potvrzuje výsledkem \(\sim-0,090\). Z~korelačního koeficientu tedy plyne, že tyto dvě hodnoty spolu téměř nekorelují.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/ineffictivity_correlation.png}
@@ -908,7 +926,8 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 \caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí na nejlepších trojúhelnících}
 \label{table_combined_best}
 \begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline USDT/EOS/BNB & 18,229885 & 178,495958\\ 
+ \hline
+ \hline USDT/EOS/BNB & 18,229885 & 178,495958\\ 
  \hline USDT/BTC/EOS & 13,367816 & 119,419172\\ 
  \hline USDT/BNB/XMR & 28,941176 & 110,616732\\ 
  \hline USDT/BTC/XRP & 14,402299 & 105,499992\\ 
@@ -926,7 +945,7 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 \end{tabular}
 \end{table}
 
-\subsection{Bližší statistiky - Není aktuální => nekontrolovat}
+\subsection{Bližší statistiky}
 V této sekci vypisuji blízké statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
 
 \subsubsection{Trojúhelník USDT/BTC/EOS}
