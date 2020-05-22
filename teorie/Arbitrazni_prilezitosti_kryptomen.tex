@@ -139,7 +139,7 @@ Za validní transakci je považována taková transakce, která splňuje \linebr
 Dalším téměř nutným požadavkem je zahrnutí nějakého poplatku pro těžaře za~to, aby transakci zahrnul do~dalšího bloku. Těžař si ponechává poplatky všech transakcí, které do~vytěženého bloku zahrnul, a~proto nemá motivaci zahrnovat transakci bez poplatku. \cite{Finex_blockchain}
 
 \subsection{Altcoiny}
-Pojmem altcoin se~označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z~anglického pojmu alternative to bitcoin. Některé altcoiny jsou svojí techonologií a~principem hodně podobné bitcoinu, jsou ale i~takové, které se~poměrně výrazně liší. \cite{altcoin}
+Pojmem altcoin se~označují všechny ostatní kryptoměny podobné bitcoinu. Název je odvozen z~anglického pojmu alternative to bitcoin. Některé altcoiny jsou svojí techonologií a~principem hodně podobné bitcoinu, jsou ale i~takové, které se~poměrně výrazně liší. \cite{pecev}
 
 V následujících podkapitolách se~zaměřím na~nejvýznamnější zástupce altcoinů a~vypíši zde všechny altcoiny, kterým se~ve své praktické části této práce věnuji.
 
@@ -339,7 +339,7 @@ Efektivní je takový trh, kdy jsou všechny dostupné informace zohledněny v~c
 
 Silně efektivní trh je takový, když kurz obsahuje všechny známé kurzotvorné data, jak veřejné tak i veřejně nedostupné. Trhy poté reagují tak rychle, že pro nikoho, ani pro vlastníky neveřejných dat je nemožné realizovat nadprůměrné zisky. \cite{efektivnost_trhu}
 
-Reálné trhy nikdy dokonale efektivní nejsou. Na~těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z~neefektivity trhu. \cite{what_is_arbitage}
+Reálné trhy nikdy dokonale efektivní nejsou. Na~těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z~neefektivity trhu. \cite{what_is_arbitage} \cite{pecev}
 
 \subsection{Arbitráž}
 Arbitráž je obchodní strategie, která má za~cíl vydělat na~neefektivitě trhu. Arbitráž je založena na~principu nakoupit levně a~prodat téměř instantně dráže. Principem arbitráže je vytvořit zisk na~malých rozdílech v~ceně aktiv téměř bez jakéhokoliv rizika. Nejčastěji se~jedná o~nákup na~jednom místě a~téměř instantní prodej na~místě jiném za~vyšší cenu. \cite{Capital}
@@ -726,48 +726,50 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 % \hline 
 
 \begin{table}\centering
-\caption{Tabulka porovnávající průměrné denní počty a~průměrné neefektivity jednotlivých trojúhelníků}
+\caption{Porovnání denních průměrů a průměrné denní \% neefektivity}
 \label{table_averages}
-\begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Průměrný denní počet & Průměrná \% neefektivita\\ [0.5ex]
- \hline\hline BTC/BCH/BNB & 1,2353 & 1,0004\\ 
- \hline BTC/BNB/TRX & 0,2692 & 1,0001\\ 
- \hline BTC/BNB/XMR & 0,8462 & 1,0002\\ 
- \hline BTC/ETH/BNB & 0,5192 & 1,0002\\ 
- \hline BTC/ETH/EOS & 0,5962 & 1,0001\\ 
- \hline BTC/ETH/TRX & 2,0253 & 1,0001\\ 
- \hline BTC/ETH/XRP & 6,5190 & 1,0003\\ 
- \hline BTC/LTC/BNB & 0,4808 & 1,0001\\ 
- \hline BTC/LTC/ETH & 8,8734 & 1,0001\\ 
- \hline BTC/XRP/BNB & 0,1731 & 1,0001\\ 
- \hline BTC/XRP/TRX & 9,6456 & 1,0003\\ 
- \hline ETH/BNB/TRX & 0,2308 & 1,0001\\ 
- \hline ETH/BNB/XMR & 5,1266 & 1,0002\\ 
- \hline ETH/EOS/BNB & 0,3462 & 1,0002\\ 
- \hline ETH/XRP/BNB & 2,4304 & 1,0002\\ 
- \hline ETH/XRP/TRX & 3,3797 & 1,0001\\ 
- \hline LTC/ETH/BNB & 2,8734 & 1,0002\\ 
- \hline USDT/BCH/BNB & 20,2949 & 1,0009\\ 
- \hline USDT/BNB/TRX & 1,7692 & 1,0004\\ 
- \hline USDT/BNB/XMR & 33,6329 & 1,0006\\ 
- \hline USDT/BTC/BCH & 4,4808 & 1,0010\\ 
- \hline USDT/BTC/BNB & 5,8269 & 1,0009\\ 
- \hline USDT/BTC/EOS & 32,9250 & 1,0012\\ 
- \hline USDT/BTC/ETH & 3,7885 & 1,0009\\ 
- \hline USDT/BTC/LTC & 15,2278 & 1,0007\\ 
- \hline USDT/BTC/TRX & 6,9873 & 1,0006\\ 
- \hline USDT/BTC/XMR & 29,5063 & 1,0008\\ 
- \hline USDT/BTC/XRP & 25,5949 & 1,0009\\ 
- \hline USDT/EOS/BNB & 24,3165 & 1,0006\\ 
- \hline USDT/ETH/BNB & 2,9808 & 1,0009\\ 
- \hline USDT/ETH/EOS & 1,7308 & 1,0007\\ 
- \hline USDT/ETH/TRX & 0,9615 & 1,0009\\ 
- \hline USDT/ETH/XMR & 2,3462 & 1,0007\\ 
- \hline USDT/ETH/XRP & 2,0000 & 1,0007\\ 
- \hline USDT/LTC/BNB & 18,3924 & 1,0006\\ 
- \hline USDT/LTC/ETH & 1,3846 & 1,0007\\ 
- \hline USDT/XRP/BNB & 12,7215 & 1,0007\\ 
- \hline USDT/XRP/TRX & 30,2278 & 1,0004\\ 
- \hline XRP/BNB/TRX & 0,2308 & 1,0001\\ 
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Průměrný denní počet & Průměrná \% neefektivita\\
+ \hline\hline BTC/BCH/BNB & 1,9655 & 1,0003\\ 
+ \hline BTC/BNB/TRX & 0,5667 & 1,0001\\ 
+ \hline BTC/BNB/XMR & 2,8966 & 1,0002\\ 
+ \hline BTC/EOS/BNB & 0,8333 & 1,0001\\ 
+ \hline BTC/ETH/BNB & 1,0833 & 1,0003\\ 
+ \hline BTC/ETH/EOS & 0,7586 & 1,0001\\ 
+ \hline BTC/ETH/TRX & 2,1264 & 1,0002\\ 
+ \hline BTC/ETH/XMR & 8,1529 & 1,0003\\ 
+ \hline BTC/ETH/XRP & 5,1609 & 1,0003\\ 
+ \hline BTC/LTC/BNB & 0,8667 & 1,0002\\ 
+ \hline BTC/LTC/ETH & 3,9540 & 1,0001\\ 
+ \hline BTC/XRP/BNB & 1,2667 & 1,0002\\ 
+ \hline BTC/XRP/TRX & 9,0706 & 1,0003\\ 
+ \hline ETH/BNB/TRX & 0,6500 & 1,0003\\ 
+ \hline ETH/BNB/XMR & 4,6471 & 1,0002\\ 
+ \hline ETH/EOS/BNB & 0,3793 & 1,0002\\ 
+ \hline ETH/XRP/BNB & 2,4253 & 1,0002\\ 
+ \hline ETH/XRP/TRX & 3,8353 & 1,0001\\ 
+ \hline LTC/ETH/BNB & 2,8736 & 1,0003\\ 
+ \hline USDT/BCH/BNB & 19,3765 & 1,0010\\ 
+ \hline USDT/BNB/TRX & 3,5500 & 1,0006\\ 
+ \hline USDT/BNB/XMR & 28,9412 & 1,0007\\ 
+ \hline USDT/BTC/BCH & 4,6333 & 1,0008\\ 
+ \hline USDT/BTC/BNB & 7,0167 & 1,0007\\ 
+ \hline USDT/BTC/EOS & 13,3678 & 1,0006\\ 
+ \hline USDT/BTC/ETH & 3,6833 & 1,0006\\ 
+ \hline USDT/BTC/LTC & 12,9080 & 1,0005\\ 
+ \hline USDT/BTC/TRX & 6,3218 & 1,0006\\ 
+ \hline USDT/BTC/XMR & 20,4138 & 1,0007\\ 
+ \hline USDT/BTC/XRP & 14,4023 & 1,0005\\ 
+ \hline USDT/EOS/BNB & 18,2299 & 1,0007\\ 
+ \hline USDT/ETH/BNB & 4,8500 & 1,0010\\ 
+ \hline USDT/ETH/EOS & 2,8966 & 1,0008\\ 
+ \hline USDT/ETH/TRX & 2,9500 & 1,0010\\ 
+ \hline USDT/ETH/XMR & 2,6724 & 1,0008\\ 
+ \hline USDT/ETH/XRP & 3,6500 & 1,0007\\ 
+ \hline USDT/LTC/BNB & 17,7011 & 1,0007\\ 
+ \hline USDT/LTC/ETH & 2,4167 & 1,0008\\ 
+ \hline USDT/XRP/BNB & 12,8621 & 1,0007\\ 
+ \hline USDT/XRP/TRX & 30,9529 & 1,0004\\ 
+ \hline XRP/BNB/TRX & 1,1724 & 1,0001\\ 
  \hline
 \end{tabular}
 \end{table}
@@ -778,54 +780,56 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 \end{figure}
 
 \begin{table}\centering
-\caption{Tabulka potenciálních výnosů arbitrážních příležitostí na~jednotlivých trojúhelnících}
+\caption{Potenciální výnosy na jednotlivých trojúhelnících}
 \label{table_gains}
-\begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline BTC/BCH/BNB & 0,003773 BCH & 0,841370\\ 
- \hline BTC/BNB/TRX & 44,763598 TRX & 0,563887\\ 
- \hline BTC/BNB/XMR & 0,006775 XMR & 0,361575\\ 
- \hline BTC/ETH/BNB & 0,073839 BNB & 1,146721\\ 
- \hline BTC/ETH/EOS & 0,311366 EOS & 0,759733\\ 
- \hline BTC/ETH/TRX & 213,992235 TRX & 2,695660\\ 
- \hline BTC/ETH/XRP & 52,556131 XRP & 9,773601\\ 
- \hline BTC/LTC/BNB & 0,002389 LTC & 0,097950\\ 
- \hline BTC/LTC/ETH & 0,162971 LTC & 6,681805\\ 
- \hline BTC/XRP/BNB & 6,008707 XRP & 1,117409\\ 
- \hline BTC/XRP/TRX & 470,805325 TRX & 5,930735\\ 
- \hline ETH/BNB/TRX & 47,194492 TRX & 0,594509\\ 
- \hline ETH/BNB/XMR & 0,055400 XMR & 2,956701\\ 
- \hline ETH/EOS/BNB & 0,060669 EOS & 0,148031\\ 
- \hline ETH/XRP/BNB & 3,059024 XRP & 0,568871\\ 
- \hline ETH/XRP/TRX & 26,132470 TRX & 0,329191\\ 
- \hline LTC/ETH/BNB & 0,011310 LTC & 0,463712\\ 
- \hline USDT/BCH/BNB & 0,411577 BCH & 91,773489\\ 
- \hline USDT/BNB/TRX & 95,263771 TRX & 1,200038\\ 
- \hline USDT/BNB/XMR & 2,142761 XMR & 114,359142\\ 
- \hline USDT/BTC/BCH & 0,145601 BCH & 32,466046\\ 
- \hline USDT/BTC/BNB & 2,258871 BNB & 35,080263\\ 
- \hline USDT/BTC/EOS & 681,827077 EOS & 1663,658068\\ 
- \hline USDT/BTC/ETH & 0,262058 ETH & 41,064461\\ 
- \hline USDT/BTC/LTC & 3,487130 LTC & 142,972325\\ 
- \hline USDT/BTC/TRX & 11755,941183 TRX & 148,089591\\ 
- \hline USDT/BTC/XMR & 1,366404 XMR & 72,924984\\ 
- \hline USDT/BTC/XRP & 2123,484765 XRP & 394,893844\\ 
- \hline USDT/EOS/BNB & 95,119309 EOS & 232,091114\\ 
- \hline USDT/ETH/BNB & 0,397124 BNB & 6,167342\\ 
- \hline USDT/ETH/EOS & 2,131723 EOS & 5,201404\\ 
- \hline USDT/ETH/TRX & 616,858351 TRX & 7,770565\\ 
- \hline USDT/ETH/XMR & 0,061040 XMR & 3,257712\\ 
- \hline USDT/ETH/XRP & 24,420090 XRP & 4,541282\\ 
- \hline USDT/LTC/BNB & 2,363843 LTC & 96,917559\\ 
- \hline USDT/LTC/ETH & 0,112075 LTC & 4,595065\\ 
- \hline USDT/XRP/BNB & 609,046931 XRP & 113,261413\\ 
- \hline USDT/XRP/TRX & 2007,307464 TRX & 25,286052\\ 
- \hline XRP/BNB/TRX & 4,744872 TRX & 0,059771\\ 
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Denní neefektivita & Denní neefektivita (USD)\\
+ \hline\hline BTC/BCH/BNB & 0,004686 BCH & 1,044816\\ 
+ \hline BTC/BNB/TRX & 37,669655 TRX & 0,474525\\ 
+ \hline BTC/BNB/XMR & 0,004210 XMR & 0,224689\\ 
+ \hline BTC/EOS/BNB & 0,027397 EOS & 0,066850\\ 
+ \hline BTC/ETH/BNB & 0,089227 BNB & 1,385699\\ 
+ \hline BTC/ETH/EOS & 0,131114 EOS & 0,319919\\ 
+ \hline BTC/ETH/TRX & 194,088264 TRX & 2,444930\\ 
+ \hline BTC/ETH/XMR & 0,018077 XMR & 0,964752\\ 
+ \hline BTC/ETH/XRP & 18,530255 XRP & 3,445979\\ 
+ \hline BTC/LTC/BNB & 0,005206 LTC & 0,213432\\ 
+ \hline BTC/LTC/ETH & 0,024868 LTC & 1,019591\\ 
+ \hline BTC/XRP/BNB & 5,701600 XRP & 1,060298\\ 
+ \hline BTC/XRP/TRX & 312,897841 TRX & 3,941574\\ 
+ \hline ETH/BNB/TRX & 43,673148 TRX & 0,550151\\ 
+ \hline ETH/BNB/XMR & 0,043821 XMR & 2,338744\\ 
+ \hline ETH/EOS/BNB & 0,054539 EOS & 0,133074\\ 
+ \hline ETH/XRP/BNB & 2,743739 XRP & 0,510239\\ 
+ \hline ETH/XRP/TRX & 25,129313 TRX & 0,316554\\ 
+ \hline LTC/ETH/BNB & 0,011626 LTC & 0,476660\\ 
+ \hline USDT/BCH/BNB & 0,381556 BCH & 85,079456\\ 
+ \hline USDT/BNB/TRX & 147,677652 TRX & 1,860295\\ 
+ \hline USDT/BNB/XMR & 2,072639 XMR & 110,616732\\ 
+ \hline USDT/BTC/BCH & 0,080214 BCH & 17,886043\\ 
+ \hline USDT/BTC/BNB & 1,335634 BNB & 20,742392\\ 
+ \hline USDT/BTC/EOS & 48,942284 EOS & 119,419172\\ 
+ \hline USDT/BTC/ETH & 0,127004 ETH & 19,901603\\ 
+ \hline USDT/BTC/LTC & 2,433303 LTC & 99,765406\\ 
+ \hline USDT/BTC/TRX & 8341,144951 TRX & 105,073403\\ 
+ \hline USDT/BTC/XMR & 0,996903 XMR & 53,204728\\ 
+ \hline USDT/BTC/XRP & 567,311008 XRP & 105,499992\\ 
+ \hline USDT/EOS/BNB & 73,154081 EOS & 178,495958\\ 
+ \hline USDT/ETH/BNB & 0,365623 BNB & 5,678119\\ 
+ \hline USDT/ETH/EOS & 1,768986 EOS & 4,316326\\ 
+ \hline USDT/ETH/TRX & 568,958881 TRX & 7,167175\\ 
+ \hline USDT/ETH/XMR & 0,048328 XMR & 2,579268\\ 
+ \hline USDT/ETH/XRP & 20,859336 XRP & 3,879106\\ 
+ \hline USDT/LTC/BNB & 2,132622 LTC & 87,437498\\ 
+ \hline USDT/LTC/ETH & 0,101542 LTC & 4,163237\\ 
+ \hline USDT/XRP/BNB & 564,157920 XRP & 104,913628\\ 
+ \hline USDT/XRP/TRX & 1910,791414 TRX & 24,070239\\ 
+ \hline XRP/BNB/TRX & 4,881886 TRX & 0,061497\\ 
  \hline
 \end{tabular}
 \end{table}
 
 \begin{table}\centering
-\caption{Tabulka kurzů využitých na~přepočet na~americké dolary (údaj z~burzy Binance ze~dne 13.4.2020)}
+\caption{Kurzy využité k~přepočetu na~americké dolary (údaj z~burzy Binance ze~dne 13.4.2020)}
 \label{table_rates}
 \begin{tabular}{|| l | r ||}
 \hline Kryptoměna & Kurz na~USD \\ 
@@ -861,7 +865,7 @@ Proto si dovoluji tvrdit, že z~mých dat není zřejmá žádná korelace mezi 
 	\caption{Rozložení arbitrážních příležitostí v~jednotlivých sledovaných dnech}\label{occurences}
 \end{figure}
 \subsection{Závislost na~denní hodině}
-Z grafu \ref{hours_distribution} je vidět, že nějaké hodiny silně převažují v~počtu výskytu arbitrážních příležitostí. Domnívám se~však, že je to způsobeno stejným jevem, jako v~případě korelace s~dny v~týdnu a~to tím, že se~arbitrážní příležitosti neobjevují rovnoměrně v~čase (viz \ref{occurences}, nýbrž se~vyskytují vždy ve~velkém množství po~krátkou dobu. Tento efekt spojený s~faktem, že nemám dostatečné množství dat poté může způsobovat velké výkyvy v~grafu rozložení v~závislosti na~hodině dne \ref{hours_distribution}.
+Z grafu \ref{hours_distribution} je vidět, že nějaké hodiny silně převažují v~počtu výskytu arbitrážních příležitostí. Domnívám se~však, že je to způsobeno stejným jevem, jako v~případě korelace s~dny v~týdnu a~to tím, že se~arbitrážní příležitosti neobjevují rovnoměrně v~čase (viz \ref{occurences}, nýbrž se~vyskytují vždy ve~velkém množství po~krátkou dobu. Tento efekt spojený s~faktem, že nemám dostatečné množství dat poté může způsobovat velké výkyvy v~grafu rozložení v~závislosti na~hodině dne (viz graf \ref{hours_distribution}).
 
 Díky tomuto efektu dále není možné z~mých dat docházet k~jakýmkoliv hlubším závěrům, neboť bych potřeboval, abych měl zaevidovaný vyšší počet výkyvů. Z~toho důvodu nemohu potvrdit ani vyvrátit možnost výskytu korelace mezi výskytem arbitrážních příležitostí a~hodinou ve~dni.
 
@@ -872,11 +876,11 @@ Díky tomuto efektu dále není možné z~mých dat docházet k~jakýmkoliv hlub
 \subsection{Závislost na~počtu provedených transakcí}
 Počet transakcí je číslo, které by také mohlo ovlivňovat počet výskytu arbitrážních příležitostí, protože za~předpokladu, že nebudou prováděny žádné transakce, se~nemohou vytvářet ani nové arbitrážní příležitosti.
 
-Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,067\), z~čehož vyplývá, že tyto dvě veličiny spolu téměř vůbec nekorelují, a~proto není možné mluvit o~jakékoliv závislosti jedné na~druhé. \ref{occurence_correlation}.
+Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotlivých dnech těchto dvou veličin vyšel \(\sim-0,067\), z~čehož vyplývá, že tyto dvě veličiny spolu téměř vůbec nekorelují, a~proto není možné mluvit o~jakékoliv závislosti jedné na~druhé (obrázek \ref{occurence_correlation}).
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/occurence_correlation.png}
-	\caption{Vývoj rozložení výskytu arbitrážních příležitostí, neefektivit trhu a~celkového počtu provedených transakcí}\label{occurence_correlation}
+	\caption{Vývoj rozložení výskytu arbitrážních příležitostí, neefektivit trhu a~celkového počtu provedených transakcí po jednotlivých dnech}\label{occurence_correlation}
 \end{figure}
 \subsection{Závislost na~počtu obecných neefektivit trhu}
 Dalším faktorem, na~který jsem se~zaměřil v~souvislosti s~otázku, na~čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se~jednalo o~arbitrážní příležitost za~předpokladu, že by nemusely být zahrnuty poplatky. Z~této definice vyplývá, že každá arbitrážní příležitost je také nutně neefektivitou trhu.
@@ -885,8 +889,10 @@ Z grafů \ref{ineffictivity_correlation} a~\ref{occurences} je poměrně zřejm�
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/ineffictivity_correlation.png}
-	\caption{Vývoj rozložení výskytu arbitrážních příležitostí a~neefektivit trhu}\label{ineffictivity_correlation}
+	\caption{Vývoj rozložení výskytu arbitrážních příležitostí a~neefektivit trhu po jednotlivých dnech}
+	\label{ineffictivity_correlation}
 \end{figure}
+
 \section{Konkrétní hodnoty nejzajímavějších trojúhelníků}
 V této sekci se~podrobněji věnuji nejzajímavějším trojúhelníkům, které jsem vyselektoval na~základě téměř tří měsíců dat. 
 
@@ -902,25 +908,25 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 \caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí na nejlepších trojúhelnících}
 \label{table_combined_best}
 \begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
- \hline\hline USDT/BTC/EOS & 33,746988 & 1663,658068\\ 
- \hline USDT/BTC/XRP & 27,158537 & 394,893844\\ 
- \hline USDT/EOS/BNB & 25,207317 & 232,091114\\ 
- \hline USDT/BTC/TRX & 7,939024 & 148,089591\\ 
- \hline USDT/BTC/LTC & 16,987805 & 142,972325\\ 
- \hline USDT/BNB/XMR & 36,024390 & 114,359142\\ 
- \hline USDT/XRP/BNB & 13,902439 & 113,261413\\ 
- \hline USDT/LTC/BNB & 19,195122 & 96,917559\\ 
- \hline USDT/BCH/BNB & 21,222222 & 91,773489\\ 
- \hline USDT/BTC/XMR & 32,012195 & 72,924984\\ 
- \hline USDT/BTC/ETH & 7,509091 & 41,064461\\ 
- \hline USDT/BTC/BNB & 10,836364 & 35,080263\\ 
- \hline USDT/BTC/BCH & 8,254545 & 32,466046\\ 
- \hline USDT/XRP/TRX & 32,329268 & 25,286052\\ 
+ \hline\hline USDT/EOS/BNB & 18,229885 & 178,495958\\ 
+ \hline USDT/BTC/EOS & 13,367816 & 119,419172\\ 
+ \hline USDT/BNB/XMR & 28,941176 & 110,616732\\ 
+ \hline USDT/BTC/XRP & 14,402299 & 105,499992\\ 
+ \hline USDT/BTC/TRX & 6,321839 & 105,073403\\ 
+ \hline USDT/XRP/BNB & 12,862069 & 104,913628\\ 
+ \hline USDT/BTC/LTC & 12,908046 & 99,765406\\ 
+ \hline USDT/LTC/BNB & 17,701149 & 87,437498\\ 
+ \hline USDT/BCH/BNB & 19,376471 & 85,079456\\ 
+ \hline USDT/BTC/XMR & 20,413793 & 53,204728\\ 
+ \hline USDT/XRP/TRX & 30,952941 & 24,070239\\ 
+ \hline USDT/BTC/BNB & 7,016667 & 20,742392\\ 
+ \hline USDT/BTC/ETH & 3,683333 & 19,901603\\ 
+ \hline USDT/BTC/BCH & 4,633333 & 17,886043\\ 
  \hline
 \end{tabular}
 \end{table}
 
-\subsection{Bližší statistiky}
+\subsection{Bližší statistiky - Není aktuální => nekontrolovat}
 V této sekci vypisuji blízké statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
 
 \subsubsection{Trojúhelník USDT/BTC/EOS}
@@ -957,9 +963,11 @@ Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 30 arbitrá�
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/BTC/XRP}
-Trojúhelník USDT/BTC/XRP je z~pohledu velikosti celkového potenciálního zisku druhý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelník USDT/BTC/EOS. Denně se průměrně objevuje přes 25 arbitrážních \linebreak příležitostí, avšak medián výskytu je stejně jako u předchozího trojúhelníku pouze 2. Tento vysoký rozdíl je taktéž způsoben velkým výkyvem z~12. A~13. března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
+Trojúhelník USDT/BTC/XRP je z~pohledu velikosti celkového potenciálního zisku druhý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelník USDT/BTC/EOS. Denně se průměrně objevuje přes 25 arbitrážních \linebreak příležitostí, avšak medián výskytu je stejně jako u předchozího trojúhelníku pouze 2. Tento vysoký rozdíl je taktéž způsoben velkým výkyvem z~12. \linebreak a~13.~března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
 
-Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážních příležitostí a to 0,43~s. Zajímavou hodntou je, že se na \linebreak nejvýdělečnější arbitrážní příležitosti dalo zhodnotit zobchodovaný \linebreak objem o~12~\%. 
+Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážních příležitostí a to 0,43~s. Zajímavou hodntou je, že se na \linebreak nejvýdělečnější arbitrážní příležitosti dal zhodnotit zobchodovaný \linebreak objem o~12~\%. 
+
+
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/XRP}
@@ -988,7 +996,7 @@ Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážn
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/EOS/BNB}
-Tento trojúhelník má velmi podobné vlastnosti jako oba výše zmiňované \linebreak trojúhelníky. Průměrný počet denního výskytu arbitrážních příležitostí je zaokrouhleně 25 a medián se díky velkým výkyvům drží pouze na hodnotě 1 (viz \ref{USDTEOSBNB_stats}).
+Tento trojúhelník má velmi podobné vlastnosti jako oba výše zmiňované \linebreak trojúhelníky. Průměrný počet denního výskytu arbitrážních příležitostí je zaokrouhleně 25 a medián se díky velkým výkyvům drží pouze na hodnotě 1 (viz tabulka \ref{USDTEOSBNB_stats}).
 
 Doba trvání pozitivní arbitrážní příležitosti trojúhelníku USDT/EOS/BNB je něco málo přes půl sekundy.
 
@@ -1021,7 +1029,7 @@ Na tomto trojúhelníku bylo možné pozorovat nejvyšší potenciální zisk za
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/BTC/TRX}
-Trojúhelník USDT/BTC/TRX je třetím nejvýnosnějším trojúhelníkem a je některými svými hodnotami velmi zajímavý (viz tabulka \ref{USDTBTCTRX_stats}). Denní průměr výdělku je poměrně vysoký (148~USD) na to, že se průměrně za den objeví pouze necelých osm arbitrážních příležitostí. Medián výskytu arbitrážních příležitostí je 0, tedy ve většině dnů se na tomto trojúhelníku nic zajímavého neděje.
+Trojúhelník USDT/BTC/TRX je čtvrtým nejvýnosnějším trojúhelníkem a je některými svými hodnotami velmi zajímavý (viz tabulka \ref{USDTBTCTRX_stats}). Denní průměr výdělku je poměrně vysoký (148~USD) na to, že se průměrně za den objeví pouze necelých osm arbitrážních příležitostí. Medián výskytu arbitrážních příležitostí je 0, tedy ve většině dnů se na tomto trojúhelníku nic zajímavého neděje.
 
 I přes to, že není tento trojúhelník moc aktivní, má velmi nízkou průměrnou dobu trvání pozitivní arbitrážní příležitosti, pouze 0,33~s. 
 
@@ -1088,11 +1096,11 @@ Z předchozích podkapitol, kde se~blíže věnuji nejzajímavějším trojúhel
 
 Z toho důvodu, že průměrná doba životnosti arbitrážní příležitosti \linebreak v~žádném případě ani nedosahuje jedné vteřiny, není reálně možné detekovat a~vytěžit arbitrážní příležitosti ručně bez jakéhokoliv bota, který by se~staral o~detekci a~následné vytěžování. 
 
-Dále je nutné podotknout, že pro zobchodování některých arbitrážních příležitostí by bylo nutné zobchodovat jmění o objemech několika desítek tisíc amerických dolarů. Jelikož na většině výdělečných trojúhelnících figuruje USDT stačí mít teoreticky pro vytěžování většiny trojúhelníků velký obnos pouze v této měně.
+Dále je nutné podotknout, že pro zobchodování některých arbitrážních příležitostí by bylo nutné zobchodovat jmění o objemech několika desítek tisíc amerických dolarů. Jelikož na téměř všech výdělečných trojúhelnících figuruje USDT stačí mít teoreticky pro vytěžování většiny trojúhelníků velký obnos pouze v této měně.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/best_triangles/occurence_of_best.png}
-	\caption{Vývoj arbitrážních příležitostí vybraných trojúhelnících }\label{occurence_of_best}
+	\caption{Srovnání vývoje denního výskytu arbitrážních příležitostí na nejlepších trojúhelnících }\label{occurence_of_best}
 \end{figure}
 
 % todo - Změnit celý závěr
@@ -1101,15 +1109,15 @@ Cílem práce bylo zanalyzovat arbitrážní příležitosti kryptoměn a na zá
 
 Do teoretické části jsem popsal historii bitcoinu a rozebral jsem jeho princip a základní technologie. Dále jsem se zaměřil na několik altcoinů a několik kryptoměnových burz a zaobíral jsem se tématem arbitrážních příležitostí. 
 
-V praktické části jsem úspěšně implementoval program, který sbíral data s burzy Binance. Na datech jsem následně vyhledával trojúhelníkové arbitrážní příležitosti, které jsem v poslední části své bakalářské práce vyhodnocoval. 
+V praktické části jsem úspěšně implementoval program, který sbíral data z~burzy Binance. Na datech jsem následně vyhledával trojúhelníkové arbitrážní příležitosti, které jsem v poslední části své bakalářské práce vyhodnocoval. 
 
 Po nalezení arbitrážních příležitostí jsem se v rámci analytické části věnoval statistikám výskytů a výdělečnosti arbitrážních příležitostí, ke kterým jsem využíval tabulky a grafy vytvořené z nasbíraných dat. Zabýval jsem se selekcí těch nejlepších trojúhelníků z pohledu jejich výdělečnosti a potenciální vytěžitelnosti.
 
 Ze statistik jsem zjistil, že problematika trojúhelníkových arbitrážních příležitostí je stále aktuální a je na ni možné vydělat poměrně velké množství peněz. Úkol vydělávání se však nyní stává náročnější z důvodu krátké životnosti arbitrážních příležitostí, kterou člověk nemá šanci sledovat dostatečně rychle bez využití počítačové síly.
 
-Práci je možné dále rozšířit, převážně části závisející na sběru dat. V rámci bakalářské práce jsem neměl dostatek času na vytvoření větší datové kolekce a tří měsíční data nebyla dostatečně rozmanitá k vyhodnocení některých závěrů převážně v částech hodnotících korelace s arbitrážními příležitostmi.
+Práci je možné dále rozšířit, převážně části závisející na sběru dat. V rámci bakalářské práce jsem neměl dostatek času na vytvoření větší datové kolekce a~tří měsíční data nebyla dostatečně rozmanitá k vyhodnocení některých závěrů převážně v částech hodnotících korelace s arbitrážními příležitostmi.
 
-V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních arbitrážních příležitostí, které si však plánuji na základě zjištěných závěrů v budoucnu vytvořit. Data ze skutečného vytěžování arbitrážních příležitostí by bylo také zajímavé zahrnout do analytické části práce.
+V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních arbitrážních příležitostí, které si však plánuji na základě zjištěných závěrů v~budoucnu vytvořit. Data ze skutečného vytěžování arbitrážních příležitostí by bylo také zajímavé zahrnout do analytické části práce.
 
 \end{conclusion}
 
