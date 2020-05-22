@@ -24,9 +24,9 @@ Triplet::Triplet(const string & f1, const string & f2, const string & f3, const 
 void Triplet::shuffle() {
     pair<string, string> pair1, pair2, pair3;
     string tmp;
-    pair1 = split_currency(currency1);
-    pair2 = split_currency(currency2);
-    pair3 = split_currency(currency3);
+    pair1 = splitCurrency(currency1);
+    pair2 = splitCurrency(currency2);
+    pair3 = splitCurrency(currency3);
 
     if(pair1.first == pair2.first){
         if(pair1.second == pair3.second) {
@@ -66,7 +66,7 @@ void Triplet::shuffle() {
     linear = true;
 }
 
-pair<string, string> Triplet::split_currency(const string &filename) {
+pair<string, string> Triplet::splitCurrency(const string &filename) {
     pair<string, string> tmp;
     tmp.first = filename.substr(0, 3);
     tmp.second = filename.substr(3, filename.size() - 3);
@@ -95,7 +95,7 @@ const string & Triplet::getCurrency3() const {
     return currency3;
 }
 
-const string & Triplet::getOutput_filename() const {
+const string & Triplet::getOutputFilename() const {
     return output_filename;
 }
 

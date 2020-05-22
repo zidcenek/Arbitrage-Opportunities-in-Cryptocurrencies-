@@ -18,7 +18,7 @@ public:
                  long double demand_gain1, long double supply_gain1, bool calculation_type_linear1,
                  const vector<CurrencyPair> & current1, int name1);
     OutputFormat& operator=(const OutputFormat& rhs);
-    stringstream to_JSON(const string & coma, long double timestamp);
+    stringstream toJSON(const string &coma, long double timestamp);
     long double getLatestTimestamp();
     bool eq ( const OutputFormat & other);
 private:

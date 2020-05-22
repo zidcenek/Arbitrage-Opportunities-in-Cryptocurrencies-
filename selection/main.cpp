@@ -20,11 +20,11 @@ void thread_start(const vector<string> &paths, const string & output_path){
     for(const auto & path: paths){
         printf("%s\n", path.c_str());
         FilesManager fm = FilesManager(path);
-        vector<vector<Triplet> > triplets = fm.select_files();
+        vector<vector<Triplet> > triplets = fm.selectFiles();
         for(const auto & vec: triplets){
             for(const Triplet & triplet: vec){
-                const string & tmp = triplet.getOutput_filename();
-                cout << triplet.getOutput_filename() << endl;
+                const string & tmp = triplet.getOutputFilename();
+                cout << triplet.getOutputFilename() << endl;
                 cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
                 Arbitrage arbitrage = Arbitrage();
                 if(arbitrage.initialize(triplet, output_path))
@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
     // starting threads
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
-    int jump = floor(paths.size() / number_of_threads);
+    int jump = floor(paths.size() / number_of_threads) + 1;
     if(jump == 0)
         jump = 1;
     while (itr < paths.cend()){

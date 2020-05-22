@@ -31,7 +31,7 @@ OutputFormat::OutputFormat(long double score1, const vector<int> & supply_gain_i
     name = name1;
 }
 
-stringstream OutputFormat::to_JSON(const string & coma, long double timestamp) {
+stringstream OutputFormat::toJSON(const string &coma, long double timestamp) {
     long double latest = getLatestTimestamp();
     stringstream ofs;
     ofs << coma << "{\"score\": " << setprecision(10) << score << ",";
@@ -49,7 +49,7 @@ stringstream OutputFormat::to_JSON(const string & coma, long double timestamp) {
             first_item = false;
         else
             ofs << ",";
-        ofs << item.to_JSON();
+        ofs << item.toJSON();
     }
     ofs << "]}\n";
     return ofs;
@@ -59,14 +59,6 @@ bool OutputFormat::eq (const OutputFormat & other){
     vector<long double> first, second;
     int match_counter = 0;
     if(score != other.score) {
-//        printf("%.10Lf %.10Lf\n", score, other.score);
-//        for(const auto & curr: current) {
-//            printf("%6.10Lf ", curr.getTimestamp());
-//        }
-//        cout << endl;
-//        for(const auto & curr: other.current)
-//            printf("%6.10Lf ", curr.getTimestamp());
-//        cout << endl;
         return false;
     }
     for(const auto & curr: current)
@@ -79,18 +71,6 @@ bool OutputFormat::eq (const OutputFormat & other){
         if(first[i] == second[i])
             match_counter++;
     }
-//    if(match_counter < 2){
-//        if(score != other.score) {
-//            printf("%.10Lf %.10Lf\n", score, other.score);
-//            for(const auto & curr: current)
-//                printf("%6.10Lf ", curr.getTimestamp());
-//            cout << endl;
-//            for(const auto & curr: other.current)
-//                printf("%6.10Lf ", curr.getTimestamp());
-//            cout << endl;
-//            return false;
-//        }
-//    }
     return match_counter >= 2;
 }
 
@@ -98,12 +78,9 @@ bool OutputFormat::eq (const OutputFormat & other){
 long double OutputFormat::getLatestTimestamp() {
     long double max = -1;
     for(const auto & curr: current){
-//        printf("%9.5Lf ", curr.getTimestamp());
         if(curr.getTimestamp() > max)
             max = curr.getTimestamp();
     }
-//    cout << endl;
-//    printf("%9.5Lf\n", max);
     return max;
 }
 

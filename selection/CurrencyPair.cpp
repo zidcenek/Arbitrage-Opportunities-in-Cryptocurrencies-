@@ -14,14 +14,18 @@ CurrencyPair::CurrencyPair(const string & input, const string & currency_name){
     string tmp;
     stringstream s(input);
     std::getline(s, tmp, ';');
-    trade_id = tmp;
+    trade_id = stoll(tmp);
     std::getline(s, tmp, ';');
-    demand = parse_demand(stringstream(tmp));
+    demand = parseDemand(stringstream(tmp));
     std::getline(s, tmp, ';');
-    supply = parse_demand(stringstream(tmp));
+    supply = parseDemand(stringstream(tmp));
     std::getline(s, tmp, ';');
     timestamp = stold(tmp);
     currency = currency_name;
+}
+
+double CurrencyPair::getTolerance() const{
+    return tolerance.at(currency);
 }
 
 const vector<double> & CurrencyPair::getSupply() const {
@@ -40,12 +44,12 @@ long double CurrencyPair::getTimestamp() const {
  * Transforms the class parameters and returns them in a JSON format
  * @return string in a JSON format
  */
-string CurrencyPair::to_JSON() const {
+string CurrencyPair::toJSON() const {
     stringstream json;
     json << "{";
-    json << "\"id\":" + trade_id + ",";
-    json << "\n\"demand\": " + array_to_string(demand) + ",";
-    json << "\n\"supply\": " + array_to_string(supply) + ",";
+    json << "\"id\":" + to_string(trade_id) + ",";
+    json << "\n\"demand\": " + arrayToString(demand) + ",";
+    json << "\n\"supply\": " + arrayToString(supply) + ",";
     json << "\"timestamp\":" + to_string(timestamp) + ",";
     json << "\"currency\":\"" + currency + "\"";
     json << "}";
@@ -56,7 +60,7 @@ string CurrencyPair::to_JSON() const {
  * @param arr
  * @return - string in a JSON format
  */
-string CurrencyPair::array_to_string(const vector<double> & arr) const {
+string CurrencyPair::arrayToString(const vector<double> &arr) const {
     stringstream ss;
     ss << "[";
     for(int i = 0; i < arr.size() - 1; i += 2){
@@ -73,7 +77,7 @@ string CurrencyPair::array_to_string(const vector<double> & arr) const {
  * @param my_stream
  * @return - vecotr of doubles
  */
-vector<double> CurrencyPair::parse_demand(stringstream my_stream) {
+vector<double> CurrencyPair::parseDemand(stringstream my_stream) {
     vector<double> output;
     string word;
     vector<string> row;
@@ -87,4 +91,7 @@ vector<double> CurrencyPair::parse_demand(stringstream my_stream) {
     }
     return output;
 }
-;
+
+int CurrencyPair::getTradeId() const {
+    return trade_id;
+};

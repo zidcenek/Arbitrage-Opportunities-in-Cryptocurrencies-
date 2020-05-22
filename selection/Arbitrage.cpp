@@ -12,7 +12,6 @@ Arbitrage::Arbitrage(){
     all = 0;
     fees = 0.999 * 0.999 * 0.999;
     looked_into = vector<int>(3, 0);
-    stucked = vector<int>(3, 0);
     counter = 0;
     calculation_type_linear = false;
 
@@ -31,7 +30,7 @@ bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
     currency_pair_names.push_back(triplet.getCurrency2());
     currency_pair_names.push_back(triplet.getCurrency3());
     calculation_type_linear = triplet.getLinear();
-    output_name = triplet.getOutput_filename();
+    output_name = triplet.getOutputFilename();
     output_directory_name = triplet.getOutputDirectoryName();
     OUTPUT_DIRECTORY = output_path;
     for(int i = 0 ; i < dataframes.size(); i++){
@@ -50,12 +49,9 @@ bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
                 buffer.emplace_back(CurrencyPair(tmp, currency_pair_names[i]));
                 break;
             } catch(const exception& e) {
-                cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl; // todo - delete (err message)
-                if(++counter % 1000 == 0)
-                    cout << "wrong line no." << triplet.getOutput_filename() <<  counter << endl;
+                cout << "wrong line no." << triplet.getOutputFilename() <<  counter << endl;
             }
         }
-//        current.emplace_back(CurrencyPair());
         while(! getNext(i)){
             if (stop)
                 return false;
@@ -96,8 +92,6 @@ vector<int> Arbitrage::calculateMaxGainPosition(
         vector<double> pairs1, vector<double> pairs2, vector<double> pairs3, bool demand_flag, long double & best_gain,
         long double & new_score
 ) const {
-    if(calculation_type_linear)
-        cout << "linear" << endl;
     long double max_gain = 0;
     vector<int> best_indexes(3, 0);
     new_score = 0;
@@ -108,10 +102,10 @@ vector<int> Arbitrage::calculateMaxGainPosition(
                 long double score = calculateScore(pairs1.at(i), pairs2.at(j), pairs3.at(k), demand_flag);
                 score = score * fees;  // due to binance fee for every trade
                 if(score > 1) {
-                    long double gain = calculate_narrowest(
-                            pair<double, double> (pairs1.at(i), pairs1.at(i+1)),
-                            pair<double, double> (pairs2.at(j), pairs2.at(j+1)),
-                            pair<double, double> (pairs3.at(k), pairs3.at(k+1)),
+                    long double gain = calculateNarrowest(
+                            pair<double, double>(pairs1.at(i), pairs1.at(i + 1)),
+                            pair<double, double>(pairs2.at(j), pairs2.at(j + 1)),
+                            pair<double, double>(pairs3.at(k), pairs3.at(k + 1)),
                             demand_flag) * (score - 1);
                     if(gain > max_gain) {
                         max_gain = gain;
@@ -135,11 +129,11 @@ vector<int> Arbitrage::calculateMaxGainPosition(
  * @param pair1
  * @param pair2
  * @param pair3
- * @return -> smallest thickness
+ * @return -> the smallest thickness
  */
-long double Arbitrage::calculate_narrowest(
+long double Arbitrage::calculateNarrowest(
         pair<double, double> pair1, pair<double, double> pair2, pair<double, double> pair3, bool demand_flag
-        ) const{
+) const{
     vector<long double> thickness;
     if(calculation_type_linear){
         if(demand_flag){
@@ -178,6 +172,9 @@ void Arbitrage::run(){
     }
 
     ofstream ofs(OUTPUT_DIRECTORY + output_directory_name + output_name + ".json");
+    // XRPBNBTRX
+//    if(output_directory_name != "XRPBNBTRX/")
+//        return;
     if(!ofs.good()){
         cout << "Could not open output file" << endl;
         return;
@@ -187,6 +184,10 @@ void Arbitrage::run(){
     bool start_of_sequence = true;
     // represents the first and current in sequence of arbitrage arbitrage, if many follow, it will be saved as only 1
     OutputFormat * first_in_sequence, * current_in_sequence;
+    vector<double> tolerances;
+    for(const auto & item: current)
+        tolerances.push_back(item.getTolerance());
+    double max_tolerance = *max_element(tolerances.begin(), tolerances.end()); // max tolerance for timestamp difference
     while(! stop){
         int index = getOldest();
         if(! getNext(index))
@@ -194,14 +195,17 @@ void Arbitrage::run(){
         long double score, supply_gain, demand_gain, supply_score, demand_score;
         vector<int> supply_gain_indexes, demand_gain_indexes;
         if(!looked_into.empty()) {
-//            cout << "skiping" << endl;
             continue;
         }
         all++;
         if((score = detection()) > 1) {
-            // checks if timestamps are maximally 1 minute apart from each other
-            if ( ! closeTimestamps(current[0].getTimestamp(), current[1].getTimestamp(), current[2].getTimestamp()))
+
+            // checks if timestamps are maximally a few seconds apart from each other
+            if ( ! closeTimestamps(current[0].getTimestamp(), current[1].getTimestamp(), current[2].getTimestamp(),
+                    max_tolerance) ) {
+//                cout << "skipping arb" << endl;
                 continue;
+            }
             without_fees++;
             // writes stats only for those with score higher even after fees
             if (score * fees > 1) {
@@ -243,7 +247,7 @@ void Arbitrage::run(){
                         for(const auto & curr: current) {
                             temp.push_back(curr.getTimestamp());
                         }
-                        ofs << first_in_sequence->to_JSON(coma, tmp->getLatestTimestamp()).rdbuf();
+                        ofs << first_in_sequence->toJSON(coma, tmp->getLatestTimestamp()).rdbuf();
 //                        cout << "/------------------" << endl;
                         coma = ",";
                         delete first_in_sequence;
@@ -258,7 +262,7 @@ void Arbitrage::run(){
                     vector<long double> tmp;
                     for(const auto & curr: current)
                         tmp.push_back(curr.getTimestamp());
-                    ofs << first_in_sequence->to_JSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
+                    ofs << first_in_sequence->toJSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
                     coma = ",";
                     delete first_in_sequence;
                     start_of_sequence = true;
@@ -270,7 +274,7 @@ void Arbitrage::run(){
                 vector<long double> tmp;
                 for(const auto & curr: current)
                     tmp.push_back(curr.getTimestamp());
-                ofs << first_in_sequence->to_JSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
+                ofs << first_in_sequence->toJSON(coma, *max_element(tmp.begin(), tmp.end())).rdbuf();
                 coma = ",";
                 delete first_in_sequence;
                 start_of_sequence = true;
@@ -331,13 +335,13 @@ bool Arbitrage::openFile(string const& filename){
  * @return -> true if the overwrite went well
  */
 bool Arbitrage::getNext(int index){
+    string tmp;
+    long double old_timestamp = buffer[index].getTimestamp();
+    long long old_id = buffer[index].getTradeId();
     if(dataframes[index]->eof()) {
         stop = true;
         return false;
     }
-
-    string tmp;
-    long double old_timestamp = buffer[index].getTimestamp();
     getline(*dataframes[index], tmp);
     if(tmp.empty()) {
         stop = true;
@@ -351,8 +355,11 @@ bool Arbitrage::getNext(int index){
             cout << "wrong line no." << counter << endl;
         return false;
     }
-    int hours = 1;
-    if(tempCP.getTimestamp() < (old_timestamp + 3600*hours) && tempCP.getTimestamp() > (old_timestamp - 3600*hours)) {
+    double seconds = tempCP.getTolerance() * 1.1 + 0.1;
+    double diff = tempCP.getTimestamp() - old_timestamp;
+    if( (diff <= seconds && diff > 0) || (tempCP.getTradeId() == old_id + 1  && diff > 0 && diff <= seconds * 1.3636) )
+     {
+        // if the next timestamp is close
         current[index] = buffer[index];
         buffer[index] = tempCP;
         if(! looked_into.empty()) {
@@ -364,61 +371,71 @@ bool Arbitrage::getNext(int index){
             int sum = std::accumulate(std::begin(looked_into), std::end(looked_into), 0);
             if(sum == 6) {
                 looked_into.clear();
-                cout << "Initialized successfully" << endl;
+                printf("Initialized successfully\n");
             }
         }
+
         stuck_counter = 0;
         return true;
     }else {
-        if(stuck_counter == 40){
-            cout << "Big jump in timestamps trying to reinitialize" << endl;
-            for(int i = 0; i < buffer.size(); i++){
-                if(dataframes[i]->eof()) {
-                    stop = true;
-                    return false;
-                }
-                try{
-                    getline(*dataframes[index], tmp);
-                    if(tmp.empty()) {
-                        stop = true;
-                        return false;
-                    }
-                    tempCP = CurrencyPair(tmp, currency_pair_names[index]);
-                    buffer[i] = tempCP;
-                } catch (const exception &e){
-                    stop = true;
-                    return false;
-                }
-            }
-            looked_into = vector<int>(3, 0);
-            stuck_counter = 0;
+//        printf("%7.10Lf\n", tempCP.getTimestamp() - old_timestamp);
+        stuck_counter++;
+        if(stuck_counter == 1){
+            printf("Big jump in timestamps trying to reinitialize\n");
+            reinitialize();
         }
-        if(++stuck_counter % 1000 == 0)
-            printf("%9.5Lf %9.5Lf\n", old_timestamp, tempCP.getTimestamp());
     }
     return false;
 
 }
 
 /**
+ * Reinitializes the current array anf the buffer array
+ * @return -> wether the initialization had been completed successfully
+ */
+bool Arbitrage::reinitialize() {
+    string tmp;
+    CurrencyPair tempCP;
+    for(int i = 0; i < buffer.size(); i++){
+        if(dataframes[i]->eof()) {
+            stop = true;
+            return false;
+        }
+        try{
+            getline(*dataframes[i], tmp);
+            if(tmp.empty()) {
+                stop = true;
+                return false;
+            }
+            tempCP = CurrencyPair(tmp, currency_pair_names[i]);
+            buffer[i] = tempCP;
+        } catch (const exception &e){
+            stop = true;
+            return false;
+        }
+    }
+    looked_into = vector<int>(3, 0);
+    stuck_counter = 0;
+    return true;
+}
+
+/**
  * Checks if the given timestamps are within a minute from each other
- * @param t1
- * @param t2
- * @param t3
+ * @param t1 -> timestamp
+ * @param t2 -> timestamp
+ * @param t3 -> timestamp
  * @return
  */
-bool Arbitrage::closeTimestamps(double t1, double t2, double t3) {
-    int seconds_difference = 60;
-    if(t1 - seconds_difference < t2 && t2 < t1 + seconds_difference){
-        if(t1 - seconds_difference < t3 && t3 < t1 + seconds_difference){
-            if(t3 - seconds_difference < t2 && t2 < t3 + seconds_difference){
+bool Arbitrage::closeTimestamps(double t1, double t2, double t3, double tolerance) {
+    if(t1 - tolerance <= t2 && t2 <= t1 + tolerance){
+        if(t1 - tolerance <= t3 && t3 <= t1 + tolerance){
+            if(t3 - tolerance <= t2 && t2 <= t3 + tolerance){
                 return true;
             }
         }
     }
     return false;
 }
-
 
 /**
  * returns an index of an element with the oldest timestamp (min out of timestamps in the buffer)

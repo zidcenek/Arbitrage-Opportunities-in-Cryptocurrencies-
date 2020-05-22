@@ -23,14 +23,14 @@ public:
     Triplet(const string & f1, const string & f2, const string & f3, const string & date, const string & output_name,
             const string & data_path);
     void shuffle();
-    pair<string, string> split_currency(const string &filename);
+    pair<string, string> splitCurrency(const string &filename);
     const string & getFile1() const;
     const string & getFile2() const;
     const string & getFile3() const;
     const string & getCurrency1() const;
     const string & getCurrency2() const;
     const string & getCurrency3() const;
-    const string & getOutput_filename() const;
+    const string & getOutputFilename() const;
     const bool & getLinear() const;
 private:
     string file1;

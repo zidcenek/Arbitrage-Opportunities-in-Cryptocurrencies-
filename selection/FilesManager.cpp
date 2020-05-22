@@ -9,7 +9,7 @@
  * @param path
  */
 FilesManager::FilesManager(const string & path){
-    files = get_all_files_in_directory(path);
+    files = getAllFilesInDirectory(path);
     currencies_combinations = makeCombi(currencies, 3);
     data_path = path;
 }
@@ -17,11 +17,11 @@ FilesManager::FilesManager(const string & path){
  * Agregates all of the found files into appropriate triplets
  * @return - 2D array of Triplets (filenames)
  */
-vector<vector<Triplet> > FilesManager::select_files() {
+vector<vector<Triplet> > FilesManager::selectFiles() {
     vector<vector<Triplet> > result = vector<vector<Triplet> >();
     vector <string> selected;
-    while( !(selected = select_files_by_date()).empty()){
-        result.emplace_back(select_triples(selected));
+    while( !(selected = selectFilesByDate()).empty()){
+        result.emplace_back(selectTriples(selected));
     }
     return result;
 }
@@ -31,7 +31,7 @@ vector<vector<Triplet> > FilesManager::select_files() {
  * @param filenames - filenames are expected to be of the same date
  * @return - vector of triplets
  */
-vector<Triplet> FilesManager::select_triples(const vector<string> & filenames) const {
+vector<Triplet> FilesManager::selectTriples(const vector<string> &filenames) const {
     vector<Triplet> triplets = vector<Triplet>();
     vector<pair<string, string> > decomposed = vector<pair<string, string> >();
     for(auto & file: filenames){
@@ -50,7 +50,7 @@ vector<Triplet> FilesManager::select_triples(const vector<string> & filenames) c
     for(const auto & comb: currencies_combinations){
         vector <pair<string, string> > res;
         for(const auto & dec: decomposed){
-            if(is_subset(dec, comb))
+            if(isSubset(dec, comb))
                 res.emplace_back(dec);
         }
         if(res.size() == 3){
@@ -68,7 +68,7 @@ vector<Triplet> FilesManager::select_triples(const vector<string> & filenames) c
  * @param set2
  * @return - true if pair is subset or vector
  */
-bool FilesManager::is_subset(const pair<string, string> & set1, const vector<string> & set2) const {
+bool FilesManager::isSubset(const pair<string, string> &set1, const vector<string> &set2) const {
     int counter = 0;
     for(const auto & s2: set2){
         if(s2 == set1.first || s2 == set1.second)
@@ -81,7 +81,7 @@ bool FilesManager::is_subset(const pair<string, string> & set1, const vector<str
  * Goes through all the files and returns only those with the same date at the end (eg. 2020-02-28)
  * @return - vector of filenames with the same date
  */
-vector<string> FilesManager::select_files_by_date(){
+vector<string> FilesManager::selectFilesByDate(){
     vector<string> filtered_files;
     vector<string> selected_files;
     vector<string> unselected_files;
@@ -109,7 +109,7 @@ vector<string> FilesManager::select_files_by_date(){
  * @param path
  * @return
  */
-vector<string> FilesManager::get_all_files_in_directory(const string & path){
+vector<string> FilesManager::getAllFilesInDirectory(const string &path){
     vector<string> filenames;
     glob_t glob_result;
     glob((path + "*").c_str(),GLOB_TILDE, nullptr,&glob_result);

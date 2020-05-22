@@ -19,12 +19,12 @@ public:
 
     FilesManager(const string & path);
 
-    vector<vector<Triplet> > select_files();
+    vector<vector<Triplet> > selectFiles();
 private:
-    vector<Triplet> select_triples(const vector<string> & filenames) const;
-    bool is_subset(const pair<string, string> & set1, const vector<string> & set2) const;
-    vector<string> select_files_by_date();
-    static vector<string> get_all_files_in_directory(const string & path);
+    vector<Triplet> selectTriples(const vector<string> &filenames) const;
+    bool isSubset(const pair<string, string> &set1, const vector<string> &set2) const;
+    vector<string> selectFilesByDate();
+    static vector<string> getAllFilesInDirectory(const string &path);
     void makeCombiUtil(vector<vector<string> >& ans,
                        vector<string>& tmp, int n, int left, int k, vector<string> arr);
     vector<vector<string> > makeCombi(const vector<string> & arr, int k);

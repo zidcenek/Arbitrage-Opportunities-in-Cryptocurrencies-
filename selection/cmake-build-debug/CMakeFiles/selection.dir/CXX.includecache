@@ -45,6 +45,8 @@ iomanip
 -
 iostream
 -
+map
+-
 
 /mnt/d/School/bakalarka/git/bakalarka/selection/FilesManager.cpp
 FilesManager.h
