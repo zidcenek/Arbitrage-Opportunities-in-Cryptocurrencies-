@@ -396,7 +396,7 @@ V této kapitole se~zabývám praktickou částí své bakalářské práce, ve~
 \section{Získání dat}
 Obecně jsem pro svou práci potřeboval získat taková data, která se~týkají aktuálních nabídek a~poptávek pro jednotlivé měnové páry, na~kterých jsem chtěl provádět analýzu. Tomuto typu dat se~běžně říká order book (kniha objednávek).
 
-Problém s~tímto typem dat je ten, že tím, že se~aktuální nabídka na~větších burzách mění klidně až několikrát za~sekundu, a~proto tato data nabývají poměrně velkých objemů.
+Problém s~tímto typem dat je ten, že se~aktuální nabídka na~větších burzách mění klidně až několikrát za~sekundu, a~proto tato data nabývají poměrně velkých objemů.
 
 \subsection{Data na~kryptoměnových burzách}
 Nejdříve jsem se~snažil získat data na~oficiálních stránkách jednotlivých burz, konkrétně Binance, CoinMate, MXC, LBank. Zde jsem se~byl schopen po~registraci připojit na~jednotlivá API. Data zde byla veřejně k~dispozici, avšak neodpovídala takovému formátu, který jsem pro svou práci požadoval. 
@@ -410,16 +410,13 @@ Neboť žádná z~burz neposkytovala historická data ve~formátu order book, kt
 \subsection{Výběr burzy}
 Při výběru burzy bylo nutné zohlednit několik faktorů, které mohou mít vliv na~výskyt arbitrážních příležitostí: 
 \begin{itemize}
-    \item zdali, burza poskytuje data ve~formátu order book,
     \item jak velkými poplatky zpoplatňuje burza jednotlivé transakce,
     \item jak velký objem se~na~burze zobchoduje,
     \item s~kolika různými měnami je možné obchodovat.
 \end{itemize}
-Jelikož jsem si data sbíral sám, tak zmizel problém s~dostupností dat a~tedy faktor správného formátu dat se~stal irelevantním.
+Faktor, který bylo možné zanedbat, byl počet různých měn, neboť většina burz poskytuje daleko větší počet měn, než kolik jsem byl reálně schopný ukládat. 
 
-Další faktor, který bylo možné zanedbat, byl počet různých měn, neboť většina burz poskytuje daleko větší počet měn, než kolik jsem byl reálně schopný ukládat. 
-
-Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodovaný objemem a~rozdíly ve~výši poplatků.
+Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodovaným objemem a~rozdíly ve~výši poplatků.
 
 \begin{table}\centering
      \caption{Porovnání parametrů jednotlivých burz}
@@ -448,7 +445,7 @@ Po porovnání vybraných parametrů (viz tabulka \ref{exchanges_comparison} neb
 Dalšími podpůrnými parametry pro výběr této burzy bylo to, že měla přívětivé API, ke~kterému jsem se~připojil přes websocket. \cite{BinanceApi} Tímto způsobem mi při každé změně chodila data ve~formě order book ohledně aktuální nabídky a~poptávky sledované dvojice měn. Tento formát dat tedy splňoval původní požadavek. \cite{BinanceApi}
 
 \subsection{Sběr dat}
-Data, která přicházela přes websocket, ve~kterých bylo uvedeno pořadí jako identifikační číslo, cena a~množství nabídky a~poptávky v~order book, jsem si ukládal do~souborů ve~formátu csv. K~těmto datům jsem ještě vždy přidal časové záznam ve~formátu unix timestamp (viz obrázek \ref{csv_data}). Identifikační číslo jsem si ukládal z~důvodu kontroly chronologie dat. Výpis nabídek a~poptávek jsem zanechal jako dvourozměrné pole, kde v~prvním sloupci byla uvedena prodejní (resp. nákupní) cena a~v~druhém sloupci bylo uvedeno množství.
+Data, která přicházela přes websocket, ve~kterých bylo uvedeno pořadí jako identifikační číslo, cena a~množství nabídky a~poptávky v~order book, jsem si ukládal do~souborů ve~formátu csv. K~těmto datům jsem ještě vždy přidal časový záznam ve~formátu unix timestamp (viz obrázek \ref{csv_data}). Identifikační číslo jsem si ukládal z~důvodu kontroly chronologie dat. Výpis nabídek a~poptávek jsem zanechal jako dvourozměrné pole, kde v~prvním sloupci byla uvedena prodejní (resp. nákupní) cena a~v~druhém sloupci bylo uvedeno množství.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/csv_data.PNG}
@@ -456,23 +453,21 @@ Data, která přicházela přes websocket, ve~kterých bylo uvedeno pořadí jak
 \end{figure}
 Order book může mít hloubku až několika stovek objednávek a~poptávek, proto jsem si neukládal jeho celou velikost. Naopak jsem si ukládal pouze pět nejvýhodnějších záznamů. To jsem mohl udělat z~toho důvodu, že arbitrážní příležitost bude vždy nastávat na~nejvýhodnějších nabídkách, protože kdyby nastala na~méně výhodné, tak musela nutně nastat i~na~té nejvýhodnější. 
 
-Hloubku sběru dat z~order booku je možné si vybrat libovolnou, vyšší hloubka nezvýší počet výskytu arbitrážních příležitostí, může na~druhou stranu zlepšit absolutní zisk. Hodnoty ve~vyšší hloubce jsou výrazně méně často využívány (viz koláčový graf \ref{index_distribution}).
+Hloubku sběru dat z~order booku je možné vybrat libovolnou, vyšší hloubka nezvýší počet výskytu arbitrážních příležitostí, může na~druhou stranu zlepšit absolutní zisk. Hodnoty ve~vyšší hloubce jsou však výrazně méně často využívány (viz koláčový graf \ref{index_distribution}).
 
-Jelikož jsem data potřeboval ukládat neustále a~ne pouze v~konkrétní časové intervaly, tak jsem sběr dat spustil na~cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do~souborů po~jednom dni, protože jsem kvůli omezenému uložišti musel data stahovat a~ukládat i~na~lokální disk.
+Jelikož jsem data potřeboval ukládat neustále a~ne pouze v~konkrétní časové intervaly, tak jsem sběr dat spustil na~cloudové službě AWS - Amazon Web Services. Data jsem kumuloval do~souborů po~jednom dni (v časovém pásmu GMT), protože jsem kvůli omezenému uložišti musel data stahovat a~ukládat i~na~lokální disk.
 
 \subsubsection{Kontrola správnosti dat}
 Data chodila z~cizího serveru přes websocket a~nebylo stoprocentně zaručené, že budou chodit vždy ve~správném tvaru už jen například v~závislosti na~latenci mezi burzou Binance a~mým serverem. Kvůli tomu bylo nutné zavést některá opatření, aby mi jisté chyby nezkreslily statistiky.
 
-První kontrolou bylo to, že při postupném procházení dat kontroluji vždy časový údaj a~porovnávám ho s~předchozím. Pokud takováto situace nastane, tak řádek jednoduše přeskakuji. Pokud by se~však tento efekt opakoval častěji chybu mi program nahlásí a~je nutné data zkontrolovat ručně.  
-
-Tento efekt se~objevil, když mi na~tři sledované měnové páry začala chodit data po~několik dní opakovaně s~několika minutovou (až hodinovou) časovou prodlevou. Kvůli tomu jsem si napsal program, který mi celé soubory dat zkontroluje, seřadí podle identifikátoru knihy objednávek (order book) a~časového razítka (timestamp) a~následně odstraní duplicity. 
+Tento efekt se~objevil, když mi na~několik sledovaných měnových párů začala chodit data po~několik dní opakovaně s~několika minutovou (až hodinovou) časovou prodlevou. Kvůli tomu jsem si napsal program, který mi celé soubory dat zkontroluje, seřadí podle identifikátoru knihy objednávek (order book) a~časového razítka (timestamp) a~následně odstraní duplicity (pro více informací viz kapiola \ref{subsection:cleanup}). 
 
 Tímto kontrolujícím programem jsem zkontroloval všechny soubory a~téměř žádné, až na~pár výjimek (kde byla data duplikovaná), nebyly programem modifikovány, protože data chodila v~korektním formátu.
 
 \subsubsection{Sledované měny a~trojúhelníky}
-Na serveru Binance je možné obchodovat s~1320 různými měnami (údaj k~29.3. 2020), proto jsem si mohl k~obchodování vybrat téměř jakékoliv měny. Z~toho důvodu, že pro mě nebylo reálné sledovat všechny různé dvojice, vybral jsem si ke~sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Toto celkově znamenalo sběr dat týkající se~30 dvojic kryptoměn (obchody mezi některými dvojicemi na~severu Binance nebylo možné provádět). Všechna tato data nabývala velikosti v~průměru téměř 1~GB za~den.
+Na serveru Binance je možné obchodovat s~1320 různými měnami (údaj k~29.~3. 2020), proto jsem si mohl k~obchodování vybrat téměř jakékoliv měny. Z~toho důvodu, že pro mě nebylo reálné sledovat všechny různé dvojice, vybral jsem si ke~sledování následujících 10 kryptoměn: USDT, BTC, LTC, ETH, XRP, BCH, EOS, BNB, TRX, XMR. Toto celkově znamenalo sběr dat týkající se~30 dvojic kryptoměn (obchody mezi některými dvojicemi na~severu Binance nebylo možné provádět).
 
-Celkově je dostupných těchto 30 měnových párů: BCHBNB, BCHBTC, BCHUSDT, BNBBTC, BNBETH, BNBUSDT, BTCUSDT, EOSBNB,  \linebreak EOSBTC, EOSETH, EOSUSDT, ETHBTC, ETHUSDT, LTCBNB, LTCBTC, LTCETH, LTCUSDT, TRXBNB, TRXBTC, TRXETH, TRXUSDT,  \linebreak TRXXRP, XMRBNB, XMRBTC, XMRETH, XMRUSDT, XRPBNB,  \linebreak XRPBTC, XRPETH, XRPUSDT.
+Celkově je dostupných těchto 30 měnových párů: BCHBNB, BCHBTC, BCHUSDT, BNBBTC, BNBETH, BNBUSDT, BTCUSDT, EOSBNB,  \linebreak EOSBTC, EOSETH, EOSUSDT, ETHBTC, ETHUSDT, LTCBNB, LTCBTC, LTCETH, LTCUSDT, TRXBNB, TRXBTC, TRXETH, TRXUSDT,  \linebreak TRXXRP, XMRBNB, XMRBTC, XMRETH, XMRUSDT, XRPBNB,  \linebreak XRPBTC, XRPETH, XRPUSDT. Všechna tato data nabývala dohromady velikosti v~průměru téměř 1~GB za~den.
 
 Následně zkoumám všech 41 trojúhelníků, které je možné složit, z~těchto měnových párů: BTC/BCH/BNB, BTC/ETH/EOS, BTC/LTC/ETH,  \linebreak ETH/EOS/BNB, USDT/BNB/TRX, USDT/BTC/ETH, USDT/EOS/BNB, USDT/ETH/XRP, XRP/BNB/TRX, BTC/BNB/TRX, BTC/ETH/TRX,  \linebreak BTC/XRP/BNB, ETH/XRP/BNB, USDT/BNB/XMR, USDT/BTC/LTC, USDT/ETH/BNB, USDT/LTC/BNB, BTC/BNB/XMR, BTC/ETH/XMR, BTC/XRP/TRX, ETH/XRP/TRX, USDT/BTC/BCH, USDT/BTC/TRX, USDT/ETH/EOS, USDT/LTC/ETH, BTC/EOS/BNB, BTC/ETH/XRP,  \linebreak ETH/BNB/TRX, LTC/ETH/BNB, USDT/BTC/BNB, USDT/BTC/XMR, USDT/ETH/TRX, USDT/XRP/BNB, BTC/ETH/BNB, BTC/LTC/BNB, ETH/BNB/XMR, USDT/BCH/BNB, USDT/BTC/EOS, USDT/BTC/XRP, USDT/ETH/XMR, USDT/XRP/TRX.
 % todo - napsat názvy měn
@@ -501,9 +496,9 @@ Co se~týče bližších informací k~jednotlivým arbitrážním příležitost
 \begin{itemize}
     \item score -- desetinné číslo popisující teoretický procentuální zisk (bez zahrnutí poplatků),
     \item supply\_gain\_index (demand\_gain\_index) -- pole tří indexů popisující nejlepší kombinaci z~order book k~získání nejvyššího absolutního zisku na~straně trojúhelníku začínajícího nabídkou resp. poptávkou,
-    \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v~první dvojici měn v~odrážce pairs na~straně trojúhelníku začínajícího nabídkou resp. poptávkou, pokud nedojde žádnému zisku je hodnota ponechána na~0,
+    \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v~prvním měnovém páru v~odrážce pairs na~straně trojúhelníku začínajícího nabídkou resp. poptávkou, pokud nedojde žádnému zisku je hodnota ponechána na~0,
     \item time\_delta -- zaznamenává detekovanou dobu výskytu arbitrážní \linebreak příležitosti, 
-    \item pairs -- jedná se~o pole o~velikosti 3, na~jehož každé položce je uloženo příslušné identifikační číslo, časový záznam a~typ měnové dvojice \linebreak ze~čtených csv souborů (viz ukázka csv souboru \ref{csv_data}).
+    \item pairs -- jedná se~o pole o~velikosti 3, na~jehož každé položce je uloženo příslušné identifikační číslo, časový záznam,~typ měnové dvojice a informace o nabídkách a poptávkách \linebreak ze~čtených csv souborů (viz ukázka csv souboru \ref{csv_data}).
 \end{itemize}
 \begin{figure}\centering
 	\includegraphics[width=0.6\textwidth]{images/json_data.PNG}
@@ -514,11 +509,13 @@ Co se~týče bližších informací k~jednotlivým arbitrážním příležitost
 \subsection{Arbitrážní příležitosti}
 Ve své práci se~věnuji pouze trojúhelníkovým arbitrážním příležitostem, tedy vždy příležitostem pro 3 odlišné měny. Jelikož mám pro libovolnou obchodovatelnou dvojici kryptoměn (AAA a~BBB) vždy údaj pouze z~jedné strany (poptávka i~nabídka je pouze z~pohledu jedné z~kryptoměn) může docházet v~trojúhelníku k~osmi možnostem uskupení měnových párů. Těchto osm \linebreak možností je však možné přeskupením dostat do~dvou odlišných kombinací.
 
-Tyto dvě kombinace je nutné příslušně vynásobit (resp. Vydělit) v~závislosti na~pořadí měn v~měnovém páru. V~trojúhelníku nezáleží na~pořadí, v~jakém jednotlivé hodnoty mezi sebou vynásobeny (vyděleny). Je nutné však vždy v~jednom trojúhelníku zkontrolovat obě strany nákupu a~prodeje.
+Tyto dvě kombinace je nutné příslušně vynásobit (resp. vydělit) v~závislosti na~pořadí měn v~měnovém páru. V~trojúhelníku nezáleží na~pořadí, v~jakém jsou jednotlivé hodnoty mezi sebou vynásobeny (vyděleny). Je nutné však vždy v~jednom trojúhelníku zkontrolovat obě strany nákupu a~prodeje.
 
 Dalším krokem v~rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v~mém případě do~hloubky pět, a~zjišťovat, jestli není výhodnější provést obchod s~menším procentuálním ziskem, avšak s~vyšším absolutním ziskem. Snažím se~tedy najít takovou možnost, při které dojde k~zobchodování většího množství a~tím vznikne vyšší zisk (viz \ref{triangle_arbitrage}).
 
 Ve většině případů je i~k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mém případě využita první hodnota z~order book ve~více než 88~\% případech (statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části, celkově bylo vzato v~potaz více než 160~tisíc indexů). Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
+
+K získání úplně nejvyššího absolutního zisku by bylo nutné neobchodovat trojúhelník v hloubce s nejvyšším absolutním ziskem, ale zobchodovat všechny kladné trojúhelníky do sbírané hloubky v pořadí od nejlepšího procentuálního zisku. Takovýto obchod by sice přinesl nejvyšší zisk, ale pro jeho provedení by bylo nutné provést velké množství transakcí, které není většinou reálně možné stihnout.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/index_distribution.png}
@@ -574,7 +571,7 @@ Neboť je detekce arbitrážních příležitostí prováděna na historických 
 
 Program vyhledávající pozitivní arbitrážní příležitosti iteruje postupně všemi třemi soubory měnových párů následujícím algoritmem. 
 
-Předpokládám, že se nejedná o začátek programu, proto mám již načtený trojúhelník, který byl zkontrolován na výskyt arbitrážní příležitosti. Dále mám načtené hodnoty nadcházejících záznamů. V dalším kroku je vyměněna ta hrana trojúhelníku, která má z~dopředu načtených hodnot nejnižší timestamp. Takto je zajištěno, že se stále intervaly překrývají. 
+Předpokládám, že se nejedná o začátek programu, proto mám již načtený trojúhelník, který byl zkontrolován na výskyt arbitrážní příležitosti. Dále mám načtené hodnoty nadcházejících záznamů. V dalším kroku je vyměněna ta hrana trojúhelníku, která má z~dopředu načtených hodnot nejnižší timestamp. Takto je zajištěno, že se intervaly překrývají. 
 
 \begin{table}\centering
 \caption{Příklad k postupné kontrole na pozitivní arbitrážní příležitosti}
@@ -588,7 +585,7 @@ Předpokládám, že se nejedná o začátek programu, proto mám již načtený
 \end{tabular}
 \end{table}
 
-Trojúhelníky jsou vybírány a kontrolovány následovně (viz tabulka \ref{timestamp_example}), T(t) značí čas začátku nového trojúhelníku:
+Trojúhelníky jsou vybírány a kontrolovány následovně (viz tabulka \ref{timestamp_example}), T(t) značí čas začátku nového trojúhelníku (A, B, C značí různé měnové páry):
 \begin{itemize}
     \item T(0,01) = A1, B1, C1,
     \item T(0,02) = A1, B2, C1 (výskyt),
@@ -599,7 +596,71 @@ Trojúhelníky jsou vybírány a kontrolovány následovně (viz tabulka \ref{ti
     \item T(0,07) = A3, B3, C3,
 \end{itemize}
 
-Řekněme že se s příchodem nové hodnoty na měnové páru B v čase T(0,02) objeví nová pozitivní arbitrážní příležitost. Tato příležitost zanikne hned v čase T(0,04) se změnou hodnoty na měnovém páru C. Arbitrážní příležitost tedy v~tomto případě stihla zmizet dříve, než byl přečten nový order book na~měnovém páru, který způsobil výskyt pozitivní příležitosti. 
+Řekněme že se s příchodem nové hodnoty na měnové páru B v čase T(0,02) objeví nová pozitivní arbitrážní příležitost. Tato příležitost zanikne v čase T(0,04) se změnou hodnoty na měnovém páru C. Arbitrážní příležitost tedy v~tomto případě stihla zmizet dříve, než byl přečten nový order book na~měnovém páru B, který způsobil výskyt pozitivní příležitosti. 
+
+\subsubsection{Kontrola korektnosti záznamů}
+V rámci procházení souborů je nutné kontrolovat, zdali jsou záznamy korektní. Data jsou kontrolována na správnost typů a správnost požadovaného formátu. Je nutné však ještě kontrolovat záznamy na správnost pořadí.
+
+Záznamy jsou kontrolovány na souslednost identifikačních čísel. Dále jsou kontrolována časová razítka (timestamp) a to tak, že se porovnává rozdíl mezi aktuálním a následujícím záznamem. Jako korektní je považován záznam s adekvátní časovou prodlevou. 
+
+Adekvátní časovou prodlevu je nutné určit pro každý měnový pár zvlášť, neboť jsou nějaké měnové páry vytíženější než jiné. Adekvátní časové prodlevy jsem volil následujícím způsobem:
+
+\begin{enumerate}
+    \item vybral jsem dny, které měly konzistentní data (konkrétně dny od 10.~4. 2020 až do 17.~5. 2020),
+    \item na těchto datech jsem spočítal percentil 99,9 pro každý den a pro každý měnový pár zvlášť,
+    \item zvolil jsem medián ze spočítaných percentilů přes tyto dny (viz tabulka časových prodlev \ref{tolerances}).
+    \item tento medián jsem vynásobil konstantou 1,1 a tím určil adekvátní časovou prodlevu.
+\end{enumerate}
+
+Byl zvolen percentil 99,9, neboť data byla konzistentní a nedocházelo k velkým výkyvům. Medián byl vybrán, protože jsem nechtěl, aby případný větší výkyv v některém dni nerozházel data. Konstanta 1,1 byla vybrána, aby došlo k zahození menší části dat a stále byly detekovány velké výkyvy.
+
+Konstanta 1,1 byla zaměněna za konstantu 1,5 pro takové výskyty, kdy na sebe přímo navazovala identifikační čísla po sobě jdoucích záznamů. Identifikační čísla obchodů na sebe vždy nenavazovala, byla však vždy seřazená. 
+
+
+
+\begin{table}\centering
+\caption{Hodnoty adekvátní časové prodlevy pro jednotlivé měnové páry}
+\label{tolerances}
+\begin{tabular}{|| l | r ||}\hline Měnový pár & Denní medián percentilů (99,9) časových prodlev (s)\\ [0.5ex]
+ \hline
+  \hline BCH/BNB & 15,38 \\
+  \hline BCH/BTC & 1,78 \\
+  \hline BCH/USDT & 1,06 \\
+  \hline BNB/BTC & 2,07 \\
+  \hline BNB/ETH & 4,91 \\
+  \hline BNB/USDT & 1,53 \\
+  \hline BTC/USDT & 1,04 \\
+  \hline EOS/BNB & 11,83 \\
+  \hline EOS/BTC & 3,17 \\
+  \hline EOS/ETH & 5,86 \\
+  \hline EOS/USDT & 1,08 \\
+  \hline ETH/BTC & 1,08 \\
+  \hline ETH/USDT & 1,04 \\
+  \hline LTC/BNB & 19,04 \\
+  \hline LTC/BTC & 2,53 \\
+  \hline LTC/ETH & 6,28 \\
+  \hline LTC/USDT & 1,32 \\
+  \hline TRX/BNB & 14,25 \\
+  \hline TRX/BTC & 3,20 \\
+  \hline TRX/ETH & 5,47 \\
+  \hline TRX/USDT & 2,35 \\
+  \hline TRX/XRP & 20,31 \\
+  \hline XMR/BNB & 29,27 \\
+  \hline XMR/BTC & 5,12 \\
+  \hline XMR/ETH & 12,86 \\
+  \hline XMR/USDT & 2,98 \\
+  \hline XRP/BNB & 14,45 \\
+  \hline XRP/BTC & 2.,68 \\
+  \hline XRP/ETH & 4,03 \\
+  \hline XRP/USDT & 1,12 \\
+  \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Kontrola pozitivních arbitrážních příležitostí}
+V předchozí sekci byla zmíněna problematika správnosti záznamů v rámci jednotlivých měnových párů, je však nutné kontrolovat i nalezené arbitrážní příležitosti na správnost časového překrytí intervalů. 
+
+Arbitrážní příležitosti jsou kontrolovány následovně. Je spočítán rozdíl nejvzdálenějších časových razítek s~nejvyšší adekvátní časovou prodlevou ze zúčastněných párů. Pokud je tato hodnota záporná je považována arbitrážní příležitost za validní.
 
 \section{Struktura modulů praktické části}
 Celkově je moje praktická část rozdělena do čtyř na sobě nezávislých modulů
@@ -620,6 +681,7 @@ Dny jsou rozděleny na základě časové zóny GMT. Zóna GMT byla zvolena z to
 Ke sběru dat je napsaná manuálová stránka vysvětlující jeho funkcionalitu a spouštění a je součástí přílohy (ve stejném adresáři jako je program samotný).
 
 \subsection{Čištění dat}
+\label{subsection:cleanup}
 Program na čištění dat je stejně jako program pro sběr dat napsaný v jazyce Python 3 a~i~on má svou manuálovou stránku s~bližšími informacemi ohledně funkcionality a~ spouštění zahrnutou v příloze. 
 
 Program čištění dat není nutné spouštět na data sebraná z burzy, je to však doporučené, protože data chodí ze vzdáleného serveru přes websocket a občas se v datech vyskytly chyby (například s duplikováním některých záznamů), které program odstraní.
