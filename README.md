@@ -17,3 +17,5 @@ python3 main.py
 ## Selection:
 Program je nutné kompilovat s těmito přepínačemi: \
 -std=C++17 -pthread
+
+Pro bližší informace viz README v adresáři *selection* nebo viz manuálová stránka v adresáři *selection*
