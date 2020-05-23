@@ -1,3 +1,0 @@
-/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/selection.dir
-/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug/CMakeFiles/edit_cache.dir
