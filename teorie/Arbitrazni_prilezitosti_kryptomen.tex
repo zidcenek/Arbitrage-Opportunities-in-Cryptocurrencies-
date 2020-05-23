@@ -36,6 +36,9 @@
 \hyphenation{změ-ně}
 
 \usepackage[obeyFinal]{todonotes}
+\usepackage[style=iso-numeric]{biblatex}
+\addbibresource{mybibliographyfile.bib}
+\setcounter{biburllcpenalty}{7000}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
 % ODTUD DAL VSE ZMENTE
@@ -76,18 +79,20 @@ The analytic part focuses on the basic statistics of the occurence and profitabi
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
+\todo[]{Ábstakty by měli být každý na své stránce + nezapomeň napsat/smazat poděkování}
+\todo[]{V celé práci je hodně odstavců na 2 řádky. Někdy bych zvážil spojení do většího odstace - vypadá to divně. říká se, že odstavec jsou minimálne 3 řádky}
 V této práci se zabývám arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není stabilní. Díky této volatilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se~budu v~této práci věnovat.
 
 Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~také zabývá otázkami, jak často se~reálně objevují arbitrážní \linebreak příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
 
-Toto téma jsem vybral především, protože mě baví analyzovat data a~snažit se~najít výstupy, které je možné z~dat vytěžit. Zároveň z~toho důvodu, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněji. 
+Toto téma jsem vybral především, protože mě baví \todo[]{DPR mi vytýkali citově zabarvený slova} analyzovat data a~snažit se~najít výstupy, které je možné z~dat vytěžit. Zároveň z~toho důvodu, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněji. 
 
 V práci se~zabývám dostupností dat v~rámci jednotlivých kryptoměnových burz a~možnostmi ukládání těchto dat. Dále se~v~práci zabývám analýzou dat a analýzou výskytů korelací, které v~rámci burz nastávají.
 
 V první části práce se~věnuji tomu, co to jsou kryptoměny a~co znamenají arbitrážní příležitosti. V~následující části se~věnuji zkoumání dostupnosti dat na~jednotlivých burzách a~možnostem jejich získávání. Na~to navazuji analýzou získaných dat z~pohledu arbitrážních příležitostí. Zabývám se~zde převážně otázkami, jak často arbitrážní příležitosti nastávají a~jestli je reálně možné a~vyplatí se~snažit se~arbitrážní příležitosti vytěžit.
 
 Tato bakalářská práce volně navazuje na~diplomovou práci Adama Pečeva s~tématem Cryptocurrencies Exchange Rates Reporting Tool, ve~které autor vytvořil program, který zobrazuje data jednotlivých kryptoměn na~různých trzích. Já na rozdíl od~něho se~více zaměřuji na~analýzu dat jako takových pomocí informatických a~matematických metod.
-
+\todo[]{vdova-samotný řádek, ale nevím jak to vyřešit}
 \end{introduction}
 
 \chapter{Cíl práce}
@@ -100,10 +105,10 @@ V praktické části naimplementuji sběr dat na~úrovni order book jednotlivýc
 V závěru praktické části zhodnotím výsledky z~analýzy dat, a~z~vyhodnocených výsledků spočítám základní statistiky výskytu, obchodovatelnosti a~výnosnosti arbitrážních příležitostí. 
 
 \chapter{Současný stav řešení problému}
-V této kapitole se~zabývám teorií týkající se~kryptoměn, popisuji základní funkcionalitu transakcí a~technologie blockchainu. Zaměřuji se~na~zmapování jednotlivých kryptoměnových burz. Zaměřuji se~zde také arbitráže, o~co se \linebreak jedná, jaké jsou druhy a~jak se~projevují na~poli kryptoměnových burz.
+V této kapitole se~zabývám teorií týkající se~kryptoměn, popisuji základní funkcionalitu transakcí a~technologie blockchainu. Zaměřuji se~na~zmapování jednotlivých kryptoměnových burz. Zaměřuji se~zde také arbitráže, o~co se \linebreak jedná, jaké jsou její druhy a~jak se~projevují na~poli kryptoměnových burz.
 
 \section{Kryptoměny}
-V této kapitole se~obecně zabývám kryptoměnami. Zaměřuji se~na~jejich historii, která je spjatá převážně s~první a~nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se~zde také alternativními kryptoměnami. Dalším tématem je krátký úvod do~technologií, na~kterých jsou kryptoměny založeny. \cite{BudoucnostFinTrhu}
+V této kapitole \todo[]{hned pod sebou (předchozí odstavec) taky začíná na v této kapitole. Já to beru, že druhá a nižší úroveň jsou už podkapitoly} se~obecně zabývám kryptoměnami. Zaměřuji se~na~jejich historii, která je spjatá převážně s~první a~nejhodnotnější kryptoměnou, kterou je bitcoin. Zabývám se~zde také alternativními kryptoměnami. Dalším tématem je krátký úvod do~technologií, na~kterých jsou kryptoměny založeny. \cite{BudoucnostFinTrhu}
 
 \subsection{Bitcoin - BTC}
 Bitcoin je první kryptoměna, která byla zavedena v~roce 2009 anonymní skupinou lidí pod pseudonymem Satoshi Nakamoto. Hlavní myšlenkou bitcoinu je snaha o~odstranění všech regulatorních vlastností měn a~snaha o~zvýšení transparentnosti a~bezpečnosti plateb a~transakcí v~rámci bitcoinové sítě. \cite{Finex}
@@ -188,7 +193,7 @@ Díky tomu, že se~transakce uzavírají na~základě konsensu a~také díky tom
 \subsubsection{Ostatní zpracovávané altcoiny}
 V předchozí části jsem zmínil nějaké dle mého názoru významné a~zajímavé altcoiny. Ve~své práci však potřebuji více kryptoměn, nad kterými budu pracovat. Proto jsem vybral ještě následující kryptoměny.
 
-Bitcoin Cash (BCH) je kryptoměna, která vznikla odvětvením od~bitcoinu, z~důvodu obav přehlcení sítě. Je tedy se~svým předchůdcem téměř totožná, co se~týče základních vlastností. \cite{kurzy_bch}
+Bitcoin Cash (BCH) \todo[]{Já bych tohle dal např. bold nebo do seznamu} je kryptoměna, která vznikla odvětvením od~bitcoinu, z~důvodu obav přehlcení sítě. Je tedy se~svým předchůdcem téměř totožná, co se~týče základních vlastností. \cite{kurzy_bch}
 
 EOS je kryptoměna, která se~podobně jako Ethereum zaměřuje na~využití chytrých kontraktů, kde každý uživatel držící EOS token může využívat \linebreak příslušnou část výpočetní síly a~uložiště. \cite{finex_eos}
 
@@ -212,7 +217,7 @@ Z obrázků \ref{coinmate_standard} a~\ref{coinmate_promotional} je také možn�
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/coinmate_standard.PNG}
 	\caption{Poplatky na~burze Coinmate pro maker i~taker) \cite{coinmate_fees}}\label{coinmate_standard}
-\end{figure}
+\end{figure} \todo[]{Nejsou tady dva stejné obrázky omylem}
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/coinmate_promotional.PNG}
 	\caption{Poplatky na~burze Coinmate pro maker i~taker) \cite{coinmate_fees}}\label{coinmate_promotional}
@@ -341,7 +346,7 @@ Efektivní je takový trh, kdy jsou všechny dostupné informace zohledněny v~c
 
 Silně efektivní trh je takový, když kurz obsahuje všechny známé kurzotvorné data, jak veřejné tak i veřejně nedostupné. Trhy poté reagují tak rychle, že pro nikoho, ani pro vlastníky neveřejných dat je nemožné realizovat nadprůměrné zisky. \cite{efektivnost_trhu}
 
-Reálné trhy nikdy dokonale efektivní nejsou. Na~těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z~neefektivity trhu. \cite{what_is_arbitage} \cite{pecev}
+Reálné trhy nikdy dokonale efektivní nejsou. Na~těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z~neefektivity trhu. \cite{what_is_arbitage} \cite{pecev} \todo[]{Můžeš použít i \cite{a, b} nebo oddělit citace čárkou}
 
 \subsection{Arbitráž}
 Arbitráž je obchodní strategie, která má za~cíl vydělat na~neefektivitě trhu. Arbitráž je založena na~principu nakoupit levně a~prodat téměř instantně dráže. Principem arbitráže je vytvořit zisk na~malých rozdílech v~ceně aktiv téměř bez jakéhokoliv rizika. Nejčastěji se~jedná o~nákup na~jednom místě a~téměř instantní prodej na~místě jiném za~vyšší cenu. \cite{Capital}
@@ -516,7 +521,7 @@ Tyto dvě kombinace je nutné příslušně vynásobit (resp. vydělit) v~závis
 
 Dalším krokem v~rámci detekce ideální příležitosti je projití několika dalších nejlepších nabídek (poptávek), v~mém případě do~hloubky pět, a~zjišťovat, jestli není výhodnější provést obchod s~menším procentuálním ziskem, avšak s~vyšším absolutním ziskem. Snažím se~tedy najít takovou možnost, při které dojde k~zobchodování většího množství a~tím vznikne vyšší zisk (viz \ref{triangle_arbitrage}).
 
-Ve většině případů je i~k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mém případě využita první hodnota z~order book ve~více než 90~\% (statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části, celkově bylo vzato v~potaz více než 140~tisíc indexů). Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
+Ve většině případů je i~k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mém případě využita první hodnota z~order book ve~více než 80~\% (statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části, celkově bylo vzato v~potaz více než 70~tisíc indexů). Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
 
 K získání úplně nejvyššího absolutního zisku by bylo nutné neobchodovat trojúhelník v hloubce s nejvyšším absolutním ziskem, ale zobchodovat všechny kladné trojúhelníky do sbírané hloubky v pořadí od nejlepšího procentuálního zisku. Takovýto obchod by sice přinesl nejvyšší zisk, ale pro jeho provedení by bylo nutné provést velké množství transakcí, které není většinou reálně možné stihnout.
 
@@ -530,7 +535,7 @@ Nechť máme tři odlišné měny \(C_1,C_2,C_3\) a~nechť existují směnné ku
 Dále definujme \(f_i\) jako poplatek mezi měnami \(C_i\) a~\(C_{i+1}\), kde pro zjednodušení notace \(C_1 = C_4\).
 
 Následně definujme
-\[D_{C_1,C_2,C_3}(t) = \prod_i^3\Big(x_i(t)*(1-f_i)\Big)\]
+\[D_{C_1,C_2,C_3}(t) = \prod_i^3\Big(x_i(t)*(1-f_i)\Big)\] \todo[]{Bylo mi doporučeno rovnice, je na to prostředí align}
 jako procentuální efektivitu trojúhelníku v~čase \(t\).
 
 V závislosti na~vztahu mezi \(1\) a~\(D_{C_1,C_2,C_3}(t)\) je možné vyhodnotit, zdali se~jedná o~arbitrážní příležitost. Možnosti jsou následující:
@@ -915,17 +920,17 @@ Z grafů \ref{ineffictivity_correlation} a~\ref{occurences} je poměrně zřejm�
 V této sekci se~podrobněji věnuji nejzajímavějším trojúhelníkům, které jsem vyselektoval na~základě téměř tří měsíců dat. 
 
 \subsection{Selekce}
-Trojúhelníky jsem vybíral převážně na~základě hodnot z~předchozí sekce \linebreak (konkrétně z~tabulek \ref{table_gains} a~\ref{table_averages}). Z~toho důvodu, že se~většina pozorovaných hodnot mezi jednotlivými měnami moc neliší, bral jsem v~potaz převážně faktor průměrného denního potenciálního zisku (ne všechny mají data ze všech dní, proto byl zvolen průměr).
+Trojúhelníky jsem vybíral převážně na~základě hodnot z~předchozí sekce \linebreak (konkrétně z~tabulek \ref{table_averages} a~\ref{table_gains}). Z~toho důvodu, že se~většina pozorovaných hodnot mezi jednotlivými měnami moc neliší, bral jsem v~potaz převážně faktor průměrného denního potenciálního zisku (ne všechny trojúhelníky mají data ze všech dní, proto byl zvolen průměr).
 
-V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u~kterých je možné v~průměru každý den vydělat více než 10 amerických dolarů. V~této sekci se~však nevěnuji všem, ale pouze pěti nejlukrativnějším trojúhelníkům \linebreak (USDT/BTC/EOS, USDT/BTC/XRP, USDT/EOS/BNB, USDT/BTC/TRX, USDT/BTC/LTC).
+V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u~kterých je možné v~průměru každý den vydělat více než 10 amerických dolarů. V~této sekci se~však nevěnuji všem, ale pouze pěti nejlukrativnějším trojúhelníkům a jednomu zajímavému kvůli jeho odlišným vlastnostem (USDT/BTC/BCH). Nevěnuji se všem trojúhelníkům splňující spodní podmínku výdělečnosti, poněvadž mají velmi podobné vlastnosti a tabulky k ostatním jsou uvedeny v příloze.
 
 Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnících figuruje USD Tether, zástupce stabilní měny odpovídající americkému dolaru.
 
 
 \begin{table}\centering
-\caption{Tabulka průměrných hodnot týkajících se arbitrážních příležitostí na nejlepších trojúhelnících}
+\caption{Průměrné denní hodnoty arbitrážních příležitostí na nejlepších trojúhelnících}
 \label{table_combined_best}
-\begin{tabular}{|| r | r | r ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\ [0.5ex]
+\begin{tabular}{|| l | r | r ||}\hline Trojúhelník & Průměrný denní počet & Denní neefektivita (USD)\\
  \hline
  \hline USDT/EOS/BNB & 18,229885 & 178,495958\\ 
  \hline USDT/BTC/EOS & 13,367816 & 119,419172\\ 
@@ -946,14 +951,51 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 \end{table}
 
 \subsection{Bližší statistiky}
-V této sekci vypisuji blízké statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
+V této sekci vypisuji konkrétní statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
+
+\subsubsection{USDT/EOS/BNB}
+Trojúhelník USDT/EOS/BNB je z~pohledu potenciálního zisku nejlepší, je však nutné podotknout, že pro zobchodování nějakých příležitostí by bylo nutné provést velmi velké transakce. Například na~nejvýhodnější příležitosti bylo možné vydělat 460,43~EOS (1123,44~USD) viz tabulka \ref{USDTEOSBNB_stats}. Touto nejvýdělečnější transakcí se tak dalo vydělat více než 6,6~\% celkového potenciálního zisku za téměř tři měsíce. Pro uskutečnění takto velké transakce je však nutné zobchodovat obrovské množství peněz (14~745~EOS tedy asi 35~977~USD), které si dovoluji tvrdit, že většina běžných obchodníků na~kontě připravené nemá.
+
+Tento trojúhelník má i nadprůměrně dlouhou dobu trvání výskytu pozitivní arbitrážní příležitosti 0,41~s (průměr činí 0,35~s a medián 0,25~s). 
+
+Průměrně se~každý den vyskytne na~tomto trojúhelníku přes 18 arbitrážních příležitostí, toto číslo je však velmi ovlivněno lokálními výkyvy (viz graf \ref{occurences_arbitrage_USDTEOSBN}), a~proto denní medián výskytu činí pouhý 1 výskyt za den.
+
+\begin{table}\centering
+\caption{Základní statistiky trojúhelníku USDT/EOS/BNB}
+\label{USDTEOSBNB_stats}
+\begin{tabular}{|| l | r ||}
+\hline Název & Hodnota \\ 
+\hline\hline Název & USDT/EOS/BNB \\ 
+\hline Počet dní & 87 \\ 
+\hline Průměrný denní počet arbitráží & 18,229885057471265 \\ 
+\hline Medián denního počtu arbitráží & 1,0 \\ 
+\hline Průměrný procentuální zisk & 1,0006779030220183 \\ 
+\hline Nejvyšší procentuální zisk & 1,099279716 \\ 
+\hline Celkový potenciální zisk & 6364,405072 EOS \\ 
+\hline Celkový potenciální zisk (USD) & 15529,148376552923 \\ 
+\hline Průměrný denní potenciální zisk & 73,154081 EOS \\ 
+\hline Průměrný denní potenciální zisk (USD) & 178,49595835118302 \\ 
+\hline Nejvyšší potenciální zisk & 460,426732 EOS \\ 
+\hline Nejvyšší potenciální zisk (USD) & 1123,441226324 \\ 
+\hline Průměrná doba trvání & 0,4055661658894621 \\ 
+\hline Celkový počet příležitostí & 2693 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 12 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTEOSBNB.png}
+	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/EOS/BNB }\label{occurences_arbitrage_USDTEOSBN}
+\end{figure}
+
 
 \subsubsection{Trojúhelník USDT/BTC/EOS}
-Trojúhelník USDT/BTC/EOS je z~pohledu potenciálního zisku nejlepší, je však nutné podotknout, že pro zobchodování nějakých trojúhelníků by bylo nutné provést nějaké velmi velké transakce. Například na~nejvýhodnější příležitosti bylo možné vydělat 135,37~EOS (330,31~USD) viz \ref{USDTBTCEOS_stats}. Pro uskutečnění takto velké transakce je však nutné zobchodovat obrovské množství peněz, které většina běžných obchodníků na~kontě připravené nemá.
+Trojúhelník USDT/BTC/EOS je z~pohledu potenciálního zisku druhým nevýdělečnějším. Oproti trojúhelníku USDT/EOS/BNB je vyváženější z pohledu výkyvů ve~velikosti příležitostí, nejvýdělečnější transakce zahrnuje pouze 2,5~\% celkového potenciálního zisku (viz tabulka \ref{USDTBTCEOS_stats}.
 
-Tento trojúhelník má i nadprůměrně dlouhou dobu trvání výskytu pozitivní arbitrážní příležitosti 0,41~s (průměr činí 0,38~s a medián 0,30~s). 
+Tento trojúhelník má podprůměrně dlouhou dobu trvání výskytu pozitivní arbitrážní příležitosti 0,33~s (průměr činí 0,35~s a medián 0,25~s). 
 
-Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 30 arbitrážních příležitostí, toto číslo je však velmi ovlivněno lokálními výkyvy (viz graf \ref{occurences_arbitrage_USDTBTCEOS}), a~proto medián výskytu činí pouhé 2 výskyty za den.
+Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 13 arbitrážních příležitostí, toto číslo je však velmi ovlivněno lokálními výkyvy (viz graf \ref{occurences_arbitrage_USDTBTCEOS}), a~proto denní medián nečiní žádný výskyt.
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/EOS}
@@ -961,17 +1003,20 @@ Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 30 arbitrá�
 \begin{tabular}{|| l | r ||}
 \hline Název & Hodnota \\ 
 \hline\hline Název & USDT/BTC/EOS \\ 
-\hline Průměrný denní počet arbitráží & 33,74698795180723 \\ 
-\hline Medián denního počtu arbitráží & 2,0 \\ 
-\hline Průměrný procentuální zisk & 1,0012251043875073 \\ 
-\hline Nejvyšší procentuální zisk & 1,122481585 \\ 
-\hline Celkový potenciální zisk & 55723,309798 EOS \\ 
-\hline Celkový potenciální zisk (USD) & 135964,87590695146 \\ 
-\hline Průměrný denní potenciální zisk & 681,827077 EOS \\ 
-\hline Průměrný denní potenciální zisk (USD) & 1663,6580682802976 \\ 
-\hline Nejvyšší potenciální zisk & 135,376096 EOS \\ 
-\hline Nejvyšší potenciální zisk (USD) & 330,317673996 \\ 
-\hline Průměrná doba trvání & 0,4177635142804336 \\ 
+\hline Počet dní & 87 \\ 
+\hline Průměrný denní počet arbitráží & 13,367816091954023 \\ 
+\hline Medián denního počtu arbitráží & 0,0 \\ 
+\hline Průměrný procentuální zisk & 1,0006232934708796 \\ 
+\hline Nejvyšší procentuální zisk & 1,073843096 \\ 
+\hline Celkový potenciální zisk & 4257,978680 EOS \\ 
+\hline Celkový potenciální zisk (USD) & 10389,467979647266 \\ 
+\hline Průměrný denní potenciální zisk & 48,942284 EOS \\ 
+\hline Průměrný denní potenciální zisk (USD) & 119,41917217985363 \\ 
+\hline Nejvyšší potenciální zisk & 95,706220 EOS \\ 
+\hline Nejvyšší potenciální zisk (USD) & 233,5231760436 \\ 
+\hline Průměrná doba trvání & 0,3288854242482326 \\ 
+\hline Celkový počet příležitostí & 1461 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 47 \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -981,12 +1026,43 @@ Průměrně se~v~každý den vyskytne na~tomto trojúhelníku přes 30 arbitrá�
 	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BTC/EOS }\label{occurences_arbitrage_USDTBTCEOS}
 \end{figure}
 
+\subsection{Trojúhelník USDT/BNB/XMR}
+Trojúhelník USDT/BNB/XMR je třetím nejvýdělečnějším trojúhelníkem a svými vlastnostmi se velmi podobá předchozím dvěma trojúhelníkům. Průměrný denní počet výskytů (téměř 29 za den) také velice převyšuje denní medián výskytů, pouze 1 (viz tabulka \ref{USDTBNBXMR_stats} a graf \ref{occurences_arbitrage_USDTBNBXMR}). Trojúhelník má \linebreak podprůměrnou dobu výskytu pozitivní arbitrážní příležitosti, pouze 0,34 (průměr činí 0,35~s a medián 0,25~s).
+
+\begin{table}\centering
+\caption{Základní statistiky trojúhelníku USDT/BNB/XMR}
+\label{USDTBNBXMR_stats}
+\begin{tabular}{|| l | r ||}
+\hline Název & Hodnota \\ 
+\hline\hline Název & USDT/BNB/XMR \\ 
+\hline Počet dní & 85 \\ 
+\hline Průměrný denní počet arbitráží & 28,941176470588236 \\ 
+\hline Medián denního počtu arbitráží & 1,0 \\ 
+\hline Průměrný procentuální zisk & 1,000667765324073 \\ 
+\hline Nejvyšší procentuální zisk & 1,12956548 \\ 
+\hline Celkový potenciální zisk & 176,174297 XMR \\ 
+\hline Celkový potenciální zisk (USD) & 9402,422255187845 \\ 
+\hline Průměrný denní potenciální zisk & 2,072639 XMR \\ 
+\hline Průměrný denní potenciální zisk (USD) & 110,61673241397463 \\ 
+\hline Nejvyšší potenciální zisk & 9,045483 XMR \\ 
+\hline Nejvyšší potenciální zisk (USD) & 482,75741420738996 \\ 
+\hline Průměrná doba trvání & 0,33822535252042407 \\ 
+\hline Celkový počet příležitostí & 4349 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 16 \\ 
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}\centering
+	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTBNBXMR.png}
+	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BNB/XMR }\label{occurences_arbitrage_USDTBNBXMR}
+\end{figure}
+
 \subsubsection{Trojúhelník USDT/BTC/XRP}
-Trojúhelník USDT/BTC/XRP je z~pohledu velikosti celkového potenciálního zisku druhý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelník USDT/BTC/EOS. Denně se průměrně objevuje přes 25 arbitrážních \linebreak příležitostí, avšak medián výskytu je stejně jako u předchozího trojúhelníku pouze 2. Tento vysoký rozdíl je taktéž způsoben velkým výkyvem z~12. \linebreak a~13.~března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
+Trojúhelník USDT/BTC/XRP je z~pohledu výše celkového potenciálního zisku čtvrtý nejlepší. Trpí však podobnými problémy jako předchozí trojúhelníky. Denně se průměrně objevuje přes 14 arbitrážních příležitostí, avšak medián výskytu je nulový, tedy během většiny dní se na trojúhelníku nic zajímavého neděje. 
+Vysoký rozdíl mezi průměrem a mediánem počtu výskytů je taktéž způsoben velkým výkyvem z~12.~a~13.~března 2020 (viz graf \ref{occurences_arbitrage_USDTBTCXRP} a~tabulka \ref{USDTBTCXRP_stats}).
 
-Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážních příležitostí a to 0,43~s. Zajímavou hodntou je, že se na \linebreak nejvýdělečnější arbitrážní příležitosti dal zhodnotit zobchodovaný \linebreak objem o~12~\%. 
-
-
+Trojúhelník USDT/BTC/XRP má nadprůměrně dlouhé trvání pozitivních arbitrážních příležitostí a to 0,38~s (průměr činí 0,35~s a medián 0,25~s).
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/XRP}
@@ -994,17 +1070,20 @@ Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážn
 \begin{tabular}{|| l | r ||}
 \hline Název & Hodnota \\ 
 \hline\hline Název & USDT/BTC/XRP \\ 
-\hline Průměrný denní počet arbitráží & 27,158536585365855 \\ 
-\hline Medián denního počtu arbitráží & 2,0 \\ 
-\hline Průměrný procentuální zisk & 1,0009275743359198 \\ 
+\hline Počet dní & 87 \\ 
+\hline Průměrný denní počet arbitráží & 14,402298850574713 \\ 
+\hline Medián denního počtu arbitráží & 0,0 \\ 
+\hline Průměrný procentuální zisk & 1,0005281442944596 \\ 
 \hline Nejvyšší procentuální zisk & 1,057942892 \\ 
-\hline Celkový potenciální zisk & 160677,580080 XRP \\ 
-\hline Celkový potenciální zisk (USD) & 29880,40617954193 \\ 
-\hline Průměrný denní potenciální zisk & 2123,484765 XRP \\ 
-\hline Průměrný denní potenciální zisk (USD) & 394,8938442881309 \\ 
+\hline Celkový potenciální zisk & 49356,057687 XRP \\ 
+\hline Celkový potenciální zisk (USD) & 9178,49926772779 \\ 
+\hline Průměrný denní potenciální zisk & 567,311008 XRP \\ 
+\hline Průměrný denní potenciální zisk (USD) & 105,49999158307804 \\ 
 \hline Nejvyšší potenciální zisk & 1226,628320 XRP \\ 
 \hline Nejvyšší potenciální zisk (USD) & 228,1099355288 \\ 
-\hline Průměrná doba trvání & 0,43422859375782613 \\ 
+\hline Průměrná doba trvání & 0,38476166983032234 \\ 
+\hline Celkový počet příležitostí & 1572 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 65 \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -1014,43 +1093,8 @@ Trojúhelník USDT/BTC/XRP má také nadprůměrně dlouhé trvání arbitrážn
 	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BTC/XRP }\label{occurences_arbitrage_USDTBTCXRP}
 \end{figure}
 
-\subsubsection{Trojúhelník USDT/EOS/BNB}
-Tento trojúhelník má velmi podobné vlastnosti jako oba výše zmiňované \linebreak trojúhelníky. Průměrný počet denního výskytu arbitrážních příležitostí je zaokrouhleně 25 a medián se díky velkým výkyvům drží pouze na hodnotě 1 (viz tabulka \ref{USDTEOSBNB_stats}).
-
-Doba trvání pozitivní arbitrážní příležitosti trojúhelníku USDT/EOS/BNB je něco málo přes půl sekundy.
-
-Na tomto trojúhelníku bylo možné pozorovat nejvyšší potenciální zisk za celou dobu mého počínání a to 460,4~EOS (asi 1123 amerických dolarů).
-
-\begin{table}\centering
-\caption{Základní statistiky trojúhelníku USDT/EOS/BNB}
-\label{USDTEOSBNB_stats}
-\begin{tabular}{|| l | r ||}
-\hline Název & Hodnota \\ 
-\hline\hline Název & USDT/EOS/BNB \\ 
-\hline Průměrný denní počet arbitráží & 25,20731707317073 \\ 
-\hline Medián denního počtu arbitráží & 1,0 \\ 
-\hline Průměrný procentuální zisk & 1,0006468165496751 \\ 
-\hline Nejvyšší procentuální zisk & 1,099279716 \\ 
-\hline Celkový potenciální zisk & 7607,870143 EOS \\ 
-\hline Celkový potenciální zisk (USD) & 18563,203148757526 \\ 
-\hline Průměrný denní potenciální zisk & 95,119309 EOS \\ 
-\hline Průměrný denní potenciální zisk (USD) & 232,09111380976984 \\ 
-\hline Nejvyšší potenciální zisk & 460,426732 EOS \\ 
-\hline Nejvyšší potenciální zisk (USD) & 1123,441226324 \\ 
-\hline Průměrná doba trvání & 0,5126168685056676 \\ 
-\hline
-\end{tabular}
-\end{table}
-
-\begin{figure}\centering
-	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTEOSBNB.png}
-	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/EOS/BNB }\label{occurences_arbitrage_USDTEOSBNB}
-\end{figure}
-
 \subsubsection{Trojúhelník USDT/BTC/TRX}
-Trojúhelník USDT/BTC/TRX je čtvrtým nejvýnosnějším trojúhelníkem a je některými svými hodnotami velmi zajímavý (viz tabulka \ref{USDTBTCTRX_stats}). Denní průměr výdělku je poměrně vysoký (148~USD) na to, že se průměrně za den objeví pouze necelých osm arbitrážních příležitostí. Medián výskytu arbitrážních příležitostí je 0, tedy ve většině dnů se na tomto trojúhelníku nic zajímavého neděje.
-
-I přes to, že není tento trojúhelník moc aktivní, má velmi nízkou průměrnou dobu trvání pozitivní arbitrážní příležitosti, pouze 0,33~s. 
+Trojúhelník USDT/BTC/TRX je pátým nejvýnosnějším trojúhelníkem a svými vlastnostmi je opět velmi podobný všem výše zmíněným (viz tabulka \ref{USDTBTCTRX_stats}). Denní průměr výdělku je poměrně vysoký (105~USD) na to, že se průměrně za den objeví pouze necelých sedm arbitrážních příležitostí. Medián výskytu arbitrážních příležitostí je 0, tedy během většiny dní se na tomto trojúhelníku nic zajímavého neděje. Nejvýnosnější arbitrážní příležitostí bylo možné vydělat 5,5~\% celkové potenciální zisku za pozorovanou dobu.. 
 
 \begin{table}\centering
 \caption{Základní statistiky trojúhelníku USDT/BTC/TRX}
@@ -1058,17 +1102,20 @@ I přes to, že není tento trojúhelník moc aktivní, má velmi nízkou prům�
 \begin{tabular}{|| l | r ||}
 \hline Název & Hodnota \\ 
 \hline\hline Název & USDT/BTC/TRX \\ 
-\hline Průměrný denní počet arbitráží & 7,939024390243903 \\ 
+\hline Počet dní & 87 \\ 
+\hline Průměrný denní počet arbitráží & 6,32183908045977 \\ 
 \hline Medián denního počtu arbitráží & 0,0 \\ 
-\hline Průměrný procentuální zisk & 1,0006865990830283 \\ 
+\hline Průměrný procentuální zisk & 1,0005649956765 \\ 
 \hline Nejvyšší procentuální zisk & 1,081229127 \\ 
-\hline Celkový potenciální zisk & 765018,639704 TRX \\ 
-\hline Celkový potenciální zisk (USD) & 9636,939804349977 \\ 
-\hline Průměrný denní potenciální zisk & 11755,941183 TRX \\ 
-\hline Průměrný denní potenciální zisk (USD) & 148,08959108195072 \\ 
+\hline Celkový potenciální zisk & 725679,610703 TRX \\ 
+\hline Celkový potenciální zisk (USD) & 9141,38605602326 \\ 
+\hline Průměrný denní potenciální zisk & 8341,144951 TRX \\ 
+\hline Průměrný denní potenciální zisk (USD) & 105,0734029427961 \\ 
 \hline Nejvyšší potenciální zisk & 35482,621400 TRX \\ 
 \hline Nejvyšší potenciální zisk (USD) & 446,97458177580006 \\ 
-\hline Průměrná doba trvání & 0,3332981314875493 \\ 
+\hline Průměrná doba trvání & 0,37156302745091413 \\ 
+\hline Celkový počet příležitostí & 931 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 27 \\ 
 \hline
 \end{tabular}
 \end{table}
@@ -1078,42 +1125,42 @@ I přes to, že není tento trojúhelník moc aktivní, má velmi nízkou prům�
 	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BTC/TRX }\label{occurences_arbitrage_USDTBTCTRX}
 \end{figure}
 
-
-
-\subsubsection{Trojúhelník USDT/BTC/LTC}
-Trojúhelník USDT/BTC/LTC má velmi podobné vlastnosti jako všechny výše zmiňované. Má také o poznání vyšší denní průměr výskytu arbitrážních \linebreak příležitostí než medián (viz \ref{USDTBTCLTC_stats}). Celkově má tento trojúhelník poměrně krátkou dobu trvání arbitrážních příležitostí, pouze 0,31~s. 
+\subsubsection{Trojúhelník USDT/BTC/BCH}
+Trojúhelník USDT/BTC/XRP je sice posledním trojúhelníkem splňujícím podmínku průměrné denní výdělečnosti přes 10~amerických dolarů, je na druhou stranu zajímavý svými hodnotami. Celkově se na tomto trojúhelníku průměrně vyskytuje ani ne 5 pozitivních arbitrážních příležitostí denně. Zajímavý je tím, že na jeho nejvýdělečnější transakci bylo možné vydělat 0,61~BCH, což odpovídá 36,7~\% celkového potenciálního zisku za měřený úsek (viz tabulka \ref{USDTBTCBCH_stats}).
 
 \begin{table}\centering
-\caption{Základní statistiky trojúhelníku USDT/BTC/LTC}
-\label{USDTBTCLTC_stats}
+\caption{Základní statistiky trojúhelníku USDT/BTC/BCH}
+\label{USDTBTCBCH_stats}
 \begin{tabular}{|| l | r ||}
 \hline Název & Hodnota \\ 
-\hline\hline Název & USDT/BTC/LTC \\ 
-\hline Průměrný denní počet arbitráží & 16,98780487804878 \\ 
-\hline Medián denního počtu arbitráží & 2,0 \\ 
-\hline Průměrný procentuální zisk & 1,0007425863293733 \\ 
-\hline Nejvyšší procentuální zisk & 1,044031061 \\ 
-\hline Celkový potenciální zisk & 243,101895 LTC \\ 
-\hline Celkový potenciální zisk (USD) & 9967,177694038402 \\ 
-\hline Průměrný denní potenciální zisk & 3,487130 LTC \\ 
-\hline Průměrný denní potenciální zisk (USD) & 142,97232477708206 \\ 
-\hline Nejvyšší potenciální zisk & 18,062474 LTC \\ 
-\hline Nejvyšší potenciální zisk (USD) & 740,56143359 \\ 
-\hline Průměrná doba trvání & 0,3099152460165692 \\ 
+\hline\hline Název & USDT/BTC/BCH \\ 
+\hline Počet dní & 60 \\ 
+\hline Průměrný denní počet arbitráží & 4,633333333333334 \\ 
+\hline Medián denního počtu arbitráží & 0,0 \\ 
+\hline Průměrný procentuální zisk & 1,0007975736975039 \\ 
+\hline Nejvyšší procentuální zisk & 1,03076856 \\ 
+\hline Celkový potenciální zisk & 4,812820 BCH \\ 
+\hline Celkový potenciální zisk (USD) & 1073,1625924129744 \\ 
+\hline Průměrný denní potenciální zisk & 0,080214 BCH \\ 
+\hline Průměrný denní potenciální zisk (USD) & 17,886043206882906 \\ 
+\hline Nejvyšší potenciální zisk & 0,611238 BCH \\ 
+\hline Nejvyšší potenciální zisk (USD) & 136,29376486436797 \\ 
+\hline Průměrná doba trvání & 0,37848524100832015 \\ 
+\hline Celkový počet příležitostí & 296 \\ 
+\hline Počet příležitostí k zisku poloviny celkového zisku & 8 \\ 
 \hline
 \end{tabular}
 \end{table}
 
 \begin{figure}\centering
-	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTBTCLTC.png}
-	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BTC/LTC }\label{occurences_arbitrage_USDTBTCLTC}
+	\includegraphics[width=1\textwidth]{images/best_triangles/occurences_arbitrage_USDTBTCBCH.png}
+	\caption{Vývoj arbitrážních příležitostí na~trojúhelníku USDT/BTC/BCH }\label{occurences_arbitrage_USDTBTCBCH}
 \end{figure}
 
-
 \subsubsection{Zhodnocení nejlepších trojúhelníků}
-Z předchozích podkapitol, kde se~blíže věnuji nejzajímavějším trojúhelníkům je vidět, že všechny mají velmi podobné vlastnosti, co se~týče data výskytu i~délky výskytu (viz spojený graf nejlepších trojúhelníků \ref{occurence_of_best}). Tento jev může být částečně způsobený tím, že ve~všech trojúhelnících figuruje USD Tether (USDT). 
+Z předchozích podkapitol, kde se~blíže věnuji nejzajímavějším trojúhelníkům je vidět, že všechny mají velmi podobné vlastnosti, co se~týče data výskytu i~délky výskytu (viz spojený graf nejlepších trojúhelníků \ref{occurence_of_best}). Tento jev může být částečně způsobený tím, že ve~všech trojúhelnících figuruje USD Tether. 
 
-Z toho důvodu, že průměrná doba životnosti arbitrážní příležitosti \linebreak v~žádném případě ani nedosahuje jedné vteřiny, není reálně možné detekovat a~vytěžit arbitrážní příležitosti ručně bez jakéhokoliv bota, který by se~staral o~detekci a~následné vytěžování. 
+Neboť průměrná doba životnosti arbitrážní příležitosti v~žádném případě ani nedosahuje jedné vteřiny, není reálně možné detekovat a~vytěžit arbitrážní příležitosti ručně bez jakéhokoliv bota, který by se~staral o~detekci a~následné vytěžování. 
 
 Dále je nutné podotknout, že pro zobchodování některých arbitrážních příležitostí by bylo nutné zobchodovat jmění o objemech několika desítek tisíc amerických dolarů. Jelikož na téměř všech výdělečných trojúhelnících figuruje USDT stačí mít teoreticky pro vytěžování většiny trojúhelníků velký obnos pouze v této měně.
 
@@ -1140,8 +1187,10 @@ V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních a
 
 \end{conclusion}
 
-\bibliographystyle{csn690}
-\bibliography{mybibliographyfile}
+% \bibliographystyle{csn690}
+% \bibliography{mybibliographyfile}
+
+\printbibliography
 
 \appendix
 
