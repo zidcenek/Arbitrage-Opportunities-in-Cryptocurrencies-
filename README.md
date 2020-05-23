@@ -10,7 +10,8 @@ Nutné balíčky ke spuštění nainstalované v Python 3:
 ## Data_colletion:
 Pro spuštění je nutné mít nainstalované výše uvedené balíčky plus
 - pip install python-binance
-program se poté spouští bez jakýchkoli přepínačů: \
+
+program se následně spouští bez jakýchkoli přepínačů: \
 python3 main.py
 
 ## Selection:
