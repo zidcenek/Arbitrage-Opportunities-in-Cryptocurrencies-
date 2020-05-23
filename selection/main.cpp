@@ -85,6 +85,8 @@ int main(int argc, char *argv[]) {
         if(argc > 5 && strcmp(argv[4], "-t") == 0){
             try{
                 number_of_threads = stoi(argv[5]);
+                if(number_of_threads < 0)
+                    number_of_threads *= -1;
             }catch(exception & e) {
                 printf("Please write an integer representing number of threads.\n");
             }
@@ -96,7 +98,8 @@ int main(int argc, char *argv[]) {
         printf("No recusive depth (no threads), for more threads use (-r and -t).\n");
         number_of_threads = 1;
     }
-    printf("Starting on %d thread(s).", number_of_threads);
+    printf("Starting on %d thread(s).\n", number_of_threads);
+    printf("---------------------------------------\n");
 
 //     getting all subdirctories
     if(recursive_flag){
@@ -104,14 +107,17 @@ int main(int argc, char *argv[]) {
             paths.emplace_back(item);
     } else{
         paths.emplace_back(path);
+        thread_start(paths, output_path);
+        return 0;
     }
     cout << "size" << paths.size() << endl;
+
 
 
     // starting threads
     vector<vector<string>> subVecs{};
     auto itr = paths.cbegin();
-    int jump = floor(paths.size() / number_of_threads) + 1;
+    int jump = floor(paths.size() / number_of_threads);
     if(jump == 0)
         jump = 1;
     while (itr < paths.cend()){

@@ -2,6 +2,8 @@ data_collection/apikey.txt
 data_collection/privatekey.txt
 selection/data/*
 selection/output/*
+selection/cmake-build-debug/
+selection/.idea/*
 selection_C++/data/*
 selection_C++/output/*
 selection_C++/cmake-build-debug/*
@@ -12,3 +14,11 @@ statistics/output_data3/*
 statistics/output_data_old/
 statistics/arbitrages_count/
 statistics/images/
+data_cleanup/in/*
+data_cleanup/out/*
+data_cleanup/.ipynb_checkpoints/Untitled-checkpoint.ipynb
+data_cleanup/Untitled.ipynb
+data_cleanup/outBCHBNB-2020-02-18
+data_cleanup/second_part/
+data_cleanup/testing/
+data_cleanup/testing_out/

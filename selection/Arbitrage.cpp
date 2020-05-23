@@ -14,7 +14,7 @@ Arbitrage::Arbitrage(){
     looked_into = vector<int>(3, 0);
     counter = 0;
     calculation_type_linear = false;
-
+    reinitialization_counter = 0;
 }
 
 /**
@@ -23,9 +23,8 @@ Arbitrage::Arbitrage(){
  * @return - true or false based on the initialization status
  */
 bool Arbitrage::initialize(const Triplet & triplet, const string & output_path){
-    openFile(triplet.getFile1());
-    openFile(triplet.getFile2());
-    openFile(triplet.getFile3());
+    if(! (openFile(triplet.getFile1()) && openFile(triplet.getFile2()) && openFile(triplet.getFile3()) ) )
+        return false;
     currency_pair_names.push_back(triplet.getCurrency1());
     currency_pair_names.push_back(triplet.getCurrency2());
     currency_pair_names.push_back(triplet.getCurrency3());
@@ -291,6 +290,7 @@ void Arbitrage::run(){
     for(auto & df: dataframes){
         df->close();
     }
+    printf("Reinitialized %d times\n", reinitialization_counter);
 }
 
 /**
@@ -320,7 +320,7 @@ long double Arbitrage::detection(){
  * @return - bool representing opening status
  */
 bool Arbitrage::openFile(string const& filename){
-    ifstream *fin = new ifstream("../data/" + filename);
+    ifstream *fin = new ifstream(filename);
     if (! fin->is_open() ){
         cout << "File could not be opened" << endl;
         return false;
@@ -371,7 +371,7 @@ bool Arbitrage::getNext(int index){
             int sum = std::accumulate(std::begin(looked_into), std::end(looked_into), 0);
             if(sum == 6) {
                 looked_into.clear();
-                printf("Initialized successfully\n");
+//                printf("Initialized successfully\n");
             }
         }
 
@@ -381,7 +381,7 @@ bool Arbitrage::getNext(int index){
 //        printf("%7.10Lf\n", tempCP.getTimestamp() - old_timestamp);
         stuck_counter++;
         if(stuck_counter == 1){
-            printf("Big jump in timestamps trying to reinitialize\n");
+//            printf("Big jump in timestamps trying to reinitialize\n");
             reinitialize();
         }
     }
@@ -394,6 +394,7 @@ bool Arbitrage::getNext(int index){
  * @return -> wether the initialization had been completed successfully
  */
 bool Arbitrage::reinitialize() {
+    reinitialization_counter ++;
     string tmp;
     CurrencyPair tempCP;
     for(int i = 0; i < buffer.size(); i++){

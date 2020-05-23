@@ -53,6 +53,7 @@ private:
     int all;
     long double fees;
     int stuck_counter;
+    int reinitialization_counter;
     vector<int> looked_into;
     string OUTPUT_DIRECTORY;
 };

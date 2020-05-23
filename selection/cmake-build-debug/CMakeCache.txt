@@ -200,12 +200,6 @@ selection_BINARY_DIR:STATIC=/mnt/d/School/bakalarka/git/bakalarka/selection/cmak
 //Value Computed by CMake
 selection_SOURCE_DIR:STATIC=/mnt/d/School/bakalarka/git/bakalarka/selection
 
-//Value Computed by CMake
-untitled_BINARY_DIR:STATIC=/mnt/d/School/bakalarka/git/bakalarka/selection/cmake-build-debug
-
-//Value Computed by CMake
-untitled_SOURCE_DIR:STATIC=/mnt/d/School/bakalarka/git/bakalarka/selection
-
 
 ########################
 # INTERNAL cache entries
