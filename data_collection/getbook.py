@@ -58,7 +58,7 @@ class BinanceWebsocket():
             tmp = ""
             for item in msg.values():
                 tmp += str(item) + ';'
-            tmp += '/n'
+            tmp += '\n'
             currency['file'].write(tmp)
         except Exception as e:
             print(e)
