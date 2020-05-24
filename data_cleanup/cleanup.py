@@ -53,14 +53,17 @@ def clean_csv(filename: str) -> pd.DataFrame:
     df = pd.read_csv(filename, usecols=cols, delimiter=';', skip_blank_lines=True, error_bad_lines=False, 
                          warn_bad_lines=False, dtype=str)
     
-    if len(df.columns) != 5:
+    if len(df.columns) == 5:
+        df.columns = ['id', 'demand', 'supply', 'timestamp', 'none']
+        df = df.drop(['none'], axis=1)
+    elif len(df.columns) == 4:
+        df.columns = ['id', 'demand', 'supply', 'timestamp']
+    else:
         return None
-    df.columns = ['id', 'demand', 'supply', 'timestamp', 'none']
     df = df[df.id.apply(lambda x: x.isnumeric())]
     df.id = df.id.astype(int)
     df = df[df.timestamp.apply(lambda x: is_relevant_timestamp(x))]
     df = df.sort_values(['id', 'timestamp'])
-    df = df.drop(['none'], axis=1)
     df = df.dropna()
     df = df.drop_duplicates('id')
     return df
