@@ -155,7 +155,63 @@ long double Arbitrage::calculateNarrowest(
             thickness.push_back(pair3.second * pair3.first / pair1.first);
         }
     }
-    return *min_element(thickness.begin(), thickness.end());
+    long double min_el = *min_element(thickness.begin(), thickness.end());
+    int arg_min = std::min_element(thickness.begin(), thickness.end()) - thickness.begin();
+    double sfee = 0.999;
+    if(! calculation_type_linear){
+        if(demand_flag){
+            if(arg_min == 0){
+                long double a = pair1.second*pair1.first/pair3.first*sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+                a = pair1.second*pair1.first/pair3.first/pair2.first*sfee*sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+            } else if(arg_min == 1){
+                long double a = pair2.second*pair1.first/pair3.first*sfee*sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+            } else {
+                long double a = pair3.second/pair2.first * sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+                a = pair3.second/pair2.first*sfee*sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+            }
+        } else {
+            if(arg_min == 0){
+                long double a = pair1.second * pair2.first * sfee * sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+            } else if(arg_min == 1){
+                long double a = pair2.second * pair2.first * sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+                a = pair2.second * pair2.first * pair3.first / pair1.first * sfee * sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+            } else {
+                long double a = pair3.second * pair3.first / pair1.first * sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+                a = pair3.second * pair3.first / pair1.first * sfee * sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+            }
+        }
+    }
+    return min_el;
 }
 
 /**
