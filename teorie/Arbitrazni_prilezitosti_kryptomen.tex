@@ -63,7 +63,7 @@ Analytická část se s pomocí tabulek a grafů, vytvořených z reálných dat
 \abstractEN{
 This thesis deals with the analysis of arbitrage opportunities. The theoretical part of the thesis focuses on the bitcoin, its history, technologies and basic principles. The thesis further describes the differences among several cryptocurrency exchanges and narrates about the various types of the arbitrage opportunities. 
 
-The practical part follows up with a selection of the suitable cryptocurrency exchange. In the next part the problematic of data availability and its furhter processing is described. 
+The practical part follows up with a selection of the suitable cryptocurrency exchange. The problematic of data availability and its furhter processing is described in the next part. 
 
 The analytic part focuses on the basic statistics of the occurence and profitability of the triangle arbitrage opportunities. These statistics are based on the charts and tables created from the collected data. The statistics are further more evaluated and the most profitable triangles are selected.
 }
@@ -80,15 +80,13 @@ The analytic part focuses on the basic statistics of the occurence and profitabi
 % \newacronym{FIT}{FIT}{Fakulta informa{\v c}n{\' i}ch technologi{\' i}}
 
 \begin{introduction}
-% \todo[]{ nezapomeň napsat/smazat poděkování}
-% \todo[]{V celé práci je hodně odstavců na 2 řádky. Někdy bych zvážil spojení do většího odstace - vypadá to divně. říká se, že odstavec jsou minimálne 3 řádky}
-V této práci se zabývám arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není stabilní. Díky této volatilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se~budu v~této práci věnovat.
+V této práci se zabývám arbitrážními příležitostmi kryptoměn. Jedná se~o téma v~dnešní době velmi aktuální a~moderní. Za~posledních několik let vzniklo velké množství kryptoměn a~žádná z~nich není stabilní. Díky této volatilitě na~burzách s~kryptoměnami vzniká velké množství arbitrážních příležitostí, jejichž analýze se v~této práci věnuji.
 
-Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~dále zabývá otázkami, jak často se~reálně objevují arbitrážní \linebreak příležitosti v~rámci jednotlivých burz, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
+Význam této práce spočívá v~analýze jednotlivých burz jako takových. Práce se~dále zabývá otázkami, jak často se~reálně objevují arbitrážní příležitosti, jak dlouho trvá, než tyto příležitosti zmizí, a~jestli je možné nacházet arbitrážní příležitosti v rámci vybrané burzy.
 
 Téma své práce jsem vybral především proto, že se rád zabývám analýzou dat a~hledáním výstupů, které je z~dat možné získat. Také proto, že dat týkajících se~kryptoměn je na~internetu k~dispozici velké množství, jsou jednoduše dostupná a~dají se~na~nich zjistit zajímavé výstupy. Výhodou arbitrážních příležitostí je to, že se~jedná o~transakce víceméně bez rizika, na~rozdíl od~klasického obchodování s~kryptoměnami, kde je většinou riziko velké a~o jistotě se~mluvit nedá. Z~toho důvodu mi připadá velice zajímavé tyto arbitráže zkoumat podrobněji. 
 
-V práci se~zabývám dostupností dat v~rámci jednotlivých kryptoměnových burz a~možnostmi ukládání těchto dat. Dále se~v~práci zabývám analýzou dat a analýzou výskytů korelací, které v~rámci burz nastávají.
+V práci se~zabývám dostupností dat v~rámci jednotlivých kryptoměnových burz a~možnostmi ukládání těchto dat. Dále se~v~práci zabývám analýzou dat a analýzou výskytů korelací, které v~rámci vybrané burzy nastávají.
 
 V první části práce se~věnuji tomu, co to jsou kryptoměny a~co znamenají arbitrážní příležitosti. V~následující části se~věnuji zkoumání dostupnosti dat na~jednotlivých burzách a~možnostem jejich získávání. Na~to navazuji analýzou získaných dat z~pohledu arbitrážních příležitostí. Zabývám se~zde převážně otázkami, jak často arbitrážní příležitosti nastávají a~jestli je reálně možné a~vyplatí se arbitrážní příležitosti vytěžovat.
 
@@ -100,7 +98,7 @@ Hlavním cílem této práce je najít a~zanalyzovat arbitrážní příležitos
 
 V teoretické části se~zaměřím na~to, kde je možné historická data týkající se~kryptoměn najít a~získat. Popíšu zde, co jsou to kryptoměny a~arbitrážní příležitosti. Dále se~budu zabývat tím, jakými matematickými a~informatickými metodami je možné tato data analyzovat a~vyberu ty metody, které se~budou na~moji problematiku hodit nejvíce.
 
-V praktické části naimplementuji sběr dat na~úrovni order book jednotlivých měnových párů. Dále na~těchto datech provedu analýzu, kde využiji metody popsané v~teoretické části. Zhodnotím, jaké metody byly účinnější a~vhodnější pro analýzu dat z~kryptoměnových burz a~jaké výsledky jsem získal.
+V praktické části naimplementuji sběr dat na~úrovni order book jednotlivých měnových párů. Dále na~těchto datech provedu analýzu. Zhodnotím, jaké metody byly účinnější a~vhodnější pro analýzu dat z~kryptoměnových burz a~jaké výsledky jsem získal.
 
 V závěru praktické části zhodnotím výsledky z~analýzy dat, a~z~vyhodnocených výsledků spočítám základní statistiky výskytu, obchodovatelnosti a~výnosnosti arbitrážních příležitostí. 
 
@@ -166,7 +164,7 @@ Monero po~vzoru svého nejstaršího předchůdce vzniklo jako open source proje
 
 Monero se~pyšní tím, že zaručuje naprostou anonymitu. Historii a~stav konta v~případě Monera si může prohlížet pouze majitel účtu. V~případě bitcoinu všichni vidí, jaké transakce proběhly a~pokud se~tedy podaří identifikovat vlastníka nějaké adresy, je jednoduché dohledat veškerou historii transakcí, které byly z~dané adresy provedeny.
 
-Stejně jako ostatní kryptoměny, má Monero také dvojici privátního \linebreak a~veřejného klíče. Má však ještě druhou dvojici privátního a~veřejného klíče a~to takzvaného klíče k~prohížení (view key). View key je možné poskytnout třetí osobě, aby se~přes něj byla schopna dozvědět veškerou historii transakcí, které na~adrese proběhly, je tedy možné udělat i~transparentní účet.
+Stejně jako ostatní kryptoměny, má Monero také dvojici privátního \linebreak a~veřejného klíče. Má však ještě druhou dvojici privátního a~veřejného klíče a~to takzvaného klíče k~prohížení (view key). View key je možné poskytnout třetí osobě, aby se~přes něj byla schopna dozvědět veškerou historii transakcí, které na~adrese proběhly. Je tedy možné vytvořit i~transparentní účet.
 
 Poslední důležitý rozdíl oproti bitcoinu je to, že celkový počet Monera není omezen. Emitování mincí nepoběží stále stejnou rychlostí, ale postupně se~bude snižovat, dokud nedosáhne spodní nenulové hranice. \cite{alza_monero} Cena za~jednu minci Monera dosahuje hodnoty  \$~54,59 (údaj ze~4.4. 2020 na~burze Binance). \cite{binance_markets}
 
@@ -199,9 +197,9 @@ V předchozí části jsem zmínil nějaké dle mého názoru významné a~zají
 V této podkapitole se~zaměřuji na~několik kryptoměnových burz. Poukazuji na~jejich klady a~zápory a~věnuji se~výběru těch nejlepších mezi nimi.
 
 \subsection{Coinmate}
-Coinmate je kryptoměnová burza sídlící ve~Velké Británii, která vznikla \linebreak na~základě technologií české společnosti Profinit v~roce 2014. Burza se~zaměřuje na~tyto tři základní aspekty: rychlost, spolehlivost a~bezpečnost. Coinmate se~řadí mezi menší burzy. Podle ohlašovaného obchodovaného objemu za~posledních 30~dní ve~velikosti (21~658~191 amerických dolarů \cite{coin360}) se~burza neřadí ani mezi 100 největších. \cite{coinmarketcap} Burza ani nenabízí velké množství obchodovatelných párů, pouze 20. Dříve do 25.3. 2020 bylo možné na Coinmate obchodovat s~Korunou českou a Eurem. Obchodování s Eurem by mělo být opět možné nejspíš někdy ke konci května nebo v červnu. Coinmate se také snaží nastavit podmínky tak, aby bylo možné i obchodování s Korunou českou. \cite{coinmate_blog}  
+Coinmate je kryptoměnová burza sídlící ve~Velké Británii, která vznikla \linebreak na~základě technologií české společnosti Profinit v~roce 2014. Burza se~zaměřuje na~tyto tři základní aspekty: rychlost, spolehlivost a~bezpečnost. Coinmate se~řadí mezi menší burzy. Podle ohlašovaného obchodovaného objemu za~posledních 30~dní ve~velikosti (21~658~191 amerických dolarů \cite{coin360}) se~burza neřadí ani mezi 100 největších. \cite{coinmarketcap} Burza ani nenabízí velké množství obchodovatelných párů, pouze 20. Dříve, do 25.3. 2020, bylo možné na Coinmate obchodovat s~Korunou českou a Eurem. Obchodování s Eurem by mělo být opět možné nejspíš někdy ke konci května nebo v červnu. Coinmate se také snaží nastavit podmínky tak, aby bylo možné i obchodování s Korunou českou. \cite{coinmate_blog}  
 
-Coinmate se~dále pyšní tím, že má poměrně nízké poplatky. Pro uživatele v~roli \uv{maker}, ti kteří aktivně vytvářejí nabídku a~poptávku, činí poplatek 0,12~\% až 0~\% (viz obrázky \ref{coinmate_standard} a~\ref{coinmate_promotional}). Pro uživatele v~roli \uv{taker}, ti kteří nevytvářejí nové nabídky a~poptávky, pouze obchodují na~aktuálních, se~poplatek pohybuje v~rozmezí 0,25~\% až 0.05~\% (viz obrázky \ref{coinmate_standard} a~\ref{coinmate_promotional}. Tímto systémem poplatků, kdy nižší poplatky jsou pro tvůrce trhu (makers), se~snaží burza podpořit likviditu na~trhu. \cite{cryptowisser_coinmate} \cite{coinmate_fees}
+Coinmate se~dále pyšní tím, že má poměrně nízké poplatky. Pro uživatele v~roli \uv{maker}, ti kteří aktivně vytvářejí nabídku a~poptávku, činí poplatek 0,12~\% až 0~\% (viz obrázky \ref{coinmate_standard} a~\ref{coinmate_promotional}). Pro uživatele v~roli \uv{taker}, ti kteří nevytvářejí nové nabídky a~poptávky, pouze obchodují na~aktuálních, se~poplatek pohybuje v~rozmezí 0,25~\% až 0,05~\% (viz obrázky \ref{coinmate_standard} a~\ref{coinmate_promotional}). Tímto systémem poplatků, kdy nižší poplatky jsou pro tvůrce trhu (makers), se~snaží burza podpořit likviditu na~trhu. \cite{cryptowisser_coinmate} \cite{coinmate_fees}
 
 Z obrázků \ref{coinmate_standard} a~\ref{coinmate_promotional} je také možné vidět, že poplatky jsou sníženy pro~obchodníky, kteří obchodují na~burze s~vyššími objemy. U~uživatele v~roli maker tím pádem může dojít ke~snížení až na~hranici nulových poplatků. \cite{coinmate_fees}
 
@@ -214,16 +212,12 @@ Z obrázků \ref{coinmate_standard} a~\ref{coinmate_promotional} je také možn�
 	\caption{Poplatky na~burze Coinmate pro maker i~taker) \cite{coinmate_fees}}\label{coinmate_promotional}
 \end{figure}
 
-% \todo[]{U tabulek a obrázků můžeš nastavovat plavoucí prostředí. Richtr mi říkal, že se to případně dává tak, aby když tabulka nemůže být na svém přesném místě tak bude dole na stránce (má popisek nahoře) a obrázek nahoře n stránce (má popisek dole). Většinou ty pozice  vychází celkem dobře}
-
 \subsection{Binance}
 Burza Binance byla založena v~Číně v~roce 2017, avšak později své sídlo přesunula na~Maltu. Binance je podle dat z~CoinMarketCap největší burzou z~hlediska zobchodovaného objemu za~posledních 30 dní (158~302~486~366~\$). \cite{coinmarketcap} Burza podporuje obchodování s~1320~odlišnými měnami.
 
 Binance je také specifická tím, že všechny obchodovatelné dvojice se  \linebreak sestávají pouze z~kryptoměn, a~ne z~běžných měn. Například americké dolary jsou nahrazeny stable coiny, jako je například USDT nebo TUSD. 
 
-Burza Binance si v~průměru účtuje 0.1~\% za~provedené obchody s~měnami. Tento poplatek je stejný jak pro maker tak pro taker. Pokud se~uživatel rozhodne zaplatit tyto poplatky domovskou měnou binance coin (BNB), pak jsou tyto poplatky redukovány o~čtvrtinu. Z~toho plyne, že poplatky na~burze Binance patří k~jedněm z~nejnižších.
-
-Vkladové poplatky jsou nulové pro veškeré měny. Na~druhou stranu \linebreak výběrové poplatky se~liší pro každou měnu (viz obrázek \ref{binance_fees}). \cite{blockonomi_binance}
+Burza Binance si v~průměru účtuje 0,1~\% za~provedené obchody s~měnami. Tento poplatek je stejný jak pro maker tak pro taker. Pokud se~uživatel rozhodne zaplatit tyto poplatky domovskou měnou binance coin (BNB), pak jsou tyto poplatky redukovány o~čtvrtinu. Z~toho plyne, že poplatky na~burze Binance patří k~jedněm z~nejnižších. Vkladové poplatky jsou nulové pro veškeré měny. Na~druhou stranu výběrové poplatky se~liší pro každou měnu (viz obrázek \ref{binance_fees}). \cite{blockonomi_binance}
 
 \begin{table}\centering
     \caption{Výběrové poplatky na~burze Binance \cite{binance_fees}}
@@ -257,9 +251,9 @@ Vkladové poplatky jsou nulové pro veškeré měny. Na~druhou stranu \linebreak
 \subsection{MXC}
 Burza MXC je jednou z~novějších burz. Vznikla v~dubnu roku 2018 a~je registrována v~Singapuru. Podle statistik serveru CoinMarketCap je druhou největší z~pohledu obchodovaného objemu za~posledních 30 dní s~objemem 101~249~688~459 amerických dolarů. \cite{coinmarketcap} MXC podobně jako burza Binance podporuje velké množství altcoinů. Celkově je zde možné obchodovat s~264 měnami. \cite{mxc_coins}
 
-Co se~týče poplatků patří burza MXC se~svými poplatky o~velikosti 0,2~\% mezi vyšší (z pohledu zkoumaných burz). Poplatek pro maker i~taker je totožný. Tím, že tato burza patří mezi špičku z hlediska zobchodovaného objemu, je zaručena i~dostatečná likvidita. \cite{cryptowisser_mxc} 
+Co se~týče poplatků patří burza MXC se~svými poplatky o~velikosti 0,2~\% mezi vyšší (ze zkoumaných burz). Poplatek pro maker i~taker je totožný. Tím, že tato burza patří mezi špičku z hlediska zobchodovaného objemu, je zaručena i~dostatečná likvidita. \cite{cryptowisser_mxc} 
 
-Burza MXC stejně jako Binance nezpoplatňuje vklady, zpoplatňuje ale výběry. Výběrové poplatky se~mohou periodicky měnit na~základě situace jednotlivých bloků. \cite{mxc_fees} Na~základě tabulek \ref{mxc_fees} a~\ref{binance_fees} je možné vidět, že výběrové poplatky jsou velmi podobné jako na~burze Binance. Jediný znatelný rozdíl je u~USD Tether (USDT). \cite{cryptowisser_mxc}
+Burza MXC stejně jako Binance nezpoplatňuje vklady a zpoplatňuje výběry. Výběrové poplatky se~mohou periodicky měnit na~základě situace jednotlivých bloků. \cite{mxc_fees} Na~základě tabulek \ref{mxc_fees} a~\ref{binance_fees} je možné vidět, že výběrové poplatky jsou velmi podobné jako na~burze Binance. Jediný znatelný rozdíl je u~USD Tether (USDT). \cite{cryptowisser_mxc}
 
 \begin{table}\centering
     \caption{Výběrové poplatky na~burze MXC \cite{mxc_fees}}
@@ -334,12 +328,11 @@ Co se~týče poplatků, využívá LBank takzvaně plochý model poplatků, popl
 
 \section{Arbitrážní příležitosti}
 \subsection{Efektivita trhu}
-Efektivní je takový trh, kde jsou všechny dostupné informace zohledněny v~ceně aktiv (měn, akcií, dluhopisů, komodit).\cite{efektivita_trhu}
+Efektivní je takový trh, kde jsou všechny dostupné informace zohledněny v~ceně aktiv (měn, akcií, dluhopisů, komodit). \cite{efektivita_trhu}
 
-Silně efektivní trh je takový, když kurz obsahuje všechna známá kurzotvorná data, jak veřejná, tak i veřejně nedostupná. Trhy poté reagují tak rychle, že pro nikoho, ani pro vlastníky neveřejných dat, není možné realizovat nadprůměrné zisky. \cite{efektivnost_trhu}
+Silně efektivní trh je takový, kde kurz obsahuje všechna známá kurzotvorná data, jak veřejná, tak i veřejně nedostupná. Trhy poté reagují tak rychle, že pro nikoho, ani pro vlastníky neveřejných dat, není možné realizovat nadprůměrné zisky. \cite{efektivnost_trhu}
 
 Reálné trhy nikdy dokonale efektivní nejsou. Na~těchto neefektivních trzích je pak možné sledovat arbitrážní příležitosti, které vznikají právě z~neefektivity trhu. \cite{pecev, what_is_arbitage} 
-% \todo[]{Můžeš použít i \cite{a, b} nebo oddělit citace čárkou}
 
 \subsection{Arbitráž}
 Arbitráž je obchodní strategie, která má za~cíl vydělat na~neefektivitě trhu. Je založena na~principu nakoupit levně a~prodat téměř instantně dráže. Principem arbitráže je vytvořit zisk na~malých rozdílech v~ceně aktiv téměř bez~jakéhokoliv rizika. Nejčastěji se~jedná o~nákup na~jednom místě a~téměř instantní prodej na~místě jiném za~vyšší cenu. \cite{Capital}
@@ -351,7 +344,6 @@ Díky informačním technologiím a~vysoké rychlosti výpočtů bylo možné se
 
 \subsection{Arbitráže v~rámci kryptoměnových burz}
 Arbitrážní příležitosti na~kryptoměnových burzách jsou pouhou obdobou arbitráží vyskytujících se~na~forexových trzích. Jedná se~prakticky o~úplně to samé. Jediným rozdílem je fakt, že se~místo reálných měn obchoduje s~kryptoměnami. 
-% \todo[]{Odstavce hned za sebou začínají úplně stejně: Arbitrážní ...}
 
 Arbitrážní příležitost na~kryptoměnových burzách (podobně jako na~forexových trzích) vznikne většinou na~základě rozdílu cen na~dvou odlišných burzách. Důvod, proč arbitráže vznikají právě na~kryptoměnových burzách, je ten, že na~burzách, kde dochází k~velkému obchodnímu objemu, vzniká i~velká likvidita určité měny, která poté reaguje rychleji na~změny cen. Na~druhou stranu na~burzách, kde je menší nabídka dané měny, je likvidita nižší a~cena dané měny bude daleko pomaleji reagovat na~změny. Tím, že je možné nakoupit na~jedné burze levněji a~na~druhé prodat dráže, vzniká neefektivita a~s ní také potenciální zisk.
 
@@ -362,8 +354,8 @@ Měnový pár je vztah mezi dvěma měnami určující hodnotu jedné vůči dru
 
 Poměr je uváděn ve~vztahu k~základní měně. Pokud je nákupní cena USD/CZK 22,5, znamená to, že je možné nakoupit 1~dolar za~22,5~ Korun českých. Běžně je uváděn i~opačný kurz tedy CZK/USD. \cite{Capital_menovy_par} 
 
-V rámci kryptoměnových burz je běžné uvádět pouze jeden kurz, například LTC/BTC, ne však obrácený BTC/LTC. Z~toho důvodu jsou \linebreak na~kryptoměnových burzách u~jednotlivých kurzů vždy uváděny dvě hodnoty bid (nabídka) a~ask (poptávka). 
-% \todo[]{Stejný začátek odstavců hned za sebou: V rámci...}
+V rámci kryptoměnových burz je běžné uvádět pouze jeden kurz, například LTC/BTC, ne však obrácený BTC/LTC. Z~toho důvodu jsou na~kryptoměnových burzách u~jednotlivých kurzů vždy uváděny dvě hodnoty bid (poptávka) a~ask (nabídka). 
+
 V rámci kryptoměnových burz se~značení mezi měnovými páry často liší, avšak většinou se~používá jedna z~těchto tří možností (AAA/BBB, AAA-BBB, AAABBB), kde AAA a~BBB zastupují zkratku nějaké měny (kryptoměny).
 
 \subsection{Deterministické arbitrážní příležitosti}
@@ -400,9 +392,8 @@ Pro svou práci jsem potřeboval získat data, která se~týkají aktuálních n
 \subsection{Data na~kryptoměnových burzách}
 Nejdříve jsem se~snažil získat historická data na~oficiálních stránkách jednotlivých burz, konkrétně Binance, CoinMate, MXC, LBank. Zde jsem se~byl schopen po~registraci připojit na~jednotlivá API. Data zde byla veřejně k~dispozici, avšak neodpovídala formátu, který jsem pro svou práci požadoval. 
 
-Na všech kryptoměnových burzách byla k~dispozici data pouze o~aktuálních nabídkách a~poptávkách. Co se týče historických dat, bylo možné získat data o~všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a~čas provedení obchodu. Dále bylo možné získat data k~vytvoření svíčkových grafů. Všechna tato historická data byla pro mě však irelevantní, protože jsem potřeboval historická data ve~formátu order book.
+Na všech kryptoměnových burzách byla k~dispozici data pouze o~aktuálních nabídkách a~poptávkách. Co se týče historických dat, bylo možné získat data o~všech provedených obchodech, kde bylo vždy uvedeno minimálně množství, cena a~čas provedení obchodu. Dále bylo možné získat data k~vytvoření svíčkových grafů. Všechna tato historická data byla pro mě však irelevantní, protože jsem potřeboval historická data ve~formátu order book. \cite{BinanceApi, BitForexApi, LBankApi, CoinMateApi, MXCApi}
 
-% todo - doplnit citace na~jednotlivé burzy
 \subsection{Vlastní sběr dat}
 Žádná z~burz neposkytovala historická data ve~formátu order book, která jsem pro svou práci potřeboval. Byl jsem proto nucen si data začít sbírat z~burz sám. Díky tomuto rozhodnutí zmizel problém s~dostupností dat, protože všechny zmiňované burzy poskytovaly aktuální data ve~formátu order book pro všechny své měnové páry.
 
@@ -413,7 +404,7 @@ Při výběru burzy bylo nutné zohlednit několik faktorů, které mohou mít v
     \item zobchodovaný objem,
     \item počet měn, se kterými je možné obchodovat.
 \end{itemize}
-Faktor, který bylo možné zanedbat, byl počet různých měn, neboť většina burz poskytuje daleko větší počet měn, než kolik jsem byl reálně schopný ukládat. Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodovaným objemem a ve~výši poplatků.
+Faktor, který bylo možné zanedbat, byl počet různých měn, neboť většina burz poskytuje daleko větší počet měn, než kolik jsem byl reálně schopný ukládat. Nejdůležitějšími faktory při výběru burzy se~staly rozdíly mezi obchodovaným objemem a~výší poplatků.
 
 \begin{table}\centering
      \caption{Porovnání parametrů jednotlivých burz}
@@ -436,7 +427,7 @@ Faktor, který bylo možné zanedbat, byl počet různých měn, neboť většin
 \end{table}
 
 \subsection{Burza Binance}
-Po porovnání vybraných parametrů (viz tabulka \ref{exchanges_comparison} nebo pro podrobnější informace kapitola \nameref{cryptocurrency_exchanges}) jsem jako burzu, ze~které jsem sbíral data, vybral server Binance. Tato burza má nejvyšší obchodovaný objem za~posledních 30~dní ze~všech kryptoměnových burz \cite{coinmarketcap} a~také má ze~všech zkoumaných burz nejpřívětivější systém poplatků ve~výši 0,1~\% (respektive 0,05~\% při placení poplatků v~domovské měně Binance Coin).
+Po porovnání vybraných parametrů (viz tabulka \ref{exchanges_comparison} nebo pro podrobnější informace kapitola \nameref{cryptocurrency_exchanges}) jsem jako burzu, ze~které jsem sbíral data, vybral server Binance. Tato burza má nejvyšší obchodovaný objem za~posledních 30~dní ze~všech kryptoměnových burz \cite{coinmarketcap} a~také má ze~všech zkoumaných burz nejpřívětivější systém poplatků ve~výši 0,1~\% (respektive 0,075~\% při placení poplatků v~domovské měně Binance Coin).
 
 K volbě této burzy přispělo přívětivé API, ke~kterému jsem se~připojil přes websocket. \cite{BinanceApi} Tímto způsobem mi při každé změně chodila data ve~formě order book ohledně aktuální nabídky a~poptávky sledovaného měnového páru. Tento formát dat tedy splňoval původní požadavek. \cite{BinanceApi}
 
@@ -467,13 +458,12 @@ Na serveru Binance je možné obchodovat s~1320 různými měnami (údaj k~29.~3
 Celkově je dostupných těchto 30 měnových párů: BCHBNB, BCHBTC, BCHUSDT, BNBBTC, BNBETH, BNBUSDT, BTCUSDT, EOSBNB,  \linebreak EOSBTC, EOSETH, EOSUSDT, ETHBTC, ETHUSDT, LTCBNB, LTCBTC, LTCETH, LTCUSDT, TRXBNB, TRXBTC, TRXETH, TRXUSDT,  \linebreak TRXXRP, XMRBNB, XMRBTC, XMRETH, XMRUSDT, XRPBNB,  \linebreak XRPBTC, XRPETH, XRPUSDT. Tato data nabývala dohromady velikosti v~průměru téměř 1~GB za~den.
 
 Následně zkoumám všech 41 trojúhelníků, které je možné složit, z~těchto měnových párů: BTC/BCH/BNB, BTC/ETH/EOS, BTC/LTC/ETH,  \linebreak ETH/EOS/BNB, USDT/BNB/TRX, USDT/BTC/ETH, USDT/EOS/BNB, USDT/ETH/XRP, XRP/BNB/TRX, BTC/BNB/TRX, BTC/ETH/TRX,  \linebreak BTC/XRP/BNB, ETH/XRP/BNB, USDT/BNB/XMR, USDT/BTC/LTC, USDT/ETH/BNB, USDT/LTC/BNB, BTC/BNB/XMR, BTC/ETH/XMR, BTC/XRP/TRX, ETH/XRP/TRX, USDT/BTC/BCH, USDT/BTC/TRX, USDT/ETH/EOS, USDT/LTC/ETH, BTC/EOS/BNB, BTC/ETH/XRP,  \linebreak ETH/BNB/TRX, LTC/ETH/BNB, USDT/BTC/BNB, USDT/BTC/XMR, USDT/ETH/TRX, USDT/XRP/BNB, BTC/ETH/BNB, BTC/LTC/BNB, ETH/BNB/XMR, USDT/BCH/BNB, USDT/BTC/EOS, USDT/BTC/XRP, USDT/ETH/XMR, USDT/XRP/TRX.
-% todo - napsat názvy měn
 
 \section{Zpracování dat}
 \subsection{Filtrování surových dat}
 V prvním kroku bylo mým cílem pouze vyfiltrovat všechny potenciální arbitrážní příležitosti, které se~na~jednotlivých trojúhelnících objevovaly.
 
-Nejdříve jsem tento filtrovací skript napsal v~jazyce Python. V něm však probíhalo filtrování příliš pomalu, řádově několik minut pro provedení jednoho trojúhelníku za~jeden den. To bylo však nepoužitelné pro větší objemy dat. Rozhodl jsem se proto využít jazyk C++. V něm se~mi podařilo filtrování zrychlit téměř šedesátkrát, tudíž jsem se~dostal z~řádu hodin denně na~minuty.
+Nejdříve jsem tento filtrovací skript napsal v~jazyce Python. V něm však probíhalo filtrování příliš pomalu, řádově několik minut pro provedení jednoho trojúhelníku za~jeden den. To bylo nepoužitelné pro větší objemy dat. Rozhodl jsem se proto využít jazyk C++. V něm se~mi podařilo filtrování zrychlit téměř šedesátkrát, tudíž jsem se~dostal z~řádu hodin denně na~minuty.
 
 \subsubsection{Struktura filtrovaných dat}
 Vyfiltrovaná data jsem ukládal v~JSON formátu. Tento formát jsem vybral, neboť umožňuje přehledněji strukturovat data (viz ukázka formátu \ref{json_data}).
@@ -484,11 +474,10 @@ Na nejnižší úrovni JSON formátu jsem si ukládal tyto informace:
     \item without\_fees\_count -- celé číslo popisující počet nalezených neefektivit trhu, (kolikrát by se~vyskytla arbitrážní příležitost, kdyby na~burze neexistovaly poplatky), 
     \item all\_count -- celé číslo, které udává kolik celkově proběhlo kontrol na~výskyt arbitrážní příležitosti (neboli počet záznamů order book na~třech \linebreak příslušných měnových párech).
     \item arbitrages\_stats -- pole, ve~kterém jsou uvedeny bližší informace, ke~každé arbitrážní příležitosti. 
-    % \todo[]{osobně bych dal ty položky tučně a popis normálně. Koukám, že musím všude u sebe dopsat pomlčky}
 \end{itemize}
 Bližší informace k jednotlivým arbitrážním příležitostem obsahovala tato data:
 \begin{itemize}
-    \item score -- desetinné číslo popisující teoretický procentuální zisk (s poplatky),
+    \item score -- desetinné číslo popisující teoretický procentuální zisk (po~zahrnutí poplatků),
     \item supply\_gain\_index (demand\_gain\_index) -- pole tří indexů popisující nejlepší kombinaci z~order book k~získání nejvyššího absolutního zisku na~straně trojúhelníku začínajícího nabídkou, resp. poptávkou,
     \item supply\_gain (demand\_gain) -- hodnota absolutního zisku hlavní měny v~prvním měnovém páru v~odrážce pairs na~straně trojúhelníku začínajícího nabídkou, resp. poptávkou (pokud nedojde k~žádnému zisku je hodnota ponechána na~0),
     \item time\_delta -- zaznamenává detekovanou dobu výskytu arbitrážní \linebreak příležitosti, 
@@ -498,8 +487,6 @@ Bližší informace k jednotlivým arbitrážním příležitostem obsahovala ta
 	\includegraphics[width=0.6\textwidth]{images/json_data.PNG}
 	\caption{Ukázka JSON formátu struktury dat}\label{json_data}
 \end{figure}
-%\ref{fig:gnuplot-col}
-% todo - změnit obrázek na~JSON example
 \subsection{Arbitrážní příležitosti}
 Ve své práci se~věnuji pouze trojúhelníkovým arbitrážním příležitostem, tedy vždy příležitostem pro 3 odlišné měny. Pro libovolnou obchodovatelnou dvojici kryptoměn (AAA a~BBB) mám vždy údaj pouze z~jedné strany (poptávka i~nabídka je pouze z~pohledu jedné z~kryptoměn), proto může docházet v~trojúhelníku k~osmi možnostem uskupení měnových párů. Těchto osm \linebreak možností je však možné přeskupením dostat do~dvou odlišných kombinací.
 
@@ -509,7 +496,7 @@ Dalším krokem v~rámci detekce ideální příležitosti je propočítání n�
 
 Ve většině případů je k~získání největšího absolutního zisku nejvýhodnější využít prvních hodnot v~rámci order book. Celkově je v~mé práci využita první hodnota z~order book ve~více než 80~\% případů. Statistika byla prováděna na~reálných arbitrážních příležitostech získaných v~mé praktické části. Celkově bylo vzato v~potaz více než 70~tisíc indexů. Využití dalších indexů v~pořadí je využito o~poznání méně řádově v~jednotkách procent, které se~snižují s~každým dalším indexem (viz koláčový graf \ref{index_distribution}).
 
-K získání nejvyššího absolutního zisku by bylo nutné neobchodovat trojúhelník pouze v~hloubce s~nejvyšším absolutním ziskem, ale zobchodovat všechny kladné trojúhelníky do~sbírané hloubky v~pořadí od~nejlepšího procentuálního zisku. Takovýto obchod by sice přinesl nejvyšší zisk, ale pro jeho provedení by bylo nutné provést velké množství transakcí, které není většinou reálně možné stihnout( pro bližší hodnoty doby trvání viz kapitola \ref{chapter:analyza_dat}). Ve~své práci tedy beru v~potaz pouze arbitrážní příležitosti, kde stačí provést na~každém měnovém páru jednu transakci.
+K získání nejvyššího absolutního zisku by bylo nutné neobchodovat trojúhelník pouze v~hloubce s~nejvyšším absolutním ziskem, ale zobchodovat všechny kladné trojúhelníky do~sbírané hloubky v~pořadí od~nejlepšího procentuálního zisku. Takovýto obchod by sice přinesl nejvyšší zisk, ale pro jeho provedení by bylo nutné provést velké množství transakcí, které není většinou reálně možné stihnout (pro bližší hodnoty doby trvání viz kapitola \ref{chapter:analyza_dat}). Ve~své práci tedy beru v~potaz pouze arbitrážní příležitosti, kde stačí provést na~každém měnovém páru jednu transakci.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/index_distribution.png}
@@ -525,8 +512,6 @@ Dále definujme \(f_i\) jako poplatek mezi měnami \(C_i\) a~\(C_{i+1}\), kde pr
     D_{C_1,C_2,C_3}(t) = \prod_i^3\Big(x_i(t)*(1-f_i)\Big) \enspace ,
 \end{equation}
 
-% \todo{prostředí align}
-
 V závislosti na~vztahu mezi \(1\) a~\(D_{C_1,C_2,C_3}(t)\) je možné vyhodnotit, zdali se~jedná o~arbitrážní příležitost. Možnosti jsou následující:
 \begin{itemize}
     \item za~předpokladu, že \(D_{C_1,C_2,C_3}(t) < 1\), není detekována arbitrážní  \linebreak příležitost a~při provedení obchodu by došlo ke~ztrátě,
@@ -537,7 +522,7 @@ V závislosti na~vztahu mezi \(1\) a~\(D_{C_1,C_2,C_3}(t)\) je možné vyhodnoti
 \subsubsection{Nejužší místo v arbitrážní příležitosti}
 Při vytěžování arbitrážní příležitosti je nutné určit množství, které bude zobchodováno. Toto místo je určeno jako nejužší část trojúhelníku. V práci ho určuji tím způsobem, že podle aktuálních kurzů převedu množství uvedená v~měnových párech na jednu měnu. Kurzy pro převod jsou využívány ve směru zkoumaného trojúhelníku. Z vypočtených hodnot vyberu nejnižší hodnotu a~určím ji jako nejužší místo. V tomto místě začínám arbitrážní příležitost. 
 
-Hodnota nejužšího místa nemusí být nutně finální. Jelikož uvažuji pouze kladné trojúhelníky, dochází v průběhu obchodování ke zvyšování objemu tak, aby na~konci došlo k výdělku. Je tedy nutné zkontrolovat, jestli i omezení na~ostatních měnových párech odpovídají předem vybranému nejužšímu místu. Pokud omezení neodpovídají, pak je propagována chyba na začátek a~nejužší místo je řádně sníženo. 
+Hodnota nejužšího místa nemusí být nutně finální. Jelikož uvažuji pouze kladné trojúhelníky, dochází v průběhu obchodování ke zvyšování objemu tak, aby na~konci došlo k výdělku. Je tedy nutné zkontrolovat, jestli i omezení na~ostatních měnových párech odpovídají předem vybranému nejužšímu místu. Pokud omezení neodpovídají, pak je propagována chyba na začátek a~nejužší místo je řádně sníženo. Neprovedením úpravy nejužšího místa by nedošlo ke ztrátě, pouze by nebyl převeden veškerý zisk na jednu měnu.
 
 \subsubsection{Reálný příklad arbitrážní příležitosti}
 Na obrázku \ref{triangle_arbitrage} je zachycena reálná arbitrážní příležitost na~trojúhelníku USDT/BTC/TRX, která nastala 15.~května 2020 ve~2:32:08.630  \linebreak koordinovaného světového času UTC. Tento čas je použitý jako hodnota \(t\) pro výpočet následujícího příkladu. V příkladě není využito prvních hodnot na~všech měnových párech, na měnovém páru TRXUSDT je využito druhé hodnoty z důvodu zvýšení absolutního zisku. V~příkladě je počítáno s~poplatky 0,1~\% pro každý měnový pár. Po~dosazení do~rovnice \ref{arbitrage_equation} vyjde:
@@ -558,9 +543,9 @@ Na obrázku \ref{triangle_arbitrage} je zachycena reálná arbitrážní příle
 Nejužší částí tohoto trojúhelníku je množství poptávky na~straně \linebreak~TRXUSDT (ostatní množství této hodnotě také vyhovují), proto je tato hodnota zvolena jako maximální obchodovatelný objem arbitrážní příležitosti a~vynásobena upraveným procentuálním ziskem. 
 \[(D_{USDT,BTC,TRX}(t) - 1) * m = (1,0097307 - 1) * 584028,8 = 5683,014\;TRX\]
 
-Na příkladě je vidět, že na~této konkrétní arbitrážní příležitosti bylo možné vydělat 5~683,014~TRX, což odpovídá asi 84,47~USD. Pro převod byl využit stejný kurz z~obrázku \ref{triangle_arbitrage} na~měnovém páru TRXUSDT, který byl využit pro~výpočet v~trojúhelníku. 
+Na příkladě je vidět, že na~této konkrétní arbitrážní příležitosti bylo možné vydělat 5~683,014~TRX, což odpovídá asi 84,47~USD. Pro převod byl využit stejný kurz z~obrázku \ref{triangle_arbitrage} na~měnovém páru TRXUSDT, který byl využit pro~výpočet v~trojúhelníku.  Tato hodnota vypadá velmi zajímavě, je však nutné podotknout, že k~vytěžení takovéto arbitrážní příležitosti je nutné zobchodovat objem o~velikosti 584~028,8~TRX odpovídajících asi 8~783,79 americkým dolarům. 
 
-Tato hodnota vypadá velmi zajímavě, je však nutné podotknout, že \linebreak k~vytěžení takovéto arbitrážní příležitosti je nutné zobchodovat objem o~velikosti 584~028,8~TRX odpovídajících asi 8~783,79 americkým dolarům. 
+Reálně dochází ke kontrole i v druhém směru trojúhelníku, ten vyšel však záporný, a proto není v~příkladě ani na~obrázku uveden.
 
 \subsubsection{Reálná detekce arbitrážní příležitosti}
 Ve své praktické části detekuji arbitrážní příležitosti stejným způsobem, jaký je popsán v~předchozí sekci. Data však zkoumám později a~analýzu provádím na~historických datech, proto je nutné určit, co považuji za~novou arbitrážní příležitost.
@@ -613,13 +598,13 @@ Záznamy jsou kontrolovány na souslednost identifikačních čísel. Dále jsou
 Adekvátní časovou prodlevu je nutné určit pro každý měnový pár zvlášť, neboť jsou nějaké měnové páry vytíženější než jiné. Adekvátní časové prodlevy jsem určil následujícím způsobem:
 
 \begin{enumerate}
-    \item vybral jsem dny, které měly konzistentní data (konkrétně dny od 10.~4. 2020 až do 17.~5. 2020),
+    \item vybral jsem dny, které měly konzistentní a~monotónní data (konkrétně dny od 10.~4. 2020 až do 17.~5. 2020),
     \item na těchto datech jsem spočítal percentil 99,9 pro každý den a pro každý měnový pár zvlášť,
     \item zvolil jsem medián ze spočítaných percentilů pro tyto dny (viz tabulka časových prodlev \ref{tolerances}).
-    \item tento medián jsem vynásobil konstantou 1,1 a tím určil adekvátní časovou prodlevu.
+    \item tento medián jsem vynásobil konstantou 1,1, přičetl 0,1 sekundy a tím určil adekvátní časovou prodlevu.
 \end{enumerate}
 
-Byl zvolen percentil 99,9, neboť data byla konzistentní a nedocházelo k~velkým výkyvům. Medián byl vybrán, protože jsem nechtěl, aby případný větší výkyv v některém dni zásadně neovlivnil hodnoty. Konstanta 1,1 byla vybrána, aby došlo k zahození menší části dat a stále byly detekovány velké výkyvy.
+Byl zvolen percentil 99,9, neboť data byla konzistentní a nedocházelo k~velkým výkyvům. Medián byl vybrán, protože jsem nechtěl, aby případný větší výkyv v některém dni zásadně ovlivnil hodnoty. Konstanta 1,1 byla vybrána, aby došlo k zahození menší části dat a stále byly detekovány velké výkyvy. Přičtení 0,1~sekundy byly provedeno ke~zvýšení tolerance u~měnových párů s~přísnějšími hodnotami.
 
 Konstanta 1,1 byla zaměněna za konstantu 1,5 pro takové výskyty, kdy na~sebe přímo navazovala identifikační čísla po sobě jdoucích záznamů. Identifikační čísla obchodů na sebe vždy nenavazovala, byla však vždy seřazená. 
 
@@ -671,9 +656,7 @@ Arbitrážní příležitosti jsou kontrolovány následovně. Je spočítán ro
 \subsubsection{Problém s duplicitami}
 V datech od 18.~2. 2020 do 3.~3. 2020 se objevily zmiňované duplicity z~kapitoly \ref{section:kontrola_spravnosti_dat}. Duplicity se mi podařilo odstranit kompletně. Vznikl však problém, že v některých časových okamžicích byla data uložena rozházeně podle identifikačních čísel (není zřejmé, jestli byla chyba na mojí straně nebo na~straně serveru Binance).
 
-Jednotlivé order book záznamy byly seřazeny podle identifikačních čísel, to způsobilo, že časová razítka nebyla monotónně rostoucí. Těchto chyb se objevovalo na některých měnových párech několik stovek až několik tisíc za~den (většina souborů měla okolo 60 až 100 tisíc záznamů). 
-
-Naskytly se dvě možnosti zpracování poškozených souborů:
+Jednotlivé order book záznamy byly seřazeny podle identifikačních čísel, to způsobilo, že časová razítka nebyla monotónně rostoucí. Těchto chyb se objevovalo na některých měnových párech několik stovek až několik tisíc za~den (většina souborů měla okolo 60 až 100 tisíc záznamů). Naskytly se dvě možnosti zpracování poškozených souborů:
 \begin{enumerate}
     \item zahodit několikadenní data,
     \item přizpůsobit program tak, aby ignoroval chyby.
@@ -681,7 +664,7 @@ Naskytly se dvě možnosti zpracování poškozených souborů:
 
 Rozhodl jsem se pro druhou možnost, tedy přizpůsobit program chybám. Při výskytu chyby v monotonii jsem restartoval počítací algoritmus a začal jsem znovu s dalšími správnými hodnotami. Správné hodnoty byly vyhodnocovány na základě algoritmu z předchozích sekcí \ref{section:kontrola_korektnosti_zaznamu} a \ref{section:kontrola_pozitivnich_arbitraznich_prilezitosti}.
 
-V datech byla celkově přeskakována poškozená místa. Výpočty na výskyt trojúhelníkových arbitrážních příležitostí byly prováděny na korektních částech záznamů. Tímto řešením jsem přišel o několik procent záznamů, kde se mohly vyskytovat arbitrážní příležitosti, nepřišel jsem však o všechny záznamy. Upraveným algoritmem by neměly být detekovány nereálné arbitrážní příležitosti, které se nikdy neobjevily. V rámci těchto několika dní se neobjevily žádné větší výkyvy v počtu arbitrážních příležitostí (viz grafy \ref{occurence_correlation} a~\ref{occurences}), proto si dovoluji tvrdit, že se podařilo provést analýzu dat i na~částečně poškozených datech.
+V datech byla celkově přeskakována poškozená místa. Výpočty na výskyt trojúhelníkových arbitrážních příležitostí byly prováděny na korektních částech záznamů. Tímto řešením jsem přišel o několik procent záznamů, kde se mohly vyskytovat arbitrážní příležitosti, nepřišel jsem však o všechny záznamy. Upraveným algoritmem by neměly být detekovány nereálné arbitrážní příležitosti, které se nikdy neobjevily. V rámci těchto několika dní se neobjevily žádné větší výkyvy v počtu arbitrážních příležitostí (viz grafy \ref{occurence_correlation} a~\ref{occurences}), proto si dovoluji tvrdit, že se podařilo provést analýzu i na~částečně poškozených datech.
 
 \section{Struktura modulů praktické části}
 Moje praktická část je rozdělena do čtyř na sobě nezávislých modulů, kterými jsou sběr dat, vyčištění dat, selekce trojúhelníků a statistika na trojúhelnících. Každý modul je odlišný ve svém chování, proto je důležité zmínit některé jejich důležité vlastnosti.
@@ -706,7 +689,7 @@ Selekce trojúhelníků bere data ve formátu CSV (viz obrázek \ref{csv_data}) 
 
 \subsection{Statistiky na trojúhelnících}
 \label{subsection:statistics}
-Poslední část, zaobírající se analýzou trojúhelníků, je napsaná opět v~jazyce Python 3, avšak ve formě Jupyter notebooku. Tento formát byl zvolen z toho důvodu, že se jedná o přehledný způsob zobrazení grafů a tabulek včetně jejich generujícího kódu. Velkou část kódu totiž tvoří části vykreslující grafy, které se dají jednoduše upravit a vygenerovat podobné grafy.
+Poslední část, zaobírající se analýzou trojúhelníků, je napsaná opět v~jazyce Python 3, avšak ve formě Jupyter notebooku. Tento formát byl zvolen z toho důvodu, že se jedná o přehledný způsob zobrazení grafů a tabulek včetně jejich generujícího kódu. Velkou část kódu totiž tvoří části vykreslující grafy, které se dají jednoduše upravit a vygenerovat tak podobné grafy.
 
 Tato část obsahuje dvě hlavní třídy, starající se o přehledné uložení dat. Tyto třídy jsou zdokumentovány v kódu. K Jupyter notebooku neexistuje manuálová stránka, poněvadž jsou jednotlivé kusy kódu okomentovány pomocí jazyka Markdown v rámci Jupyter notebooku. Popis výstupů z Jupyter notebooku je možný najít v poslední kapitole \ref{chapter:analyza_dat}.
 
@@ -726,11 +709,9 @@ V této podkapitole se~úzce věnuji nejzákladnějším statistikám jednotliv�
     \item potenciální zisk.
 \end{itemize}
 
-Jak je možné vidět v~tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se~pro jednotlivé trojúhelníky velmi liší. Pohybuje se od~ani ne jednotek denně až po~několik desítek denně. V~případě trojúhelníku \linebreak USDT/XRP/TRX je jich nejvíce a~jedná se~v~průměru o~více než 30 pozitivních arbitrážních příležitostí denně. Průměrná neefektivita arbitrážní příležitosti (jedná se~o hodnotu procentuálního zisku se zahrnutím poplatků), dosahuje hodnot promile pouze u trojúhelníků USDT/BCH/BNB \linebreak a USDT/ETH/BNB, u všech ostatních sledovaných trojúhelníků se hodnota pohybuje v řádu desetin promile.
+Jak je možné vidět v~tabulce \ref{table_averages}, tak průměrný počet pozitivních arbitrážních příležitostí se~pro jednotlivé trojúhelníky velmi liší. Pohybuje se od~ani ne jednotek denně až po~několik desítek denně. V~případě trojúhelníku \linebreak USDT/XRP/TRX je jich nejvíce a~jedná se~v~průměru o~více než 30 pozitivních arbitrážních příležitostí denně. Průměrná neefektivita arbitrážní příležitosti (jedná se~o hodnotu procentuálního zisku se zahrnutím poplatků), dosahuje hodnot promile pouze u dvou trojúhelníků USDT/BCH/BNB \linebreak a USDT/ETH/BNB, u všech ostatních sledovaných trojúhelníků se hodnota pohybuje v řádu desetin promile.
 
 Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average_percentage_inefficiency} nemusí nutně znamenat vysoký reálný zisk. V~tabulce \ref{table_gains} jsou uvedeny průměrné denní potenciální zisky, jak v~hodnotách jedné z~kryptoměn příslušného trojúhelníku, tak v~hodnotách přepočtených na~americké dolary (podle tabulky kurzů \ref{table_rates}) kvůli lepšímu porovnání. V~tabulce potenciálních zisků \ref{table_gains} je vidět, že se~hodnoty liší mezi jednotlivými trojúhelníky znatelněji než v~tabulce průměrných počtů arbitrážních příležitostí \ref{table_averages}. Průměrné denní potenciální zisky zde kolísají od~hodnot blízkých nule až po~hodnoty desítek až stovek amerických dolarů. 
-
-% todo -- change exp to float
 
 % \hline
 % Nazev & Prumerny denni pocet & \vtop{\hbox{\strut Prumerna}\hbox{\strut neefektivita}}\\ [0.5ex]
@@ -785,7 +766,6 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 \end{tabular}
 \end{table}
 
-\todo{OSA Y, anglický popisek}
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/average_percentage_inefficiency.png}
 	\caption{Celkový průměr procentuální neefektivity jednotlivých trojúhelníků (se zahrnutím poplatků)}\label{average_percentage_inefficiency}
@@ -862,7 +842,7 @@ Vyšší procentuální zisk z~tabulky \ref{table_averages} a~grafu \ref{average
 
 
 \section{Korelace mezi výskytem arbitrážních příležitostí a~vnějšími jevy}
-V této sekci řeším, jaké vnější jevy mohou mít na~výskyt arbitrážních příležitostí vliv a~jak moc s~výskytem korelují nebo nekorelují. Je nutné podotknout, že nějaké vztahy nemusí být úplně vypovídající, protože korelace jsou prováděny pouze na~datech o~velikosti dvou až tří měsíců.
+V této sekci řeším, jaké vnější jevy mohou mít na~výskyt arbitrážních příležitostí vliv a~jak moc s~výskytem korelují nebo nekorelují. Je nutné podotknout, že nějaké vztahy nemusí být úplně vypovídající, protože korelace jsou prováděny pouze na~datech o~objemu dvou až tří měsíců.
 
 \subsection{Závislost na~dni v~týdnu}
 Z grafu \ref{weekday_distribution} je možné vyčíst, že se~arbitrážní příležitosti vyskytovaly nejvíce v~pondělí, v~pátek a v sobotu. Na~druhou stranu při pohledu na~graf \ref{occurences} je jasně vidět, že se ve~výskytu arbitrážních příležitostí nevyskytuje žádný periodický vzor, který by se~opakoval po~každých sedmi dnech. Graf je velice plochý s~pár výkyvy, které naprosto převáží všechny ostatní výskyty.
@@ -898,7 +878,7 @@ Pearsonův korelační koeficient diskrétních hodnot s~četností po~jednotliv
 \subsection{Závislost na~počtu obecných neefektivit trhu}
 Dalším faktorem, na~který jsem se~zaměřil v~souvislosti s~otázku, na~čem by mohl být výskyt arbitrážních příležitostí závislý, je počet neefektivit trhu. Jako neefektivitu trhu označuji takovou situaci, kdy by se~jednalo o~arbitrážní příležitost za~předpokladu, že by nebyly zahrnuty poplatky. Z~této definice vyplývá, že každá arbitrážní příležitost je také nutně neefektivitou trhu.
 
-Z grafů \ref{ineffictivity_correlation} a~\ref{occurences} je poměrně zřejmé, že výskyt arbitrážních příležitostí a~neefektivit trhu spolu moc nekorelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po~jednotlivých dnech to potvrzuje výsledkem \(\sim-0,090\). Z~korelačního koeficientu tedy plyne, že tyto dvě hodnoty spolu téměř nekorelují.
+Z grafů \ref{occurences} a~\ref{ineffictivity_correlation} je poměrně zřejmé, že výskyt arbitrážních příležitostí a~neefektivit trhu spolu moc nekorelují. Výpočet Pearsonova korelačního koeficientu diskrétních hodnot braných po~jednotlivých dnech to potvrzuje výsledkem \(\sim-0,090\). Z~korelačního koeficientu tedy plyne, že tyto dvě hodnoty spolu téměř nekorelují.
 
 \begin{figure}\centering
 	\includegraphics[width=1\textwidth]{images/ineffictivity_correlation.png}
@@ -915,7 +895,6 @@ Trojúhelníky jsem vybíral převážně na~základě hodnot z~předchozí sekc
 V tabulce \ref{table_combined_best} jsou ponechány pouze záznamy, u~kterých je možné každý den v~průměru vydělat více než 10 amerických dolarů. V~této sekci se~však věnuji pouze pěti nejlukrativnějším trojúhelníkům a jednomu zajímavému kvůli jeho odlišným vlastnostem (USDT/BTC/BCH). Nevěnuji se všem trojúhelníkům splňujícím spodní podmínku výdělečnosti, protože mají velmi podobné vlastnosti. Tabulky k ostatním trojúhelníkům jsou uvedeny v příloze (v~Jupyter notebooku, v~části \textit{statistics} viz podkapitola \ref{subsection:statistics}).
 
 Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnících figuruje USD Tether, zástupce stabilní měny odpovídající americkému dolaru.
-
 
 \begin{table}\centering
 \caption{Průměrné hodnoty arbitrážních příležitostí na nejlepších trojúhelnících}
@@ -941,12 +920,12 @@ Je zajímavé si povšimnout, že ve~všech nejzajímavějších trojúhelnící
 \end{table}
 
 \subsection{Bližší statistiky}
-V této sekci uvádím konkrétní statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze.
+V této sekci uvádím konkrétní statistiky k~vybraným zajímavým trojúhelníkům. Statistiky ve~formě tabulek a~grafů ve~stejném formátu ke~všem ostatním trojúhelníkům jsou k~dispozici v~příloze (v~Jupyter notebooku, v~části \textit{statistics} viz podkapitola \ref{subsection:statistics}).
 
 \subsubsection{Trojúhelník USDT/EOS/BNB}
 Trojúhelník USDT/EOS/BNB je z~pohledu potenciálního zisku nejlepší. Je však nutné podotknout, že pro zobchodování některých příležitostí by bylo nutné provést velmi velké transakce. Například na~nejvýhodnější příležitosti bylo možné vydělat 460,43~EOS (1123,44~USD) viz tabulka \ref{USDTEOSBNB_stats}. Touto nejvýdělečnější transakcí bylo možné vydělat více než 6,6~\% celkového potenciálního zisku za téměř tři měsíce. Pro uskutečnění takto velké transakce je však nutné zobchodovat obrovské množství peněz (14~745~EOS tedy asi 35~977~USD).
 
-Tento trojúhelník má i nadprůměrně dlouhou dobu trvání výskytu pozitivní arbitrážní příležitosti 0,41~s (průměr činí 0,35~s a medián 0,25~s). Zajímavé je, že k získání poloviny celkového pozorovaného potenciálního zisku stačilo zobchodovat pouze 12 arbitrážních příležitostí s nejvyšším absolutním ziskem. Zbylých 2681 arbitrážních příležitostí tvořilo druhou polovinu celkového potenciálního zisku.
+Tento trojúhelník má i nadprůměrně dlouhou dobu trvání výskytu pozitivní arbitrážní příležitosti 0,41~s (průměr činí 0,35~s a medián 0,25~s). Zajímavé je, že k získání poloviny celkového pozorovaného potenciálního zisku stačilo zobchodovat pouze 12 arbitrážních příležitostí s nejvyšším absolutním ziskem. Zbylých 2681 arbitrážních příležitostí tvořilo druhou necelou polovinu celkového potenciálního zisku.
 
 Průměrně se~každý den vyskytne na~tomto trojúhelníku přes 18 arbitrážních příležitostí, toto číslo je však velmi ovlivněno lokálními výkyvy (viz graf \ref{occurences_arbitrage_USDTEOSBNB}), a~proto denní medián výskytu činí pouhý 1 výskyt za den.
 
@@ -1015,7 +994,7 @@ Průměrně se~každý den vyskytne na~tomto trojúhelníku přes 13 arbitrážn
 \end{figure}
 
 \subsubsection{Trojúhelník USDT/BNB/XMR}
-Trojúhelník USDT/BNB/XMR je třetím nejvýdělečnějším trojúhelníkem \linebreak a~svými vlastnostmi se velmi podobá předchozím dvěma trojúhelníkům. Průměrný denní počet výskytů (téměř 29 za den) také velice převyšuje denní medián výskytů, pouze 1 (viz tabulka \ref{USDTBNBXMR_stats} a graf \ref{occurences_arbitrage_USDTBNBXMR}). Trojúhelník má \linebreak podprůměrnou dobu výskytu pozitivní arbitrážní příležitosti, pouze 0,34 (průměr činí 0,35~s a medián 0,25~s).
+Trojúhelník USDT/BNB/XMR je třetím nejvýdělečnějším trojúhelníkem \linebreak a~svými vlastnostmi se velmi podobá předchozím dvěma trojúhelníkům. Průměrný denní počet výskytů (téměř 29 za den) také velice převyšuje denní medián výskytů, pouze 1 (viz tabulka \ref{USDTBNBXMR_stats} a graf \ref{occurences_arbitrage_USDTBNBXMR}). Trojúhelník má \linebreak téměř průměrnou dobu výskytu pozitivní arbitrážní příležitosti 0,34~s (průměr činí 0,35~s a medián 0,25~s).
 
 Zajímavou hodnotou na tomto trojúhelníku je, že z celkových 4349 pozitivních arbitrážní příležitostí pokrylo polovinu celkového potenciálního zisku pouze 16 arbitráží (0,37~\% arbitrážních příležitostí pokrylo více než 50~\% celkového potenciálního zisku).
 
@@ -1162,7 +1141,6 @@ Nějaké měnové páry jsou obsaženy v několika trojúhelnících, což můž
 	\caption{Srovnání vývoje denního výskytu arbitrážních příležitostí na~nejlepších trojúhelnících }\label{occurence_of_best}
 \end{figure}
 
-% todo - Změnit celý závěr
 \begin{conclusion}
 Cílem práce bylo zanalyzovat arbitrážní příležitosti kryptoměn a na základě reálných dat z kryptoměnových burz vyhodnotit základní statistiky výskytu a výdělečnosti.
 
@@ -1203,19 +1181,20 @@ V rámci své práce jsem se nevěnoval reálnému vytěžování pozitivních a
 \end{description}
 \chapter{Obsah přiloženého CD}
 
-%upravte podle skutecnosti
-
 \begin{figure}
 	\dirtree{%
-		.1 readme.txt\DTcomment{stručný popis obsahu CD}.
-		.1 exe\DTcomment{adresář se~spustitelnou formou implementace}.
-		.1 src.
-		.2 impl\DTcomment{zdrojové kódy implementace}.
-		.2 thesis\DTcomment{zdrojová forma práce ve~formátu \LaTeX{}}.
-		.1 text\DTcomment{text práce}.
+		.1 README.md\DTcomment{stručný popis obsahu CD}.
+		.1 data\_collection\DTcomment{adresář se~spustitelnou formou sběru dat a manuálovou stránkou}.
+		.1 data\_cleanup.\DTcomment{adresář se~spustitelnou formou čištění dat a manuálovou stránkou}.
+		.1 selection\DTcomment{adresář se~zdrojovými kódy selekce dat včetně s~Makefile}.
+		.1 statistics.
+		.2 statistics.ipynb\DTcomment{Jupyter notebooku se~statistikami arbitráží}.
+		.2 output\_data\DTcomment{adresáře s~JSON soubory nalezených arbitráží}.
+		.2 output\_data\DTcomment{adresáře s~\LaTeX{} soubory tabulek v práci}.
+		.2 images\DTcomment{obrázky vygenerované z Jupyter notebooku}.
+		.1 teorie\DTcomment{text práce}.
 		.2 thesis.pdf\DTcomment{text práce ve~formátu PDF}.
 		.2 thesis.ps\DTcomment{text práce ve~formátu PS}.
 	}
 \end{figure}
-
 \end{document}
