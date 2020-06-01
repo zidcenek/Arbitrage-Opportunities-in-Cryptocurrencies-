@@ -1,28 +1,53 @@
 .Dd June 1, 2020
-.Dt Selection 1
+.Dt SELECTION 1
 .Os
 .Sh NAME
 .Nm selection
 .Nd find arbitrage triangles in order books
 .Sh SYNOPSIS
 .Nm
-.Ar input_dir output_dir [<options>]
+.Ar idir
+.Ar odir
+.Op Fl r
+.Op Fl t Ar num
 .Sh DESCRIPTION
 .Nm
-finds the positive arbitrage opportunities in the given order book data. The input data are supposed to be in the following .csv format
-.Ar id bid ask timestamp
-Where
-.Ar bid ask
-are 2-D arrays (the first column is price and the second column is amount).
-\n
-.Sh OPTIONS
-.SH OPTIONS
-.TP
-\-r Add if you want the program to go through the children directories instead of the given directory.
-\n
-\-t,
-.Ar -t NUMBER
-Set the number of threads. This option is only relevant if \-r flag is also written.
-The program then redistributes the child directories to the number of given threads (one thread in default).
+finds positive arbitrage opportunities in the order books stored in
+.Ar idir ,
+presumably downloaded with
+.Xr getbook 1
+and cleaned with
+.Xr cleanup 1 .
+The input data are expected to consist of csv lines containing
+.Ar id ,
+.Ar bid ,
+.Ar ask
+and
+.Ar timestamp ,
+where
+.Ar bid
+and
+.Ar ask
+are 2D arrays containing price and amount.
+The positive triangles are then reported in files stored in
+.Ar odir .
+.Pp
+With the
+.Fl r
+option,
+.Nm
+will process
+.Ar idir
+recursively.
+If the
+.Fl t
+option is also given,
+.Nm
+will distribute the recursive work on subdirectories into
+.Ar num
+threads.
+.Sh SEE ALSO
+.Xr cleanup 1 ,
+.Xr getbook 1
 .Sh AUTHORS
 .An Čeněk Žid

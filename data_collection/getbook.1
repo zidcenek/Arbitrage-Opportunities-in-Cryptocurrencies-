@@ -1,17 +1,27 @@
-.Dd May 18, 2020
+.Dd June 1, 2020
 .Dt GETBOOK 1
 .Os
 .Sh NAME
 .Nm getbook
-.Nd download order books of Binance
+.Nd download order books from Binance
 .Sh SYNOPSIS
 python3 getbook.py
-.Ar output_directory
+.Ar directory
 .Sh DESCRIPTION
 .Nm
-downloads the order books from Binance for every currency pair written in the ./relevant_symbols file and then saves
-them into the given directory entered as the first parameter. The order books are saved into separate .csv files
-distinguished by the currency pair and current date (new file is created every day for every currency pair).
-Note that it is neccessary to have valid apikey.txt and privatekey.txt in the executing directory.
+downloads the order books from Binance for every currency pair mentioned in
+.Pa ./relevant_symbols
+and saves them into the given
+.Ar directory .
+The order books are stored in separate .csv files
+named according to the currency pair and current date
+(typically, a new file is created every day for every currency pair).
+.Pp
+To connect to Binance,
+a valid
+.Pa apikey.txt
+and
+.Pa privatekey.txt
+file needs to be present in the executing directory.
 .Sh AUTHORS
 .An Čeněk Žid

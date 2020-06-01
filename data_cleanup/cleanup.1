@@ -1,28 +1,34 @@
-.Dd May 18, 2020
-.Dt Cleanup 1
+.Dd June 1, 2020
+.Dt CLEANUP 1
 .Os
 .Sh NAME
-.Nm Cleanup
-.Nd cleans up the .csv files with orderbooks from Getbook script.
+.Nm cleanup
+.Nd clean up csv orderbooks
 .Sh SYNOPSIS
-.Nm
-.Ar input_dir output_dir [<options>]
+python3 cleanup.py
+.Ar idir
+.Ar odir
+.Op Fl r
 .Sh DESCRIPTION
 .Nm
-Goes thorugh all the lines in .csv files with orderbooks from Getbook script. 
+goes through the lines of csv order books downloaded by
+.Xr getbook 1
+into
+.Ar idir
+(recursively, if the
+.Fl r
+option is given).
+Every line is checked for correct datatypes and a correct timestamp;
+ID order monotonicity is ensured and ID dupplicities are removed
+(the occurence with the lowest timestamp is kept).
 .Nm
-checks all lines for correct datatypes,
-correct timestamps, correct ID order and removes any dupplicities (based on ID).\n
-.Nm
-removes any lines that does not have ID column in an integer format,
-removes any lines that does not have timestamp in a float format,
-removes any lines with missing values.
-.Nm
-then sorts values by ID and timestamp and drops any dupplicities based on ID value (the line with the lowest 
-timestamp is always kept).
-.Sh OPTIONS
-.SH OPTIONS
-.TP
-\-r Add if you want the program to go through the children directories instead of the given directory.
+will remove any line that does not have an integer ID,
+does not have a float timestamp,
+or has any of the expected columns missing.
+The lines are then sorted according to their ID and timestamp
+and saved into identically named files in
+.Pa odir .
+.Sh SEE ALSO
+.Xr getbook 1
 .Sh AUTHORS
 .An Čeněk Žid
