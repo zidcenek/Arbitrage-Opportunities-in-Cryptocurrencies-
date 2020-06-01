@@ -107,6 +107,8 @@ def initialize():
         children_directories = True
     path = sys.argv[1]
     output_path = sys.argv[2]
+    if output_path[-1] != '/':
+        output_path += '/'
     cleanup(path, output_path, children_directories=children_directories)
 
 max_time = time()
