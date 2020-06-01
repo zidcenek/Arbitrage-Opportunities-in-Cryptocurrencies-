@@ -15,25 +15,6 @@
 
 using namespace std;
 
-bool cond(const string &path){
-    vector<string> vec{"BTCETHXMR-2020-03-12.json", "BTCETHXRP-2020-03-12.json", "BTCXRPBNB-2020-05-10.json",
-                       "ETHBNBXMR-2020-03-12.json", "ETHXRPBNB-2020-03-12.json", "USDTBCHBNB-2020-03-12.json",
-                       "USDTBCHBNB-2020-03-13.json", "USDTBCHBNB-2020-05-14.json", "USDTBNBXMR-2020-03-12.json",
-                       "USDTBNBXMR-2020-03-13.json", "USDTBTCEOS-2020-03-12.json", "USDTBTCEOS-2020-03-13.json",
-                       "USDTBTCEOS-2020-05-10.json", "USDTBTCLTC-2020-03-12.json", "USDTBTCTRX-2020-03-12.json",
-                       "USDTBTCXMR-2020-03-10.json", "USDTBTCXMR-2020-03-12.json", "USDTBTCXRP-2020-03-12.json",
-                       "USDTEOSBNB-2020-03-12.json", "USDTEOSBNB-2020-03-13.json", "USDTEOSBNB-2020-05-04.json",
-                       "USDTLTCBNB-2020-03-12.json", "USDTLTCBNB-2020-03-13.json", "USDTLTCETH-2020-04-10.json",
-                       "USDTXRPBNB-2020-03-12.json", "USDTXRPTRX-2020-03-12.json"};
-    bool ret = false;
-    for(const auto & item: vec){
-        if(item == path + ".json"){
-            ret = true;
-        }
-    }
-    return ret;
-}
-
 void thread_start(const vector<string> &paths, const string & output_path){
     printf("Starting thread\n");
     for(const auto & path: paths){
@@ -43,8 +24,6 @@ void thread_start(const vector<string> &paths, const string & output_path){
         for(const auto & vec: triplets){
             for(const Triplet & triplet: vec){
                 const string & tmp = triplet.getOutputFilename();
-//                if (! cond(triplet.getOutputFilename()))
-//                    continue;
                 cout << triplet.getOutputFilename() << endl;
                 cout << triplet.getFile1() << " " << triplet.getFile2() << " " << triplet.getFile3() << " " << endl;
                 Arbitrage arbitrage = Arbitrage();
@@ -122,7 +101,7 @@ int main(int argc, char *argv[]) {
     printf("Starting on %d thread(s).\n", number_of_threads);
     printf("---------------------------------------\n");
 
-//     getting all subdirctories
+     // getting all subdirctories
     if(recursive_flag){
         for(auto & item: get_subdirectories(path))
             paths.emplace_back(item);

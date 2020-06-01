@@ -118,8 +118,6 @@ vector<int> Arbitrage::calculateMaxGainPosition(
         }
     }
     best_gain = max_gain;
-//    cout << best_indexes[0] << best_indexes[1] << best_indexes[2] << endl;
-//    cout << max_gain << endl;
     return best_indexes;
 }
 
@@ -159,6 +157,7 @@ long double Arbitrage::calculateNarrowest(
     int arg_min = std::min_element(thickness.begin(), thickness.end()) - thickness.begin();
     double sfee = 0.999;
     if(! calculation_type_linear){
+        // narrowest spot back progagation for AB, AC, CB
         if(demand_flag){
             if(arg_min == 0){
                 long double a = pair1.second*pair1.first/pair3.first*sfee;
@@ -210,6 +209,68 @@ long double Arbitrage::calculateNarrowest(
                 }
             }
         }
+    } else {
+        // narrowest spot back progagation for AB, BC, CA
+        if(demand_flag){
+            if(arg_min == 0){
+                long double a = pair1.second*pair1.first/sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+                a = pair1.second*pair1.first*pair2.first*sfee*sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+            } else if(arg_min == 1){
+                long double a = pair2.second*pair2.first*sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+                a = pair2.second*pair2.first*pair3.first*sfee*sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+            } else {
+                long double a = pair3.second*pair3.first*sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+                a = pair3.second*pair3.first*pair1.first*sfee*sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+            }
+        } else {
+            if(arg_min == 0){
+                long double a = pair1.second / pair1.first * sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+                a = pair1.second / pair1.first /pair3.first * sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+            } else if(arg_min == 1){
+                long double a = pair2.second / pair2.first * sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+                a = pair2.second / pair2.first / pair1.first * sfee * sfee;
+                if (a > pair3.second){
+                    min_el = pair3.second / (a) * min_el;
+                }
+            } else {
+                long double a = pair3.second / pair3.first * sfee;
+                if (a > pair2.second){
+                    min_el = pair2.second / (a) * min_el;
+                }
+                a = pair3.second / pair3.first / pair2.first * sfee * sfee;
+                if (a > pair1.second){
+                    min_el = pair1.second / (a) * min_el;
+                }
+            }
+        }
+
     }
     return min_el;
 }
@@ -227,9 +288,6 @@ void Arbitrage::run(){
     }
 
     ofstream ofs(OUTPUT_DIRECTORY + output_directory_name + output_name + ".json");
-    // XRPBNBTRX
-//    if(output_directory_name != "XRPBNBTRX/")
-//        return;
     if(!ofs.good()){
         cout << "Could not open output file" << endl;
         return;
@@ -258,7 +316,6 @@ void Arbitrage::run(){
             // checks if timestamps are maximally a few seconds apart from each other
             if ( ! closeTimestamps(current[0].getTimestamp(), current[1].getTimestamp(), current[2].getTimestamp(),
                     max_tolerance) ) {
-//                cout << "skipping arb" << endl;
                 continue;
             }
             without_fees++;
@@ -303,7 +360,6 @@ void Arbitrage::run(){
                             temp.push_back(curr.getTimestamp());
                         }
                         ofs << first_in_sequence->toJSON(coma, tmp->getLatestTimestamp()).rdbuf();
-//                        cout << "/------------------" << endl;
                         coma = ",";
                         delete first_in_sequence;
                         first_in_sequence = new OutputFormat(*tmp);
@@ -434,10 +490,8 @@ bool Arbitrage::getNext(int index){
         stuck_counter = 0;
         return true;
     }else {
-//        printf("%7.10Lf\n", tempCP.getTimestamp() - old_timestamp);
         stuck_counter++;
         if(stuck_counter == 1){
-//            printf("Big jump in timestamps trying to reinitialize\n");
             reinitialize();
         }
     }
@@ -502,9 +556,7 @@ int Arbitrage::getOldest(){
     vector<double> tmp;
     for(auto const& item: buffer){
         tmp.push_back(item.getTimestamp());
-//        printf("%9.5Lf ", item.getTimestamp());
     }
-//    cout << endl << std::min_element(tmp.begin(), tmp.end()) - tmp.begin() << endl;
     return std::min_element(tmp.begin(), tmp.end()) - tmp.begin();
 }
 
