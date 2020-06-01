@@ -10,7 +10,8 @@ python3 getbook.py
 .Sh DESCRIPTION
 .Nm
 downloads the order books from Binance for every currency pair written in the ./relevant_symbols file and then saves
-them into the given directory entered as a parameter. The order books are saved into separate .csv files
+them into the given directory entered as the first parameter. The order books are saved into separate .csv files
 distinguished by the currency pair and current date (new file is created every day for every currency pair).
+Note that it is neccessary to have valid apikey.txt and privatekey.txt in the executing directory.
 .Sh AUTHORS
 .An Čeněk Žid
