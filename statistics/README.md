@@ -7,7 +7,7 @@ Nutné balíčky ke spuštění nainstalované v Python 3:
 - pip install matplotlib
 - pip install scipy´
 
-## Popis akresářů:
+## Popis adresářů:
 **output_data** - výstupní data z programu *selection*, vstupní data pro Jupyter notebook *statistics.ipynb*. \
 **ouptut_files** - soubory vygenerované pomocí *statistics.ipynb* (převážně Latex tabulky se statistikami) \
 **images** - vygenerované grafy ze *statistics.ipynb*
